@@ -7,6 +7,7 @@ public class Teste {
 		System.out.println("Hello world!");
 		System.out.println("Hello world!");
 		System.out.println("husaheuae");
+		System.out.println("Um dia eu consigo");
 	}
 
 }
