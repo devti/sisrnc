@@ -1,0 +1,4 @@
+Pacote com as Libraries do projeto
+Conteúdo:
+
+#1 - sqljdbc4.jar: Interface responsável pela conexão com o Banco de Dados, com todos os métodos implementados 

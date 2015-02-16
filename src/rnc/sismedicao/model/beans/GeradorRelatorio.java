@@ -1,4 +1,4 @@
-package model.beans;
+package rnc.sismedicao.model.beans;
 
 public class GeradorRelatorio {
 

@@ -1,4 +1,4 @@
-package gui;
+package rnc.sismedicao.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

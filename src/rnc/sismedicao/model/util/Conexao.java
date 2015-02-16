@@ -1,9 +1,16 @@
-package model.util;
+package rnc.sismedicao.model.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+
+/**
+ * Classe utilitária para efetuar a conexão com o Banco de Dados MS SQL Server
+ * @author Charles Arruda
+ * @version 1.0
+ */
 
 public class Conexao {
 	
@@ -13,6 +20,10 @@ public class Conexao {
 	private String senha = "#SisRNC#";
 	private static Connection connection;
 	
+	/**
+	 * Construtor que efetua a conexão retornando sucesso ou falha
+	 * @author Charles Arruda
+	 */
 	private Conexao() {
 		try {
 			Class.forName(Driver);
@@ -28,8 +39,6 @@ public class Conexao {
 		if(connection == null){
 			new Conexao();
 		}
-		
-		
 		return connection;
 	}
 	
