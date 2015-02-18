@@ -2,21 +2,34 @@ package rnc.sismedicao.model.beans;
 
 public class ItemMedicao {
 	
+	private int codItemMedicao;
 	private String descricao;
 	private double valorMIN;
 	private double valorMAX;
+	private Equipamento equipamento;
 	private UnidadeDeMedicao unidadeDeMedicao;
 
 	public ItemMedicao() {
 
 	}
+	
 	public ItemMedicao(String descricao, double valorMIN, double valorMAX,
-			UnidadeDeMedicao unidadeDeMedicao) {
+			Equipamento equipamento, UnidadeDeMedicao unidadeDeMedicao) {
 		this.descricao = descricao;
 		this.valorMIN = valorMIN;
 		this.valorMAX = valorMAX;
+		this.equipamento = equipamento;
 		this.unidadeDeMedicao = unidadeDeMedicao;
 	}
+	
+	public int getCodItemMedicao() {
+		return codItemMedicao;
+	}
+
+	public void setCodItemMedicao(int codItemMedicao) {
+		this.codItemMedicao = codItemMedicao;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -35,6 +48,15 @@ public class ItemMedicao {
 	public void setValorMAX(double valorMAX) {
 		this.valorMAX = valorMAX;
 	}
+	
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
+	}
+
 	public UnidadeDeMedicao getUnidadeDeMedicao() {
 		return unidadeDeMedicao;
 	}

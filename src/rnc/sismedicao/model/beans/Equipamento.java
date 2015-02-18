@@ -2,16 +2,17 @@ package rnc.sismedicao.model.beans;
 
 public class Equipamento {	
 	
-	private int id;
+	private int codEquipamento;
+	private String codCliente;
 	private String registro;
 	private String descricao;
 	private Item item;
 	private Local local;
-	private ItemMedicao[] itemMedicao;
+	private ItemMedicao itemMedicao;
 	
-	public Equipamento(int id, String registro, String descricao, Item item,
-			Local local, ItemMedicao[] itemMedicao) {
-		this.id = id;
+	public Equipamento(int id,String codCliente, String registro, String descricao, Item item,
+			Local local, ItemMedicao itemMedicao) {
+		this.codCliente = codCliente;
 		this.registro = registro;
 		this.descricao = descricao;
 		this.item = item;
@@ -19,16 +20,33 @@ public class Equipamento {
 		this.itemMedicao = itemMedicao;
 	}
 	
+	public Equipamento(String codCliente, String registro, String descricao, Item item, Local local) {
+		this.codCliente = codCliente;
+		this.registro = registro;
+		this.descricao = descricao;
+		this.item = item;
+		this.local = local;
+	}
+
 	public Equipamento() {
 	
 	}
 
-	public int getId() {
-		return id;
+	public int getCodEquipamento() {
+		return codEquipamento;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCodEquipamento(int codEquipamento) {
+		this.codEquipamento = codEquipamento;
 	}
+	
+	public String getCodCliente() {
+		return codCliente;
+	}
+
+	public void setCodCliente(String codCliente) {
+		this.codCliente = codCliente;
+	}
+
 	public String getRegistro() {
 		return registro;
 	}
@@ -53,10 +71,10 @@ public class Equipamento {
 	public void setLocal(Local local) {
 		this.local = local;
 	}
-	public ItemMedicao[] getItemMedicao() {
+	public ItemMedicao getItemMedicao() {
 		return itemMedicao;
 	}
-	public void setItemMedicao(ItemMedicao[] itemMedicao) {
+	public void setItemMedicao(ItemMedicao itemMedicao) {
 		this.itemMedicao = itemMedicao;
 	}
 	

@@ -2,23 +2,41 @@ package rnc.sismedicao.model.beans;
 
 public class Pessoa {
 	
+	private int	codPessoa;
 	private String nome;
 	private String cpf;
 	private String email;
 	private String telefone;
-	private Endereco[] endereco;
+	private Endereco endereco;
 	
 	public Pessoa() {
 
 	}
 
 	public Pessoa(String nome, String cpf, String email, String telefone,
-			Endereco[] endereco) {
+			Endereco endereco) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
 		this.endereco = endereco;
+	}
+
+
+	public Pessoa(String nome, String cpf, String email, String telefone) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.telefone = telefone;
+	}
+	
+	
+	public int getCodPessoa() {
+		return codPessoa;
+	}
+
+	public void setCodPessoa(int codPessoa) {
+		this.codPessoa = codPessoa;
 	}
 
 	public String getNome() {
@@ -53,11 +71,11 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
-	public Endereco[] getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco[] endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 	

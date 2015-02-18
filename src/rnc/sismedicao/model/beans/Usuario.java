@@ -2,7 +2,8 @@ package rnc.sismedicao.model.beans;
 
 public class Usuario extends Pessoa{
 	
-	private int id;
+	private int codUsuario;
+	private int codPessoa;
 	private String login;
 	private String senha;
 	
@@ -10,18 +11,26 @@ public class Usuario extends Pessoa{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Usuario(int id, String login, String senha) {
-		this.id = id;
+	public Usuario(int codUsuario, String login, String senha) {
+		this.codUsuario = codUsuario;
 		this.login = login;
 		this.senha = senha;
 	}
 
-	public int getId() {
-		return id;
+	public int getCodUsuario() {
+		return codUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCodUsuario(int codUsuario) {
+		this.codUsuario = codUsuario;
+	}
+	
+	public int getCodPessoa() {
+		return codPessoa;
+	}
+
+	public void setCodPessoa(int codPessoa) {
+		this.codPessoa = codPessoa;
 	}
 
 	public String getLogin() {

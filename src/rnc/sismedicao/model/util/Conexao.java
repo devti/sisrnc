@@ -28,6 +28,7 @@ public class Conexao {
 		try {
 			Class.forName(Driver);
 			connection = DriverManager.getConnection(URL, usuario, senha);
+			connection.setAutoCommit(false);
 			JOptionPane.showMessageDialog(null, "Conectado com sucesso ao Banco de Dados", "Sucesso ao conectar ao Banco de Dados", JOptionPane.INFORMATION_MESSAGE);
 		} catch (ClassNotFoundException | SQLException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar conectar ao Banco de Dados", "Erro ao conectar ao Banco de Dados", JOptionPane.ERROR_MESSAGE);

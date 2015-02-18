@@ -2,7 +2,7 @@ package rnc.sismedicao.model.beans;
 
 public class Item {
 	
-	private int id;
+	private int codItem;
 	private String descricao;
 	private String marca;
 	
@@ -10,17 +10,17 @@ public class Item {
 
 	}
 
-	public Item(int id, String descricao, String marca) {
-		this.id = id;
+	public Item(int codItem, String descricao, String marca) {
+		this.codItem = codItem;
 		this.descricao = descricao;
 		this.marca = marca;
 	}
 	
-	public int getId() {
-		return id;
+	public int getCodItem() {
+		return codItem;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCodItem(int codItem) {
+		this.codItem = codItem;
 	}
 	public String getDescricao() {
 		return descricao;
