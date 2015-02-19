@@ -52,7 +52,7 @@ public class LoginGui extends JFrame {
 	 */
 	public LoginGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 260, 351);
+		setBounds(100, 100, 260, 333);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -98,5 +98,9 @@ public class LoginGui extends JFrame {
 		label.setIcon(new ImageIcon(LoginGui.class.getResource("/rnc/sismedicao/gui/img/MARCA-TI.png")));
 		label.setBounds(22, 32, 200, 48);
 		contentPane.add(label);
+		
+		JLabel lblVerso = new JLabel("Vers\u00E3o 1.0");
+		lblVerso.setBounds(93, 274, 57, 14);
+		contentPane.add(lblVerso);
 	}
 }
