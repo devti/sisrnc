@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import rnc.sismedicao.model.beans.Endereco;
-import rnc.sismedicao.model.beans.Pessoa;
-import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Conexao;
 
 public class EnderecoDAO {
