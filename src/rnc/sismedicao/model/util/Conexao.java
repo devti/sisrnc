@@ -14,8 +14,12 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 	
-	private String URL = "jdbc:sqlserver://ABSERVER35:1433;databaseName=SisMedicao";
+	private String servidor = "ABSERVER35";
+	private String bancoDeDados = "SisMedicao";
+	
+	private String URL = "jdbc:sqlserver://"+ servidor +":1433;databaseName="+ bancoDeDados;
 	private String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	
 	private String usuario = "SisMedicao";
 	private String senha = "#SisMed#";
 	private static Connection connection;
@@ -53,9 +57,9 @@ public class Conexao {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Conexao.getConnection();
-	}
+//	public static void main(String[] args) {
+//		Conexao.getConnection();
+//	}
 	
 	
 }
