@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 	
-	private String URL = "jdbc:sqlserver://localhost:1433;databaseName=SisMedicao";
+	private String URL = "jdbc:sqlserver://ABSERVER35:1433;databaseName=SisMedicao";
 	private String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	private String usuario = "SisMedicao";
-	private String senha = "#SisRNC#";
+	private String senha = "#SisMed#";
 	private static Connection connection;
 	
 	/**
