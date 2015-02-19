@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class GuiPrincipal extends JFrame {
+public class PrincipalGui extends JFrame {
 
 	private JPanel contentPane;
 
@@ -19,7 +19,7 @@ public class GuiPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GuiPrincipal frame = new GuiPrincipal();
+					PrincipalGui frame = new PrincipalGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class GuiPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GuiPrincipal() {
+	public PrincipalGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
