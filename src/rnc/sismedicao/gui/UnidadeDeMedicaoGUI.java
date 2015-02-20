@@ -45,7 +45,6 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		if(unidadeDeMedicaoGUI == null){
 			return unidadeDeMedicaoGUI = new UnidadeDeMedicaoGUI();
 		}
-		
 		return unidadeDeMedicaoGUI;
 	}
 	
@@ -100,8 +99,16 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		toolBar.setBounds(10, 5, 394, 22);
+		toolBar.setBounds(0, 5, 414, 22);
 		contentPane.add(toolBar);
+		
+		JLabel label = new JLabel("");
+		label.setToolTipText("Novo");
+		label.setMinimumSize(new Dimension(24, 16));
+		label.setMaximumSize(new Dimension(8, 16));
+		label.setDoubleBuffered(true);
+		label.setAlignmentX(0.5f);
+		toolBar.add(label);
 		
 		JLabel LB_NovoIcon = new JLabel("");
 		LB_NovoIcon.setToolTipText("Novo");
@@ -139,5 +146,6 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		JButton BT_Cancelar = new JButton("Cancelar");
 		BT_Cancelar.setBounds(315, 176, 75, 23);
 		contentPane.add(BT_Cancelar);
+		
 	}
 }
