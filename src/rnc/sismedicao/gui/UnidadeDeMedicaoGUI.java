@@ -22,8 +22,8 @@ import java.awt.Component;
 public class UnidadeDeMedicaoGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField TF_Codigo;
+	private JTextField TF_Descricao;
 	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
 	/**
 	 * Launch the application.
@@ -69,57 +69,57 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		tabbedPane.setBounds(10, 32, 394, 133);
 		contentPane.add(tabbedPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Identifica\u00E7\u00E3o", null, panel, null);
+		JPanel PN_Identificacao = new JPanel();
+		PN_Identificacao.setBackground(Color.WHITE);
+		tabbedPane.addTab("Identifica\u00E7\u00E3o", null, PN_Identificacao, null);
 		
-		JLabel lblCdigo = new JLabel("C\u00F3digo:");
-		lblCdigo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblCdigo.setBounds(10, 11, 66, 14);
+		JLabel LB_Codigo = new JLabel("C\u00F3digo:");
+		LB_Codigo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		LB_Codigo.setBounds(10, 11, 66, 14);
 		
-		textField = new JTextField();
-		textField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		textField.setBackground(Color.WHITE);
-		textField.setBounds(10, 25, 86, 20);
-		textField.setColumns(10);
+		TF_Codigo = new JTextField();
+		TF_Codigo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		TF_Codigo.setBackground(Color.WHITE);
+		TF_Codigo.setBounds(10, 25, 86, 20);
+		TF_Codigo.setColumns(10);
 		
-		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
-		lblDescrio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDescrio.setBounds(10, 56, 66, 14);
+		JLabel LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
+		LB_Descricao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		LB_Descricao.setBounds(10, 56, 66, 14);
 		
-		textField_1 = new JTextField();
-		textField_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		textField_1.setBackground(Color.WHITE);
-		textField_1.setBounds(10, 71, 365, 20);
-		textField_1.setColumns(10);
-		panel.setLayout(null);
-		panel.add(lblCdigo);
-		panel.add(textField);
-		panel.add(lblDescrio);
-		panel.add(textField_1);
+		TF_Descricao = new JTextField();
+		TF_Descricao.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		TF_Descricao.setBackground(Color.WHITE);
+		TF_Descricao.setBounds(10, 71, 365, 20);
+		TF_Descricao.setColumns(10);
+		PN_Identificacao.setLayout(null);
+		PN_Identificacao.add(LB_Codigo);
+		PN_Identificacao.add(TF_Codigo);
+		PN_Identificacao.add(LB_Descricao);
+		PN_Identificacao.add(TF_Descricao);
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		toolBar.setBounds(10, 5, 394, 22);
 		contentPane.add(toolBar);
 		
-		JLabel label = new JLabel("");
-		label.setToolTipText("Novo");
-		label.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
-		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label.setMinimumSize(new Dimension(24, 16));
-		label.setMaximumSize(new Dimension(24, 16));
-		label.setDoubleBuffered(true);
-		toolBar.add(label);
+		JLabel LB_NovoIcon = new JLabel("");
+		LB_NovoIcon.setToolTipText("Novo");
+		LB_NovoIcon.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		LB_NovoIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+		LB_NovoIcon.setMinimumSize(new Dimension(24, 16));
+		LB_NovoIcon.setMaximumSize(new Dimension(24, 16));
+		LB_NovoIcon.setDoubleBuffered(true);
+		toolBar.add(LB_NovoIcon);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
-		label_1.setToolTipText("Excluir");
-		label_1.setMinimumSize(new Dimension(24, 16));
-		label_1.setMaximumSize(new Dimension(24, 16));
-		label_1.setDoubleBuffered(true);
-		label_1.setAlignmentX(0.5f);
-		toolBar.add(label_1);
+		JLabel LB_ExcluirIcon = new JLabel("");
+		LB_ExcluirIcon.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		LB_ExcluirIcon.setToolTipText("Excluir");
+		LB_ExcluirIcon.setMinimumSize(new Dimension(24, 16));
+		LB_ExcluirIcon.setMaximumSize(new Dimension(24, 16));
+		LB_ExcluirIcon.setDoubleBuffered(true);
+		LB_ExcluirIcon.setAlignmentX(0.5f);
+		toolBar.add(LB_ExcluirIcon);
 		
 		JSeparator separator = new JSeparator();
 		separator.setMinimumSize(new Dimension(8, 16));
@@ -128,16 +128,16 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		separator.setDoubleBuffered(true);
 		toolBar.add(separator);
 		
-		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(147, 176, 76, 23);
-		contentPane.add(btnOk);
+		JButton BT_Ok = new JButton("OK");
+		BT_Ok.setBounds(147, 176, 76, 23);
+		contentPane.add(BT_Ok);
 		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(233, 176, 76, 23);
-		contentPane.add(btnSalvar);
+		JButton BT_Salvar = new JButton("Salvar");
+		BT_Salvar.setBounds(233, 176, 76, 23);
+		contentPane.add(BT_Salvar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(315, 176, 75, 23);
-		contentPane.add(btnCancelar);
+		JButton BT_Cancelar = new JButton("Cancelar");
+		BT_Cancelar.setBounds(315, 176, 75, 23);
+		contentPane.add(BT_Cancelar);
 	}
 }
