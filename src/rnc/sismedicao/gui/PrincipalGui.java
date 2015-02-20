@@ -1,37 +1,27 @@
 package rnc.sismedicao.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JEditorPane;
-import javax.swing.JTextPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JDesktopPane;
-import javax.swing.JToolBar;
-import javax.swing.JMenuBar;
-import java.awt.GridLayout;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import java.awt.Rectangle;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
-import javax.swing.JSpinner;
-import java.awt.Dimension;
-import java.awt.Window.Type;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {
-
+	
 	private JPanel contentPane;
-
+	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -52,6 +42,7 @@ public class PrincipalGui extends JFrame {
 	 * Create the frame.
 	 */
 	public PrincipalGui() {
+		
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,6 +81,12 @@ public class PrincipalGui extends JFrame {
 		MN_Cadastros.add(MT_Itens);
 		
 		JMenuItem MT_UnidadeDeMedio = new JMenuItem("Unidade de Medi\u00E7\u00E3o");
+		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
+				unidadeDeMedicaoGUI.setVisible(true);
+			}
+		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_UnidadeDeMedio);
 		
@@ -146,8 +143,6 @@ public class PrincipalGui extends JFrame {
 		separator_2.setMaximumSize(new Dimension(5, 15));
 		separator_2.setAlignmentY(1.0f);
 		menuBar.add(separator_2);
-		
-		
 		
 		JMenu MN_Ajuda = new JMenu("Ajuda");
 		MN_Ajuda.setDoubleBuffered(true);
