@@ -14,6 +14,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JToolBar;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 public class UsuarioGui extends JFrame {
 
@@ -42,18 +49,20 @@ public class UsuarioGui extends JFrame {
 	 * Create the frame.
 	 */
 	public UsuarioGui() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 362, 273);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(28, 25, 372, 190);
+		tabbedPane.setBounds(10, 31, 337, 166);
 		contentPane.add(tabbedPane);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Cadastro", null, panel, null);
 		panel.setLayout(null);
 
@@ -68,11 +77,13 @@ public class UsuarioGui extends JFrame {
 		panel.add(lblNewLabel);
 
 		textField = new JTextField();
+		textField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
 		textField.setBounds(10, 62, 147, 20);
 		panel.add(textField);
 		textField.setColumns(10);
 
 		passwordField = new JPasswordField();
+		passwordField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
 		passwordField.setBounds(10, 102, 147, 20);
 		panel.add(passwordField);
 
@@ -82,16 +93,17 @@ public class UsuarioGui extends JFrame {
 		panel.add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
+		textField_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
 		textField_1.setColumns(10);
 		textField_1.setBounds(10, 23, 282, 20);
 		panel.add(textField_1);
 
 		JButton button = new JButton("...");
-		button.setBounds(297, 22, 27, 23);
+		button.setBounds(297, 23, 27, 22);
 		panel.add(button);
 
 		JButton BT_Salvar = new JButton("Salvar");
-		BT_Salvar.setBounds(70, 228, 89, 23);
+		BT_Salvar.setBounds(145, 208, 89, 23);
 		contentPane.add(BT_Salvar);
 
 		JButton BT_Cancelar = new JButton("Cancelar");
@@ -100,7 +112,35 @@ public class UsuarioGui extends JFrame {
 				dispose();
 			}
 		});
-		BT_Cancelar.setBounds(284, 228, 89, 23);
+		BT_Cancelar.setBounds(242, 208, 89, 23);
 		contentPane.add(BT_Cancelar);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		toolBar.setBounds(0, 5, 356, 22);
+		contentPane.add(toolBar);
+		
+		JLabel label = new JLabel("");
+		label.setMinimumSize(new Dimension(8, 16));
+		label.setMaximumSize(new Dimension(8, 16));
+		toolBar.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		label_1.setMinimumSize(new Dimension(24, 16));
+		label_1.setMaximumSize(new Dimension(24, 16));
+		toolBar.add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		label_2.setMinimumSize(new Dimension(24, 16));
+		label_2.setMaximumSize(new Dimension(24, 16));
+		toolBar.add(label_2);
+		
+		JSeparator separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(8, 16));
+		separator.setMaximumSize(new Dimension(8, 16));
+		separator.setOrientation(SwingConstants.VERTICAL);
+		toolBar.add(separator);
 	}
 }
