@@ -85,6 +85,7 @@ public class PrincipalGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
 				unidadeDeMedicaoGUI.setVisible(true);
+				unidadeDeMedicaoGUI.requestFocusDefault();
 			}
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);

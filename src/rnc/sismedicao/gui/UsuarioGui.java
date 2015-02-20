@@ -1,54 +1,62 @@
 package rnc.sismedicao.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 import javax.swing.JToolBar;
-import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class UsuarioGui extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
-	private JTextField textField_1;
-
+	private JTextField TF_Login;
+	private JPasswordField PF_Senha;
+	private JTextField TF_Pessoa;
+	private static UsuarioGui usuarioGui;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UsuarioGui frame = new UsuarioGui();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					UsuarioGui frame = new UsuarioGui();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	
+	public static UsuarioGui getInstance(){
+		if(usuarioGui == null){
+			return usuarioGui = new UsuarioGui();
+		}
+		return usuarioGui;
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public UsuarioGui() {
+	private UsuarioGui() {
+		setTitle("Cadastrar Usu\u00E1rio");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 362, 273);
@@ -61,46 +69,46 @@ public class UsuarioGui extends JFrame {
 		tabbedPane.setBounds(10, 31, 337, 166);
 		contentPane.add(tabbedPane);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Cadastro", null, panel, null);
-		panel.setLayout(null);
+		JPanel PN_Cadastro = new JPanel();
+		PN_Cadastro.setBackground(Color.WHITE);
+		tabbedPane.addTab("Cadastro", null, PN_Cadastro, null);
+		PN_Cadastro.setLayout(null);
 
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblLogin.setBounds(10, 50, 46, 14);
-		panel.add(lblLogin);
+		JLabel LB_Login = new JLabel("Login");
+		LB_Login.setFont(new Font("Tahoma", Font.BOLD, 11));
+		LB_Login.setBounds(10, 47, 46, 14);
+		PN_Cadastro.add(LB_Login);
 
-		JLabel lblNewLabel = new JLabel("Senha");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(10, 89, 46, 14);
-		panel.add(lblNewLabel);
+		JLabel LB_Senha = new JLabel("Senha");
+		LB_Senha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		LB_Senha.setBounds(10, 86, 46, 14);
+		PN_Cadastro.add(LB_Senha);
 
-		textField = new JTextField();
-		textField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		textField.setBounds(10, 62, 147, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		TF_Login = new JTextField();
+		TF_Login.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		TF_Login.setBounds(10, 62, 147, 20);
+		PN_Cadastro.add(TF_Login);
+		TF_Login.setColumns(10);
 
-		passwordField = new JPasswordField();
-		passwordField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		passwordField.setBounds(10, 102, 147, 20);
-		panel.add(passwordField);
+		PF_Senha = new JPasswordField();
+		PF_Senha.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		PF_Senha.setBounds(10, 102, 147, 20);
+		PN_Cadastro.add(PF_Senha);
 
-		JLabel lblNewLabel_1 = new JLabel("Pessoa");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(10, 11, 46, 14);
-		panel.add(lblNewLabel_1);
+		JLabel LB_Pessoa = new JLabel("Pessoa");
+		LB_Pessoa.setFont(new Font("Tahoma", Font.BOLD, 11));
+		LB_Pessoa.setBounds(10, 8, 46, 14);
+		PN_Cadastro.add(LB_Pessoa);
 
-		textField_1 = new JTextField();
-		textField_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 23, 282, 20);
-		panel.add(textField_1);
+		TF_Pessoa = new JTextField();
+		TF_Pessoa.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		TF_Pessoa.setColumns(10);
+		TF_Pessoa.setBounds(10, 23, 282, 20);
+		PN_Cadastro.add(TF_Pessoa);
 
-		JButton button = new JButton("...");
-		button.setBounds(297, 23, 27, 22);
-		panel.add(button);
+		JButton BT_PesquisarPessoa = new JButton("...");
+		BT_PesquisarPessoa.setBounds(297, 23, 27, 22);
+		PN_Cadastro.add(BT_PesquisarPessoa);
 
 		JButton BT_Salvar = new JButton("Salvar");
 		BT_Salvar.setBounds(145, 208, 89, 23);
@@ -125,17 +133,17 @@ public class UsuarioGui extends JFrame {
 		label.setMaximumSize(new Dimension(8, 16));
 		toolBar.add(label);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
-		label_1.setMinimumSize(new Dimension(24, 16));
-		label_1.setMaximumSize(new Dimension(24, 16));
-		toolBar.add(label_1);
+		JLabel LB_NovoIcon = new JLabel("");
+		LB_NovoIcon.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		LB_NovoIcon.setMinimumSize(new Dimension(24, 16));
+		LB_NovoIcon.setMaximumSize(new Dimension(24, 16));
+		toolBar.add(LB_NovoIcon);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
-		label_2.setMinimumSize(new Dimension(24, 16));
-		label_2.setMaximumSize(new Dimension(24, 16));
-		toolBar.add(label_2);
+		JLabel LB_ExcluirIcon = new JLabel("");
+		LB_ExcluirIcon.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		LB_ExcluirIcon.setMinimumSize(new Dimension(24, 16));
+		LB_ExcluirIcon.setMaximumSize(new Dimension(24, 16));
+		toolBar.add(LB_ExcluirIcon);
 		
 		JSeparator separator = new JSeparator();
 		separator.setMinimumSize(new Dimension(8, 16));

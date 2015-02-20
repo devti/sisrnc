@@ -41,6 +41,10 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 //		});
 //	}
 	
+	public void requestFocusDefault(){
+		this.TF_Codigo.requestFocus();		
+	}
+	
 	public static UnidadeDeMedicaoGUI getInstance(){
 		if(unidadeDeMedicaoGUI == null){
 			return unidadeDeMedicaoGUI = new UnidadeDeMedicaoGUI();
