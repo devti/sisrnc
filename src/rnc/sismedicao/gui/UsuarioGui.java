@@ -68,12 +68,12 @@ public class UsuarioGui extends JFrame {
 
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblLogin.setBounds(10, 50, 46, 14);
+		lblLogin.setBounds(10, 47, 46, 14);
 		panel.add(lblLogin);
 
 		JLabel lblNewLabel = new JLabel("Senha");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(10, 89, 46, 14);
+		lblNewLabel.setBounds(10, 86, 46, 14);
 		panel.add(lblNewLabel);
 
 		textField = new JTextField();
@@ -89,7 +89,7 @@ public class UsuarioGui extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("Pessoa");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(10, 11, 46, 14);
+		lblNewLabel_1.setBounds(10, 8, 46, 14);
 		panel.add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
