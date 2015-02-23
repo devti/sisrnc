@@ -22,5 +22,5 @@ public class DesktopBackgroundGUI extends JDesktopPane{
 	public void paintComponent(Graphics graphics){
 		graphics.drawImage(this.imagem, 0, 0, getWidth(), getHeight(), this);
 	}
-
+	
 }
