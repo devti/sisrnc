@@ -5,14 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO {
 
 	public UsuarioDAO() {
-		
+
 	}
 
 	public int insertUsuario(Usuario usuario) throws Exception {
@@ -51,12 +50,28 @@ public class UsuarioDAO {
 						"Cadastrado com sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 
 		}
 		return usuario.getCodUsuario();
+
 	}
 
+	public void removerUsuario(int id) throws Exception {
+		String query = "DELETE FROM USUARIO WHERE ID = ?";
+
+		try {
+		
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			preparedStatement.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
