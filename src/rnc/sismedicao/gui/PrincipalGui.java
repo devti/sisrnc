@@ -39,6 +39,7 @@ public class PrincipalGui extends JFrame {
 					UIManager.setLookAndFeel(new WindowsLookAndFeel());
 					PrincipalGui frame = new PrincipalGui();
 					frame.setVisible(true);
+					 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,11 +52,15 @@ public class PrincipalGui extends JFrame {
 	 */
 	public PrincipalGui() {
 		
+		Dimension dimension = this.getSize();  
+        int x = (int)(dimension.getWidth() - this.getWidth()) / 2;  
+        int y = (int)(dimension.getHeight() - this.getHeight()) / 2;  
+		
 		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(x, y, 800, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -176,7 +181,7 @@ public class PrincipalGui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		desktopBackgroundGUI = new DesktopBackgroundGUI("/rnc/sismedicao/gui/img/desktop.jpg");
+		desktopBackgroundGUI = new DesktopBackgroundGUI();
 		getContentPane().add(desktopBackgroundGUI);
 		desktopBackgroundGUI.setLayout(null);
 		
