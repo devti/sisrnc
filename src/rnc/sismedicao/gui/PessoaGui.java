@@ -1,12 +1,12 @@
 package rnc.sismedicao.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class PessoaGui extends JFrame {
 
 	private JPanel contentPane;

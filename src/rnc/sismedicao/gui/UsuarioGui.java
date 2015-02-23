@@ -2,7 +2,6 @@ package rnc.sismedicao.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,7 +58,7 @@ public class UsuarioGui extends JFrame {
 		setTitle("Cadastrar Usu\u00E1rio");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 362, 273);
+		setBounds(100, 100, 360, 267);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,12 +73,12 @@ public class UsuarioGui extends JFrame {
 		tabbedPane.addTab("Cadastro", null, PN_Cadastro, null);
 		PN_Cadastro.setLayout(null);
 
-		JLabel LB_Login = new JLabel("Login");
+		JLabel LB_Login = new JLabel("Login:");
 		LB_Login.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_Login.setBounds(10, 47, 46, 14);
 		PN_Cadastro.add(LB_Login);
 
-		JLabel LB_Senha = new JLabel("Senha");
+		JLabel LB_Senha = new JLabel("Senha:");
 		LB_Senha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_Senha.setBounds(10, 86, 46, 14);
 		PN_Cadastro.add(LB_Senha);
@@ -95,7 +94,7 @@ public class UsuarioGui extends JFrame {
 		PF_Senha.setBounds(10, 102, 147, 20);
 		PN_Cadastro.add(PF_Senha);
 
-		JLabel LB_Pessoa = new JLabel("Pessoa");
+		JLabel LB_Pessoa = new JLabel("Pessoa:");
 		LB_Pessoa.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_Pessoa.setBounds(10, 8, 46, 14);
 		PN_Cadastro.add(LB_Pessoa);
@@ -106,7 +105,8 @@ public class UsuarioGui extends JFrame {
 		TF_Pessoa.setBounds(10, 23, 282, 20);
 		PN_Cadastro.add(TF_Pessoa);
 
-		JButton BT_PesquisarPessoa = new JButton("...");
+		JButton BT_PesquisarPessoa = new JButton("");
+		BT_PesquisarPessoa.setIcon(new ImageIcon(UsuarioGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_PesquisarPessoa.setBounds(297, 23, 27, 22);
 		PN_Cadastro.add(BT_PesquisarPessoa);
 

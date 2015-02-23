@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -13,13 +14,24 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
+
 import java.awt.Dimension;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
+import javax.swing.JCheckBoxMenuItem;
+import java.awt.TextField;
+import java.awt.Label;
+import javax.swing.JLayeredPane;
+import javax.swing.JTree;
 
 @SuppressWarnings("serial")
-public class UnidadeDeMedicaoGUI extends JFrame {
+public class UnidadeDeMedicaoGUI extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Codigo;
@@ -56,12 +68,14 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 	 * Create the frame.
 	 */
 	private UnidadeDeMedicaoGUI() {
-		
+		setRootPaneCheckingEnabled(false);
+		setMinimumSize(new Dimension(420, 239));
+		setMaximumSize(new Dimension(420, 239));
+		setClosable(true);
+		setIconifiable(true);
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
-		setAlwaysOnTop(true);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 420, 239);
+		setBounds(0, 0, 420, 239);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -148,6 +162,11 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		contentPane.add(BT_Salvar);
 		
 		JButton BT_Cancelar = new JButton("Cancelar");
+		BT_Cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		BT_Cancelar.setBounds(315, 176, 75, 23);
 		contentPane.add(BT_Cancelar);
 		

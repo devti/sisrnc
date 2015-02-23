@@ -4,6 +4,9 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -12,15 +15,27 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+
+import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {
 	
 	private JPanel contentPane;
 	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	private DesktopBackgroundGUI desktopBackgroundGUI;
 	
 	/**
 	 * Launch the application.
@@ -29,6 +44,7 @@ public class PrincipalGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new WindowsLookAndFeel());
 					PrincipalGui frame = new PrincipalGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -43,6 +59,7 @@ public class PrincipalGui extends JFrame {
 	 */
 	public PrincipalGui() {
 		
+		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +101,12 @@ public class PrincipalGui extends JFrame {
 		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
+				if(unidadeDeMedicaoGUI.isClosed()){
+					unidadeDeMedicaoGUI.dispose();
+					desktopBackgroundGUI.remove(unidadeDeMedicaoGUI);
+				}
+				desktopBackgroundGUI.add(unidadeDeMedicaoGUI);
+				unidadeDeMedicaoGUI.setBounds(0, 0, 420, 239);
 				unidadeDeMedicaoGUI.setVisible(true);
 				unidadeDeMedicaoGUI.requestFocusDefault();
 			}
@@ -159,6 +182,14 @@ public class PrincipalGui extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		desktopBackgroundGUI = new DesktopBackgroundGUI("/rnc/sismedicao/gui/img/desktop.jpg");
+		getContentPane().add(desktopBackgroundGUI);
+		desktopBackgroundGUI.setLayout(null);
+		
+		
+		
+		
 	}
 }

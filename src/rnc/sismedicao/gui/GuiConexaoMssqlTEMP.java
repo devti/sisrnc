@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- 
-import java.sql.*;
- 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -40,7 +42,9 @@ public class GuiConexaoMssqlTEMP implements ActionListener
  
     // Declara objetos de conexão
     private Connection conn;
-    private Statement query;
+    
+    @SuppressWarnings("unused")
+	private Statement query;
  
     public Container criaPainel()
     {
