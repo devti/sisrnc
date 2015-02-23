@@ -18,17 +18,9 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.border.LineBorder;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {
@@ -187,8 +179,6 @@ public class PrincipalGui extends JFrame {
 		desktopBackgroundGUI = new DesktopBackgroundGUI("/rnc/sismedicao/gui/img/desktop.jpg");
 		getContentPane().add(desktopBackgroundGUI);
 		desktopBackgroundGUI.setLayout(null);
-		
-		
 		
 		
 	}
