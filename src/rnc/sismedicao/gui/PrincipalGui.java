@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {

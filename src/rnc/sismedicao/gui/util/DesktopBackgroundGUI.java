@@ -1,5 +1,6 @@
 package rnc.sismedicao.gui.util;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,7 +14,8 @@ public class DesktopBackgroundGUI extends JDesktopPane{
     
     public DesktopBackgroundGUI() {  
         try {  
-            img = javax.imageio.ImageIO.read(new java.net.URL(getClass().getResource("/rnc/sismedicao/gui/img/desktop.jpg"), "desktop.jpg"));  
+            img = javax.imageio.ImageIO.read(new java.net.URL(getClass().getResource("/rnc/sismedicao/gui/img/desktop.png"), "desktop.png")); 
+            this.setBackground(Color.getColor("240,240,240"));
         } catch (Exception ex) {  
         }  
     }  
