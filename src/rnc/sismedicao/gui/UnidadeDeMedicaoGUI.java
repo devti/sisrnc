@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import rnc.sismedicao.gui.util.ConfiguracaoDeTela;
+
 @SuppressWarnings("serial")
 public class UnidadeDeMedicaoGUI extends JFrame {
 
@@ -28,6 +30,8 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 	private JTextField TF_Descricao;
 	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
 	
+	private static final int TELA_UNIDADE_LARGURA = 420;
+	private static final int TELA_UNIDADE_ALTURA = 240;
 	
 	/**
 	 * Launch the application.
@@ -68,7 +72,10 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
 		setResizable(false);
-		setBounds(0, 0, 420, 239);
+		setBounds(0, 0, TELA_UNIDADE_LARGURA, TELA_UNIDADE_ALTURA);
+		
+		ConfiguracaoDeTela.centralizaJFrame(this);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

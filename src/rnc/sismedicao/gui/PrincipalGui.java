@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import rnc.sismedicao.gui.util.ConfiguracaoDeTela;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
 import com.sun.glass.ui.Screen;
@@ -30,10 +31,7 @@ public class PrincipalGui extends JFrame {
 	private JPanel contentPane;
 	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
-	private Dimension dimension;
-	
-	private Toolkit toolKit; 
-	
+		
 	private static final int TELA_PRINCIPAL_LARGURA = 1280;
 	private static final int TELA_PRINCIPAL_ALTURA = 768;
 	
@@ -65,14 +63,10 @@ public class PrincipalGui extends JFrame {
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		toolKit = Toolkit.getDefaultToolkit();
-		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - TELA_PRINCIPAL_LARGURA) / 2;  
-        int y = (int)(dimension.getHeight() - TELA_PRINCIPAL_ALTURA) / 6;  
 		
-		setBounds(x, y, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
+		setBounds(0, 0, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
 		
-		System.out.println(x +", "+y+", "+this.getWidth()+", "+this.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
+		ConfiguracaoDeTela.centralizaJFrame(this);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
