@@ -31,7 +31,11 @@ public class PrincipalGui extends JFrame {
 	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
 	private Dimension dimension;
-	private Toolkit toolKit = Toolkit.getDefaultToolkit();  
+	
+	private Toolkit toolKit = Toolkit.getDefaultToolkit(); 
+	
+	private static final int TELA_PRINCIPAL_LARGURA = 1280;
+	private static final int TELA_PRINCIPAL_ALTURA = 768;
 	
 	/**
 	 * Launch the application.
@@ -60,15 +64,14 @@ public class PrincipalGui extends JFrame {
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1280, 768);
 		
 		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - this.getWidth()) / 2;  
-        int y = (int)(dimension.getHeight() - this.getHeight()) / 6;  
+        int x = (int)(dimension.getWidth() - TELA_PRINCIPAL_LARGURA) / 2;  
+        int y = (int)(dimension.getHeight() - TELA_PRINCIPAL_ALTURA) / 6;  
 		
 		System.out.println(x +", "+y+", "+this.getWidth()+", "+this.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
 		
-		setBounds(x, y, 1280, 768);
+		setBounds(x, y, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
