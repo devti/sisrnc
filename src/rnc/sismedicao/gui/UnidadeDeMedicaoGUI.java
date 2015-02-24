@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
-import rnc.sismedicao.gui.util.ConfiguracaoDeTela;
+import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 
 @SuppressWarnings("serial")
 public class UnidadeDeMedicaoGUI extends JFrame {
@@ -74,7 +74,7 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		setResizable(false);
 		setBounds(0, 0, TELA_UNIDADE_LARGURA, TELA_UNIDADE_ALTURA);
 		
-		ConfiguracaoDeTela.centralizaJFrame(this);
+		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,10 +95,8 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		LB_Codigo.setBounds(10, 11, 66, 14);
 		
 		TF_Codigo = new JTextField();
-		TF_Codigo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		TF_Codigo.setBackground(Color.WHITE);
+		ConfiguracaoDeComponentesGUI.configuraJTextField(TF_Codigo);
 		TF_Codigo.setBounds(10, 25, 86, 20);
-		TF_Codigo.setColumns(10);
 		
 		JLabel LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
 		LB_Descricao.setFont(new Font("Tahoma", Font.BOLD, 11));

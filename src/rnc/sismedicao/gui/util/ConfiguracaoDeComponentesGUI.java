@@ -1,17 +1,20 @@
 package rnc.sismedicao.gui.util;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
-public class ConfiguracaoDeTela {
+public class ConfiguracaoDeComponentesGUI {
 	
 	
 	private static Toolkit toolKit = null;
 	private static Dimension dimension = null;
 	
-	private ConfiguracaoDeTela(){
+	private ConfiguracaoDeComponentesGUI(){
 		
 	}
 	
@@ -23,10 +26,14 @@ public class ConfiguracaoDeTela {
 		
 		jFrame.setBounds(x, y, jFrame.getWidth(), jFrame.getHeight());
 		
-		System.out.println(x +", "+y+", "+jFrame.getWidth()+", "+jFrame.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
+		System.out.println(x+", "+y+", "+jFrame.getWidth()+", "+jFrame.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
 	}
 	
-	
+	public static void configuraJTextField(JTextField jTextField){
+		jTextField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
+		jTextField.setBackground(Color.WHITE);
+		jTextField.setColumns(10);
+	}
 	
 	
 }

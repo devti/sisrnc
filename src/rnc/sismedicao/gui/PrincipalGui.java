@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import rnc.sismedicao.gui.util.ConfiguracaoDeTela;
+import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
 import com.sun.glass.ui.Screen;
@@ -66,7 +66,7 @@ public class PrincipalGui extends JFrame {
 		
 		setBounds(0, 0, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
 		
-		ConfiguracaoDeTela.centralizaJFrame(this);
+		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
