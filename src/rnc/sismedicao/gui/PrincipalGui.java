@@ -32,7 +32,7 @@ public class PrincipalGui extends JFrame {
 	private DesktopBackgroundGUI desktopBackgroundGUI;
 	private Dimension dimension;
 	
-	private Toolkit toolKit = Toolkit.getDefaultToolkit(); 
+	private Toolkit toolKit; 
 	
 	private static final int TELA_PRINCIPAL_LARGURA = 1280;
 	private static final int TELA_PRINCIPAL_ALTURA = 768;
@@ -65,13 +65,14 @@ public class PrincipalGui extends JFrame {
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
         int x = (int)(dimension.getWidth() - TELA_PRINCIPAL_LARGURA) / 2;  
         int y = (int)(dimension.getHeight() - TELA_PRINCIPAL_ALTURA) / 6;  
 		
-		System.out.println(x +", "+y+", "+this.getWidth()+", "+this.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
-		
 		setBounds(x, y, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
+		
+		System.out.println(x +", "+y+", "+this.getWidth()+", "+this.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -109,14 +110,8 @@ public class PrincipalGui extends JFrame {
 		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
-				if(unidadeDeMedicaoGUI.isClosed()){
-					unidadeDeMedicaoGUI.dispose();
-					desktopBackgroundGUI.remove(unidadeDeMedicaoGUI);
-				}
-				desktopBackgroundGUI.add(unidadeDeMedicaoGUI);
-				unidadeDeMedicaoGUI.setBounds(0, 0, 420, 239);
 				unidadeDeMedicaoGUI.setVisible(true);
-				unidadeDeMedicaoGUI.requestFocusDefault();
+				unidadeDeMedicaoGUI.requestDefaultFocus();
 			}
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);

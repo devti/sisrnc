@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -21,12 +21,14 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class UnidadeDeMedicaoGUI extends JInternalFrame {
+public class UnidadeDeMedicaoGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Codigo;
 	private JTextField TF_Descricao;
 	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,8 +45,9 @@ public class UnidadeDeMedicaoGUI extends JInternalFrame {
 //		});
 //	}
 	
-	public void requestFocusDefault(){
-		this.TF_Codigo.requestFocus();		
+	public void requestDefaultFocus(){
+		this.TF_Codigo.requestFocus();
+		this.TF_Codigo.selectAll();
 	}
 	
 	public static UnidadeDeMedicaoGUI getInstance(){
@@ -58,11 +61,11 @@ public class UnidadeDeMedicaoGUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	private UnidadeDeMedicaoGUI() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setRootPaneCheckingEnabled(false);
 		setMinimumSize(new Dimension(420, 239));
 		setMaximumSize(new Dimension(420, 239));
-		setClosable(true);
-		setIconifiable(true);
+
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
 		setResizable(false);
 		setBounds(0, 0, 420, 239);
