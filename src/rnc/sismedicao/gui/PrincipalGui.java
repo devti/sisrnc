@@ -64,7 +64,7 @@ public class PrincipalGui extends JFrame {
 		
 		dimension = toolKit.getScreenSize();
         int x = (int)(dimension.getWidth() - this.getWidth()) / 2;  
-        int y = (int)((dimension.getHeight() - this.getHeight()) / 2) / 2;  
+        int y = (int)(dimension.getHeight() - this.getHeight()) / 6;  
 		
 		System.out.println(x +", "+y+", "+this.getWidth()+", "+this.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
 		
