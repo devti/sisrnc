@@ -14,6 +14,9 @@ public class ConfiguracaoDeComponentesGUI {
 	private static Toolkit toolKit = null;
 	private static Dimension dimension = null;
 	
+	private static final int DIVISOR_LARGURA = 2;
+	private static final int DIVISOR_ALTURA = 6;
+	
 	private ConfiguracaoDeComponentesGUI(){
 		
 	}
@@ -25,8 +28,8 @@ public class ConfiguracaoDeComponentesGUI {
 	public static void centralizaFrame(Frame Frame){
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - Frame.getWidth()) / 2;  
-        int y = (int)(dimension.getHeight() - Frame.getHeight()) / 6;  
+        int x = (int)(dimension.getWidth() - Frame.getWidth()) / DIVISOR_LARGURA;  
+        int y = (int)(dimension.getHeight() - Frame.getHeight()) / DIVISOR_ALTURA;  
 		
 		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
 		
@@ -48,8 +51,8 @@ public class ConfiguracaoDeComponentesGUI {
 	public static void centralizaFrame(Frame Frame, int width, int heigth){
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - width) / 2;  
-        int y = (int)(dimension.getHeight() - heigth) / 6;  
+        int x = (int)(dimension.getWidth() - width) / DIVISOR_LARGURA;  
+        int y = (int)(dimension.getHeight() - heigth) / DIVISOR_ALTURA;  
 		        
 		Frame.setBounds(x, y, width, heigth);
 		
