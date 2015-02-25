@@ -5,6 +5,7 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,10 +19,11 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
+import com.sun.glass.ui.Screen;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {
@@ -29,6 +31,9 @@ public class PrincipalGui extends JFrame {
 	private JPanel contentPane;
 	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
+		
+	private static final int TELA_PRINCIPAL_LARGURA = 1280;
+	private static final int TELA_PRINCIPAL_ALTURA = 768;
 	
 	/**
 	 * Launch the application.
@@ -53,15 +58,15 @@ public class PrincipalGui extends JFrame {
 	 */
 	public PrincipalGui() {
 		
-		Dimension dimension = this.getSize();  
-        int x = (int)(dimension.getWidth() - this.getWidth()) / 2;  
-        int y = (int)(dimension.getHeight() - this.getHeight()) / 2;  
-		
 		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(x, y, 800, 600);
+		
+		
+		setBounds(0, 0, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
+		
+		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -99,14 +104,8 @@ public class PrincipalGui extends JFrame {
 		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
-				if(unidadeDeMedicaoGUI.isClosed()){
-					unidadeDeMedicaoGUI.dispose();
-					desktopBackgroundGUI.remove(unidadeDeMedicaoGUI);
-				}
-				desktopBackgroundGUI.add(unidadeDeMedicaoGUI);
-				unidadeDeMedicaoGUI.setBounds(0, 0, 420, 239);
 				unidadeDeMedicaoGUI.setVisible(true);
-				unidadeDeMedicaoGUI.requestFocusDefault();
+				unidadeDeMedicaoGUI.requestDefaultFocus();
 			}
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);

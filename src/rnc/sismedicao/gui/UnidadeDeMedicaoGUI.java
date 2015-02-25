@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -20,13 +20,19 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
+
 @SuppressWarnings("serial")
-public class UnidadeDeMedicaoGUI extends JInternalFrame {
+public class UnidadeDeMedicaoGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Codigo;
 	private JTextField TF_Descricao;
 	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
+	
+	private static final int TELA_UNIDADE_LARGURA = 420;
+	private static final int TELA_UNIDADE_ALTURA = 240;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,8 +49,9 @@ public class UnidadeDeMedicaoGUI extends JInternalFrame {
 //		});
 //	}
 	
-	public void requestFocusDefault(){
-		this.TF_Codigo.requestFocus();		
+	public void requestDefaultFocus(){
+		this.TF_Codigo.requestFocus();
+		this.TF_Codigo.selectAll();
 	}
 	
 	public static UnidadeDeMedicaoGUI getInstance(){
@@ -58,14 +65,17 @@ public class UnidadeDeMedicaoGUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	private UnidadeDeMedicaoGUI() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setRootPaneCheckingEnabled(false);
 		setMinimumSize(new Dimension(420, 239));
 		setMaximumSize(new Dimension(420, 239));
-		setClosable(true);
-		setIconifiable(true);
+
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
 		setResizable(false);
-		setBounds(0, 0, 420, 239);
+		setBounds(0, 0, TELA_UNIDADE_LARGURA, TELA_UNIDADE_ALTURA);
+		
+		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,10 +95,8 @@ public class UnidadeDeMedicaoGUI extends JInternalFrame {
 		LB_Codigo.setBounds(10, 11, 66, 14);
 		
 		TF_Codigo = new JTextField();
-		TF_Codigo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		TF_Codigo.setBackground(Color.WHITE);
+		ConfiguracaoDeComponentesGUI.configuraJTextField(TF_Codigo);
 		TF_Codigo.setBounds(10, 25, 86, 20);
-		TF_Codigo.setColumns(10);
 		
 		JLabel LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
 		LB_Descricao.setFont(new Font("Tahoma", Font.BOLD, 11));
