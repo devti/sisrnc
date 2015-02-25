@@ -32,8 +32,8 @@ public class PrincipalGui extends JFrame {
 	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
 		
-	private static final int TELA_PRINCIPAL_LARGURA = 1280;
-	private static final int TELA_PRINCIPAL_ALTURA = 768;
+	private static final int TELA_WIDTH = 1280;
+	private static final int TELA_HEIGTH = 768;
 	
 	/**
 	 * Launch the application.
@@ -63,10 +63,7 @@ public class PrincipalGui extends JFrame {
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-		setBounds(0, 0, TELA_PRINCIPAL_LARGURA, TELA_PRINCIPAL_ALTURA);
-		
-		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
+		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH, TELA_HEIGTH);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);

@@ -30,8 +30,8 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 	private JTextField TF_Descricao;
 	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
 	
-	private static final int TELA_UNIDADE_LARGURA = 420;
-	private static final int TELA_UNIDADE_ALTURA = 240;
+	private static final int TELA_WIDTH = 420;
+	private static final int TELA_HEIGTH = 240;
 	
 	/**
 	 * Launch the application.
@@ -67,14 +67,12 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 	private UnidadeDeMedicaoGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setRootPaneCheckingEnabled(false);
-		setMinimumSize(new Dimension(420, 239));
-		setMaximumSize(new Dimension(420, 239));
+//		setMinimumSize(new Dimension(420, 240));
+//		setMaximumSize(new Dimension(420, 240));
 
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
-		setResizable(false);
-		setBounds(0, 0, TELA_UNIDADE_LARGURA, TELA_UNIDADE_ALTURA);
 		
-		ConfiguracaoDeComponentesGUI.centralizaJFrame(this);
+		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH, TELA_HEIGTH, false);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

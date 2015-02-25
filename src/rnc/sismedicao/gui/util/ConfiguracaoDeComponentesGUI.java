@@ -2,9 +2,9 @@ package rnc.sismedicao.gui.util;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
@@ -18,16 +18,82 @@ public class ConfiguracaoDeComponentesGUI {
 		
 	}
 	
-	public static void centralizaJFrame(JFrame jFrame){
+	/*
+	 * Início do Overload do método contralizaFrame
+	 * */
+	
+	public static void centralizaFrame(Frame Frame){
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - jFrame.getWidth()) / 2;  
-        int y = (int)(dimension.getHeight() - jFrame.getHeight()) / 6;  
+        int x = (int)(dimension.getWidth() - Frame.getWidth()) / 2;  
+        int y = (int)(dimension.getHeight() - Frame.getHeight()) / 6;  
 		
-		jFrame.setBounds(x, y, jFrame.getWidth(), jFrame.getHeight());
+		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
 		
-		System.out.println(x+", "+y+", "+jFrame.getWidth()+", "+jFrame.getHeight()+", "+dimension.getWidth()+", "+dimension.getHeight());
+		System.out.println("Inicializando tela: "+Frame.getTitle()+
+				"\n Posição H: "+x+
+				"\nPosição V: "+y+
+				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
+				"\n==========================================================\n");
 	}
+	
+	public static void centralizaFrame(Frame Frame, boolean resizable){
+		toolKit = Toolkit.getDefaultToolkit();
+		dimension = toolKit.getScreenSize();
+        int x = (int)(dimension.getWidth() - Frame.getWidth()) / 2;  
+        int y = (int)(dimension.getHeight() - Frame.getHeight()) / 6;  
+		
+		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
+		Frame.setResizable(resizable);
+		
+		System.out.println("Inicializando tela: "+Frame.getTitle()+
+				"\n Posição H: "+x+
+				"\nPosição V: "+y+
+				"\nResizable: " +resizable+
+				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
+				"\n==========================================================\n");
+	}
+	
+	public static void centralizaFrame(Frame Frame, int width, int heigth){
+		toolKit = Toolkit.getDefaultToolkit();
+		dimension = toolKit.getScreenSize();
+        int x = (int)(dimension.getWidth() - width) / 2;  
+        int y = (int)(dimension.getHeight() - heigth) / 6;  
+		
+		Frame.setBounds(x, y, width, heigth);
+		
+		System.out.printf("Inicializando tela: "+Frame.getTitle()+
+				"\nPosição H: "+x+
+				"\nPosição V: "+y+
+				"\nResolução da tela: "+width+"x"+heigth+
+				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
+				"\n==========================================================\n");
+	}
+	
+	public static void centralizaFrame(Frame Frame, int width, int heigth, boolean resizable){
+		toolKit = Toolkit.getDefaultToolkit();
+		dimension = toolKit.getScreenSize();
+        int x = (int)(dimension.getWidth() - width) / 2;  
+        int y = (int)(dimension.getHeight() - heigth) / 6;  
+        
+		Frame.setBounds(x, y, width, heigth);
+		Frame.setResizable(resizable);
+		
+		System.out.println("Inicializando tela: "+Frame.getTitle()+
+				 "\nPosição H: "+x+
+				 "\nPosição V: "+y+
+				 "\nResolução da tela: "+width+"x"+heigth+
+				 "\nResizable: " +resizable+
+				 "\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
+				 "\n==========================================================\n");
+		
+	}
+	
+	/*
+	 * Fim do Overload do método centralizaFrame
+	 * */
+	
+	
 	
 	public static void configuraJTextField(JTextField jTextField){
 		jTextField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
