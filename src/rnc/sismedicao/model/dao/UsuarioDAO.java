@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
+import rnc.sismedicao.controller.exception.RepositorioException;
+import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -32,16 +35,13 @@ public class UsuarioDAO {
 				preparedStatement.setString(++i, usuario.getLogin());
 				preparedStatement.setString(++i, usuario.getSenha());
 				preparedStatement.setInt(++i, usuario.getCodPessoa());
-
 				preparedStatement.execute();
-
 				Conexao.getConnection().commit();
 
 				resultSet = preparedStatement.getGeneratedKeys();
 
 				if (resultSet.next()) {
 					usuario.setCodUsuario(resultSet.getInt(1));
-
 				}
 
 				JOptionPane.showMessageDialog(null,
@@ -50,7 +50,7 @@ public class UsuarioDAO {
 						"Cadastrado com sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-			
+
 				e.printStackTrace();
 			}
 
@@ -59,19 +59,37 @@ public class UsuarioDAO {
 
 	}
 
-	public void removerUsuario(int id) throws Exception {
-		String query = "DELETE FROM USUARIO WHERE ID = ?";
+	public void removerUsuario(int codUsuario) throws Exception {
+		String query = "DELETE FROM USUARIO WHERE CODUSUARIO = ?";
 
 		try {
-		
-			PreparedStatement preparedStatement = Conexao.getConnection()
+
+			PreparedStatement ps = Conexao.getConnection()
 					.prepareStatement(query);
-			preparedStatement.setInt(1, id);
-			preparedStatement.execute();
+			ps.setInt(1, codUsuario);
+			ps.execute();
 			Conexao.getConnection().commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RepositorioException(e);
 		}
-
+	}
+	public Usuario procurar (int codUsuario) throws UsuarioNaoEncontradoException, Exception {
+		Usuario usuario = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM USUARIO WHERE ID = ?";
+		
+		try {
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codUsuario);
+			rs = ps.executeQuery();
+			if (!rs.next())
+				throw new UsuarioNaoEncontradoException(codUsuario);
+			usuario = new Usuario(codUsuario, rs.getString("LOGIN"), rs.getString("SENHA"));
+			usuario.setCodUsuario(rs.getInt("codUsuario"));
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		return usuario;
+		
 	}
 }

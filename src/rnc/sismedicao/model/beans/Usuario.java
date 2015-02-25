@@ -6,10 +6,6 @@ public class Usuario extends Pessoa{
 	private int codPessoa;
 	private String login;
 	private String senha;
-	
-	public Usuario() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Usuario(int codUsuario, String login, String senha) {
 		this.codUsuario = codUsuario;
