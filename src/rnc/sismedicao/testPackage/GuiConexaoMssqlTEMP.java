@@ -1,4 +1,4 @@
-package rnc.sismedicao.gui;
+package rnc.sismedicao.testPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

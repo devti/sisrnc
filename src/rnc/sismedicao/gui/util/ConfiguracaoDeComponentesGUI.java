@@ -33,7 +33,7 @@ public class ConfiguracaoDeComponentesGUI {
 		
 		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
 		
-		System.out.println("Inicializando tela: "+Frame.getTitle()+
+		System.out.println("\nInicializando tela: "+Frame.getTitle()+
 				"\n Posição H: "+x+
 				"\nPosição V: "+y+
 				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight());
@@ -56,7 +56,7 @@ public class ConfiguracaoDeComponentesGUI {
 		        
 		Frame.setBounds(x, y, width, heigth);
 		
-		System.out.printf("Inicializando tela: "+Frame.getTitle()+
+		System.out.printf("\nInicializando tela: "+Frame.getTitle()+
 				"\nPosição H: "+x+
 				"\nPosição V: "+y+
 				"\nResolução da tela: "+width+"x"+heigth+

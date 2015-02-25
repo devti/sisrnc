@@ -14,21 +14,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
+import rnc.sismedicao.gui.util.InterfaceFormGUI;
+import rnc.sismedicao.gui.util.NewJTextField;
 
 @SuppressWarnings("serial")
-public class UnidadeDeMedicaoGUI extends JFrame {
+public class FormUnidadeDeMedicaoGUI extends JFrame implements InterfaceFormGUI {
 
 	private JPanel contentPane;
-	private JTextField TF_Codigo;
-	private JTextField TF_Descricao;
-	private static UnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null ;
+	private NewJTextField TF_Codigo;
+	private NewJTextField TF_Descricao;
+	private static FormUnidadeDeMedicaoGUI unidadeDeMedicaoGUI = null;
 	
 	private static final int TELA_WIDTH = 420;
 	private static final int TELA_HEIGTH = 240;
@@ -54,9 +54,9 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		this.TF_Codigo.selectAll();
 	}
 	
-	public static UnidadeDeMedicaoGUI getInstance(){
+	public static FormUnidadeDeMedicaoGUI getInstance(){
 		if(unidadeDeMedicaoGUI == null){
-			return unidadeDeMedicaoGUI = new UnidadeDeMedicaoGUI();
+			return unidadeDeMedicaoGUI = new FormUnidadeDeMedicaoGUI();
 		}
 		return unidadeDeMedicaoGUI;
 	}
@@ -64,11 +64,11 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private UnidadeDeMedicaoGUI() {
+	private FormUnidadeDeMedicaoGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setRootPaneCheckingEnabled(false);
-//		setMinimumSize(new Dimension(420, 240));
-//		setMaximumSize(new Dimension(420, 240));
+		setMinimumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
+		setMaximumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
 
 		setTitle("Cadastrar Unidade de Medi\u00E7\u00E3o");
 		
@@ -92,19 +92,15 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		LB_Codigo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_Codigo.setBounds(10, 11, 66, 14);
 		
-		TF_Codigo = new JTextField();
-		ConfiguracaoDeComponentesGUI.configuraJTextField(TF_Codigo);
+		TF_Codigo = new NewJTextField();
 		TF_Codigo.setBounds(10, 25, 86, 20);
 		
 		JLabel LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
 		LB_Descricao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_Descricao.setBounds(10, 56, 66, 14);
 		
-		TF_Descricao = new JTextField();
-		TF_Descricao.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		TF_Descricao.setBackground(Color.WHITE);
+		TF_Descricao = new NewJTextField();
 		TF_Descricao.setBounds(10, 71, 365, 20);
-		TF_Descricao.setColumns(10);
 		PN_Identificacao.setLayout(null);
 		PN_Identificacao.add(LB_Codigo);
 		PN_Identificacao.add(TF_Codigo);
@@ -126,7 +122,7 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		
 		JLabel LB_NovoIcon = new JLabel("");
 		LB_NovoIcon.setToolTipText("Novo");
-		LB_NovoIcon.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		LB_NovoIcon.setIcon(new ImageIcon(FormUnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
 		LB_NovoIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
 		LB_NovoIcon.setMinimumSize(new Dimension(24, 16));
 		LB_NovoIcon.setMaximumSize(new Dimension(24, 16));
@@ -134,7 +130,7 @@ public class UnidadeDeMedicaoGUI extends JFrame {
 		toolBar.add(LB_NovoIcon);
 		
 		JLabel LB_ExcluirIcon = new JLabel("");
-		LB_ExcluirIcon.setIcon(new ImageIcon(UnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		LB_ExcluirIcon.setIcon(new ImageIcon(FormUnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
 		LB_ExcluirIcon.setToolTipText("Excluir");
 		LB_ExcluirIcon.setMinimumSize(new Dimension(24, 16));
 		LB_ExcluirIcon.setMaximumSize(new Dimension(24, 16));
