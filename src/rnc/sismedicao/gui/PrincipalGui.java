@@ -28,8 +28,9 @@ public class PrincipalGui extends JFrame {
 	
 	private JPanel contentPane;
 	private FormUnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	private FormEquipamentoGUI formEquipamentoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
-		
+
 	private static final int TELA_WIDTH = 1280;
 	private static final int TELA_HEIGTH = 768;
 	
@@ -43,7 +44,6 @@ public class PrincipalGui extends JFrame {
 					UIManager.setLookAndFeel(new WindowsLookAndFeel());
 					PrincipalGui frame = new PrincipalGui();
 					frame.setVisible(true);
-					 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -109,6 +109,13 @@ public class PrincipalGui extends JFrame {
 		MN_Cadastros.add(MT_UnidadeDeMedio);
 		
 		JMenuItem MT_Equipamentos = new JMenuItem("Equipamentos");
+		MT_Equipamentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formEquipamentoGUI = FormEquipamentoGUI.getInstance();
+				formEquipamentoGUI.setVisible(true);
+				formEquipamentoGUI.requestDefaultFocus();
+			}
+		});
 		MT_Equipamentos.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_Equipamentos);
 		

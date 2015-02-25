@@ -4,5 +4,7 @@ public interface InterfaceFormGUI {
 	
 	public void requestDefaultFocus();
 	
+	public void mouseClickedNovo();
 	
+		
 }
