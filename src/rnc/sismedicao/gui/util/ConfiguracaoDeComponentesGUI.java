@@ -33,25 +33,16 @@ public class ConfiguracaoDeComponentesGUI {
 		System.out.println("Inicializando tela: "+Frame.getTitle()+
 				"\n Posição H: "+x+
 				"\nPosição V: "+y+
-				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
-				"\n==========================================================\n");
+				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight());
 	}
 	
 	public static void centralizaFrame(Frame Frame, boolean resizable){
-		toolKit = Toolkit.getDefaultToolkit();
-		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - Frame.getWidth()) / 2;  
-        int y = (int)(dimension.getHeight() - Frame.getHeight()) / 6;  
 		
-		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
+		centralizaFrame(Frame);
+		
 		Frame.setResizable(resizable);
 		
-		System.out.println("Inicializando tela: "+Frame.getTitle()+
-				"\n Posição H: "+x+
-				"\nPosição V: "+y+
-				"\nResizable: " +resizable+
-				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
-				"\n==========================================================\n");
+		System.out.println("Resizable: " +resizable+	"\n");
 	}
 	
 	public static void centralizaFrame(Frame Frame, int width, int heigth){
@@ -59,33 +50,23 @@ public class ConfiguracaoDeComponentesGUI {
 		dimension = toolKit.getScreenSize();
         int x = (int)(dimension.getWidth() - width) / 2;  
         int y = (int)(dimension.getHeight() - heigth) / 6;  
-		
+		        
 		Frame.setBounds(x, y, width, heigth);
 		
 		System.out.printf("Inicializando tela: "+Frame.getTitle()+
 				"\nPosição H: "+x+
 				"\nPosição V: "+y+
 				"\nResolução da tela: "+width+"x"+heigth+
-				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
-				"\n==========================================================\n");
+				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+ "\n");
 	}
 	
 	public static void centralizaFrame(Frame Frame, int width, int heigth, boolean resizable){
-		toolKit = Toolkit.getDefaultToolkit();
-		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - width) / 2;  
-        int y = (int)(dimension.getHeight() - heigth) / 6;  
-        
-		Frame.setBounds(x, y, width, heigth);
+
+		centralizaFrame(Frame, width, heigth);
+		
 		Frame.setResizable(resizable);
 		
-		System.out.println("Inicializando tela: "+Frame.getTitle()+
-				 "\nPosição H: "+x+
-				 "\nPosição V: "+y+
-				 "\nResolução da tela: "+width+"x"+heigth+
-				 "\nResizable: " +resizable+
-				 "\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+
-				 "\n==========================================================\n");
+		System.out.println("Resizable: " +resizable+ "\n");
 		
 	}
 	
