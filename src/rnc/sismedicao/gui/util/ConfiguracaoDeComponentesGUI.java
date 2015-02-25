@@ -33,6 +33,7 @@ public class ConfiguracaoDeComponentesGUI {
 		jTextField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
 		jTextField.setBackground(Color.WHITE);
 		jTextField.setColumns(10);
+		
 	}
 	
 	
