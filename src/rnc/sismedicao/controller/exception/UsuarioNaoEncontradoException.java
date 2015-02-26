@@ -1,14 +1,14 @@
 package rnc.sismedicao.controller.exception;
 
 public class UsuarioNaoEncontradoException extends Exception {
-	private int id;
+	private int codUsuario;
 	
-	public UsuarioNaoEncontradoException(int id){
+	public UsuarioNaoEncontradoException(int codUsuario){
 		super("Usuário não Encontrado!");
-		this.id = id;
+		this.codUsuario = codUsuario;
 	}
 	
 	public int getId(){
-		return id;
+		return codUsuario;
 	}
 }

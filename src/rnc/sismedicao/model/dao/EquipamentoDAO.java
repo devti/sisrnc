@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import rnc.sismedicao.controller.exception.EquipamentoNaoEncontrandoException;
+import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -46,12 +48,45 @@ public class EquipamentoDAO {
 				
 				JOptionPane.showMessageDialog(null, "Equipamento criado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
 	return equipamento.getCodEquipamento();
+	}
+	
+	public void removerEquipamento (int codEquipamento) throws Exception {
+		
+		String sql = "DELETE FROM EQUIPAMENTO WHERE CODEQUIPAMETNTO = ?";
+		
+		try {
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codEquipamento);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
+	
+	public Equipamento procurar (int codEquipamento, int codLocal, int codItem) throws Exception {
+		Equipamento equipamento = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM EQUIPAMENTO WHERE CODEQUIPAMENTO = ?";
+		
+		try {
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codEquipamento);
+			rs = ps.executeQuery();
+			if (!rs.next())
+				throw new EquipamentoNaoEncontrandoException(codEquipamento);
+			equipamento = new Equipamento();
+			equipamento.setCodEquipamento(rs.getInt("codEquipamento"));
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		
+		return equipamento;
 	}
 	
 }

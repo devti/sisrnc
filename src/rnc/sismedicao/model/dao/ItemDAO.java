@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -13,7 +14,7 @@ public class ItemDAO {
 	
 	
 	public ItemDAO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public int insertItem(Item item){
@@ -43,12 +44,27 @@ public class ItemDAO {
 				
 				JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			
 		}
 	return item.getCodItem();
+	}
+	
+	public void removerItem (int codItem) throws Exception {
+		
+		String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
+		
+		try {
+			
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codItem);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
 	}
 	
 }
