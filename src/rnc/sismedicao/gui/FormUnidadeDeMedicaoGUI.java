@@ -15,6 +15,7 @@ import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class FormUnidadeDeMedicaoGUI extends NewJFrameForm implements InterfaceFormGUI {
@@ -94,28 +95,28 @@ public class FormUnidadeDeMedicaoGUI extends NewJFrameForm implements InterfaceF
 		TF_Descricao.setBounds(10, 71, 369, 18);
 		panel.add(TF_Descricao);
 		
-		JButton btnOk = new JButton("Salvar");
-		btnOk.setBounds(209, 180, 89, 23);
-		getContentPane().add(btnOk);
+		JButton BT_Salvar = new JButton("Salvar");
+		BT_Salvar.setBounds(209, 180, 89, 23);
+		getContentPane().add(BT_Salvar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(305, 180, 89, 23);
-		getContentPane().add(btnCancelar);
+		JButton BT_Cancelar = new JButton("Cancelar");
+		BT_Cancelar.setBounds(305, 180, 89, 23);
+		getContentPane().add(BT_Cancelar);
 		
-		JButton button_1 = new JButton("OK");
-		button_1.setBounds(113, 180, 89, 23);
-		getContentPane().add(button_1);
+		JButton BT_OK = new JButton("OK");
+		BT_OK.setBounds(113, 180, 89, 23);
+		getContentPane().add(BT_OK);
 		
 	}
 	
 	@Override
 	public void mouseClickedNovo() {
-		System.out.println("teste na classe Unidade de Medição");		
+		System.out.println("Teste na GUI, Novo");		
 	}
 
 	@Override
 	public void mouseClickedExcluir() {
-		// TODO Auto-generated method stub
+		System.out.println("Teste na GUI, Excluir");
 	}
 	
 	@Override

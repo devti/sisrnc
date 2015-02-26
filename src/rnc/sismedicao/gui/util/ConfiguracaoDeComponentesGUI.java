@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
@@ -86,5 +89,29 @@ public class ConfiguracaoDeComponentesGUI {
 		
 	}
 	
+	public static void CriarButtonBevelDeLabel(final JLabel jLabel){
+		jLabel.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(220, 220, 220), null, null));
+		jLabel.setForeground( new Color(0,0,0));
+		jLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				jLabel.setForeground( new Color(0,0,255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				jLabel.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(220, 220, 220), null, null));
+				jLabel.setForeground( new Color(0,0,0));
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				jLabel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, new Color(220, 220, 220), null, null));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				jLabel.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(220, 220, 220), null, null));
+			}
+		});
+		
+	}
 	
 }
