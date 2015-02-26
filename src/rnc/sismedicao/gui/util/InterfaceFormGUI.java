@@ -6,5 +6,9 @@ public interface InterfaceFormGUI {
 	
 	public void mouseClickedNovo();
 	
+	public void mouseClickedExcluir();
+	
+	
+	
 		
 }

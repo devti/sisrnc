@@ -54,4 +54,10 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseClickedExcluir() {
+		// TODO Auto-generated method stub
+		
+	}
 }
