@@ -1,5 +1,6 @@
 package rnc.sismedicao.controller.exception;
 
+@SuppressWarnings("serial")
 public class UsuarioNaoEncontradoException extends Exception {
 	private int codUsuario;
 	
