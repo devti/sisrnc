@@ -5,7 +5,6 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,16 +21,16 @@ import javax.swing.border.EmptyBorder;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 
-import com.sun.glass.ui.Screen;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 
 @SuppressWarnings("serial")
 public class PrincipalGui extends JFrame {
 	
 	private JPanel contentPane;
-	private UnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	private FormUnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	private FormEquipamentoGUI formEquipamentoGUI;
 	private DesktopBackgroundGUI desktopBackgroundGUI;
-		
+
 	private static final int TELA_WIDTH = 1280;
 	private static final int TELA_HEIGTH = 768;
 	
@@ -45,7 +44,6 @@ public class PrincipalGui extends JFrame {
 					UIManager.setLookAndFeel(new WindowsLookAndFeel());
 					PrincipalGui frame = new PrincipalGui();
 					frame.setVisible(true);
-					 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,6 +60,8 @@ public class PrincipalGui extends JFrame {
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
+		setMaximumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
 		
 		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH, TELA_HEIGTH);
 		
@@ -100,7 +100,7 @@ public class PrincipalGui extends JFrame {
 		JMenuItem MT_UnidadeDeMedio = new JMenuItem("Unidade de Medi\u00E7\u00E3o");
 		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				unidadeDeMedicaoGUI = UnidadeDeMedicaoGUI.getInstance();
+				unidadeDeMedicaoGUI = FormUnidadeDeMedicaoGUI.getInstance();
 				unidadeDeMedicaoGUI.setVisible(true);
 				unidadeDeMedicaoGUI.requestDefaultFocus();
 			}
@@ -109,6 +109,13 @@ public class PrincipalGui extends JFrame {
 		MN_Cadastros.add(MT_UnidadeDeMedio);
 		
 		JMenuItem MT_Equipamentos = new JMenuItem("Equipamentos");
+		MT_Equipamentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formEquipamentoGUI = FormEquipamentoGUI.getInstance();
+				formEquipamentoGUI.setVisible(true);
+				formEquipamentoGUI.requestDefaultFocus();
+			}
+		});
 		MT_Equipamentos.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_Equipamentos);
 		

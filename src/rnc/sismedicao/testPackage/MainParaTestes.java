@@ -1,4 +1,4 @@
-package rnc.sismedicao.gui;
+package rnc.sismedicao.testPackage;
 
 import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.dao.PessoaDAO;
