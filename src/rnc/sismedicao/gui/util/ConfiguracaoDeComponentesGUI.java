@@ -24,7 +24,7 @@ public class ConfiguracaoDeComponentesGUI {
 		
 	}
 	
-	/*
+	/* 
 	 * Início do Overload do método contralizaFrame
 	 * */
 	
