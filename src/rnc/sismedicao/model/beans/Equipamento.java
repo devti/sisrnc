@@ -10,9 +10,9 @@ public class Equipamento {
 	private Local local;
 	private ItemMedicao itemMedicao;
 	
-	public Equipamento(int id,String codCliente, String registro, String descricao, Item item,
+	public Equipamento(String codCliente, String registro, String descricao, Item item,
 			Local local, ItemMedicao itemMedicao) {
-		this.codCliente = codCliente;
+	this.codCliente = codCliente;
 		this.registro = registro;
 		this.descricao = descricao;
 		this.item = item;

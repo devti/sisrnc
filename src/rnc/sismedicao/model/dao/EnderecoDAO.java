@@ -6,51 +6,93 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import rnc.sismedicao.controller.exception.EnderecoNaoEncontradoException;
+import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Endereco;
 import rnc.sismedicao.model.util.Conexao;
 
 public class EnderecoDAO {
-	
-	
+
 	public EnderecoDAO() {
-		// TODO Auto-generated constructor stub
+
 	}
-	
-	public int insertEndereco(Endereco endereco){
-		
-		if(JOptionPane.showConfirmDialog(null, "tem certeza que quer cadastrar o endereço?"
-										 , "Confirmar cadastro"
-										 , JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
-			
-		String query = "INSERT INTO ENDERECO(CEP, RUA, NUMERO, BAIRRO, CIDADE) VALUES (?, ?, ?, ?, ?) ";
-		
+
+	public int insertEndereco(Endereco endereco) {
+
+		if (JOptionPane.showConfirmDialog(null,
+				"tem certeza que quer cadastrar o endereço?",
+				"Confirmar cadastro", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+
+			String query = "INSERT INTO ENDERECO(CEP, RUA, NUMERO, BAIRRO, CIDADE) VALUES (?, ?, ?, ?, ?) ";
+
 			try {
 				int i = 0;
 				ResultSet resultSet = null;
-				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+				PreparedStatement preparedStatement = Conexao.getConnection()
+						.prepareStatement(query,
+								PreparedStatement.RETURN_GENERATED_KEYS);
 				preparedStatement.setString(++i, endereco.getCep());
 				preparedStatement.setString(++i, endereco.getRua());
 				preparedStatement.setInt(++i, endereco.getNumero());
 				preparedStatement.setString(++i, endereco.getCidade());
-				
+
 				preparedStatement.execute();
-				
+
 				Conexao.getConnection().commit();
-				
+
 				resultSet = preparedStatement.getGeneratedKeys();
-				
-				if(resultSet.next()){
+
+				if (resultSet.next()) {
 					endereco.setCodEndereco(resultSet.getInt(1));
 				}
-				
-				JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+				JOptionPane.showMessageDialog(null,
+						"Endereço cadastrado com sucesso",
+						"Cadastrado com sucesso",
+						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-	return endereco.getCodEndereco();
+		return endereco.getCodEndereco();
 	}
-	
+
+	public void removerEndereco(int codEndereco) throws Exception {
+
+		String sql = "DELETE FROM ENDERECO WHERE CODENDERECO = ?";
+
+		try {
+
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codEndereco);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
+
+	public Endereco procurar (int codEndereco) throws Exception {
+		
+		Endereco endereco = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ENDERECO WHERE CODENDERECO = ?";
+		
+		try {
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codEndereco);
+			rs = ps.executeQuery();
+			if (!rs.next())
+				throw new EnderecoNaoEncontradoException(codEndereco);
+			endereco = new Endereco(rs.getString("RUA"), rs.getString("BAIRRO"), rs.getString("CIDADE"),
+					rs.getString("CEP"));
+			endereco.setCodEndereco(rs.getInt("codEndereco"));
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		
+		return endereco;
+	}
 }

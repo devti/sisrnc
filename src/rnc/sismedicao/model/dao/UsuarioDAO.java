@@ -60,12 +60,12 @@ public class UsuarioDAO {
 	}
 
 	public void removerUsuario(int codUsuario) throws Exception {
-		String query = "DELETE FROM USUARIO WHERE CODUSUARIO = ?";
+		String sql = "DELETE FROM USUARIO WHERE CODUSUARIO = ?";
 
 		try {
 
 			PreparedStatement ps = Conexao.getConnection()
-					.prepareStatement(query);
+					.prepareStatement(sql);
 			ps.setInt(1, codUsuario);
 			ps.execute();
 			Conexao.getConnection().commit();
@@ -76,7 +76,7 @@ public class UsuarioDAO {
 	public Usuario procurar (int codUsuario) throws UsuarioNaoEncontradoException, Exception {
 		Usuario usuario = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM USUARIO WHERE ID = ?";
+		String sql = "SELECT * FROM USUARIO WHERE CODUSUARIO = ?";
 		
 		try {
 			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
