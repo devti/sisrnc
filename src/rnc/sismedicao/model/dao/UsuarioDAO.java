@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Usuario;
-import rnc.sismedicao.model.dao.interfaces.IRepositorioUsuario;
+import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
 import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO implements IRepositorioUsuario {
