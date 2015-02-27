@@ -10,7 +10,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-
+/**
+ * 
+ * @author Charles Arruda
+ * @category Util
+ *
+ */
 public class ConfiguracaoDeComponentesGUI {
 	
 	
@@ -27,50 +32,73 @@ public class ConfiguracaoDeComponentesGUI {
 	/* 
 	 * Início do Overload do método contralizaFrame
 	 * */
-	
-	public static void centralizaFrame(Frame Frame){
+	/**
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param frame
+	 */
+	public static void centralizaFrame(Frame frame){
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
-        int x = (int)(dimension.getWidth() - Frame.getWidth()) / DIVISOR_LARGURA;  
-        int y = (int)(dimension.getHeight() - Frame.getHeight()) / DIVISOR_ALTURA;  
+        int x = (int)(dimension.getWidth() - frame.getWidth()) / DIVISOR_LARGURA;  
+        int y = (int)(dimension.getHeight() - frame.getHeight()) / DIVISOR_ALTURA;  
 		
-		Frame.setBounds(x, y, Frame.getWidth(), Frame.getHeight());
+		frame.setBounds(x, y, frame.getWidth(), frame.getHeight());
 		
-		System.out.println("\nInicializando tela: "+Frame.getTitle()+
+		System.out.println("\nInicializando tela: "+frame.getTitle()+
 				"\n Posição H: "+x+
 				"\nPosição V: "+y+
 				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight());
 	}
-	
-	public static void centralizaFrame(Frame Frame, boolean resizable){
+	/**
+	 * 
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param frame
+	 * @param resizable
+	 */
+	public static void centralizaFrame(Frame frame, boolean resizable){
 		
-		centralizaFrame(Frame);
+		centralizaFrame(frame);
 		
-		Frame.setResizable(resizable);
+		frame.setResizable(resizable);
 		
-		System.out.println("Resizable: " +resizable+	"\n");
+		System.out.println("Resizable: "+resizable+"\n");
 	}
-	
-	public static void centralizaFrame(Frame Frame, int width, int heigth){
+	/**
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param frame
+	 * @param width
+	 * @param heigth
+	 */
+	public static void centralizaFrame(Frame frame, int width, int heigth){
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
         int x = (int)(dimension.getWidth() - width) / DIVISOR_LARGURA;  
         int y = (int)(dimension.getHeight() - heigth) / DIVISOR_ALTURA;  
 		        
-		Frame.setBounds(x, y, width, heigth);
+		frame.setBounds(x, y, width, heigth);
 		
-		System.out.printf("\nInicializando tela: "+Frame.getTitle()+
+		System.out.printf("\nInicializando tela: "+frame.getTitle()+
 				"\nPosição H: "+x+
 				"\nPosição V: "+y+
 				"\nResolução da tela: "+width+"x"+heigth+
 				"\nResolução do Monitor: "+(int)dimension.getWidth()+"x"+(int)dimension.getHeight()+ "\n");
 	}
-	
-	public static void centralizaFrame(Frame Frame, int width, int heigth, boolean resizable){
+	/**
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param frame
+	 * @param width
+	 * @param heigth
+	 * @param resizable
+	 */
+	public static void centralizaFrame(Frame frame, int width, int heigth, boolean resizable){
 
-		centralizaFrame(Frame, width, heigth);
+		centralizaFrame(frame, width, heigth);
 		
-		Frame.setResizable(resizable);
+		frame.setResizable(resizable);
 		
 		System.out.println("Resizable: " +resizable+ "\n");
 		
@@ -81,6 +109,13 @@ public class ConfiguracaoDeComponentesGUI {
 	 * */
 	
 	
+	/**
+	 * Configura uma Text Field com borda Bevel, método utilizado para manter um padrão no sistema. 
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param jTextField
+	 * 
+	 */
 	
 	public static void configuraJTextField(JTextField jTextField){
 		jTextField.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
@@ -89,6 +124,14 @@ public class ConfiguracaoDeComponentesGUI {
 		
 	}
 	
+	
+	/**
+	 * Transforma uma Label em um botão com borda do tipo Bevel.
+	 * @author Charles Arruda
+	 * @category Util
+	 * @param jLabel
+	 * 
+	 */
 	public static void CriarButtonBevelDeLabel(final JLabel jLabel){
 		jLabel.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(220, 220, 220), null, null));
 		jLabel.setForeground( new Color(0,0,0));

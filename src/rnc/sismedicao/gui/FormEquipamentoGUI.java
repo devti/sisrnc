@@ -18,6 +18,9 @@ import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
+import javax.swing.border.TitledBorder;
+import javax.swing.JCheckBox;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
@@ -75,6 +78,13 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		NewJTextField newJTextField_2 = new NewJTextField();
 		newJTextField_2.setBounds(278, 11, 131, 18);
 		panel.add(newJTextField_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBorder(new TitledBorder(null, "Item", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 69, 516, 261);
+		panel.add(panel_3);
+		panel_3.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
