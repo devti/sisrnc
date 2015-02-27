@@ -44,7 +44,11 @@ public class UnidadeDeMedicaoDAO {
 				
 				JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				try {
+					Conexao.getConnection().rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 			
