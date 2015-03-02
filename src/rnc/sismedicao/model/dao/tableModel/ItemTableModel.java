@@ -7,28 +7,27 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
+import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
-import rnc.sismedicao.model.dao.UnidadeDeMedicaoDAO;
+import rnc.sismedicao.model.dao.ItemDAO;
 
 @SuppressWarnings("serial")
-public class UnidadeDeMedicaoTableModel extends AbstractTableModel implements TableModelListener{
+public class ItemTableModel extends AbstractTableModel implements TableModelListener{
 
-	private List<UnidadeDeMedicao> unidadesDeMedicao;
+	public List<Item> itens;
 	private List<String> colunas;
-	private UnidadeDeMedicaoDAO dao;
+	private ItemDAO dao;
 	
-	
-	
-	public UnidadeDeMedicaoTableModel() {
-		this.dao = new UnidadeDeMedicaoDAO();
-		this.unidadesDeMedicao = this.dao.ListAll();
+	public ItemTableModel() {
+		this.dao = new ItemDAO();
+		this.itens = this.dao.ListAll();
 		colunas = Arrays.asList("Código", "Descrição");
 		this.addTableModelListener(this);
 	}
 	
 	@Override
 	public int getRowCount() {
-		return unidadesDeMedicao.size();
+		return itens.size();
 	}
 	
 	@Override
@@ -43,22 +42,24 @@ public class UnidadeDeMedicaoTableModel extends AbstractTableModel implements Ta
 	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		UnidadeDeMedicao unidadeDeMedicao = unidadesDeMedicao.get(rowIndex);
+		Item item = itens.get(rowIndex);
+		System.out.print(rowIndex + "  -  ");
+		System.out.println(item.getCodCliente() +" - "+ item.getNome());
 		switch (columnIndex) {
 		case 0:
-			return unidadeDeMedicao.getCodigo();
+			return item.getCodCliente();
 		case 1:
-			return unidadeDeMedicao.getDescricao();
+			return item.getNome();
 		}
 		return null;
 	}
 	
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		int i = e.getFirstRow();
-		UnidadeDeMedicao unidadeDeMedicao = unidadesDeMedicao.get(i);
-		System.out.println(i);
-		dao.update(unidadeDeMedicao);
+//		int i = e.getFirstRow();
+//		Item item = itens.get(i);
+//		System.out.println(i);
+//		dao.update(item);
 		
 	}
 	
@@ -66,5 +67,6 @@ public class UnidadeDeMedicaoTableModel extends AbstractTableModel implements Ta
 	public Class getColumnClass(int coluna){
 		return getValueAt(0, coluna).getClass();
 	}
+
 	
 }

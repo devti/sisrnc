@@ -2,6 +2,8 @@ package rnc.sismedicao.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -17,13 +19,13 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
+import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
-import rnc.sismedicao.model.dao.UnidadeDeMedicaoDAO;
+import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
 
 @SuppressWarnings("serial")
@@ -37,6 +39,11 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JTable table_1;
 	private JTable table_2;
 	private UnidadeDeMedicaoTableModel unidadeDeMedicaoTableModel;
+	private ItemTableModel itemTableModel;
+	private DefaultTableModel defaultTableModel;
+	
+	private ItemController itemController;
+	
 	
 	public static FormEquipamentoGUI getInstance(){
 		if(formEquipamentoGUI == null){
@@ -47,6 +54,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	
 	private FormEquipamentoGUI() {
+		
+		itemController = new ItemController();
+		
 		setTitle("Criar Equipamento");
 		
 		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH, TELA_HEIGTH, false);
@@ -139,6 +149,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		scrollPane_3.setBounds(10, 41, 471, 129);
 		panel_5.add(scrollPane_3);
 		
+		itemTableModel = new ItemTableModel();
+		
 		table_2 = new JTable();
 		table_2.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -148,28 +160,61 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false
+				false, true
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
 		table_2.getColumnModel().getColumn(0).setResizable(false);
-		table_2.getColumnModel().getColumn(0).setMinWidth(75);
 		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
-		table_2.getColumnModel().getColumn(1).setResizable(false);
+		defaultTableModel = (DefaultTableModel)table_2.getModel();		
+		//defaultTableModel.addRow(new Object[] {1, "teste"});
+		
+//		table_2.setModel(//itemTableModel);
+//		
+//		new DefaultTableModel(
+//				new Object[][] {
+//				},
+//				new String[] {
+//					"C\u00F3digo", "Nome"
+//				}
+//			) {
+//				boolean[] columnEditables = new boolean[] {
+//					false, false
+//				};
+//				public boolean isCellEditable(int row, int column) {
+//					return columnEditables[column];
+//				}
+//			});
+		
+//		table_2.getColumnModel().getColumn(0).setResizable(false);
+//		table_2.getColumnModel().getColumn(0).setMinWidth(75);
+//		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
+//		table_2.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane_3.setViewportView(table_2);
 		
 		JLabel lblBuscaRpida_1 = new JLabel("Busca r\u00E1pida:");
 		lblBuscaRpida_1.setBounds(29, 14, 73, 14);
 		panel_5.add(lblBuscaRpida_1);
 		
-		NewJTextField newJTextField_4 = new NewJTextField();
+
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
+				
+		final NewJTextField newJTextField_4 = new NewJTextField();
+		newJTextField_4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				//itemController.controlePesquisa(newJTextField_4.getText(), itemTableModel);
+				defaultTableModel.setRowCount(0);
+				itemController.tablePesquisa(newJTextField_4.getText(), defaultTableModel );
+				
+			}
+		});
 		newJTextField_4.setBounds(108, 12, 187, 18);
 		panel_5.add(newJTextField_4);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
 		comboBox_1.setBounds(305, 11, 102, 20);
 		panel_5.add(comboBox_1);
 		
@@ -205,9 +250,25 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-				
+		
 		unidadeDeMedicaoTableModel = new UnidadeDeMedicaoTableModel();
-		table.setModel(unidadeDeMedicaoTableModel);
+		table.setModel(//unidadeDeMedicaoTableModel);
+				
+		
+		new DefaultTableModel(
+			new Object[][] {
+				},
+				new String[] {
+					"C\u00F3digo", "Nome"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 208, 516, 122);

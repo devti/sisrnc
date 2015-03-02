@@ -3,61 +3,70 @@ package rnc.sismedicao.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.sound.midi.ControllerEventListener;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
+import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.util.Conexao;
 
 public class ItemDAO {
 	
-	
+
 	public ItemDAO() {
-		
+
 	}
-	
-	public int insertItem(Item item){
-		
-		if(JOptionPane.showConfirmDialog(null, "tem certeza que quer cadastrar este Item?"
-										 , "Confirmar cadastro"
-										 , JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
-			
-		String query = "INSERT INTO ITEM(DESCRICAO, MARCA) VALUES (?, ?) ";
-		
+
+	public int insertItem(Item item) {
+
+		if (JOptionPane.showConfirmDialog(null,
+				"tem certeza que quer cadastrar este Item?",
+				"Confirmar cadastro", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+
+			String query = "INSERT INTO ITEM(DESCRICAO, MARCA) VALUES (?, ?) ";
+
 			try {
 				int i = 0;
 				ResultSet resultSet = null;
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 				preparedStatement.setString(++i, item.getDescricao());
 				preparedStatement.setString(++i, item.getMarca());
-				
+
 				preparedStatement.execute();
-				
+
 				Conexao.getConnection().commit();
-				
+
 				resultSet = preparedStatement.getGeneratedKeys();
-				
-				if(resultSet.next()){
+
+				if (resultSet.next()) {
 					item.setCodItem(resultSet.getInt(1));
 				}
-				
-				JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+				JOptionPane.showMessageDialog(null,
+						"Item cadastrado com sucesso",
+						"Cadastrado com sucesso",
+						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
-				
+
 				e.printStackTrace();
 			}
-			
+
 		}
-	return item.getCodItem();
+		return item.getCodItem();
 	}
-	
-	public void removerItem (int codItem) throws Exception {
-		
+
+	public void removerItem(int codItem) throws Exception {
+
 		String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
-		
+
 		try {
-			
+
 			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
 			ps.setInt(1, codItem);
 			ps.execute();
@@ -66,5 +75,155 @@ public class ItemDAO {
 			throw new RepositorioException(e);
 		}
 	}
+	
+	
+	private List<Item> carregaList(ResultSet resultSet){
+		
+		List<Item> itens = new ArrayList<Item>();
+		
+		try {
+			while (resultSet.next()) {
+				Item item = new Item();
+				item.setCodItem(resultSet.getInt(1));
+				item.setCodCliente(resultSet.getString(2));
+				item.setNome(resultSet.getString(3));
+				item.setDescricao(resultSet.getString(4));
+				item.setMarca(resultSet.getString(5));
+
+				itens.add(item);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("erro");
+		}
+				
+		return itens;
+				
+	}
+
+	public List<Item> ListAll() {
+
+		String query = "SELECT * FROM ITEM";
+
+		List<Item> itens = new ArrayList<Item>();
+
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+
+			resultSet = preparedStatement.executeQuery();
+
+			Conexao.getConnection().commit();
+			
+			itens = carregaList(resultSet);
+	
+			JOptionPane.showMessageDialog(null,
+					"Todos os registro foram \nrecuperados com sucesso",
+					"Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return itens;
+
+	}
+
+	public void update(Item item) {
+
+		String query = "UPDATE ITEM SET CODCLIENTE = ?, NOME = ?, DESCRICAO = ?, MARCA = ? WHERE CODITEM = ?";
+
+		try {
+			int i = 0;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+
+			preparedStatement.setString(++i, item.getCodCliente());
+			preparedStatement.setString(++i, item.getNome());
+			preparedStatement.setString(++i, item.getDescricao());
+			preparedStatement.setString(++i, item.getMarca());
+			preparedStatement.setInt(++i, item.getCodItem());
+
+			preparedStatement.executeQuery();
+
+			Conexao.getConnection().commit();
+
+			JOptionPane.showMessageDialog(null, "Atualizado com Sucesso",
+					"Atualização com sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	public void searchRealTime(String pesquisa, ItemTableModel modelo){
+		
+//		String campo;
+//		
+//		switch (opcao) {
+//		case ItemController.PESQUISAR_CODIGO:
+//			campo = "CODCLIENTE";
+//			break;
+//		case ItemController.PESQUISAR_NOME:
+//			campo = "NOME";
+//			break;
+//		default:
+//			throw new RuntimeException("Opção inválida");
+//		} 
+		
+		String query = "SELECT * FROM ITEM WHERE NOME LIKE '%"+pesquisa+"%';";		
+		
+		ResultSet resultSet = null; 
+		List<Item> itens = new ArrayList<Item>();
+		
+		try {
+			
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()){
+				itens = carregaList(resultSet);
+			}
+			
+			modelo.itens = itens;
+		
+		} catch(SQLException e){ 
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void searchRealTime2(String pesquisa, DefaultTableModel modelo){
+		
+//		String campo;
+//		
+//		switch (opcao) {
+//		case ItemController.PESQUISAR_CODIGO:
+//			campo = "CODCLIENTE";
+//			break;
+//		case ItemController.PESQUISAR_NOME:
+//			campo = "NOME";
+//			break;
+//		default:
+//			throw new RuntimeException("Opção inválida");
+//		} 
+		
+		String query = "SELECT * FROM ITEM WHERE NOME LIKE '%"+pesquisa+"%';";		
+		
+		ResultSet resultSet = null; 
+		List<Item> itens = new ArrayList<Item>();
+		
+		try {
+			
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()){
+				modelo.addRow(new Object[]{resultSet.getString("CODCLIENTE"), resultSet.getString("NOME")});
+			}
+		
+		} catch(SQLException e){ 
+			throw new RuntimeException(e);
+		}
+	}
+	
 	
 }
