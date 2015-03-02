@@ -16,7 +16,7 @@ public class UnidadeDeMedicaoDAO {
 	
 	
 	public UnidadeDeMedicaoDAO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public String insertUnidadeDeMedicao(UnidadeDeMedicao unidadeDeMedicao){

@@ -9,9 +9,10 @@ import javax.swing.JOptionPane;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Pessoa;
+import rnc.sismedicao.model.interfacesDao.IRepositorioPessoa;
 import rnc.sismedicao.model.util.Conexao;
 
-public class PessoaDAO {
+public class PessoaDAO implements IRepositorioPessoa {
 
 	public PessoaDAO() {
 		
