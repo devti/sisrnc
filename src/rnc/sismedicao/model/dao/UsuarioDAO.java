@@ -14,7 +14,7 @@ import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO implements IRepositorioUsuario {
 
-	public UsuarioDAO() {
+	public UsuarioDAO(IRepositorioUsuario repositorioUsuario) {
 
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -20,12 +21,18 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
+import rnc.sismedicao.controller.exception.RepositorioException;
+import rnc.sismedicao.controller.exception.SenhaInvalidaException;
+import rnc.sismedicao.fachada.Fachada;
+
 @SuppressWarnings("serial")
 public class LoginGui extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Login;
 	private JPasswordField PF_Senha;
+	private Fachada fachada;
+	private PrincipalGui tela;
 
 	/**
 	 * Launch the application.
@@ -122,8 +129,23 @@ public class LoginGui extends JFrame {
 		contentPane.add(lblVerso);
 	}
 
-	private void login(String usuario, char[] password) {
-
+	private void login(String usuario, char[] password)
+			throws SenhaInvalidaException, RepositorioException, SQLException {
+		try {
+			String senha = new String(password);
+			if (!fachada.usuarioLogin(usuario, senha))
+				throw new SenhaInvalidaException();
+			tela = new PrincipalGui();
+			tela.setVisible(true);
+			dispose();
+		} catch (SenhaInvalidaException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (RepositorioException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
 	}
-
 }
