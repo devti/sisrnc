@@ -3,6 +3,8 @@ package rnc.sismedicao.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -55,5 +57,65 @@ public class UnidadeDeMedicaoDAO {
 		}
 	return unidadeDeMedicao.getCodigo();
 	}
+	
+	public void update(UnidadeDeMedicao unidadeDeMedicao){
+		
+		String query = "UPDATE UNIDADEMEDICAO SET CODUNIDADE = ?, DESCRICAO = ? WHERE CODUNIDADE = ?";
+		
+		try {
+			int i = 0;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			
+			preparedStatement.setString(++i, unidadeDeMedicao.getCodigo());
+			preparedStatement.setString(++i, unidadeDeMedicao.getCodigo());
+			
+			preparedStatement.executeQuery();
+			
+			Conexao.getConnection().commit();
+						
+			JOptionPane.showMessageDialog(null, "Atualizado com Sucesso", "Atualização com sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+	}
+	
+	public List<UnidadeDeMedicao> ListAll(){
+		String query = "SELECT * FROM UNIDADEMEDICAO";
+		
+		List<UnidadeDeMedicao> unidadesDeMedicao = new ArrayList<UnidadeDeMedicao>();
+		
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			Conexao.getConnection().commit();
+			
+			//UnidadeDeMedicao unidadeDeMedicao = new UnidadeDeMedicao();
+			
+			while(resultSet.next()){
+				UnidadeDeMedicao unidadeDeMedicao = new UnidadeDeMedicao();	
+				unidadeDeMedicao.setCodigo(resultSet.getString(1));
+				unidadeDeMedicao.setDescricao(resultSet.getString(2));
+				
+				unidadesDeMedicao.add(unidadeDeMedicao);
+				System.out.println(unidadeDeMedicao.getCodigo()+": "+unidadeDeMedicao.getDescricao());
+			}
+			
+			JOptionPane.showMessageDialog(null, "Todos os registro foram \nrecuperados com sucesso", "Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		return unidadesDeMedicao;
+	}
+	
+	
+	
+	
 	
 }

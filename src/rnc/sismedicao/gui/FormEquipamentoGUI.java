@@ -1,6 +1,7 @@
 package rnc.sismedicao.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -9,20 +10,21 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-import javax.swing.JSeparator;
-import java.awt.Font;
+import rnc.sismedicao.model.dao.UnidadeDeMedicaoDAO;
+import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
 
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
@@ -34,6 +36,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
+	private UnidadeDeMedicaoTableModel unidadeDeMedicaoTableModel;
 	
 	public static FormEquipamentoGUI getInstance(){
 		if(formEquipamentoGUI == null){
@@ -202,22 +205,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-					
-					
-			},
-			new String[] {
-				"C\u00F3digo", "Descri\u00E7\u00E3o"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+				
+		unidadeDeMedicaoTableModel = new UnidadeDeMedicaoTableModel();
+		table.setModel(unidadeDeMedicaoTableModel);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 208, 516, 122);
