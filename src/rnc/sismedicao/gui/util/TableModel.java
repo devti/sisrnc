@@ -15,7 +15,7 @@ public class TableModel extends AbstractTableModel{
 
 	@Override
 	public int getRowCount() {
-		return valores.size();
+		return valores.size(); 
 	}
 
 	@Override
