@@ -1,14 +1,20 @@
 package rnc.sismedicao.gui.util;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JToolTip;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.border.BevelBorder;
 /**
  * 
@@ -155,6 +161,15 @@ public class ConfiguracaoDeComponentesGUI {
 			}
 		});
 		
+	}
+	
+	public static Popup showTooltip(JComponent component) {  
+	    //Point p = component.getLocationOnScreen();  
+	    JToolTip tip = component.createToolTip();
+	    tip.setTipText(component.getToolTipText());
+	    PopupFactory popupFactory = PopupFactory.getSharedInstance();
+	    Popup popup = popupFactory.getPopup(component, tip, component.getWidth()+10, +component.getHeight() + 2);
+	    return popup;
 	}
 	
 }

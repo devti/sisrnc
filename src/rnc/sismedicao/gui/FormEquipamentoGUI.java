@@ -2,8 +2,12 @@ package rnc.sismedicao.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -29,11 +33,6 @@ import rnc.sismedicao.gui.util.NewJTextField;
 import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
 	
@@ -54,7 +53,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JLabel LB_CodClienteItem;
 	private JLabel LB_NomeItem;
 	private JLabel LB_ReferenciaItem;
-	
+
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox_1;
 	
 	private JPanel panel_4; 
@@ -76,8 +76,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	}
 	
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private FormEquipamentoGUI() {
-		
+
 		itemController = new ItemController();
 		
 		setTitle("Criar Equipamento");
@@ -249,12 +250,15 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 
 		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
-
+		
+		
 		newJTextField_4 = new NewJTextField();
+		newJTextField_4.setToolTipText("Digite sua busca, no m\u00EDnimo 3 caracteres para realizar a busca");
+		
 		newJTextField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
+
 				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA){
 					defaultTableModel.setRowCount(0);
 					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), defaultTableModel );
@@ -263,6 +267,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		});
 		newJTextField_4.setBounds(108, 12, 187, 18);
 		panel_5.add(newJTextField_4);
+
 		
 		comboBox_1.setBounds(305, 11, 102, 20);
 		panel_5.add(comboBox_1);
@@ -421,6 +426,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(444, 415, 89, 23);
 		getContentPane().add(btnCancelar);
+		
 		
 	}
 	
