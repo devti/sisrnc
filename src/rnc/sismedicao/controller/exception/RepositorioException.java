@@ -9,6 +9,7 @@ public class RepositorioException extends Exception {
     public RepositorioException(Exception exception) {
         super("Exceção encapsulada");
         this.exception = exception;
+        exception.printStackTrace();
     }
 
     public String getMessage() {

@@ -89,6 +89,7 @@ public class LoginGui extends JFrame {
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(),
 							"Aviso", JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
 				}
 			}
 
@@ -132,6 +133,7 @@ public class LoginGui extends JFrame {
 	private void login(String usuario, char[] password)
 			throws SenhaInvalidaException, RepositorioException, SQLException {
 		try {
+			fachada = Fachada.getInstance();
 			String senha = new String(password);
 			if (!fachada.usuarioLogin(usuario, senha))
 				throw new SenhaInvalidaException();
@@ -141,11 +143,16 @@ public class LoginGui extends JFrame {
 		} catch (SenhaInvalidaException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		} catch (RepositorioException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
+		} catch(Exception e){
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

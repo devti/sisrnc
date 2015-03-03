@@ -75,25 +75,28 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			throw new RepositorioException(e);
 		}
 	}
-	public Usuario procurar (int codUsuario) throws UsuarioNaoEncontradoException, Exception {
+
+	public Usuario procurar(int codUsuario)
+			throws UsuarioNaoEncontradoException, Exception {
 		Usuario usuario = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM USUARIO WHERE CODUSUARIO = ?";
-		
+
 		try {
-			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
 			ps.setInt(1, codUsuario);
 			rs = ps.executeQuery();
 			if (!rs.next())
 				throw new UsuarioNaoEncontradoException(codUsuario);
-			usuario = new Usuario(codUsuario, rs.getString("LOGIN"), rs.getString("SENHA"));
+			usuario = new Usuario(codUsuario, rs.getString("LOGIN"),
+					rs.getString("SENHA"));
 			usuario.setCodUsuario(rs.getInt("codUsuario"));
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
 		return usuario;
-		
-	
+
 	}
 
 	@Override
@@ -102,13 +105,20 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		ResultSet rs;
 		try {
 			String sql = "SELECT * FROM USUARIO USUARIO WHERE LOGIN = ? AND SENHA = ?";
-			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
 			ps.setString(1, usuario);
 			ps.setString(2, senha);
 			rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
+
 		}
-		return false;
 	}
 }
