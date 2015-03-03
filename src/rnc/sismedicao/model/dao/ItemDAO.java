@@ -18,9 +18,10 @@ import rnc.sismedicao.model.util.Conexao;
 
 public class ItemDAO {
 	
-
+	private Item item;
+	
 	public ItemDAO() {
-
+		item = new Item();
 	}
 
 	public int insertItem(Item item) {
@@ -154,43 +155,8 @@ public class ItemDAO {
 
 	}
 
-	public void searchRealTime(String pesquisa, ItemTableModel modelo){
 		
-//		String campo;
-//		
-//		switch (opcao) {
-//		case ItemController.PESQUISAR_CODIGO:
-//			campo = "CODCLIENTE";
-//			break;
-//		case ItemController.PESQUISAR_NOME:
-//			campo = "NOME";
-//			break;
-//		default:
-//			throw new RuntimeException("Opção inválida");
-//		} 
-		
-		String query = "SELECT * FROM ITEM WHERE NOME LIKE '%"+pesquisa+"%';";		
-		
-		ResultSet resultSet = null; 
-		List<Item> itens = new ArrayList<Item>();
-		
-		try {
-			
-			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
-			resultSet = preparedStatement.executeQuery();
-			
-			if(resultSet.next()){
-				itens = carregaList(resultSet);
-			}
-			
-			modelo.itens = itens;
-		
-		} catch(SQLException e){ 
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public void searchRealTime2(String pesquisa, DefaultTableModel modelo){
+	public void searchRealTime(String pesquisa, DefaultTableModel modelo){
 		
 //		String campo;
 //		
@@ -225,5 +191,28 @@ public class ItemDAO {
 		}
 	}
 	
-	
+	public Item getItem(String codItem){
+		String query = "SELECT * FROM ITEM WHERE CODCLIENTE = '"+codItem+"';";		
+		ResultSet resultSet = null; 
+		try {
+			
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()){
+				item.setCodItem(resultSet.getInt("CODITEM"));
+				item.setCodCliente(resultSet.getString("CODCLIENTE"));
+				item.setNome(resultSet.getString("NOME"));
+				item.setDescricao(resultSet.getString("DESCRICAO"));
+				item.setMarca(resultSet.getString("MARCA"));
+			}
+			
+		} catch(SQLException e){ 
+			throw new RuntimeException(e);
+		}
+		
+		
+		return item;
+	}
 }

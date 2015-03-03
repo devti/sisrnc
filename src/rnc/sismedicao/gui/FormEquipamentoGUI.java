@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -28,16 +29,36 @@ import rnc.sismedicao.gui.util.NewJTextField;
 import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
 	
 	private static final int TELA_WIDTH = 568;
 	private static final int TELA_HEIGTH = 485;
 	
+	private static final int CHAR_MINIMO_PESQUISA = 3;
+	
 	private static FormEquipamentoGUI formEquipamentoGUI;
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
+
+	private NewJTextField newJTextField_4;
+	
+	private JLabel LB_DescricaoItem;
+	private JLabel LB_MarcaItem;
+	private JLabel LB_CodClienteItem;
+	private JLabel LB_NomeItem;
+	private JLabel LB_ReferenciaItem;
+
+	private JPanel panel_4; 
+	
+	private JTabbedPane tabbedPane_1;
+	
 	private UnidadeDeMedicaoTableModel unidadeDeMedicaoTableModel;
 	private ItemTableModel itemTableModel;
 	private DefaultTableModel defaultTableModel;
@@ -105,11 +126,11 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_1.setBounds(10, 21, 496, 229);
 		panel_3.add(tabbedPane_1);
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		tabbedPane_1.addTab("Informa\u00E7\u00F5es do Item", null, panel_4, null);
 		panel_4.setLayout(null);
 		
@@ -133,13 +154,29 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		lblReferncia.setBounds(287, 11, 70, 14);
 		panel_4.add(lblReferncia);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(65, 76, 416, 14);
-		panel_4.add(label);
+		LB_DescricaoItem = new JLabel("");
+		LB_DescricaoItem.setBounds(65, 76, 416, 14);
+		panel_4.add(LB_DescricaoItem);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 62, 471, 2);
 		panel_4.add(separator);
+		
+		LB_MarcaItem = new JLabel("");
+		LB_MarcaItem.setBounds(65, 101, 112, 14);
+		panel_4.add(LB_MarcaItem);
+		
+		LB_CodClienteItem = new JLabel("");
+		LB_CodClienteItem.setBounds(51, 11, 112, 14);
+		panel_4.add(LB_CodClienteItem);
+		
+		LB_NomeItem = new JLabel("");
+		LB_NomeItem.setBounds(51, 36, 430, 14);
+		panel_4.add(LB_NomeItem);
+		
+		LB_ReferenciaItem = new JLabel("");
+		LB_ReferenciaItem.setBounds(353, 11, 128, 14);
+		panel_4.add(LB_ReferenciaItem);
 		
 		JPanel panel_5 = new JPanel();
 		tabbedPane_1.addTab("Selecionar Item", null, panel_5, null);
@@ -152,6 +189,14 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		itemTableModel = new ItemTableModel();
 		
 		table_2 = new JTable();
+		table_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2){
+					selecionaItem();
+				}
+			}
+		});
 		table_2.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -160,7 +205,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, true
+				false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -168,6 +213,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		});
 		table_2.getColumnModel().getColumn(0).setResizable(false);
 		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
+		table_2.getColumnModel().getColumn(1).setResizable(false);
 		defaultTableModel = (DefaultTableModel)table_2.getModel();		
 		//defaultTableModel.addRow(new Object[] {1, "teste"});
 		
@@ -201,13 +247,13 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
-				
-		final NewJTextField newJTextField_4 = new NewJTextField();
+
+		newJTextField_4 = new NewJTextField();
 		newJTextField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				//itemController.controlePesquisa(newJTextField_4.getText(), itemTableModel);
 				defaultTableModel.setRowCount(0);
+				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA)
 				itemController.tablePesquisa(newJTextField_4.getText(), defaultTableModel );
 				
 			}
@@ -219,12 +265,28 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		panel_5.add(comboBox_1);
 		
 		JButton btnOk = new JButton("Selecionar");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selecionaItem();
+			}
+
+		});
 		btnOk.setBounds(360, 176, 102, 21);
 		panel_5.add(btnOk);
 		
 		JButton btnCadastrarNovoItem = new JButton("Cadastrar Novo Item");
 		btnCadastrarNovoItem.setBounds(26, 175, 141, 21);
 		panel_5.add(btnCadastrarNovoItem);
+		
+		JButton btnTodos = new JButton("Todos");
+		btnTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				defaultTableModel.setRowCount(0);
+				itemController.tablePesquisa("", defaultTableModel );
+			}
+		});
+		btnTodos.setBounds(412, 10, 69, 23);
+		panel_5.add(btnTodos);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -358,6 +420,30 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		
 	}
 	
+	private void selecionaItem() {
+		try {
+			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(0, table_2.getSelectedRow()).toString() ) );
+			preencheCamposItem(itemController.getItem().getCodCliente(),
+					   			itemController.getItem().getCodItem(),
+					   			itemController.getItem().getNome(),
+					   			itemController.getItem().getDescricao(),
+					   			itemController.getItem().getMarca());
+			tabbedPane_1.setSelectedIndex(0);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Por favor, selecione um Item", "Erro", JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
+		} 
+
+		
+	}
+	
+	private void preencheCamposItem(String codCliente, int referencia, String nome, String descricao, String marca){
+		this.LB_CodClienteItem.setText(codCliente);
+		this.LB_ReferenciaItem.setText(referencia +"");
+		this.LB_NomeItem.setText(nome);
+		this.LB_DescricaoItem.setText(descricao);
+		this.LB_MarcaItem.setText(marca);
+	}
 	
 	@Override
 	public void mouseClickedNovo() {
@@ -371,7 +457,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	@Override
 	public void requestDefaultFocus() {
-		// TODO Auto-generated method stub
+		tabbedPane_1.setSelectedIndex(1);
+		newJTextField_4.requestFocus();
 		
 	}
 }
