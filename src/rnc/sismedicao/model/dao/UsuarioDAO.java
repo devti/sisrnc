@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
+import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
@@ -92,5 +93,22 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		}
 		return usuario;
 		
+	
+	}
+
+	@Override
+	public boolean login(String usuario, String senha)
+			throws SenhaInvalidaException, RepositorioException, SQLException {
+		ResultSet rs;
+		try {
+			String sql = "SELECT * FROM USUARIO USUARIO WHERE LOGIN = ? AND SENHA = ?";
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setString(1, usuario);
+			ps.setString(2, senha);
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		return false;
 	}
 }

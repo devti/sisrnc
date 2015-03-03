@@ -18,9 +18,8 @@ public class UsuarioController {
 
 	public boolean login(String usuario, String senha)
 			throws RepositorioException, SQLException, SenhaInvalidaException {
-		@SuppressWarnings("unused")
 		UsuarioDAO usuarioLogin = new UsuarioDAO(this.repositorioUsuario);
-		return login(usuario, senha);
+		return usuarioLogin.login(usuario, senha);
 
 	}
 }

@@ -55,7 +55,7 @@ public class LoginGui extends JFrame {
 	 */
 	public LoginGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 260, 333);
+		setBounds(100, 100, 276, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -125,7 +125,7 @@ public class LoginGui extends JFrame {
 		contentPane.add(label);
 
 		JLabel lblVerso = new JLabel("Vers\u00E3o 1.0");
-		lblVerso.setBounds(93, 274, 57, 14);
+		lblVerso.setBounds(96, 327, 57, 14);
 		contentPane.add(lblVerso);
 	}
 
