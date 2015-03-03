@@ -102,7 +102,7 @@ public class UnidadeDeMedicaoDAO {
 				unidadeDeMedicao.setDescricao(resultSet.getString(2));
 				
 				unidadesDeMedicao.add(unidadeDeMedicao);
-				System.out.println(unidadeDeMedicao.getCodigo()+": "+unidadeDeMedicao.getDescricao());
+
 			}
 			
 			JOptionPane.showMessageDialog(null, "Todos os registro foram \nrecuperados com sucesso", "Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
