@@ -54,7 +54,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JLabel LB_CodClienteItem;
 	private JLabel LB_NomeItem;
 	private JLabel LB_ReferenciaItem;
-
+	
+	private JComboBox comboBox_1;
+	
 	private JPanel panel_4; 
 	
 	private JTabbedPane tabbedPane_1;
@@ -245,17 +247,18 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		panel_5.add(lblBuscaRpida_1);
 		
 
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
 
 		newJTextField_4 = new NewJTextField();
 		newJTextField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				defaultTableModel.setRowCount(0);
-				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA)
-				itemController.tablePesquisa(newJTextField_4.getText(), defaultTableModel );
 				
+				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA){
+					defaultTableModel.setRowCount(0);
+					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), defaultTableModel );
+				}
 			}
 		});
 		newJTextField_4.setBounds(108, 12, 187, 18);
@@ -282,7 +285,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		btnTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				defaultTableModel.setRowCount(0);
-				itemController.tablePesquisa("", defaultTableModel );
+				itemController.tablePesquisa(ItemController.PESQUISAR_NOME,"", defaultTableModel );
+				newJTextField_4.setText("");
 			}
 		});
 		btnTodos.setBounds(412, 10, 69, 23);
@@ -422,16 +426,21 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private void selecionaItem() {
 		try {
-			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(0, table_2.getSelectedRow()).toString() ) );
+			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(table_2.getSelectedRow(), 0 ).toString() ) );
+			
 			preencheCamposItem(itemController.getItem().getCodCliente(),
 					   			itemController.getItem().getCodItem(),
 					   			itemController.getItem().getNome(),
 					   			itemController.getItem().getDescricao(),
 					   			itemController.getItem().getMarca());
+			
 			tabbedPane_1.setSelectedIndex(0);
+			newJTextField_4.setText("");
+			defaultTableModel.setRowCount(0);
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Por favor, selecione um Item", "Erro", JOptionPane.ERROR_MESSAGE);
-			//e.printStackTrace();
+			e.printStackTrace();
 		} 
 
 		
@@ -443,6 +452,10 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		this.LB_NomeItem.setText(nome);
 		this.LB_DescricaoItem.setText(descricao);
 		this.LB_MarcaItem.setText(marca);
+	}
+	
+	private int comboBoxItemSelected(){
+		return comboBox_1.getSelectedIndex();
 	}
 	
 	@Override

@@ -6,14 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.midi.ControllerEventListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
-import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.util.Conexao;
 
 public class ItemDAO {
@@ -156,25 +154,24 @@ public class ItemDAO {
 	}
 
 		
-	public void searchRealTime(String pesquisa, DefaultTableModel modelo){
+	public void searchRealTime(int opcao, String pesquisa, DefaultTableModel modelo){
 		
-//		String campo;
-//		
-//		switch (opcao) {
-//		case ItemController.PESQUISAR_CODIGO:
-//			campo = "CODCLIENTE";
-//			break;
-//		case ItemController.PESQUISAR_NOME:
-//			campo = "NOME";
-//			break;
-//		default:
-//			throw new RuntimeException("Opção inválida");
-//		} 
+		String campo;
 		
-		String query = "SELECT * FROM ITEM WHERE NOME LIKE '%"+pesquisa+"%';";		
+		switch (opcao) {
+		case ItemController.PESQUISAR_CODIGO:
+			campo = "CODCLIENTE";
+			break;
+		case ItemController.PESQUISAR_NOME:
+			campo = "NOME";
+			break;
+		default:
+			throw new RuntimeException("Opção inválida");
+		} 
+		
+		String query = "SELECT * FROM ITEM WHERE "+campo+" LIKE '%"+pesquisa+"%';";		
 		
 		ResultSet resultSet = null; 
-		List<Item> itens = new ArrayList<Item>();
 		
 		try {
 			
@@ -211,8 +208,7 @@ public class ItemDAO {
 		} catch(SQLException e){ 
 			throw new RuntimeException(e);
 		}
-		
-		
+				
 		return item;
 	}
 }

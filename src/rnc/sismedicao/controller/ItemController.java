@@ -13,8 +13,8 @@ public class ItemController {
 	
 	
 	
-//	public static final int PESQUISAR_CODIGO = 0;
-//	public static final int PESQUISAR_NOME = 1;
+	public static final int PESQUISAR_CODIGO = 0;
+	public static final int PESQUISAR_NOME = 1;
 	
 //	public void controlePesquisa(String pesquisa, ItemTableModel modelo){
 //		itemDAO.searchRealTime(pesquisa, modelo);
@@ -29,8 +29,8 @@ public class ItemController {
 		this.item = item;
 	}
 
-	public void tablePesquisa(String pesquisa, DefaultTableModel modelo){
-		itemDAO.searchRealTime(pesquisa, modelo);
+	public void tablePesquisa(int opcao, String pesquisa, DefaultTableModel modelo){
+		itemDAO.searchRealTime(opcao, pesquisa, modelo);
 	}
 	
 	public Item getItemDao(String codItem){
