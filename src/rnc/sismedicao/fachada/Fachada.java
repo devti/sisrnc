@@ -3,9 +3,11 @@ package rnc.sismedicao.fachada;
 import java.sql.SQLException;
 
 
+
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
+import rnc.sismedicao.model.beans.Usuario;
 
 
 public class Fachada {
@@ -27,6 +29,7 @@ public class Fachada {
 		}
 		return Fachada.instance;
 	}
+
 	
 	public boolean usuarioLogin(String usuario, String senha)
 		throws RepositorioException, SQLException, SenhaInvalidaException {

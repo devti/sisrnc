@@ -22,4 +22,10 @@ public class UsuarioController {
 		return usuarioLogin.login(usuario, senha);
 
 	}
+
+	public int cadastrar(Usuario usuario) throws Exception {
+		return 0;
+		
+	
+	}
 }
