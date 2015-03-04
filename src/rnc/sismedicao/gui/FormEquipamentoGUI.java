@@ -2,8 +2,12 @@ package rnc.sismedicao.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -28,11 +32,7 @@ import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
 import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import rnc.sismedicao.model.util.VerificadoresEFormatadores;
 
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
@@ -45,7 +45,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private static FormEquipamentoGUI formEquipamentoGUI;
 	private JTable table;
 	private JTable table_1;
-	private JTable table_2;
+	private JTable TB_Item;
 
 	private NewJTextField newJTextField_4;
 	
@@ -54,16 +54,15 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JLabel LB_CodClienteItem;
 	private JLabel LB_NomeItem;
 	private JLabel LB_ReferenciaItem;
-	
+
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox_1;
 	
 	private JPanel panel_4; 
 	
 	private JTabbedPane tabbedPane_1;
 	
-	private UnidadeDeMedicaoTableModel unidadeDeMedicaoTableModel;
-	private ItemTableModel itemTableModel;
-	private DefaultTableModel defaultTableModel;
+	private DefaultTableModel itemDefaultTableModel;
 	
 	private ItemController itemController;
 	
@@ -76,8 +75,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	}
 	
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private FormEquipamentoGUI() {
-		
+
 		itemController = new ItemController();
 		
 		setTitle("Criar Equipamento");
@@ -176,7 +176,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		LB_NomeItem.setBounds(51, 36, 430, 14);
 		panel_4.add(LB_NomeItem);
 		
-		LB_ReferenciaItem = new JLabel("");
+		LB_ReferenciaItem = new JLabel("000000");
 		LB_ReferenciaItem.setBounds(353, 11, 128, 14);
 		panel_4.add(LB_ReferenciaItem);
 		
@@ -188,10 +188,9 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		scrollPane_3.setBounds(10, 41, 471, 129);
 		panel_5.add(scrollPane_3);
 		
-		itemTableModel = new ItemTableModel();
 		
-		table_2 = new JTable();
-		table_2.addMouseListener(new MouseAdapter() {
+		TB_Item = new JTable();
+		TB_Item.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2){
@@ -199,7 +198,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 				}
 			}
 		});
-		table_2.setModel(new DefaultTableModel(
+		TB_Item.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -213,34 +212,12 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 				return columnEditables[column];
 			}
 		});
-		table_2.getColumnModel().getColumn(0).setResizable(false);
-		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
-		table_2.getColumnModel().getColumn(1).setResizable(false);
-		defaultTableModel = (DefaultTableModel)table_2.getModel();		
-		//defaultTableModel.addRow(new Object[] {1, "teste"});
+		TB_Item.getColumnModel().getColumn(0).setResizable(false);
+		TB_Item.getColumnModel().getColumn(0).setMaxWidth(75);
+		TB_Item.getColumnModel().getColumn(1).setResizable(false);
+		itemDefaultTableModel = (DefaultTableModel)TB_Item.getModel();		
 		
-//		table_2.setModel(//itemTableModel);
-//		
-//		new DefaultTableModel(
-//				new Object[][] {
-//				},
-//				new String[] {
-//					"C\u00F3digo", "Nome"
-//				}
-//			) {
-//				boolean[] columnEditables = new boolean[] {
-//					false, false
-//				};
-//				public boolean isCellEditable(int row, int column) {
-//					return columnEditables[column];
-//				}
-//			});
-		
-//		table_2.getColumnModel().getColumn(0).setResizable(false);
-//		table_2.getColumnModel().getColumn(0).setMinWidth(75);
-//		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
-//		table_2.getColumnModel().getColumn(1).setResizable(false);
-		scrollPane_3.setViewportView(table_2);
+		scrollPane_3.setViewportView(TB_Item);
 		
 		JLabel lblBuscaRpida_1 = new JLabel("Busca r\u00E1pida:");
 		lblBuscaRpida_1.setBounds(29, 14, 73, 14);
@@ -249,22 +226,26 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 
 		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Nome"}));
-
+		comboBox_1.setSelectedIndex(1);
+		
+		
 		newJTextField_4 = new NewJTextField();
+		newJTextField_4.setToolTipText("Digite sua busca, no m\u00EDnimo 3 caracteres para realizar a busca");
+		
 		newJTextField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
+
 				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA){
-					defaultTableModel.setRowCount(0);
-					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), defaultTableModel );
+					itemDefaultTableModel.setRowCount(0);
+					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), itemDefaultTableModel );
 				}
 			}
 		});
 		newJTextField_4.setBounds(108, 12, 187, 18);
 		panel_5.add(newJTextField_4);
-		
-		comboBox_1.setBounds(305, 11, 102, 20);
+
+		comboBox_1.setBounds(301, 11, 102, 20);
 		panel_5.add(comboBox_1);
 		
 		JButton btnOk = new JButton("Selecionar");
@@ -284,8 +265,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		JButton btnTodos = new JButton("Todos");
 		btnTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defaultTableModel.setRowCount(0);
-				itemController.tablePesquisa(ItemController.PESQUISAR_NOME,"", defaultTableModel );
+				itemDefaultTableModel.setRowCount(0);
+				itemController.tablePesquisa(ItemController.PESQUISAR_NOME,"", itemDefaultTableModel );
 				newJTextField_4.setText("");
 			}
 		});
@@ -317,11 +298,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		unidadeDeMedicaoTableModel = new UnidadeDeMedicaoTableModel();
-		table.setModel(//unidadeDeMedicaoTableModel);
-				
-		
-		new DefaultTableModel(
+		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				},
 				new String[] {
@@ -419,36 +396,38 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		getContentPane().add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(444, 415, 89, 23);
 		getContentPane().add(btnCancelar);
+		
 		
 	}
 	
 	private void selecionaItem() {
 		try {
-			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(table_2.getSelectedRow(), 0 ).toString() ) );
+			itemController.setItem( itemController.getItemDao( itemDefaultTableModel.getValueAt(TB_Item.getSelectedRow(), 0 ).toString() ) );
 			
-			preencheCamposItem(itemController.getItem().getCodCliente(),
-					   			itemController.getItem().getCodItem(),
-					   			itemController.getItem().getNome(),
-					   			itemController.getItem().getDescricao(),
+			preencheCamposItem(itemController.getItem().getCodCliente(), itemController.getItem().getCodItem(),
+					   			itemController.getItem().getNome(), itemController.getItem().getDescricao(),
 					   			itemController.getItem().getMarca());
 			
 			tabbedPane_1.setSelectedIndex(0);
 			newJTextField_4.setText("");
-			defaultTableModel.setRowCount(0);
+			itemDefaultTableModel.setRowCount(0);
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Por favor, selecione um Item", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
-
-		
 	}
 	
 	private void preencheCamposItem(String codCliente, int referencia, String nome, String descricao, String marca){
 		this.LB_CodClienteItem.setText(codCliente);
-		this.LB_ReferenciaItem.setText(referencia +"");
+		this.LB_ReferenciaItem.setText(VerificadoresEFormatadores.zeroFillNumber(referencia, 6));
 		this.LB_NomeItem.setText(nome);
 		this.LB_DescricaoItem.setText(descricao);
 		this.LB_MarcaItem.setText(marca);
