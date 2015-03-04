@@ -32,6 +32,7 @@ import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
 import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
 import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
+import rnc.sismedicao.model.util.VerificadoresEFormatadores;
 
 @SuppressWarnings("serial")
 public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGUI{
@@ -177,7 +178,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		LB_NomeItem.setBounds(51, 36, 430, 14);
 		panel_4.add(LB_NomeItem);
 		
-		LB_ReferenciaItem = new JLabel("");
+		LB_ReferenciaItem = new JLabel("000000");
 		LB_ReferenciaItem.setBounds(353, 11, 128, 14);
 		panel_4.add(LB_ReferenciaItem);
 		
@@ -446,7 +447,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Por favor, selecione um Item", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
 
 		
@@ -454,7 +455,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private void preencheCamposItem(String codCliente, int referencia, String nome, String descricao, String marca){
 		this.LB_CodClienteItem.setText(codCliente);
-		this.LB_ReferenciaItem.setText(referencia +"");
+		this.LB_ReferenciaItem.setText(VerificadoresEFormatadores.zeroFillNumber(referencia, 6));
 		this.LB_NomeItem.setText(nome);
 		this.LB_DescricaoItem.setText(descricao);
 		this.LB_MarcaItem.setText(marca);

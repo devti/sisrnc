@@ -11,7 +11,6 @@ public class NewJTextField extends JTextField {
 	
 	public NewJTextField() {
 		this.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(211, 211, 211), null, null, null));
-		this.setBackground(Color.WHITE);
 		this.setColumns(10);
 	}
 

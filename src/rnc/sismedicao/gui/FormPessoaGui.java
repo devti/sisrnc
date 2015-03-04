@@ -5,20 +5,29 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.ImageIcon;
+
 import java.awt.Dimension;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import rnc.sismedicao.model.util.VerificadoresEFormatadores;
+
 @SuppressWarnings("serial")
-public class PessoaGui extends JFrame {
+public class FormPessoaGui extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Nome;
@@ -33,7 +42,7 @@ public class PessoaGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PessoaGui frame = new PessoaGui();
+					FormPessoaGui frame = new FormPessoaGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +54,7 @@ public class PessoaGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PessoaGui() {
+	public FormPessoaGui() {
 		setTitle("Cadastro Pessoa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 452, 287);
@@ -78,7 +87,7 @@ public class PessoaGui extends JFrame {
 		LB_CPF.setBounds(10, 50, 33, 14);
 		panel.add(LB_CPF);
 		
-		TF_CPF = new JTextField();
+		TF_CPF = new JFormattedTextField(VerificadoresEFormatadores.setDefaultMaskFormat(VerificadoresEFormatadores.CPF_FORMAT));
 		TF_CPF.setColumns(10);
 		TF_CPF.setBounds(10, 64, 144, 20);
 		panel.add(TF_CPF);
@@ -98,7 +107,7 @@ public class PessoaGui extends JFrame {
 		LB_Telefone.setBounds(274, 11, 49, 14);
 		panel.add(LB_Telefone);
 		
-		TF_Tel = new JTextField();
+		TF_Tel = new JFormattedTextField(VerificadoresEFormatadores.setDefaultMaskFormat(VerificadoresEFormatadores.FONE_FORMAT));
 		TF_Tel.setColumns(10);
 		TF_Tel.setBounds(274, 25, 125, 20);
 		panel.add(TF_Tel);
@@ -119,13 +128,13 @@ public class PessoaGui extends JFrame {
 		JLabel label = new JLabel("");
 		label.setMinimumSize(new Dimension(24, 16));
 		label.setMaximumSize(new Dimension(24, 16));
-		label.setIcon(new ImageIcon(PessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		label.setIcon(new ImageIcon(FormPessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
 		toolBar.add(label);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setMinimumSize(new Dimension(24, 16));
 		label_1.setMaximumSize(new Dimension(24, 16));
-		label_1.setIcon(new ImageIcon(PessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		label_1.setIcon(new ImageIcon(FormPessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
 		toolBar.add(label_1);
 		
 		JSeparator separator = new JSeparator();
