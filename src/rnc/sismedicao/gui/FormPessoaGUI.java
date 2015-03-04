@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 import rnc.sismedicao.model.util.VerificadoresEFormatadores;
 
 @SuppressWarnings("serial")
-public class FormPessoaGui extends JFrame {
+public class FormPessoaGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Nome;
@@ -42,7 +42,7 @@ public class FormPessoaGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormPessoaGui frame = new FormPessoaGui();
+					FormPessoaGUI frame = new FormPessoaGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class FormPessoaGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormPessoaGui() {
+	public FormPessoaGUI() {
 		setTitle("Cadastro Pessoa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 452, 287);
@@ -128,13 +128,13 @@ public class FormPessoaGui extends JFrame {
 		JLabel label = new JLabel("");
 		label.setMinimumSize(new Dimension(24, 16));
 		label.setMaximumSize(new Dimension(24, 16));
-		label.setIcon(new ImageIcon(FormPessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		label.setIcon(new ImageIcon(FormPessoaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
 		toolBar.add(label);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setMinimumSize(new Dimension(24, 16));
 		label_1.setMaximumSize(new Dimension(24, 16));
-		label_1.setIcon(new ImageIcon(FormPessoaGui.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		label_1.setIcon(new ImageIcon(FormPessoaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
 		toolBar.add(label_1);
 		
 		JSeparator separator = new JSeparator();

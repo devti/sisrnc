@@ -26,13 +26,13 @@ import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.fachada.Fachada;
 
 @SuppressWarnings("serial")
-public class LoginGui extends JFrame {
+public class LoginGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TF_Login;
 	private JPasswordField PF_Senha;
 	private Fachada fachada;
-	private PrincipalGui tela;
+	private PrincipalGUI tela;
 
 	/**
 	 * Launch the application.
@@ -41,7 +41,7 @@ public class LoginGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGui frame = new LoginGui();
+					LoginGUI frame = new LoginGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class LoginGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginGui() {
+	public LoginGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 276, 390);
 		contentPane = new JPanel();
@@ -120,7 +120,7 @@ public class LoginGui extends JFrame {
 		contentPane.add(BT_Cancelar);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(LoginGui.class
+		label.setIcon(new ImageIcon(LoginGUI.class
 				.getResource("/rnc/sismedicao/gui/img/MARCA-TI.png")));
 		label.setBounds(22, 32, 200, 48);
 		contentPane.add(label);
@@ -137,7 +137,7 @@ public class LoginGui extends JFrame {
 			String senha = new String(password);
 			if (!fachada.usuarioLogin(usuario, senha))
 				throw new SenhaInvalidaException();
-			tela = new PrincipalGui();
+			tela = new PrincipalGUI();
 			tela.setVisible(true);
 			dispose();
 		} catch (SenhaInvalidaException e) {

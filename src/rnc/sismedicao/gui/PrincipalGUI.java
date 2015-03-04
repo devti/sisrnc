@@ -24,7 +24,7 @@ import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 
 @SuppressWarnings("serial")
-public class PrincipalGui extends JFrame {
+public class PrincipalGUI extends JFrame {
 	
 	private JPanel contentPane;
 	private FormUnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
@@ -42,7 +42,7 @@ public class PrincipalGui extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new WindowsLookAndFeel());
-					PrincipalGui frame = new PrincipalGui();
+					PrincipalGUI frame = new PrincipalGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class PrincipalGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PrincipalGui() {
+	public PrincipalGUI() {
 		
 		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
