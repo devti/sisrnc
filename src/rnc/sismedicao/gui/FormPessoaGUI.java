@@ -3,43 +3,31 @@
  */
 package rnc.sismedicao.gui;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
-import rnc.sismedicao.model.util.VerificadoresEFormatadores;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-
 import rnc.sismedicao.gui.util.NewJTextField;
-
-import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
-
-import java.awt.Component;
-
-import javax.swing.SwingConstants;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import rnc.sismedicao.model.util.VerificadoresEFormatadores;
 
 /**
  * @author Administrador
@@ -68,19 +56,21 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 	private static final int TELA_WIDTH = 445;
 	private static final int TELA_HEIGTH = 350;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FormPessoaGUI formPessoaGUI = new FormPessoaGUI();
-					formPessoaGUI.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-	}
+	private DefaultTableModel enderecoDefaultTableModel;
+	
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					FormPessoaGUI formPessoaGUI = new FormPessoaGUI();
+//					formPessoaGUI.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//		
+//	}
 	
 	public static FormPessoaGUI getInstance(){
 		if(formPessoaGUI == null){
@@ -180,6 +170,7 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 			}
 		});
 		SP_TBEndereco.setViewportView(TB_Endereco);
+		enderecoDefaultTableModel = (DefaultTableModel)TB_Endereco.getModel();
 		
 		JLabel LB_Endereco = new JLabel("Endere\u00E7o:");
 		LB_Endereco.setBounds(10, 11, 49, 14);
@@ -225,7 +216,8 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 		JButton BT_Adicionar = new JButton("Adicionar Novo");
 		BT_Adicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				enderecoDefaultTableModel.addRow(getEnderecoForm());
+				limparEnderecoForm();
 			}
 		});
 		BT_Adicionar.setBounds(123, 96, 112, 23);
@@ -244,18 +236,18 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 		btnSalvar.setBounds(241, 96, 69, 23);
 		PN_Endereco.add(btnSalvar);
 		
-		JLabel LB_Limpar = new JLabel("");
+		JLabel LB_Limpar = new JLabel("Novo");
 		LB_Limpar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				limparCamposEndereco();
+				limparEnderecoForm();
 			}
 		});
-		LB_Limpar.setToolTipText("Limpar Formul\u00E1rio");
+		LB_Limpar.setToolTipText("Limpa o formul\u00E1rio para incluir um novo endere\u00E7o.");
 		LB_Limpar.setHorizontalAlignment(SwingConstants.CENTER);
 		LB_Limpar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		LB_Limpar.setIcon(new ImageIcon(FormPessoaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/clear 1.png")));
-		LB_Limpar.setBounds(367, 3, 35, 20);
+		LB_Limpar.setIcon(new ImageIcon(FormPessoaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
+		LB_Limpar.setBounds(333, 3, 69, 20);
 		ConfiguracaoDeComponentesGUI.CriarButtonBevelDeLabel(LB_Limpar);
 		PN_Endereco.add(LB_Limpar);
 		
@@ -273,19 +265,31 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 		getContentPane().add(BT_Cancelar);
 	}
 
+	private Object[] getEnderecoForm() {
+		return new Object[]{
+				TF_Endereco.getText(),
+				TF_Numero.getText(),
+				TF_Bairro.getText(),
+				TF_Cidade.getText(),
+				FT_Cep.getText(),
+		};
+	}
+
 	@Override
 	public void requestDefaultFocus() {
 		tabbedPane.setSelectedIndex(0);
 		TF_Nome.requestFocus();
 	}
 	
-	private void limparCamposEndereco(){
+	private void limparEnderecoForm(){
 		TF_Endereco.setText("");
 		TF_Numero.setText("");
 		TF_Bairro.setText("");
 		TF_Cidade.setText("");
-		FT_Cep.setText("");
+		FT_Cep.setValue("");
 		TF_Endereco.requestFocus();
 	}
-
+	
+	
+	
 }

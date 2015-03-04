@@ -96,6 +96,11 @@ public class PrincipalGUI extends JFrame {
 		menuBar.add(MN_Cadastros);
 		
 		JMenuItem MT_Itens = new JMenuItem("Itens");
+		MT_Itens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		MT_Itens.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_Itens);
 		

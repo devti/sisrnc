@@ -62,7 +62,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private JTabbedPane tabbedPane_1;
 	
-	private DefaultTableModel defaultTableModel;
+	private DefaultTableModel itemDefaultTableModel;
 	
 	private ItemController itemController;
 	
@@ -215,7 +215,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		TB_Item.getColumnModel().getColumn(0).setResizable(false);
 		TB_Item.getColumnModel().getColumn(0).setMaxWidth(75);
 		TB_Item.getColumnModel().getColumn(1).setResizable(false);
-		defaultTableModel = (DefaultTableModel)TB_Item.getModel();		
+		itemDefaultTableModel = (DefaultTableModel)TB_Item.getModel();		
 		
 		scrollPane_3.setViewportView(TB_Item);
 		
@@ -237,8 +237,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 			public void keyReleased(KeyEvent e) {
 
 				if(newJTextField_4.getText().length() >= CHAR_MINIMO_PESQUISA){
-					defaultTableModel.setRowCount(0);
-					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), defaultTableModel );
+					itemDefaultTableModel.setRowCount(0);
+					itemController.tablePesquisa(comboBoxItemSelected(), newJTextField_4.getText(), itemDefaultTableModel );
 				}
 			}
 		});
@@ -265,8 +265,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		JButton btnTodos = new JButton("Todos");
 		btnTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defaultTableModel.setRowCount(0);
-				itemController.tablePesquisa(ItemController.PESQUISAR_NOME,"", defaultTableModel );
+				itemDefaultTableModel.setRowCount(0);
+				itemController.tablePesquisa(ItemController.PESQUISAR_NOME,"", itemDefaultTableModel );
 				newJTextField_4.setText("");
 			}
 		});
@@ -396,6 +396,11 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		getContentPane().add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(444, 415, 89, 23);
 		getContentPane().add(btnCancelar);
 		
@@ -404,7 +409,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private void selecionaItem() {
 		try {
-			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(TB_Item.getSelectedRow(), 0 ).toString() ) );
+			itemController.setItem( itemController.getItemDao( itemDefaultTableModel.getValueAt(TB_Item.getSelectedRow(), 0 ).toString() ) );
 			
 			preencheCamposItem(itemController.getItem().getCodCliente(), itemController.getItem().getCodItem(),
 					   			itemController.getItem().getNome(), itemController.getItem().getDescricao(),
@@ -412,7 +417,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 			
 			tabbedPane_1.setSelectedIndex(0);
 			newJTextField_4.setText("");
-			defaultTableModel.setRowCount(0);
+			itemDefaultTableModel.setRowCount(0);
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Por favor, selecione um Item", "Erro", JOptionPane.ERROR_MESSAGE);
