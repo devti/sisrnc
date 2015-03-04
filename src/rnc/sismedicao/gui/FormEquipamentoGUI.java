@@ -45,7 +45,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private static FormEquipamentoGUI formEquipamentoGUI;
 	private JTable table;
 	private JTable table_1;
-	private JTable table_2;
+	private JTable TB_Item;
 
 	private NewJTextField newJTextField_4;
 	
@@ -189,8 +189,8 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		panel_5.add(scrollPane_3);
 		
 		
-		table_2 = new JTable();
-		table_2.addMouseListener(new MouseAdapter() {
+		TB_Item = new JTable();
+		TB_Item.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2){
@@ -198,7 +198,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 				}
 			}
 		});
-		table_2.setModel(new DefaultTableModel(
+		TB_Item.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -212,12 +212,12 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 				return columnEditables[column];
 			}
 		});
-		table_2.getColumnModel().getColumn(0).setResizable(false);
-		table_2.getColumnModel().getColumn(0).setMaxWidth(75);
-		table_2.getColumnModel().getColumn(1).setResizable(false);
-		defaultTableModel = (DefaultTableModel)table_2.getModel();		
+		TB_Item.getColumnModel().getColumn(0).setResizable(false);
+		TB_Item.getColumnModel().getColumn(0).setMaxWidth(75);
+		TB_Item.getColumnModel().getColumn(1).setResizable(false);
+		defaultTableModel = (DefaultTableModel)TB_Item.getModel();		
 		
-		scrollPane_3.setViewportView(table_2);
+		scrollPane_3.setViewportView(TB_Item);
 		
 		JLabel lblBuscaRpida_1 = new JLabel("Busca r\u00E1pida:");
 		lblBuscaRpida_1.setBounds(29, 14, 73, 14);
@@ -404,7 +404,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private void selecionaItem() {
 		try {
-			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(table_2.getSelectedRow(), 0 ).toString() ) );
+			itemController.setItem( itemController.getItemDao( defaultTableModel.getValueAt(TB_Item.getSelectedRow(), 0 ).toString() ) );
 			
 			preencheCamposItem(itemController.getItem().getCodCliente(), itemController.getItem().getCodItem(),
 					   			itemController.getItem().getNome(), itemController.getItem().getDescricao(),

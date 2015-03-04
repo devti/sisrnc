@@ -9,6 +9,7 @@ public class VerificadoresEFormatadores {
 	public static final int CNPJ_FORMAT = 2;
 	public static final int DATE_FORMAT = 3;
 	public static final int FONE_FORMAT = 4;
+	public static final int CEP_FORMAT = 5;
 	
 	/**
 	 * Método preenche com "0" a esquerda o valor passado no primeiro parâmetro de acordo com a quantidade passada no segundo parâmetro
@@ -68,6 +69,9 @@ public class VerificadoresEFormatadores {
 				break;
 			case FONE_FORMAT:
 				mascara = "(##)####-####";
+				break;
+			case CEP_FORMAT:
+				mascara = "#####-###";
 				break;
 			default:
 				mascara = "";	

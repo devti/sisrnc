@@ -27,10 +27,12 @@ import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 public class PrincipalGUI extends JFrame {
 	
 	private JPanel contentPane;
-	private FormUnidadeDeMedicaoGUI unidadeDeMedicaoGUI;
+	private FormUnidadeDeMedicaoGUI formUnidadeDeMedicaoGUI;
 	private FormEquipamentoGUI formEquipamentoGUI;
+	private FormPessoaGUI formPessoaGUI;
+	
 	private DesktopBackgroundGUI desktopBackgroundGUI;
-
+	
 	private static final int TELA_WIDTH = 1280;
 	private static final int TELA_HEIGTH = 768;
 	
@@ -100,9 +102,9 @@ public class PrincipalGUI extends JFrame {
 		JMenuItem MT_UnidadeDeMedio = new JMenuItem("Unidade de Medi\u00E7\u00E3o");
 		MT_UnidadeDeMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				unidadeDeMedicaoGUI = FormUnidadeDeMedicaoGUI.getInstance();
-				unidadeDeMedicaoGUI.setVisible(true);
-				unidadeDeMedicaoGUI.requestDefaultFocus();
+				formUnidadeDeMedicaoGUI = FormUnidadeDeMedicaoGUI.getInstance();
+				formUnidadeDeMedicaoGUI.setVisible(true);
+				formUnidadeDeMedicaoGUI.requestDefaultFocus();
 			}
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);
@@ -118,6 +120,16 @@ public class PrincipalGUI extends JFrame {
 		});
 		MT_Equipamentos.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_Equipamentos);
+		
+		JMenuItem MT_Pessoa = new JMenuItem("Pessoa");
+		MT_Pessoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formPessoaGUI = FormPessoaGUI.getInstance();
+				formPessoaGUI.setVisible(true);
+				formPessoaGUI.requestDefaultFocus();
+			}
+		});
+		MN_Cadastros.add(MT_Pessoa);
 		
 		JMenu MN_Seguranca = new JMenu("Seguran\u00E7a");
 		MN_Seguranca.setDoubleBuffered(true);

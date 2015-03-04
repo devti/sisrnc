@@ -118,9 +118,9 @@ public class NewJFrameForm extends JFrame {
 		System.out.println("Esse método deve ser sobreescrito");
 	}
 
-	public void requestDefaultFocus() {
-		System.out.println("Esse método deve ser sobreescrito");
-	}
+//	public void requestDefaultFocus() {
+//		System.out.println("Esse método deve ser sobreescrito");
+//	}
 
 	public void mouseClickedExcluir() {
 		System.out.println("Esse método deve ser sobreescrito");
