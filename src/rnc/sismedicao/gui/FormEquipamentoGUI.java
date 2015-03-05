@@ -26,12 +26,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import rnc.sismedicao.controller.ItemController;
+import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.NewJFrameForm;
 import rnc.sismedicao.gui.util.NewJTextField;
-import rnc.sismedicao.model.dao.tableModel.ItemTableModel;
-import rnc.sismedicao.model.dao.tableModel.UnidadeDeMedicaoTableModel;
 import rnc.sismedicao.model.util.VerificadoresEFormatadores;
 
 @SuppressWarnings("serial")
@@ -39,32 +38,72 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	private static final int TELA_WIDTH = 568;
 	private static final int TELA_HEIGTH = 485;
-	
+
 	private static final int CHAR_MINIMO_PESQUISA = 3;
-	
+
 	private static FormEquipamentoGUI formEquipamentoGUI;
-	private JTable TB_ItemMedicao;
-	private JTable TB_ItemMedicaoEscolhido;
+	private JTable TB_UnidadeMedicao;
+	private JTable TB_UnidadeMedicaoEscolhido;
 	private JTable TB_Item;
 
 	private NewJTextField TF_PesquisaItem;
-	
+
 	private JLabel LB_DescricaoItem;
 	private JLabel LB_MarcaItem;
 	private JLabel LB_CodClienteItem;
 	private JLabel LB_NomeItem;
 	private JLabel LB_ReferenciaItem;
+	private JLabel LB_CodigoEquipamento;
+	private JLabel LB_DescricaoEquipamento;
+	private JLabel LB_RegistroEquipamento;
+
+	private NewJTextField TF_CodigoEquipamento;
+	private NewJTextField TF_DescricaoEquipamento;
 
 	@SuppressWarnings("rawtypes")
 	private JComboBox CB_Item;
-	
-	private JPanel PN_InformacaoItem; 
-	
+
+	private JTabbedPane tabbedPane;
 	private JTabbedPane tabbedPane_1;
-	
+
+	private JPanel PN_InformacaoItem;
+	private JPanel PN_Identificacao;
+
 	private DefaultTableModel itemDefaultTableModel;
+	private DefaultTableModel unidadeMedicaoDefaultTableModel;
 	
 	private ItemController itemController;
+	private UnidadeDeMedicaoController unidadeDeMedicaoController;
+	
+	private JLabel LB_Nome;
+	private JLabel LB_Descricao;
+	private JLabel LB_Marca;
+	private JLabel LB_Codigo;
+	private JLabel LB_Referencia;
+	private JPanel PN_Item;
+	private NewJTextField TF_RegistroEquipamento;
+	private JPanel PN_SelecionarItem;
+	private JScrollPane scrollPane_3;
+	private JLabel LB_PesquisaItem;
+	private JButton BT_SelecionaItem;
+	private JButton BT_NovoItem;
+	private JButton BT_ListaTodosItem;
+	private JPanel PN_ItemMedicao;
+	private NewJTextField TF_PesquisaItemMedicao;
+	private JLabel LB_PesquisaItemMedicao;
+	private JComboBox CB_ItemMedicao;
+	private JScrollPane SP_TBItemMedicao;
+	private JScrollPane SP_TBItemMedicaoEscolhido;
+	private JLabel lblAdicionar;
+	private JLabel lblRetirar;
+	private JButton btnTodos_1;
+	private JPanel PN_Local;
+	private JPanel PN_Complemento;
+	private JLabel LB_Observacao;
+	private JScrollPane SP_TPObservacao;
+	private JTextPane TP_Observacao;
+	private JButton BT_Salvar;
+	private JButton BT_Cancelar;
 	
 	
 	public static FormEquipamentoGUI getInstance(){
@@ -79,49 +118,50 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private FormEquipamentoGUI() {
 
 		itemController = new ItemController();
+		unidadeDeMedicaoController = new UnidadeDeMedicaoController();
 		
 		setTitle("Criar Equipamento");
 		
 		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH, TELA_HEIGTH, false);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 35, 541, 369);
 		getContentPane().add(tabbedPane);
 		
-		JPanel PN_Identificacao = new JPanel();
+		PN_Identificacao = new JPanel();
 		PN_Identificacao.setBackground(Color.WHITE);
 		tabbedPane.addTab("Identifica\u00E7\u00E3o", null, PN_Identificacao, null);
 		tabbedPane.setBackgroundAt(0, Color.WHITE);
 		PN_Identificacao.setLayout(null);
 		
-		NewJTextField TF_CodigoEquipamento = new NewJTextField();
+		TF_CodigoEquipamento = new NewJTextField();
 		TF_CodigoEquipamento.setBounds(66, 11, 84, 18);
 		PN_Identificacao.add(TF_CodigoEquipamento);
 		
-		JLabel LB_CodigoEquipamento = new JLabel("C\u00F3digo:");
+		LB_CodigoEquipamento = new JLabel("C\u00F3digo:");
 		LB_CodigoEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_CodigoEquipamento.setBounds(10, 13, 46, 14);
 		PN_Identificacao.add(LB_CodigoEquipamento);
 		
-		JLabel LB_DescricaoEquipamento = new JLabel("Descri\u00E7\u00E3o:");
+		LB_DescricaoEquipamento = new JLabel("Descri\u00E7\u00E3o:");
 		LB_DescricaoEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_DescricaoEquipamento.setBounds(10, 42, 58, 14);
 		PN_Identificacao.add(LB_DescricaoEquipamento);
 		
-		NewJTextField TF_DescricaoEquipamento = new NewJTextField();
+		TF_DescricaoEquipamento = new NewJTextField();
 		TF_DescricaoEquipamento.setBounds(76, 40, 450, 18);
 		PN_Identificacao.add(TF_DescricaoEquipamento);
 		
-		JLabel LB_RegistroEquipamento = new JLabel("Registro/n\u00BA S\u00E9rie:");
+		LB_RegistroEquipamento = new JLabel("Registro/n\u00BA S\u00E9rie:");
 		LB_RegistroEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LB_RegistroEquipamento.setBounds(160, 13, 108, 14);
 		PN_Identificacao.add(LB_RegistroEquipamento);
 		
-		NewJTextField TF_RegistroEquipamento = new NewJTextField();
+		TF_RegistroEquipamento = new NewJTextField();
 		TF_RegistroEquipamento.setBounds(278, 11, 131, 18);
 		PN_Identificacao.add(TF_RegistroEquipamento);
 		
-		JPanel PN_Item = new JPanel();
+		PN_Item = new JPanel();
 		PN_Item.setBackground(Color.WHITE);
 		PN_Item.setBorder(new TitledBorder(null, "Item", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		PN_Item.setBounds(10, 69, 516, 261);
@@ -136,23 +176,23 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		tabbedPane_1.addTab("Informa\u00E7\u00F5es do Item", null, PN_InformacaoItem, null);
 		PN_InformacaoItem.setLayout(null);
 		
-		JLabel LB_Nome = new JLabel("Nome:");
+		LB_Nome = new JLabel("Nome:");
 		LB_Nome.setBounds(10, 36, 46, 14);
 		PN_InformacaoItem.add(LB_Nome);
 		
-		JLabel LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
+		LB_Descricao = new JLabel("Descri\u00E7\u00E3o:");
 		LB_Descricao.setBounds(10, 76, 63, 14);
 		PN_InformacaoItem.add(LB_Descricao);
 		
-		JLabel LB_Marca = new JLabel("Marca:");
+		LB_Marca = new JLabel("Marca:");
 		LB_Marca.setBounds(10, 101, 46, 14);
 		PN_InformacaoItem.add(LB_Marca);
 		
-		JLabel LB_Codigo = new JLabel("C\u00F3digo:");
+		LB_Codigo = new JLabel("C\u00F3digo:");
 		LB_Codigo.setBounds(10, 11, 46, 14);
 		PN_InformacaoItem.add(LB_Codigo);
 		
-		JLabel LB_Referencia = new JLabel("Refer\u00EAncia:");
+		LB_Referencia = new JLabel("Refer\u00EAncia:");
 		LB_Referencia.setBounds(287, 11, 70, 14);
 		PN_InformacaoItem.add(LB_Referencia);
 		
@@ -180,11 +220,11 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		LB_ReferenciaItem.setBounds(353, 11, 128, 14);
 		PN_InformacaoItem.add(LB_ReferenciaItem);
 		
-		JPanel PN_SelecionarItem = new JPanel();
+		PN_SelecionarItem = new JPanel();
 		tabbedPane_1.addTab("Selecionar Item", null, PN_SelecionarItem, null);
 		PN_SelecionarItem.setLayout(null);
 		
-		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(10, 41, 471, 129);
 		PN_SelecionarItem.add(scrollPane_3);
 		
@@ -219,7 +259,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		
 		scrollPane_3.setViewportView(TB_Item);
 		
-		JLabel LB_PesquisaItem = new JLabel("Busca r\u00E1pida:");
+		LB_PesquisaItem = new JLabel("Busca r\u00E1pida:");
 		LB_PesquisaItem.setBounds(29, 14, 73, 14);
 		PN_SelecionarItem.add(LB_PesquisaItem);
 		
@@ -248,7 +288,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		CB_Item.setBounds(301, 11, 102, 20);
 		PN_SelecionarItem.add(CB_Item);
 		
-		JButton BT_SelecionaItem = new JButton("Selecionar");
+		BT_SelecionaItem = new JButton("Selecionar");
 		BT_SelecionaItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selecionaItem();
@@ -258,11 +298,11 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		BT_SelecionaItem.setBounds(360, 176, 102, 21);
 		PN_SelecionarItem.add(BT_SelecionaItem);
 		
-		JButton BT_NovoItem = new JButton("Cadastrar Novo Item");
+		BT_NovoItem = new JButton("Cadastrar Novo Item");
 		BT_NovoItem.setBounds(26, 175, 141, 21);
 		PN_SelecionarItem.add(BT_NovoItem);
 		
-		JButton BT_ListaTodosItem = new JButton("Todos");
+		BT_ListaTodosItem = new JButton("Todos");
 		BT_ListaTodosItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				itemDefaultTableModel.setRowCount(0);
@@ -273,32 +313,32 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		BT_ListaTodosItem.setBounds(412, 10, 69, 23);
 		PN_SelecionarItem.add(BT_ListaTodosItem);
 		
-		JPanel PN_ItemMedicao = new JPanel();
+		PN_ItemMedicao = new JPanel();
 		PN_ItemMedicao.setBackground(Color.WHITE);
 		tabbedPane.addTab("Itens de Medi\u00E7\u00E3o", null, PN_ItemMedicao, null);
 		PN_ItemMedicao.setLayout(null);
 		
-		NewJTextField TF_PesquisaItemMedicao = new NewJTextField();
+		TF_PesquisaItemMedicao = new NewJTextField();
 		TF_PesquisaItemMedicao.setBounds(94, 11, 226, 18);
 		PN_ItemMedicao.add(TF_PesquisaItemMedicao);
 		
-		JLabel LB_PesquisaItemMedicao = new JLabel("Busca r\u00E1pida:");
+		LB_PesquisaItemMedicao = new JLabel("Busca r\u00E1pida:");
 		LB_PesquisaItemMedicao.setBounds(22, 13, 84, 14);
 		PN_ItemMedicao.add(LB_PesquisaItemMedicao);
 		
-		JComboBox CB_ItemMedicao = new JComboBox();
+		CB_ItemMedicao = new JComboBox();
 		CB_ItemMedicao.setModel(new DefaultComboBoxModel(new String[] {"C\u00F3digo", "Descri\u00E7\u00E3o"}));
 		CB_ItemMedicao.setBounds(330, 10, 84, 20);
 		PN_ItemMedicao.add(CB_ItemMedicao);
 		
-		JScrollPane SP_TBItemMedicao = new JScrollPane();
+		SP_TBItemMedicao = new JScrollPane();
 		SP_TBItemMedicao.setBounds(10, 40, 516, 112);
 		PN_ItemMedicao.add(SP_TBItemMedicao);
 		
-		TB_ItemMedicao = new JTable();
-		SP_TBItemMedicao.setViewportView(TB_ItemMedicao);
+		TB_UnidadeMedicao = new JTable();
+		SP_TBItemMedicao.setViewportView(TB_UnidadeMedicao);
 		
-		TB_ItemMedicao.setModel(new DefaultTableModel(
+		TB_UnidadeMedicao.setModel(new DefaultTableModel(
 			new Object[][] {
 				},
 				new String[] {
@@ -312,13 +352,18 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 					return columnEditables[column];
 				}
 			});
+		TB_UnidadeMedicao.getColumnModel().getColumn(0).setResizable(false);
+		TB_UnidadeMedicao.getColumnModel().getColumn(0).setMaxWidth(75);
+		TB_UnidadeMedicao.getColumnModel().getColumn(1).setResizable(false);
+		TB_UnidadeMedicao.getColumnModel().getColumn(1).setPreferredWidth(200);
+		unidadeMedicaoDefaultTableModel = (DefaultTableModel)TB_UnidadeMedicao.getModel();
 		
-		JScrollPane SP_TBItemMedicaoEscolhido = new JScrollPane();
+		SP_TBItemMedicaoEscolhido = new JScrollPane();
 		SP_TBItemMedicaoEscolhido.setBounds(10, 208, 516, 122);
 		PN_ItemMedicao.add(SP_TBItemMedicaoEscolhido);
 		
-		TB_ItemMedicaoEscolhido = new JTable();
-		TB_ItemMedicaoEscolhido.setModel(new DefaultTableModel(
+		TB_UnidadeMedicaoEscolhido = new JTable();
+		TB_UnidadeMedicaoEscolhido.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -332,19 +377,19 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 				return columnEditables[column];
 			}
 		});
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(0).setResizable(false);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(0).setMinWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(0).setMaxWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(1).setResizable(false);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(1).setMinWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(1).setMaxWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(2).setResizable(false);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(2).setMinWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(2).setMaxWidth(75);
-		TB_ItemMedicaoEscolhido.getColumnModel().getColumn(3).setResizable(false);
-		SP_TBItemMedicaoEscolhido.setViewportView(TB_ItemMedicaoEscolhido);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(0).setResizable(false);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(0).setMinWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(0).setMaxWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(1).setResizable(false);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(1).setMinWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(1).setMaxWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(2).setResizable(false);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(2).setMinWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(2).setMaxWidth(75);
+		TB_UnidadeMedicaoEscolhido.getColumnModel().getColumn(3).setResizable(false);
+		SP_TBItemMedicaoEscolhido.setViewportView(TB_UnidadeMedicaoEscolhido);
 		
-		JLabel lblAdicionar = new JLabel("Adicionar");
+		lblAdicionar = new JLabel("Adicionar");
 		lblAdicionar.setDoubleBuffered(true);
 		lblAdicionar.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -355,7 +400,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		lblAdicionar.setBounds(174, 161, 84, 28);
 		PN_ItemMedicao.add(lblAdicionar);
 		
-		final JLabel lblRetirar = new JLabel("Retirar");
+		lblRetirar = new JLabel("Retirar");
 		lblRetirar.setDoubleBuffered(true);
 		lblRetirar.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -366,45 +411,45 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		lblRetirar.setBounds(278, 173, 84, 28);
 		PN_ItemMedicao.add(lblRetirar);
 		
-		JButton btnTodos_1 = new JButton("Todos");
+		unidadeDeMedicaoController.tablePesquisa(UnidadeDeMedicaoController.PESQUISAR_NOME,"", unidadeMedicaoDefaultTableModel );
+		
+		btnTodos_1 = new JButton("Todos");
 		btnTodos_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				unidadeMedicaoDefaultTableModel.setRowCount(0);
+				unidadeDeMedicaoController.tablePesquisa(UnidadeDeMedicaoController.PESQUISAR_NOME,"", unidadeMedicaoDefaultTableModel );
+				TF_PesquisaItemMedicao.setText("");
 			}
 		});
 		btnTodos_1.setBounds(424, 9, 84, 23);
 		PN_ItemMedicao.add(btnTodos_1);
-		TB_ItemMedicao.getColumnModel().getColumn(0).setResizable(false);
-		TB_ItemMedicao.getColumnModel().getColumn(0).setMaxWidth(75);
-		TB_ItemMedicao.getColumnModel().getColumn(1).setResizable(false);
-		TB_ItemMedicao.getColumnModel().getColumn(1).setPreferredWidth(200);
 		
-		JPanel PN_Local = new JPanel();
+		PN_Local = new JPanel();
 		PN_Local.setBackground(Color.WHITE);
 		tabbedPane.addTab("Local", null, PN_Local, null);
 		PN_Local.setLayout(null);
 		
-		JPanel PN_Complemento = new JPanel();
+		PN_Complemento = new JPanel();
 		PN_Complemento.setBackground(Color.WHITE);
 		tabbedPane.addTab("Dados Complementares", null, PN_Complemento, null);
 		PN_Complemento.setLayout(null);
 		
-		JLabel LB_Observacao = new JLabel("Observa\u00E7\u00F5es:");
+		LB_Observacao = new JLabel("Observa\u00E7\u00F5es:");
 		LB_Observacao.setBounds(10, 11, 73, 14);
 		PN_Complemento.add(LB_Observacao);
 		
-		JScrollPane SP_TPObservacao = new JScrollPane();
+		SP_TPObservacao = new JScrollPane();
 		SP_TPObservacao.setBounds(10, 29, 516, 99);
 		PN_Complemento.add(SP_TPObservacao);
 		
-		JTextPane TP_Observacao = new JTextPane();
+		TP_Observacao = new JTextPane();
 		SP_TPObservacao.setViewportView(TP_Observacao);
 		
-		JButton BT_Salvar = new JButton("Salvar");
+		BT_Salvar = new JButton("Salvar");
 		BT_Salvar.setBounds(345, 415, 89, 23);
 		getContentPane().add(BT_Salvar);
 		
-		JButton BT_Cancelar = new JButton("Cancelar");
+		BT_Cancelar = new JButton("Cancelar");
 		BT_Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -460,6 +505,5 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	public void requestDefaultFocus() {
 		tabbedPane_1.setSelectedIndex(1);
 		TF_PesquisaItem.requestFocus();
-		
 	}
 }
