@@ -89,11 +89,13 @@ public class LoginGUI extends JFrame {
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(),
 							"Aviso", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
 				}
 			}
 
 		});
+
+		//captura o enter para fazer login
+		getRootPane().setDefaultButton(BT_Confirmar);
 
 		// Captura do ESC para fechar Janela
 		JRootPane meurootpane = getRootPane();
@@ -126,7 +128,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(label);
 
 		JLabel lblVerso = new JLabel("Vers\u00E3o 1.0");
-		lblVerso.setBounds(96, 327, 57, 14);
+		lblVerso.setBounds(96, 327, 72, 14);
 		contentPane.add(lblVerso);
 	}
 
@@ -143,14 +145,12 @@ public class LoginGUI extends JFrame {
 		} catch (SenhaInvalidaException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		} catch (RepositorioException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
-		} catch(Exception e){
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
 		}
