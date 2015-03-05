@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
+import rnc.sismedicao.controller.ItemController;
+import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -112,6 +115,45 @@ public class UnidadeDeMedicaoDAO {
 		
 		
 		return unidadesDeMedicao;
+	}
+
+	public void searchRealTime(int opcao, String pesquisa, DefaultTableModel modelo) {
+		String campo;
+		
+		switch (opcao) {
+		case UnidadeDeMedicaoController.PESQUISAR_CODIGO:
+			campo = "CODUNIDADE";
+			break;
+		case UnidadeDeMedicaoController.PESQUISAR_NOME:
+			campo = "DESCRICAO";
+			break;
+		default:
+			throw new RuntimeException("Opção inválida");
+		} 
+		
+		String query = "SELECT * FROM UNIDADEMEDICAO WHERE "+campo+" LIKE '%"+pesquisa+"%';";		
+		
+		ResultSet resultSet = null; 
+		
+		try {
+			
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()){
+				modelo.addRow(new Object[]{resultSet.getString("CODUNIDADE"), resultSet.getString("DESCRICAO")});
+			}
+		
+		} catch(SQLException e){ 
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	public UnidadeDeMedicao getUnidadeDeMedicao(String codUnidadeDeMedicao) {
+		
+		return null;
 	}
 	
 	
