@@ -21,12 +21,8 @@ public class ItemMedicaoDAO {
 	}
 	
 	public int insertItemMedicao(ItemMedicao itemMedicao, int codEquipamento, int codUnidade){
-		
-		if(JOptionPane.showConfirmDialog(null, "Tem certeza que quer associar este Item para medição ao Equipamento?"
-										 , "Confirmar associação"
-										 , JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
-			
-		String query = "INSERT INTO ITEMMEDICAO(CODEQUIPAMENTO, CODUNIDADE, DESCRICAO, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
+				
+		String query = "INSERT INTO ITEMMEDICAO(CODEQUIPAMENTO, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
 		
 			try {
 				int i = 0;
@@ -34,7 +30,6 @@ public class ItemMedicaoDAO {
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 				preparedStatement.setInt(++i, codEquipamento);
 				preparedStatement.setInt(++i, codUnidade);
-				preparedStatement.setString(++i, itemMedicao.getDescricao());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
 				
@@ -48,13 +43,11 @@ public class ItemMedicaoDAO {
 					itemMedicao.setCodItemMedicao(resultSet.getInt(1));
 				}
 				
-				JOptionPane.showMessageDialog(null, "Item de medição associado com sucesso", "Associado com sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		}
 	return itemMedicao.getCodItemMedicao();
 	}
 	

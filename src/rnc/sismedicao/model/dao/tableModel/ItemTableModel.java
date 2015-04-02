@@ -43,12 +43,8 @@ public class ItemTableModel extends AbstractTableModel implements TableModelList
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Item item = itens.get(rowIndex);
-		System.out.print(rowIndex + "  -  ");
-		System.out.println(item.getCodCliente() +" - "+ item.getNome());
 		switch (columnIndex) {
 		case 0:
-			return item.getCodCliente();
-		case 1:
 			return item.getNome();
 		}
 		return null;
@@ -67,6 +63,5 @@ public class ItemTableModel extends AbstractTableModel implements TableModelList
 	public Class getColumnClass(int coluna){
 		return getValueAt(0, coluna).getClass();
 	}
-
 	
 }

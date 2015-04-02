@@ -19,11 +19,7 @@ public class EnderecoDAO {
 
 	public int insertEndereco(Endereco endereco) {
 
-		if (JOptionPane.showConfirmDialog(null,
-				"tem certeza que quer cadastrar o endereço?",
-				"Confirmar cadastro", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-
-			String query = "INSERT INTO ENDERECO(CEP, RUA, NUMERO, BAIRRO, CIDADE) VALUES (?, ?, ?, ?, ?) ";
+			String query = "INSERT INTO ENDERECO( RUA, NUMERO, BAIRRO, CIDADE) VALUES ( ?, ?, ?, ?) ";
 
 			try {
 				int i = 0;
@@ -31,7 +27,6 @@ public class EnderecoDAO {
 				PreparedStatement preparedStatement = Conexao.getConnection()
 						.prepareStatement(query,
 								PreparedStatement.RETURN_GENERATED_KEYS);
-				preparedStatement.setString(++i, endereco.getCep());
 				preparedStatement.setString(++i, endereco.getRua());
 				preparedStatement.setInt(++i, endereco.getNumero());
 				preparedStatement.setString(++i, endereco.getCidade());
@@ -46,15 +41,10 @@ public class EnderecoDAO {
 					endereco.setCodEndereco(resultSet.getInt(1));
 				}
 
-				JOptionPane.showMessageDialog(null,
-						"Endereço cadastrado com sucesso",
-						"Cadastrado com sucesso",
-						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
-		}
 		return endereco.getCodEndereco();
 	}
 

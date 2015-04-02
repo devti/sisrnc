@@ -1,22 +1,32 @@
 package rnc.sismedicao.fachada;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-
-
+import rnc.sismedicao.controller.PessoaController;
+import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
+import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
+import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
+import rnc.sismedicao.controller.exception.UnidadeDeMedicaoNaoEncontradaException;
+import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
+import rnc.sismedicao.model.beans.Pessoa;
+import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
-
 
 public class Fachada {
 
 	private static Fachada instance = null;
 	private UsuarioController controladorUsuario;
+	private PessoaController controladorPessoa;
+	private UnidadeDeMedicaoController controladorUnidadeMedicao;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
+		this.controladorPessoa = new PessoaController();
+		this.controladorUnidadeMedicao = new UnidadeDeMedicaoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -30,9 +40,73 @@ public class Fachada {
 		return Fachada.instance;
 	}
 
-	
+	public <E> void cadastrar(E element) throws Exception,
+			PessoaJaCadastradaException {
+		if (element instanceof Usuario)
+			this.controladorUsuario.cadastrar((Usuario) element);
+		else if (element instanceof Pessoa)
+			this.controladorPessoa.cadastrar((Pessoa) element);
+		else if (element instanceof UnidadeDeMedicao)
+			this.controladorUnidadeMedicao.cadastrar((UnidadeDeMedicao) element);
+	}
+
+	public void pessoaRemover(int codPessoa) throws RepositorioException,
+			SQLException {
+		this.controladorPessoa.remover(codPessoa);
+	}
+
 	public boolean usuarioLogin(String usuario, String senha)
-		throws RepositorioException, SQLException, SenhaInvalidaException {
+			throws RepositorioException, SQLException, SenhaInvalidaException {
 		return controladorUsuario.login(usuario, senha);
+	}
+
+	public void atualizar(Pessoa pessoa) {
+
+	}
+
+	public ArrayList<Pessoa> pessoaPesquisaAvancada(String atributo,
+			String pesquisa) throws SQLException, RepositorioException {
+
+		return this.controladorPessoa.pesquisaAvancada(atributo, pesquisa);
+	}
+
+	public ArrayList<Usuario> usuarioPesquisaAvancada(String atributo,
+			String pesquisa) throws SQLException, RepositorioException {
+
+		return this.controladorUsuario.pesquisaAvancada(atributo, pesquisa);
+	}
+
+	public Pessoa pessoaProcurar(int codPessoa)
+			throws PessoaNaoEncontradaException, RepositorioException,
+			SQLException {
+		return this.controladorPessoa.procurar(codPessoa);
+	}
+
+	public void usuarioRemover(int codPessoa) throws RepositorioException,
+			SQLException {
+		this.controladorUsuario.remover(codPessoa);
+
+	}
+
+	public Usuario usuarioProcurar(int codPessoa)
+			throws UsuarioNaoEncontradoException, RepositorioException,
+			SQLException {
+		return this.controladorUsuario.procurar(codPessoa);
+	}
+
+	public ArrayList<UnidadeDeMedicao> unidadeDeMedicaoPesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException, RepositorioException {
+		return this.controladorUnidadeMedicao.pesquisaAvancada(atributo, pesquisa);
+	}
+
+	public UnidadeDeMedicao unidadeProcurar(String codUnidade) throws RepositorioException,
+			SQLException, UnidadeDeMedicaoNaoEncontradaException {
+		return this.controladorUnidadeMedicao.procurar(codUnidade);
+		
+	}
+
+	public ArrayList<UnidadeDeMedicao> listarUnidadeMedicao() throws SQLException, RepositorioException {
+		
+		return this.controladorUnidadeMedicao.listarUnidadeMedicao();
 	}
 }

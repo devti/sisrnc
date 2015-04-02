@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -21,7 +20,6 @@ import rnc.sismedicao.gui.FormUnidadeDeMedicaoGUI;
 public class NewJFrameForm extends JFrame {
 
 	public JPanel toolBarPane;
-	public JToolBar toolBar;
 	public JLabel label;
 	public JLabel LB_NovoIcon;
 	public JLabel LB_ExcluirIcon;
@@ -42,17 +40,12 @@ public class NewJFrameForm extends JFrame {
 		setContentPane(toolBarPane);
 		toolBarPane.setLayout(null);
 		
-		toolBar = new JToolBar();
-		toolBar.setBounds(0, 5, 434, 22);
-		toolBar.setFloatable(false);
-		toolBarPane.add(toolBar);
 		
 		label = new JLabel("");
 		label.setMinimumSize(new Dimension(24, 16));
 		label.setMaximumSize(new Dimension(8, 16));
 		label.setDoubleBuffered(true);
 		label.setAlignmentX(0.5f);
-		toolBar.add(label);
 		
 		
 		LB_NovoIcon = new JLabel("");
@@ -78,7 +71,6 @@ public class NewJFrameForm extends JFrame {
 		LB_NovoIcon.setMinimumSize(new Dimension(24, 16));
 		LB_NovoIcon.setMaximumSize(new Dimension(24, 16));
 		LB_NovoIcon.setDoubleBuffered(true);
-		toolBar.add(LB_NovoIcon);
 		
 		LB_ExcluirIcon = new JLabel("");
 		imageIconExcluirMouseOut = new ImageIcon(FormUnidadeDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png"));
@@ -102,15 +94,13 @@ public class NewJFrameForm extends JFrame {
 		LB_ExcluirIcon.setMinimumSize(new Dimension(24, 16));
 		LB_ExcluirIcon.setMaximumSize(new Dimension(24, 16));
 		LB_ExcluirIcon.setDoubleBuffered(true);
-		LB_ExcluirIcon.setAlignmentX(0.5f);
-		toolBar.add(LB_ExcluirIcon);
+		LB_ExcluirIcon.setAlignmentX(0.5f);	
 		
 		separator = new JSeparator();
 		separator.setMinimumSize(new Dimension(8, 16));
 		separator.setMaximumSize(new Dimension(8, 16));
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setDoubleBuffered(true);
-		toolBar.add(separator);
 	}
 
 	

@@ -9,6 +9,7 @@ public class UnidadeDeMedicao {
 	
 	}
 
+	
 	public UnidadeDeMedicao(String codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;

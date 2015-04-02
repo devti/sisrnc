@@ -1,6 +1,6 @@
 package rnc.sismedicao.model.beans;
 
-public class Usuario extends Pessoa{
+public class Usuario {
 	
 	private int codUsuario;
 	private int codPessoa;
@@ -12,6 +12,12 @@ public class Usuario extends Pessoa{
 		this.login = login;
 		this.senha = senha;
 	}
+	
+	public Usuario(String login, String senha) {
+		this.login = login;
+		this.senha = senha;
+	}
+
 
 	public int getCodUsuario() {
 		return codUsuario;

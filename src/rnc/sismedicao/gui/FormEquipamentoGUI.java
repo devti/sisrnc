@@ -106,7 +106,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	private JButton BT_Cancelar;
 	
 	
-	public static FormEquipamentoGUI getInstance(){
+	public static FormEquipamentoGUI getInstance() throws Exception{
 		if(formEquipamentoGUI == null){
 			return formEquipamentoGUI = new FormEquipamentoGUI();
 		}
@@ -115,7 +115,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private FormEquipamentoGUI() {
+	private FormEquipamentoGUI() throws Exception {
 
 		itemController = new ItemController();
 		unidadeDeMedicaoController = new UnidadeDeMedicaoController();
@@ -197,7 +197,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		PN_InformacaoItem.add(LB_Referencia);
 		
 		LB_DescricaoItem = new JLabel("");
-		LB_DescricaoItem.setBounds(65, 76, 416, 14);
+		LB_DescricaoItem.setBounds(78, 76, 403, 14);
 		PN_InformacaoItem.add(LB_DescricaoItem);
 		
 		JSeparator separator = new JSeparator();
@@ -205,7 +205,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		PN_InformacaoItem.add(separator);
 		
 		LB_MarcaItem = new JLabel("");
-		LB_MarcaItem.setBounds(65, 101, 112, 14);
+		LB_MarcaItem.setBounds(51, 101, 126, 14);
 		PN_InformacaoItem.add(LB_MarcaItem);
 		
 		LB_CodClienteItem = new JLabel("");
@@ -213,7 +213,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		PN_InformacaoItem.add(LB_CodClienteItem);
 		
 		LB_NomeItem = new JLabel("");
-		LB_NomeItem.setBounds(51, 36, 430, 14);
+		LB_NomeItem.setBounds(61, 36, 420, 14);
 		PN_InformacaoItem.add(LB_NomeItem);
 		
 		LB_ReferenciaItem = new JLabel("000000");
@@ -465,7 +465,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		try {
 			itemController.setItem( itemController.getItemDao( itemDefaultTableModel.getValueAt(TB_Item.getSelectedRow(), 0 ).toString() ) );
 			
-			preencheCamposItem(itemController.getItem().getCodCliente(), itemController.getItem().getCodItem(),
+			preencheCamposItem(itemController.getItem().getCodItem(),
 					   			itemController.getItem().getNome(), itemController.getItem().getDescricao(),
 					   			itemController.getItem().getMarca());
 			
@@ -479,8 +479,7 @@ public class FormEquipamentoGUI extends NewJFrameForm implements InterfaceFormGU
 		} 
 	}
 	
-	private void preencheCamposItem(String codCliente, int referencia, String nome, String descricao, String marca){
-		this.LB_CodClienteItem.setText(codCliente);
+	private void preencheCamposItem(int referencia, String nome, String descricao, String marca){
 		this.LB_ReferenciaItem.setText(VerificadoresEFormatadores.zeroFillNumber(referencia, 6));
 		this.LB_NomeItem.setText(nome);
 		this.LB_DescricaoItem.setText(descricao);

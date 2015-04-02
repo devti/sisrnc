@@ -84,10 +84,9 @@ public class ItemDAO {
 			while (resultSet.next()) {
 				Item item = new Item();
 				item.setCodItem(resultSet.getInt(1));
-				item.setCodCliente(resultSet.getString(2));
-				item.setNome(resultSet.getString(3));
-				item.setDescricao(resultSet.getString(4));
-				item.setMarca(resultSet.getString(5));
+				item.setNome(resultSet.getString(2));
+				item.setDescricao(resultSet.getString(3));
+				item.setMarca(resultSet.getString(4));
 
 				itens.add(item);
 			}
@@ -135,7 +134,6 @@ public class ItemDAO {
 			int i = 0;
 			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
 
-			preparedStatement.setString(++i, item.getCodCliente());
 			preparedStatement.setString(++i, item.getNome());
 			preparedStatement.setString(++i, item.getDescricao());
 			preparedStatement.setString(++i, item.getMarca());
@@ -199,7 +197,6 @@ public class ItemDAO {
 			
 			if(resultSet.next()){
 				item.setCodItem(resultSet.getInt("CODITEM"));
-				item.setCodCliente(resultSet.getString("CODCLIENTE"));
 				item.setNome(resultSet.getString("NOME"));
 				item.setDescricao(resultSet.getString("DESCRICAO"));
 				item.setMarca(resultSet.getString("MARCA"));

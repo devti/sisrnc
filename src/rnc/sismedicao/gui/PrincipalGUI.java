@@ -24,7 +24,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
@@ -38,6 +37,8 @@ public class PrincipalGUI extends JFrame {
 	private FormUnidadeDeMedicaoGUI formUnidadeDeMedicaoGUI;
 	private FormEquipamentoGUI formEquipamentoGUI;
 	private FormPessoaGUI formPessoaGUI;
+	private CadastroItemGUI cadastroItemGUI;
+	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -159,6 +160,8 @@ public class PrincipalGUI extends JFrame {
 		JMenuItem MT_Itens = new JMenuItem("Itens");
 		MT_Itens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cadastroItemGUI = CadastroItemGUI.getInstance();
+				cadastroItemGUI.setVisible(true);
 
 			}
 		});
@@ -181,9 +184,14 @@ public class PrincipalGUI extends JFrame {
 		JMenuItem MT_Equipamentos = new JMenuItem("Equipamentos");
 		MT_Equipamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				formEquipamentoGUI = FormEquipamentoGUI.getInstance();
-				formEquipamentoGUI.setVisible(true);
-				formEquipamentoGUI.requestDefaultFocus();
+				try {
+					cadastroEquipamentoGUI = CadastroEquipamentoGUI.getInstance();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				cadastroEquipamentoGUI.setVisible(true);
+				cadastroEquipamentoGUI.requestDefaultFocus();
 			}
 		});
 		MT_Equipamentos.setDoubleBuffered(true);
@@ -199,13 +207,22 @@ public class PrincipalGUI extends JFrame {
 		});
 		MN_Cadastros.add(MT_Pessoa);
 
-		JMenu MN_Seguranca = new JMenu("Seguran\u00E7a");
+		JMenu MN_Seguranca = new JMenu("Segurança");
 		MN_Seguranca.setDoubleBuffered(true);
 		MN_Cadastros.add(MN_Seguranca);
 
-		JMenuItem MT_Usuario = new JMenuItem("Usu\u00E1rio");
+		JMenuItem MT_Usuario = new JMenuItem("Usuario");
 		MT_Usuario.setDoubleBuffered(true);
 		MN_Seguranca.add(MT_Usuario);
+		MT_Usuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
 
 		JMenuItem MT_Perfil = new JMenuItem("Perfil");
 		MT_Perfil.setDoubleBuffered(true);

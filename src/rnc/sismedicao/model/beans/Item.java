@@ -3,17 +3,17 @@ package rnc.sismedicao.model.beans;
 public class Item {
 	
 	private int codItem;
-	private String codCliente;
 	private String nome;
 	private String descricao;
 	private String marca;
+	private ItemMedicao itemMedicao;
 	
 	public Item() {
 
 	}
 
-	public Item(int codItem, String descricao, String marca) {
-		this.codItem = codItem;
+	public Item(String nome, String descricao, String marca) {
+		this.nome = nome;
 		this.descricao = descricao;
 		this.marca = marca;
 	}
@@ -37,20 +37,20 @@ public class Item {
 		this.marca = marca;
 	}
 
-	public String getCodCliente() {
-		return codCliente;
-	}
-
-	public void setCodCliente(String codCliente) {
-		this.codCliente = codCliente;
-	}
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public ItemMedicao getItemMedicao() {
+		return itemMedicao;
+	}
+
+	public void setItemMedicao(ItemMedicao itemMedicao) {
+		this.itemMedicao = itemMedicao;
 	}
 	
 	

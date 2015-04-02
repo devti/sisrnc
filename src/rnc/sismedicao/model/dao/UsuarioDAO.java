@@ -3,8 +3,7 @@ package rnc.sismedicao.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
@@ -19,25 +18,18 @@ public class UsuarioDAO implements IRepositorioUsuario {
 
 	}
 
-	public int insertUsuario(Usuario usuario) throws Exception {
+	public int inserir(Usuario usuario) throws Exception {
 
-		if (JOptionPane.showConfirmDialog(
-				null,
-				"tem certeza que quer cadastrar o usuário: "
-						+ usuario.getLogin() + "?", "Confirmação de cadastro",
-				JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-
-			String query = "INSERT INTO USUARIO(LOGIN, SENHA) VALUES (?, ?, ?) ";
+			String query = "INSERT INTO USUARIO(CODPESSOA, LOGIN, SENHA) VALUES (?, ?, ?) ";
 
 			try {
-				int i = 0;
 				ResultSet resultSet = null;
 				PreparedStatement preparedStatement = Conexao.getConnection()
-						.prepareStatement(query);
-				preparedStatement.setString(++i, usuario.getLogin());
-				preparedStatement.setString(++i, usuario.getSenha());
-				preparedStatement.setInt(++i, usuario.getCodPessoa());
-				preparedStatement.execute();
+						.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+				preparedStatement.setInt(1, usuario.getCodPessoa());
+				preparedStatement.setString(2, usuario.getLogin());
+				preparedStatement.setString(3, usuario.getSenha());
+				preparedStatement.executeUpdate();
 				Conexao.getConnection().commit();
 
 				resultSet = preparedStatement.getGeneratedKeys();
@@ -46,29 +38,22 @@ public class UsuarioDAO implements IRepositorioUsuario {
 					usuario.setCodUsuario(resultSet.getInt(1));
 				}
 
-				JOptionPane.showMessageDialog(null,
-						"Usuário: " + usuario.getLogin()
-								+ " cadastrado com sucesso",
-						"Cadastrado com sucesso",
-						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
 
 				e.printStackTrace();
 			}
-
-		}
 		return usuario.getCodUsuario();
 
 	}
 
-	public void removerUsuario(int codUsuario) throws Exception {
-		String sql = "DELETE FROM USUARIO WHERE CODUSUARIO = ?";
+	public void removerUsuario(int codPessoa) throws RepositorioException, SQLException {
+		String sql = "DELETE FROM USUARIO WHERE CODPESSOA = ?";
 
 		try {
 
 			PreparedStatement ps = Conexao.getConnection()
 					.prepareStatement(sql);
-			ps.setInt(1, codUsuario);
+			ps.setInt(1, codPessoa);
 			ps.execute();
 			Conexao.getConnection().commit();
 		} catch (SQLException e) {
@@ -76,22 +61,22 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		}
 	}
 
-	public Usuario procurar(int codUsuario)
-			throws UsuarioNaoEncontradoException, Exception {
+	public Usuario procurar(int codPessoa) throws UsuarioNaoEncontradoException, SQLException,
+			RepositorioException {
 		Usuario usuario = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM USUARIO WHERE CODUSUARIO = ?";
+		String sql = "SELECT * FROM USUARIO WHERE CODPESSOA = ?";
 
 		try {
 			PreparedStatement ps = Conexao.getConnection()
 					.prepareStatement(sql);
-			ps.setInt(1, codUsuario);
+			ps.setInt(1, codPessoa);
 			rs = ps.executeQuery();
 			if (!rs.next())
-				throw new UsuarioNaoEncontradoException(codUsuario);
-			usuario = new Usuario(codUsuario, rs.getString("LOGIN"),
+				throw new UsuarioNaoEncontradoException(codPessoa);
+			usuario = new Usuario(rs.getString("LOGIN"),
 					rs.getString("SENHA"));
-			usuario.setCodUsuario(rs.getInt("codUsuario"));
+			usuario.setCodPessoa(rs.getInt("codPessoa"));
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
@@ -120,5 +105,48 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			throw new RepositorioException(e);
 
 		}
+	}
+
+	@Override
+	public ArrayList<Usuario> listar() throws SQLException, RepositorioException {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		ResultSet rs = null;
+		String sql = "SELECT * FROM USUARIO";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getString("LOGIN"),
+						rs.getString("SENHA"));
+				usuario.setCodPessoa(rs.getInt("CODPESSOA"));
+				usuario.setCodUsuario(rs.getInt("CODUSUARIO"));
+				usuarios.add(usuario);
+			} 
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return usuarios;
+	}
+
+	@Override
+	public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException {
+		ArrayList<Usuario> pesq = new ArrayList<Usuario>();
+		ResultSet rs = null;
+		String sql = "SELECT * FROM USUARIO WHERE USUARIO."+atributo+" LIKE '%" + pesquisa + "%'";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getString("LOGIN"),
+						rs.getString("SENHA"));
+				usuario.setCodPessoa(rs.getInt("CODPESSOA"));
+				usuario.setCodUsuario(rs.getInt("CODUSUARIO"));
+				pesq.add(usuario);
+			} 
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return pesq;
 	}
 }
