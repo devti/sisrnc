@@ -60,7 +60,7 @@ public class Fachada {
 	}
  
 	//Cadastra Item de Madicao
-	public void cadastrar (ItemMedicao itemMedicao, int codItem, int codUnidade)  throws Exception{
+	public void cadastrarItemMedicao (ItemMedicao itemMedicao, int codItem, int codUnidade)  throws Exception{
 		this.controladorItemMedicao.cadastrar(itemMedicao, codItem, codUnidade);
 	} 
 	
