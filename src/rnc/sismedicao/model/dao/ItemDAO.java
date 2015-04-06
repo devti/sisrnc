@@ -72,6 +72,25 @@ public class ItemDAO implements IRepositorioItem {
 		}
 		return codigo;
 	}
+
+	@Override
+	public ArrayList<Item> listar() throws SQLException, RepositorioException {
+		ArrayList<Item> itens = new ArrayList<Item>();
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ITEM";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Item item = new Item(rs.getString("NOME"), rs.getString("DESCRICAO"), 
+						rs.getString("MARCA"), rs.getString("SERIAL"));
+				itens.add(item);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return itens;
+	}
 	
 /**
 	public void removerItem(int codItem) throws Exception {

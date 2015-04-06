@@ -119,4 +119,8 @@ public class Fachada {
 		
 		return this.controladorUnidadeMedicao.listarUnidadeMedicao();
 	}
+
+	public ArrayList<Item> listarItem()  throws SQLException, RepositorioException {
+		return this.controladorItem.listarItem();
+	}
 }

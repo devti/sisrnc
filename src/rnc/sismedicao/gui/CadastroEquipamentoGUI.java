@@ -4,15 +4,26 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import rnc.sismedicao.controller.exception.RepositorioException;
+import rnc.sismedicao.fachada.Fachada;
+import rnc.sismedicao.gui.util.ItemTableModel;
+import rnc.sismedicao.model.beans.Item;
+
 import java.awt.Color;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CadastroEquipamentoGUI extends JDialog {
 
@@ -21,6 +32,10 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private JTextField textField_1;
 	private JTable table;
 	private JTable table_1;
+	private Fachada fachada;
+	private ArrayList<Item> lista;
+	private ItemTableModel itm;
+	private Component btnOk;
 	private static CadastroEquipamentoGUI cadastroEquipamentoGUI;
 
 	/**
@@ -32,7 +47,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		setBounds(100, 100, 512, 585);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setContentPane(contentPane); 
 		contentPane.setLayout(null);
 		
 		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
@@ -101,8 +116,12 @@ public class CadastroEquipamentoGUI extends JDialog {
 		
 		table = new JTable();
 		table.setBackground(Color.WHITE);
+		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		table.setFillsViewportHeight(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
+		
+		listar();
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Item de Medi\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -126,6 +145,46 @@ public class CadastroEquipamentoGUI extends JDialog {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(382, 513, 89, 23);
 		contentPane.add(btnCancelar);
+	}
+
+
+	private void listar() {
+		try {
+			fachada = Fachada.getInstance();
+			lista = fachada.listarItem();
+			itm = new ItemTableModel(lista);
+			table.setModel(itm);
+			table.setVisible(true);
+			table.getColumnModel().getColumn(0).setPreferredWidth(40);
+			table.getColumnModel().getColumn(1).setPreferredWidth(200);
+			table.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyPressed(java.awt.event.KeyEvent evt) {
+					if (evt.getKeyCode() == 10 && table.getRowCount() > 0) {
+						ok();
+					}
+				}
+			});
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (IllegalArgumentException e) {
+			btnOk.setEnabled(false);
+		} catch (RepositorioException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	protected void ok() {
+		
+		
 	}
 
 
