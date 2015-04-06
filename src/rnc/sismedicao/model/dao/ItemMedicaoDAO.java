@@ -22,7 +22,7 @@ public class ItemMedicaoDAO {
 	
 	public int insertItemMedicao(ItemMedicao itemMedicao, int codItem, int codUnidade){
 				
-		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
+		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?) ";
 		
 			try {
 				int i = 0;
