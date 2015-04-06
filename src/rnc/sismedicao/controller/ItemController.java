@@ -1,13 +1,28 @@
 package rnc.sismedicao.controller;
 
-import javax.swing.table.DefaultTableModel;
-
 import rnc.sismedicao.model.beans.Item;
+
 import rnc.sismedicao.model.dao.ItemDAO;
+import rnc.sismedicao.model.interfacesDao.IRepositorioItem;
+
 
 public class ItemController {
 	
-	private ItemDAO itemDAO = new ItemDAO();
+	private IRepositorioItem repositorioItem;
+
+	public ItemController() throws Exception {
+		this.repositorioItem = new ItemDAO(this.repositorioItem);
+	}
+	
+	public void cadastrar(Item item) throws Exception {
+		repositorioItem.inserir(item);
+	}	
+	
+	public int consultarUltimoCodigoItem() throws Exception{
+		return repositorioItem.consultarUltimoCodigoItem();
+	}
+	// --- codigo desativado em 02/04/2015 
+	/**	private ItemDAO itemDAO = new ItemDAO();
 	
 	private Item item;
 	
@@ -21,7 +36,7 @@ public class ItemController {
 //		modelo.fireTableDataChanged();
 //	}
 	
-	public Item getItem() {
+public Item getItem() {
 		return item;
 	}
 
@@ -36,7 +51,7 @@ public class ItemController {
 	public Item getItemDao(String codItem){
 		return itemDAO.getItem(codItem);
 	}
-	
+	**/
 	
 	
 }

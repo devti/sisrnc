@@ -4,62 +4,76 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
+
+
 
 import rnc.sismedicao.controller.ItemController;
+import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.util.Conexao;
+import rnc.sismedicao.model.interfacesDao.IRepositorioItem;
 
-public class ItemDAO {
+public class ItemDAO implements IRepositorioItem {
 	
-	private Item item;
-	
-	public ItemDAO() {
-		item = new Item();
+	public ItemDAO(IRepositorioItem repositorioItem) {
+
 	}
 
-	public int insertItem(Item item) {
+	public int inserir(Item item) throws Exception{
 
-		if (JOptionPane.showConfirmDialog(null,
-				"tem certeza que quer cadastrar este Item?",
-				"Confirmar cadastro", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-
-			String query = "INSERT INTO ITEM(DESCRICAO, MARCA) VALUES (?, ?) ";
+			String query = "INSERT INTO ITEM(NOME, DESCRICAO, MARCA, SERIAL) VALUES (?, ?, ?, ?) ";
 
 			try {
 				int i = 0;
 				ResultSet resultSet = null;
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+				preparedStatement.setString(++i, item.getNome());
 				preparedStatement.setString(++i, item.getDescricao());
 				preparedStatement.setString(++i, item.getMarca());
+				preparedStatement.setString(++i, item.getSerial());
 
 				preparedStatement.execute();
-
 				Conexao.getConnection().commit();
-
+				System.out.println("Salvado..."+ item.getNome());
 				resultSet = preparedStatement.getGeneratedKeys();
 
 				if (resultSet.next()) {
 					item.setCodItem(resultSet.getInt(1));
 				}
 
-				JOptionPane.showMessageDialog(null,
-						"Item cadastrado com sucesso",
-						"Cadastrado com sucesso",
-						JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
 
 				e.printStackTrace();
 			}
 
-		}
 		return item.getCodItem();
 	}
-
+	
+	
+	//Metodo consulta o ultimo codigo do item 
+	
+	public int consultarUltimoCodigoItem()  throws Exception {
+		int codigo = 0;
+		ResultSet result = null;
+		String sql = "SELECT TOP(1) CODITEM FROM ITEM ORDER BY CODITEM DESC";
+		try{
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			result = ps.executeQuery();
+			while (result.next()) {
+				codigo = result.getInt("CODITEM");
+				System.out.println(codigo);
+			}
+		}catch (SQLException e){
+			throw new RepositorioException(e);
+		}
+		return codigo;
+	}
+	
+/**
 	public void removerItem(int codItem) throws Exception {
 
 		String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
@@ -128,7 +142,7 @@ public class ItemDAO {
 
 	public void update(Item item) {
 
-		String query = "UPDATE ITEM SET CODCLIENTE = ?, NOME = ?, DESCRICAO = ?, MARCA = ? WHERE CODITEM = ?";
+		String query = "UPDATE ITEM SET CODCLIENTE = ?, NOME = ?, DESCRICAO = ?, MARCA = ? , SERIAL = ? WHERE CODITEM = ?";
 
 		try {
 			int i = 0;
@@ -208,4 +222,5 @@ public class ItemDAO {
 				
 		return item;
 	}
+	**/
 }

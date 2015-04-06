@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import rnc.sismedicao.controller.PessoaController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
+import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
@@ -15,6 +16,7 @@ import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
+import rnc.sismedicao.model.beans.Item;
 
 public class Fachada {
 
@@ -22,11 +24,13 @@ public class Fachada {
 	private UsuarioController controladorUsuario;
 	private PessoaController controladorPessoa;
 	private UnidadeDeMedicaoController controladorUnidadeMedicao;
+	private ItemController controladorItem;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
 		this.controladorPessoa = new PessoaController();
 		this.controladorUnidadeMedicao = new UnidadeDeMedicaoController();
+		this.controladorItem = new ItemController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -48,8 +52,14 @@ public class Fachada {
 			this.controladorPessoa.cadastrar((Pessoa) element);
 		else if (element instanceof UnidadeDeMedicao)
 			this.controladorUnidadeMedicao.cadastrar((UnidadeDeMedicao) element);
+		else if (element instanceof Item)
+			this.controladorItem.cadastrar((Item) element);
 	}
-
+ 
+	//Classe Item 
+	public int consultarUltimoCodigoItem() throws Exception{
+		return this.controladorItem.consultarUltimoCodigoItem();
+	}
 	public void pessoaRemover(int codPessoa) throws RepositorioException,
 			SQLException {
 		this.controladorPessoa.remover(codPessoa);

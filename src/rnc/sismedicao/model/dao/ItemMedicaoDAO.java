@@ -20,15 +20,15 @@ public class ItemMedicaoDAO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int insertItemMedicao(ItemMedicao itemMedicao, int codEquipamento, int codUnidade){
+	public int insertItemMedicao(ItemMedicao itemMedicao, int codItem, int codUnidade){
 				
-		String query = "INSERT INTO ITEMMEDICAO(CODEQUIPAMENTO, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
+		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
 		
 			try {
 				int i = 0;
 				ResultSet resultSet = null;
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-				preparedStatement.setInt(++i, codEquipamento);
+				preparedStatement.setInt(++i, codItem);
 				preparedStatement.setInt(++i, codUnidade);
 				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
@@ -50,6 +50,7 @@ public class ItemMedicaoDAO {
 			
 	return itemMedicao.getCodItemMedicao();
 	}
+
 	
 	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
 

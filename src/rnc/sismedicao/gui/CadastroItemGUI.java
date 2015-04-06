@@ -292,18 +292,22 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			}
 		});
 	}
-
+    
+	
+	//Metodo para SALVA as informações da tela ITEM e ITEMMedicao
 	public void salvar() {
 		try {
 			
-			if(tf_Descricao.getText().isEmpty() || tf_Marca.getText().isEmpty()
-					|| tf_Nome.getText().isEmpty() || tf_Serial.getText().isEmpty())
+			if(tf_Descricao.getText().isEmpty() 
+					|| tf_Nome.getText().isEmpty() )
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			item = new Item(tf_Descricao.getText(), tf_Marca.getText(),
-					tf_Nome.getText());
+			item = new Item(tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
 			fachada.cadastrar(item);
+			System.out.println(fachada.consultarUltimoCodigoItem());
+			
 			JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
+			dispose();
 		} catch (ItemJaCadastradoException e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), 
 					"Aviso", JOptionPane.ERROR_MESSAGE);

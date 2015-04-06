@@ -7,15 +7,17 @@ public class Item {
 	private String descricao;
 	private String marca;
 	private ItemMedicao itemMedicao;
+	private String serial;
 	
 	public Item() {
 
 	}
 
-	public Item(String nome, String descricao, String marca) {
+	public Item(String nome, String descricao, String marca, String serial) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.marca = marca;
+		this.serial = serial;
 	}
 	
 	public int getCodItem() {
@@ -53,5 +55,12 @@ public class Item {
 		this.itemMedicao = itemMedicao;
 	}
 	
+	public void setSerial(String serial){
+		this.serial = serial;
+	}
+	
+	public String getSerial(){
+		return serial;
+	}
 	
 }
