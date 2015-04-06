@@ -7,6 +7,7 @@ import rnc.sismedicao.controller.PessoaController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
+import rnc.sismedicao.controller.ItemMedicaoController;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
@@ -17,7 +18,7 @@ import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.beans.Item;
-
+import rnc.sismedicao.model.beans.ItemMedicao;
 public class Fachada {
 
 	private static Fachada instance = null;
@@ -25,12 +26,14 @@ public class Fachada {
 	private PessoaController controladorPessoa;
 	private UnidadeDeMedicaoController controladorUnidadeMedicao;
 	private ItemController controladorItem;
+	private ItemMedicaoController controladorItemMedicao;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
 		this.controladorPessoa = new PessoaController();
 		this.controladorUnidadeMedicao = new UnidadeDeMedicaoController();
 		this.controladorItem = new ItemController();
+		this.controladorItemMedicao = new ItemMedicaoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -56,7 +59,11 @@ public class Fachada {
 			this.controladorItem.cadastrar((Item) element);
 	}
  
-	//Classe Item 
+	//Cadastra Item de Madicao
+	public void cadastrar (ItemMedicao itemMedicao, int codItem, int codUnidade)  throws Exception{
+		this.controladorItemMedicao.cadastrar(itemMedicao, codItem, codUnidade);
+	} 
+	
 	public int consultarUltimoCodigoItem() throws Exception{
 		return this.controladorItem.consultarUltimoCodigoItem();
 	}

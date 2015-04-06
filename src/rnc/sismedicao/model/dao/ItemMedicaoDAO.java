@@ -11,16 +11,17 @@ import javax.swing.JOptionPane;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
+import rnc.sismedicao.model.interfacesDao.IRepositorioItemMedicao;
 import rnc.sismedicao.model.util.Conexao;
 
-public class ItemMedicaoDAO {
+public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 	
 	
-	public ItemMedicaoDAO() {
+	public ItemMedicaoDAO(IRepositorioItemMedicao repositorioItemMedicao){
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int insertItemMedicao(ItemMedicao itemMedicao, int codItem, int codUnidade){
+	public int inserir(ItemMedicao itemMedicao, int codItem, int codUnidade) throws  Exception{
 				
 		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?) ";
 		
