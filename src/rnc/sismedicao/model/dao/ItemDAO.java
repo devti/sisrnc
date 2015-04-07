@@ -65,7 +65,6 @@ public class ItemDAO implements IRepositorioItem {
 			result = ps.executeQuery();
 			while (result.next()) {
 				codigo = result.getInt("CODITEM");
-				System.out.println(codigo);
 			}
 		}catch (SQLException e){
 			throw new RepositorioException(e);

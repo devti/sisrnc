@@ -297,21 +297,23 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	//Metodo para SALVA as informações da tela ITEM e ITEMMedicao
 	public void salvar() {
 		try {
-			
+			 
 			if(tf_Descricao.getText().isEmpty() 
 					|| tf_Nome.getText().isEmpty() )
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
 			item = new Item(tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
-			fachada.cadastrar(item);
-			
+			//fachada.cadastrar(item);
 			int codItem = fachada.consultarUltimoCodigoItem();
-			UnidadeDeMedicao udm = null;
-			item = null;
-			item.setCodItem(codItem);
+			System.out.println(codItem);
+			UnidadeDeMedicao udm = new UnidadeDeMedicao();
+			Item itemT = new Item();
+			itemT.setCodItem(codItem);
+			System.out.println("Tamanho do Array: "+listaItemMedicao.size());
 			for (int i = 0; i<listaItemMedicao.size(); i++) {
-				ItemMedicao im = null; 
-				im.setItem(item);
+				ItemMedicao im = new ItemMedicao(); 
+				im.setItem(itemT);
+				System.out.println("Codigo Item: "+ im.getItem().getCodItem());
 				im.setValorMAX(listaItemMedicao.get(i).getValorMAX());
 				im.setValorMIN(listaItemMedicao.get(i).getValorMIN());
 				udm.setCodigo(listaItemMedicao.get(i).getUnidadeDeMedicao().getCodigo());
