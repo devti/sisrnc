@@ -11,7 +11,7 @@ public class ItemMedicaoController {
 		this.repositorioItemMedicao = new ItemMedicaoDAO(this.repositorioItemMedicao);
 	}
 	
-	public void cadastrar(ItemMedicao itemMedicao, int codItem, int codUnidade) throws Exception {
-		repositorioItemMedicao.inserir( itemMedicao, codItem, codUnidade);
+	public void cadastrar(ItemMedicao itemMedicao) throws Exception {
+		repositorioItemMedicao.inserir( itemMedicao);
 	}	
 }

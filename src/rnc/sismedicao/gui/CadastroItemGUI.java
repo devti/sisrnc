@@ -304,8 +304,22 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			fachada = Fachada.getInstance();
 			item = new Item(tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
 			fachada.cadastrar(item);
-			System.out.println(fachada.consultarUltimoCodigoItem());
-			fachada.
+			
+			int codItem = fachada.consultarUltimoCodigoItem();
+			UnidadeDeMedicao udm = null;
+			item = null;
+			item.setCodItem(codItem);
+			for (int i = 0; i<listaItemMedicao.size(); i++) {
+				ItemMedicao im = null; 
+				im.setItem(item);
+				im.setValorMAX(listaItemMedicao.get(i).getValorMAX());
+				im.setValorMIN(listaItemMedicao.get(i).getValorMIN());
+				udm.setCodigo(listaItemMedicao.get(i).getUnidadeDeMedicao().getCodigo());
+				im.setUnidadeDeMedicao(udm);
+				fachada.cadastrar(im);
+
+			}
+			
 			JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
 			dispose();
 		} catch (ItemJaCadastradoException e) {

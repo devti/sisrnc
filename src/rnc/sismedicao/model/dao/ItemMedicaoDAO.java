@@ -52,7 +52,37 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 	return itemMedicao.getCodItemMedicao();
 	}
 
-	
+	public int inserir(ItemMedicao itemMedicao) throws  Exception{
+		
+		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?) ";
+		
+			try {
+				int i = 0;
+				ResultSet resultSet = null;
+				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+				preparedStatement.setInt(++i, itemMedicao.getItem().getCodItem());
+				preparedStatement.setString(++i, itemMedicao.getUnidadeDeMedicao().getCodigo());
+				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
+				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
+				
+				preparedStatement.execute();
+				
+				Conexao.getConnection().commit();
+				
+				resultSet = preparedStatement.getGeneratedKeys();
+				
+				if(resultSet.next()){
+					itemMedicao.setCodItemMedicao(resultSet.getInt(1));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	return itemMedicao.getCodItemMedicao();
+	}
+
 	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
 
 		String sql = "DELETE FROM ITEMMEDICAO WHERE CODITEMMEDICAO = ?";

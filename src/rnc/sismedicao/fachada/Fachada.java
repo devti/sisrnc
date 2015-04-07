@@ -57,12 +57,11 @@ public class Fachada {
 			this.controladorUnidadeMedicao.cadastrar((UnidadeDeMedicao) element);
 		else if (element instanceof Item)
 			this.controladorItem.cadastrar((Item) element);
+		else if (element instanceof ItemMedicao)
+			this.controladorItemMedicao.cadastrar((ItemMedicao) element);
 	}
  
-	//Cadastra Item de Madicao
-	public void cadastrarItemMedicao (ItemMedicao itemMedicao, int codItem, int codUnidade)  throws Exception{
-		this.controladorItemMedicao.cadastrar(itemMedicao, codItem, codUnidade);
-	} 
+
 	
 	public int consultarUltimoCodigoItem() throws Exception{
 		return this.controladorItem.consultarUltimoCodigoItem();
