@@ -3,6 +3,7 @@ package rnc.sismedicao.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.dao.ItemDAO;
@@ -58,6 +59,10 @@ public Item getItem() {
 
 	public ArrayList<Item> listarItem() throws SQLException, RepositorioException {
 		return repositorioItem.listar();
+	}
+
+	public Item procurar(int codItem) throws ItemNaoEncontradoException, SQLException, RepositorioException {
+		return repositorioItem.procurar(codItem);
 	}
 	
 	

@@ -9,7 +9,7 @@ import rnc.sismedicao.model.beans.Item;
 public class ItemTableModel extends AbstractTableModel {
 
 	private ArrayList<Item> itens;
-	private String[] nomeColunas = { "NOME", "MARCA", "SERIAL" };
+	private String[] nomeColunas = { "CODITEM", "NOME", "MARCA", "SERIAL" };
 
 	public ItemTableModel() {
 		this.itens = new ArrayList<Item>();
@@ -27,10 +27,12 @@ public class ItemTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "NOME";
+			return "CODITEM";
 		case 1:
-			return "MARCA";
+			return "NOME";
 		case 2:
+			return "MARCA";
+		case 3:
 			return "SERIAL";
 		}
 		return "?";
@@ -46,10 +48,12 @@ public class ItemTableModel extends AbstractTableModel {
 		Item item = itens.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return item.getNome();
+			return item.getCodItem();
 		case 1:
-			return item.getMarca();
+			return item.getNome();
 		case 2:
+			return item.getMarca();
+		case 3:
 			return item.getSerial();
 		default:
 			return null;

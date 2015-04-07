@@ -8,6 +8,7 @@ import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.ItemMedicaoController;
+import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
@@ -118,7 +119,12 @@ public class Fachada {
 
 	public UnidadeDeMedicao unidadeProcurar(String codUnidade) throws RepositorioException,
 			SQLException, UnidadeDeMedicaoNaoEncontradaException {
-		return this.controladorUnidadeMedicao.procurar(codUnidade);
+		return this.controladorUnidadeMedicao.procurar(codUnidade);	
+	}
+	
+	public Item itemProcurar (int codItem) throws RepositorioException, SQLException,
+			ItemNaoEncontradoException {
+				return this.controladorItem.procurar(codItem);
 		
 	}
 

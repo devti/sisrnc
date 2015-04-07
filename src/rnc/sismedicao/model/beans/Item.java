@@ -9,10 +9,18 @@ public class Item {
 	private ItemMedicao itemMedicao;
 	private String serial;
 	
-	public Item() {
+	public Item(Item item) {
 
 	}
 
+	public Item(int codItem, String nome, String descricao, String marca, String serial) {
+		this.codItem = codItem;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.marca = marca;
+		this.serial = serial;
+	}
+	
 	public Item(String nome, String descricao, String marca, String serial) {
 		this.nome = nome;
 		this.descricao = descricao;

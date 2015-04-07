@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 
 
+
 import rnc.sismedicao.controller.ItemController;
+import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
@@ -82,7 +84,7 @@ public class ItemDAO implements IRepositorioItem {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Item item = new Item(rs.getString("NOME"), rs.getString("DESCRICAO"), 
+				Item item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("DESCRICAO"), 
 						rs.getString("MARCA"), rs.getString("SERIAL"));
 				itens.add(item);
 			}
@@ -90,6 +92,27 @@ public class ItemDAO implements IRepositorioItem {
 			throw new SQLException(e.getMessage());
 		}
 		return itens;
+	}
+
+	@Override
+	public Item procurar(int codItem) throws ItemNaoEncontradoException,
+			SQLException, RepositorioException {
+		Item item = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ITEM WHERE CODITEM = ?";
+		
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			stmt.setInt(1, codItem);
+			rs = stmt.executeQuery();
+			if (!rs.next())
+				throw new ItemNaoEncontradoException(codItem);
+			item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("DESCRICAO"),
+					rs.getString("MARCA"), rs.getString("SERIAL"));
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		return item;
 	}
 	
 /**
