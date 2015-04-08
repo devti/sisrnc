@@ -8,6 +8,7 @@ public class Item {
 	private String marca;
 	private ItemMedicao itemMedicao;
 	private String serial;
+
 	
 	public Item(Item item) {
 
