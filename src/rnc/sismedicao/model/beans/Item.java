@@ -8,9 +8,14 @@ public class Item {
 	private String marca;
 	private ItemMedicao itemMedicao;
 	private String serial;
+
 	
 	public Item(Item item) {
 
+	}
+	
+	public Item (){
+		
 	}
 
 	public Item(int codItem, String nome, String descricao, String marca, String serial) {
