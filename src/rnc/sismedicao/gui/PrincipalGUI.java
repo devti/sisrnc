@@ -36,7 +36,7 @@ public class PrincipalGUI extends JFrame {
 	private JPanel contentPane;
 	private FormUnidadeDeMedicaoGUI formUnidadeDeMedicaoGUI;
 	private FormEquipamentoGUI formEquipamentoGUI;
-	private FormPessoaGUI formPessoaGUI;
+	private CadastroPessoaGUI cadastroPessoaGUI;
 	private CadastroItemGUI cadastroItemGUI;
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private String usuario;
@@ -186,9 +186,9 @@ public class PrincipalGUI extends JFrame {
 		JMenuItem MT_Pessoa = new JMenuItem("Pessoa");
 		MT_Pessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				formPessoaGUI = FormPessoaGUI.getInstance();
-				formPessoaGUI.setVisible(true);
-				formPessoaGUI.requestDefaultFocus();
+				cadastroPessoaGUI = CadastroPessoaGUI.getInstance();
+				cadastroPessoaGUI.setVisible(true);
+				cadastroPessoaGUI.requestDefaultFocus();
 			}
 		});
 		MN_Cadastros.add(MT_Pessoa);

@@ -153,4 +153,9 @@ public class Fachada {
 	public int consultarUltimoCodigoItem() throws Exception{
 		return this.controladorItem.consultarUltimoCodigoItem();
 	}
+	
+	public ArrayList<Item> itemPesquisaAvancada(String atributo,
+			String pesquisa) throws SQLException, RepositorioException {
+		return this.controladorItem.pesquisaAvancada(atributo, pesquisa);
+	}
 }
