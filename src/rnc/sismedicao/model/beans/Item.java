@@ -12,6 +12,10 @@ public class Item {
 	public Item(Item item) {
 
 	}
+	
+	public Item (){
+		
+	}
 
 	public Item(int codItem, String nome, String descricao, String marca, String serial) {
 		this.codItem = codItem;
