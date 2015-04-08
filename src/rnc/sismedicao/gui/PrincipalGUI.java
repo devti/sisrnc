@@ -57,8 +57,10 @@ public class PrincipalGUI extends JFrame {
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("SisMedi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
-		setMaximumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
+		setMinimumSize(new Dimension());
+		setMaximumSize(new Dimension());
+		//setMinimumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
+		//setMaximumSize(new Dimension(TELA_WIDTH, TELA_HEIGTH));
 
 		ConfiguracaoDeComponentesGUI.centralizaFrame(this, TELA_WIDTH,
 				TELA_HEIGTH);
