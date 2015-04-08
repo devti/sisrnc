@@ -45,25 +45,9 @@ public class PrincipalGUI extends JFrame {
 	private DesktopBackgroundGUI desktopBackgroundGUI;
 
 	private static final int TELA_WIDTH = 1280;
-	private static final int TELA_HEIGTH = 768;
+	private static final int TELA_HEIGTH = 700;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(new WindowsLookAndFeel());
-					PrincipalGUI frame = new PrincipalGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
