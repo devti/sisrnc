@@ -303,13 +303,11 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
 			item = new Item(tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
-			//fachada.cadastrar(item);
+			fachada.cadastrar(item);
 			int codItem = fachada.consultarUltimoCodigoItem();
-			System.out.println(codItem);
 			UnidadeDeMedicao udm = new UnidadeDeMedicao();
 			Item itemT = new Item();
 			itemT.setCodItem(codItem);
-			System.out.println("Tamanho do Array: "+listaItemMedicao.size());
 			for (int i = 0; i<listaItemMedicao.size(); i++) {
 				ItemMedicao im = new ItemMedicao(); 
 				im.setItem(itemT);
