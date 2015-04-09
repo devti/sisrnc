@@ -85,11 +85,11 @@ public class ConfiguracaoDeComponentesGUI {
 	public static void centralizaFrame(Frame frame, int width, int heigth) {
 		toolKit = Toolkit.getDefaultToolkit();
 		dimension = toolKit.getScreenSize();
-		int x = 0; //(int) (dimension.getWidth() - width) / DIVISOR_LARGURA;
-		int y = 0; //(int) (dimension.getHeight() - heigth) / DIVISOR_ALTURA;
+		int x = (int) (dimension.getWidth() - width) / DIVISOR_LARGURA;
+		int y = (int) (dimension.getHeight() - heigth) / DIVISOR_ALTURA;
 
 
-		frame.setBounds(x, y, (int)dimension.getWidth(), (int)dimension.getHeight());
+		frame.setBounds(x, y,  width, heigth);
 
 		System.out.printf("\nInicializando tela: " + frame.getTitle()
 				+ "\nPosição H: " + x + "\nPosição V: " + y

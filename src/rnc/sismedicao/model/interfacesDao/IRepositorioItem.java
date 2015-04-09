@@ -7,6 +7,7 @@ import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
 //import rnc.sismedicao.model.beans.ItemMedicao;
+import rnc.sismedicao.model.beans.Pessoa;
 
 
 public interface IRepositorioItem {
@@ -18,6 +19,8 @@ public interface IRepositorioItem {
 	public ArrayList<Item> listar() throws SQLException, RepositorioException;
 
 	public Item procurar(int codItem) throws ItemNaoEncontradoException, SQLException, RepositorioException;
+	
+	public ArrayList <Item> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
 
 }
 

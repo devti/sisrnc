@@ -49,7 +49,7 @@ import javax.swing.JTextField;
  *
  */
 @SuppressWarnings("serial")
-public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
+public class CadastroPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 
 	private NewJTextField TF_Nome;
 	private NewJTextField TF_Email;
@@ -68,7 +68,7 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 
 	private JTabbedPane tabbedPane;
 
-	private static FormPessoaGUI formPessoaGUI;
+	private static CadastroPessoaGUI cadastroPessoaGUI;
 
 	private static final int TELA_WIDTH = 520;
 	private static final int TELA_HEIGTH = 380;
@@ -76,14 +76,14 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 	private DefaultTableModel enderecoDefaultTableModel;
 	private JTextField TF_CodPessoa;
 
-	public static FormPessoaGUI getInstance() {
-		if (formPessoaGUI == null) {
-			return formPessoaGUI = new FormPessoaGUI();
+	public static CadastroPessoaGUI getInstance() {
+		if (cadastroPessoaGUI == null) {
+			return cadastroPessoaGUI = new CadastroPessoaGUI();
 		}
-		return formPessoaGUI;
+		return cadastroPessoaGUI;
 	}
 
-	private FormPessoaGUI() {
+	private CadastroPessoaGUI() {
 		setTitle("Cadastrar Pessoa");
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -270,7 +270,7 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 		LB_Limpar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		LB_Limpar
 				.setIcon(new ImageIcon(
-						FormPessoaGUI.class
+						CadastroPessoaGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/New document.png")));
 		LB_Limpar.setBounds(381, 3, 69, 20);
 		ConfiguracaoDeComponentesGUI.CriarButtonBevelDeLabel(LB_Limpar);
@@ -296,26 +296,26 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 		getContentPane().add(BT_Cancelar);
 
 		JButton brnPrimeiro = new JButton("");
-		brnPrimeiro.setIcon(new ImageIcon(FormPessoaGUI.class
+		brnPrimeiro.setIcon(new ImageIcon(CadastroPessoaGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
 		brnPrimeiro.setBounds(10, 9, 30, 30);
 		getContentPane().add(brnPrimeiro);
 
 		JButton btnAnterior = new JButton("");
-		btnAnterior.setIcon(new ImageIcon(FormPessoaGUI.class
+		btnAnterior.setIcon(new ImageIcon(CadastroPessoaGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
 		btnAnterior.setBounds(42, 9, 30, 30);
 		getContentPane().add(btnAnterior);
 
 		JButton btnProximo = new JButton("");
 		btnProximo.setIcon(new ImageIcon(
-				FormPessoaGUI.class
+				CadastroPessoaGUI.class
 						.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
 		btnProximo.setBounds(75, 9, 30, 30);
 		getContentPane().add(btnProximo);
 
 		JButton btnUltimo = new JButton("");
-		btnUltimo.setIcon(new ImageIcon(FormPessoaGUI.class
+		btnUltimo.setIcon(new ImageIcon(CadastroPessoaGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
 		btnUltimo.setBounds(107, 9, 30, 30);
 		getContentPane().add(btnUltimo);
@@ -327,7 +327,7 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 				procurar();
 			}
 		});
-		btnPesquisar.setIcon(new ImageIcon(FormPessoaGUI.class
+		btnPesquisar.setIcon(new ImageIcon(CadastroPessoaGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		btnPesquisar.setBounds(141, 9, 30, 30);
 		getContentPane().add(btnPesquisar);
@@ -342,7 +342,7 @@ public class FormPessoaGUI extends NewJFrameForm implements InterfaceFormGUI {
 			}
 		});
 		btnRemover.setIcon(new ImageIcon(
-						FormPessoaGUI.class
+						CadastroPessoaGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		btnRemover.setBounds(174, 9, 30, 30);
 		getContentPane().add(btnRemover);
