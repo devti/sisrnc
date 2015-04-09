@@ -119,7 +119,7 @@ public class ItemDAO implements IRepositorioItem {
 			throws SQLException {
 		ArrayList<Item> pesq = new ArrayList<Item>();
 		ResultSet rs = null;
-		String sql = "SELECT * FROM PESSOA WHERE ITEM."+atributo+" LIKE '%" + pesquisa + "%'";
+		String sql = "SELECT * FROM ITEM WHERE ITEM."+atributo+" LIKE '%" + pesquisa + "%'";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
 			rs = stmt.executeQuery();

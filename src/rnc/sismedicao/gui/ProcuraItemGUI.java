@@ -63,7 +63,7 @@ public class ProcuraItemGUI extends JDialog {
 
 		cbAtributo = new JComboBox();
 		cbAtributo.setBackground(Color.WHITE);
-		cbAtributo.setModel(new DefaultComboBoxModel(new String[] { "Nome" }));
+		cbAtributo.setModel(new DefaultComboBoxModel(new String[] { "Nome", "Serial", "Marca" }));
 		cbAtributo.setSelectedIndex(0);
 		cbAtributo.setToolTipText("");
 		cbAtributo.setBounds(10, 11, 119, 20);
@@ -80,7 +80,7 @@ public class ProcuraItemGUI extends JDialog {
 		table.setBackground(Color.WHITE);
 		sp.setViewportView(table);
 
-		JButton btnOk = new JButton("Confirmar");
+		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok();
