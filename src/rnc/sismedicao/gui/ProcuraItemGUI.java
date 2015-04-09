@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 
-import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
+import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
@@ -177,7 +177,7 @@ public class ProcuraItemGUI extends JDialog {
 						"Selecione uma Opção", "Erro",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		} catch (PessoaNaoEncontradaException e) {
+		} catch (ItemNaoEncontradoException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {

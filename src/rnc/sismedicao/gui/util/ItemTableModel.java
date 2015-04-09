@@ -34,6 +34,8 @@ public class ItemTableModel extends AbstractTableModel {
 			return "MARCA";
 		case 3:
 			return "SERIAL";
+		case 4:
+			return "DESCRICAO";
 		}
 		return "?";
 	}
@@ -55,6 +57,8 @@ public class ItemTableModel extends AbstractTableModel {
 			return item.getMarca();
 		case 3:
 			return item.getSerial();
+		case 4:
+			return item.getDescricao();
 		default:
 			return null;
 		}
