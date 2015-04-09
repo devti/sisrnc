@@ -35,8 +35,8 @@ public class PrincipalGUI extends JFrame {
 
 	private JPanel contentPane;
 	private FormUnidadeDeMedicaoGUI formUnidadeDeMedicaoGUI;
-	private FormEquipamentoGUI formEquipamentoGUI;
 	private FormPessoaGUI formPessoaGUI;
+	private FormUsuarioGUI formUsuarioGUI;
 	private CadastroItemGUI cadastroItemGUI;
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private String usuario;
@@ -202,7 +202,8 @@ public class PrincipalGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				formUsuarioGUI = FormUsuarioGUI.getInstance();
+				formUsuarioGUI.setVisible(true);
 				
 				
 			}

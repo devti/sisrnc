@@ -175,7 +175,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 							.getValueAt(table.getSelectedRow(), 0));
 					boolean entrou = false;
 					for (int i = 0; i < lista.size(); i++) {
-					}
+				
+					} 
+					
 					if (!entrou) {
 						lista.add(item);
 						table_1.setModel(new ItemTableModel(lista));
