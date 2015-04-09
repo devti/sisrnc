@@ -276,9 +276,9 @@ public class InicialGUI extends JFrame {
 	}
 
 	public void sair() {
-		LoginGUI tela;
+		PrincipalGUI tela;
 		usuario = null;
-		tela = new LoginGUI();
+		tela = new PrincipalGUI();
 		tela.setVisible(true);
 		fechar();
 	}
