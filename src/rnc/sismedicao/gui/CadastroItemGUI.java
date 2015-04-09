@@ -354,11 +354,11 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		if (tela.getFocusableWindowState() && tela.pegarItem() != null) {
 			Item i = tela.pegarItem();
 			tf_Nome.setText(i.getNome());
-			tf_CodItem.setText(Integer.toString(i.getCodItem()));
+			//tf_CodItem.getText(i.g)
 			tf_Descricao.setText(i.getDescricao());
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
-			btnRemover.setEnabled(true);
+			//btnRemover.setEnabled(true);
 		}
 	}
 	public void listar() {

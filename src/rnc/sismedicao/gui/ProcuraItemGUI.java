@@ -144,7 +144,7 @@ public class ProcuraItemGUI extends JDialog {
 			table.getColumnModel().getColumn(1).setPreferredWidth(200);
 			table.getColumnModel().getColumn(2).setPreferredWidth(50);
 			table.getColumnModel().getColumn(3).setPreferredWidth(150);
-			table.getColumnModel().getColumn(4).setPreferredWidth(150); 
+			//table.getColumnModel().getColumn(4).setPreferredWidth(150); 
 			table.addKeyListener(new java.awt.event.KeyAdapter() {
 				public void keyPressed(java.awt.event.KeyEvent evt) {
 					if (evt.getKeyCode() == 10 && table.getRowCount() > 0) {
