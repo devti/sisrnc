@@ -20,6 +20,9 @@ public class EquipamentoDAO {
 	
 	public int insertEquipamento(Equipamento equipamento, int codLocal, int codItem){
 		
+		if(JOptionPane.showConfirmDialog(null, "tem certeza que quer cadastrar este equipamento?"
+										 , "Confirmar cadastro"
+										 , JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
 			
 		String query = "INSERT INTO EQUIPAMENTO(CODLOCAL, CODITEM, CODCLIENTE, REGISTRO, DESCRICAO) VALUES (?, ?, ?, ?, ?) ";
 		
@@ -42,11 +45,13 @@ public class EquipamentoDAO {
 				if(resultSet.next()){
 					equipamento.setCodEquipamento(resultSet.getInt(1));
 				}
-
+				
+				JOptionPane.showMessageDialog(null, "Equipamento criado com sucesso", "Cadastrado com sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			
+		}
 	return equipamento.getCodEquipamento();
 	}
 	

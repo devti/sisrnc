@@ -25,6 +25,11 @@ public class ItemController {
 	public int consultarUltimoCodigoItem() throws Exception{
 		return repositorioItem.consultarUltimoCodigoItem();
 	}
+	
+	public ArrayList<Item> pesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException, RepositorioException {
+		return repositorioItem.pesquisaAvancada(atributo, pesquisa);
+	}
 	// --- codigo desativado em 02/04/2015 
 	/**	private ItemDAO itemDAO = new ItemDAO();
 	

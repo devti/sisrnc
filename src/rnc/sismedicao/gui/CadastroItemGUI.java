@@ -37,6 +37,7 @@ import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
 import rnc.sismedicao.gui.util.UnidadeTableModel;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
+import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 
 public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
@@ -50,6 +51,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private JTextField tf_Descricao;
 	private JTextField tf_Marca;
 	private JTextField tf_Serial;
+	private JTextField tf_CodItem;
 	private JTable table;
 	private JTable table_1;
 	private ItemMedicao itemMedicao;
@@ -62,6 +64,8 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private static CadastroItemGUI cadastroItemGui;
 	private static final int TELA_WIDTH = 585;
 	private static final int TELA_HEIGTH = 630;
+	private ProcuraItemGUI tela;
+	private JButton btnRemover;
 
 	public static CadastroItemGUI getInstance() {
 		if (cadastroItemGui == null) {
@@ -202,6 +206,12 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
 
 		JButton btnPesquisar = new JButton("");
+		btnPesquisar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurar();
+			}
+		});
 		btnPesquisar.setIcon(new ImageIcon(CadastroItemGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		btnPesquisar.setBounds(140, 8, 30, 30);
@@ -336,6 +346,20 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 					"Aviso", JOptionPane.ERROR_MESSAGE);
 		}
 		
+	}
+
+	public void procurar() {
+		tela = new ProcuraItemGUI();
+		tela.setVisible(true);
+		if (tela.getFocusableWindowState() && tela.pegarItem() != null) {
+			Item i = tela.pegarItem();
+			tf_Nome.setText(i.getNome());
+			tf_CodItem.setText(Integer.toString(i.getCodItem()));
+			tf_Descricao.setText(i.getDescricao());
+			tf_Marca.setText(i.getMarca());
+			tf_Serial.setText(i.getSerial());
+			btnRemover.setEnabled(true);
+		}
 	}
 	public void listar() {
 		try {
