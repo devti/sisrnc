@@ -325,6 +325,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 				im.setValorMAX(listaItemMedicao.get(i).getValorMAX());
 				im.setValorMIN(listaItemMedicao.get(i).getValorMIN());
 				udm.setCodigo(listaItemMedicao.get(i).getUnidadeDeMedicao().getCodigo());
+				udm.setDescricao(listaItemMedicao.get(i).getUnidadeDeMedicao().getDescricao());
 				im.setUnidadeDeMedicao(udm);
 				fachada.cadastrar(im);
 
@@ -354,11 +355,11 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		if (tela.getFocusableWindowState() && tela.pegarItem() != null) {
 			Item i = tela.pegarItem();
 			tf_Nome.setText(i.getNome());
-			//tf_CodItem.getText(i.g)
 			tf_Descricao.setText(i.getDescricao());
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
-			//btnRemover.setEnabled(true);
+			
+			btnRemover.setEnabled(true);
 		}
 	}
 	public void listar() {

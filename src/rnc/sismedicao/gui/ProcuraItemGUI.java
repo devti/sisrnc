@@ -63,7 +63,7 @@ public class ProcuraItemGUI extends JDialog {
 
 		cbAtributo = new JComboBox();
 		cbAtributo.setBackground(Color.WHITE);
-		cbAtributo.setModel(new DefaultComboBoxModel(new String[] { "Nome", "Serial", "Marca" }));
+		cbAtributo.setModel(new DefaultComboBoxModel(new String[] { "Nome", "Serial", "Marca", "Descricao" }));
 		cbAtributo.setSelectedIndex(0);
 		cbAtributo.setToolTipText("");
 		cbAtributo.setBounds(10, 11, 119, 20);

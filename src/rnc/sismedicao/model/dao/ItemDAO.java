@@ -4,13 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
-
-
-
-
-
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
@@ -35,9 +28,9 @@ public class ItemDAO implements IRepositorioItem {
 				ResultSet resultSet = null;
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 				preparedStatement.setString(++i, item.getNome());
-				preparedStatement.setString(++i, item.getDescricao());
 				preparedStatement.setString(++i, item.getMarca());
 				preparedStatement.setString(++i, item.getSerial());
+				preparedStatement.setString(++i, item.getDescricao());
 
 				preparedStatement.execute();
 				Conexao.getConnection().commit();
@@ -84,8 +77,8 @@ public class ItemDAO implements IRepositorioItem {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Item item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("DESCRICAO"), 
-						rs.getString("MARCA"), rs.getString("SERIAL"));
+				Item item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("MARCA"), 
+						rs.getString("SERIAL"), rs.getString("DESCRICAO"));
 				itens.add(item);
 			}
 		} catch (SQLException e) {
@@ -107,8 +100,8 @@ public class ItemDAO implements IRepositorioItem {
 			rs = stmt.executeQuery();
 			if (!rs.next())
 				throw new ItemNaoEncontradoException(codItem);
-			item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("DESCRICAO"),
-					rs.getString("MARCA"), rs.getString("SERIAL"));
+			item = new Item(rs.getInt("CODITEM"), rs.getString("NOME"), rs.getString("MARCA"),
+					rs.getString("SERIAL"), rs.getString("DESCRICAO"));
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
@@ -125,7 +118,7 @@ public class ItemDAO implements IRepositorioItem {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Item item = new Item(rs.getString("NOME"),
-						rs.getString("SERIAL"), rs.getString("DESCRICAO"), rs.getString("MARCA"));
+						rs.getString("MARCA"), rs.getString("SERIAL"), rs.getString("DESCRICAO"));
 				item.setCodItem(rs.getInt("CODITEM"));
 				pesq.add(item);
 			}

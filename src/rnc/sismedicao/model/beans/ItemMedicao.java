@@ -22,6 +22,7 @@ public class ItemMedicao {
 
 	public ItemMedicao(int codItemMedicao, String descricao, double valorMIN,
 			double valorMAX) {
+		this.unidadeDeMedicao.setDescricao(descricao);
 		this.codItemMedicao = codItemMedicao;
 		this.valorMIN = valorMIN;
 		this.valorMAX = valorMAX;

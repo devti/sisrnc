@@ -54,7 +54,7 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 
 	public int inserir(ItemMedicao itemMedicao) throws  Exception{
 		
-		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?) ";
+		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, DESCRICAO, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
 		
 			try {
 				int i = 0;
@@ -62,6 +62,7 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 				preparedStatement.setInt(++i, itemMedicao.getItem().getCodItem());
 				preparedStatement.setString(++i, itemMedicao.getUnidadeDeMedicao().getCodigo());
+				preparedStatement.setString(++i, itemMedicao.getUnidadeDeMedicao().getDescricao());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
 				
@@ -125,7 +126,36 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 		return itens;
 		
 	}
-	
+	public ArrayList<ItemMedicao> listar(int codItem){
+		
+		String query = "SELECT * FROM ITEMMEDICAO WHERE CODITEM=?";
+
+		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
+
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			preparedStatement.setInt(1, codItem);
+			resultSet = preparedStatement.executeQuery();
+
+			Conexao.getConnection().commit();
+			while (resultSet.next()){
+				ItemMedicao itemMedicao = new ItemMedicao(resultSet.getInt("CODITEMMEDICAO"), resultSet.getString("DESCRICAO"),resultSet.getDouble("VALORMIN"),resultSet.getDouble("VALORMAX") );
+				itensMedicao.add(itemMedicao);
+			}
+			//itensMedicao = carregaList(resultSet);
+			
+//			JOptionPane.showMessageDialog(null,
+//					"Todos os registro foram \nrecuperados com sucesso",
+//					"Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Todos os Itens de Medição foram recuperados com sucesso");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return itensMedicao;
+		
+	}
 	private List<ItemMedicao> carregaList(ResultSet resultSet) {
 
 		List<ItemMedicao> itens = new ArrayList<ItemMedicao>();

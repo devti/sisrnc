@@ -18,7 +18,7 @@ public class Item {
 		
 	}
 
-	public Item(int codItem, String nome, String descricao, String marca, String serial) {
+	public Item(int codItem, String nome, String marca, String serial, String descricao) {
 		this.codItem = codItem;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -26,7 +26,7 @@ public class Item {
 		this.serial = serial;
 	}
 	
-	public Item(String nome, String descricao, String marca, String serial) {
+	public Item(String nome, String marca, String serial, String descricao) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.marca = marca;

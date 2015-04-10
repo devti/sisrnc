@@ -27,15 +27,13 @@ public class ItemTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "CODITEM";
+			return "CODIGO";
 		case 1:
 			return "NOME";
 		case 2:
 			return "MARCA";
 		case 3:
 			return "SERIAL";
-		case 4:
-			return "DESCRICAO";
 		}
 		return "?";
 	}
@@ -57,8 +55,6 @@ public class ItemTableModel extends AbstractTableModel {
 			return item.getMarca();
 		case 3:
 			return item.getSerial();
-		case 4:
-			return item.getDescricao();
 		default:
 			return null;
 		}
