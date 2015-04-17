@@ -6,18 +6,10 @@ public class ItemMedicao {
 	private double valorMIN;
 	private double valorMAX;
 	private String descricao;
-	
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	private Item item;
 	private UnidadeDeMedicao unidadeDeMedicao;
 
+	
 	public ItemMedicao() {
 
 	}
@@ -37,6 +29,14 @@ public class ItemMedicao {
 		this.codItemMedicao = codItemMedicao;
 		this.valorMIN = valorMIN;
 		this.valorMAX = valorMAX;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public int getCodItemMedicao() {

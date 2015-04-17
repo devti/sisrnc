@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
+import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.interfacesDao.IRepositorioItemMedicao;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -186,13 +187,20 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
 			preparedStatement.setInt(1, codItem);
 			resultSet = preparedStatement.executeQuery();
-
+			ItemMedicao itemMedicao = new ItemMedicao();
+			UnidadeDeMedicao unidadeMedicao = new UnidadeDeMedicao();
 			Conexao.getConnection().commit();
 			while (resultSet.next()){
-				//resultSet.getInt("CODITEMMEDICAO"), resultSet.getString("DESCRICAO"),resultSet.getDouble("VALORMIN"),resultSet.getDouble("VALORMAX")
-				ItemMedicao itemMedicao = new ItemMedicao();
+				itemMedicao.setCodItemMedicao(resultSet.getInt("CODITEMMEDICAO"));
+				itemMedicao.setDescricao(resultSet.getString("DESCRICAO"));
+				itemMedicao.setValorMIN(resultSet.getDouble("VALORMIN"));
+				itemMedicao.setValorMAX(resultSet.getDouble("VALORMAX"));
+				unidadeMedicao.setDescricao(resultSet.getString("DESCRICAO"));
+				itemMedicao.setUnidadeDeMedicao(unidadeMedicao);
+				//System.out.println(itemMedicao.getCodItemMedicao());
+			    //System.out.println(itemMedicao.getDescricao());
 				itensMedicao.add(itemMedicao);
-				System.out.println(itensMedicao.size()); 
+				//System.out.println(itensMedicao.size()); 
 			}
 			//itensMedicao = carregaList(resultSet);
 			

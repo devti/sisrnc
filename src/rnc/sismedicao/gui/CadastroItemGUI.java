@@ -361,19 +361,26 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
 			listaItemMedicao = tela.pegarItems();
+			//int cont = 0;
+			//while(listaItemMedicao.size() >cont){
+			//	System.out.println(listaItemMedicao.get(cont).getDescricao());
+			//	cont++;
+			//}
+			
+			listarItemMedicao(listaItemMedicao);
+			
 			//btnRemover.setEnabled(true);
 		}
 	}
 	public void listarItemMedicao(ArrayList<ItemMedicao> listaItemMedicao ) {
 		try {
 			itm = new ItemMedicaoTableModel(listaItemMedicao);
-			table.setModel(itm);
-			table.setVisible(true);
-			table.getColumnModel().getColumn(0).setPreferredWidth(40);
-			table.getColumnModel().getColumn(1).setPreferredWidth(200);
-			table.addKeyListener(new java.awt.event.KeyAdapter() {
+			table_1.setModel(itm);
+			table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
+			table_1.setVisible(true);
+			table_1.addKeyListener(new java.awt.event.KeyAdapter() {
 				public void keyPressed(java.awt.event.KeyEvent evt) {
-					if (evt.getKeyCode() == 10 && table.getRowCount() > 0) {
+					if (evt.getKeyCode() == 10 && table_1.getRowCount() > 0) {
 						ok();
 					}
 				}
