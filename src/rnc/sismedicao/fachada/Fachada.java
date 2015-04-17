@@ -8,6 +8,7 @@ import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.ItemMedicaoController;
+import rnc.sismedicao.controller.exception.ItemMedicaoNaoEncontradoException;
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
 import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
@@ -158,4 +159,16 @@ public class Fachada {
 			String pesquisa) throws SQLException, RepositorioException {
 		return this.controladorItem.pesquisaAvancada(atributo, pesquisa);
 	}
+	
+	//-------------------------------------
+    // METODOS ITEM MEDICAO
+	//-------------------------------------
+
+	public ArrayList<ItemMedicao> itemMedicaoProcurar (int codItem) throws Exception {
+		 return this.controladorItemMedicao.procurar(codItem);
+		 
+
+}
+
+	
 }

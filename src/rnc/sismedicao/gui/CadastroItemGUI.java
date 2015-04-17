@@ -34,6 +34,7 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
+import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.gui.util.UnidadeTableModel;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
@@ -59,6 +60,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private ArrayList<UnidadeDeMedicao> lista;
 	private ArrayList<ItemMedicao> listaItemMedicao = new ArrayList<ItemMedicao>();
 	private UnidadeTableModel utm;
+	private ItemMedicaoTableModel itm;
 	private Component btnOk;
 	private Item item;
 	private static CadastroItemGUI cadastroItemGui;
@@ -358,9 +360,32 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			tf_Descricao.setText(i.getDescricao());
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
-			
-			btnRemover.setEnabled(true);
+			listaItemMedicao = tela.pegarItems();
+			//btnRemover.setEnabled(true);
 		}
+	}
+	public void listarItemMedicao(ArrayList<ItemMedicao> listaItemMedicao ) {
+		try {
+			itm = new ItemMedicaoTableModel(listaItemMedicao);
+			table.setModel(itm);
+			table.setVisible(true);
+			table.getColumnModel().getColumn(0).setPreferredWidth(40);
+			table.getColumnModel().getColumn(1).setPreferredWidth(200);
+			table.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyPressed(java.awt.event.KeyEvent evt) {
+					if (evt.getKeyCode() == 10 && table.getRowCount() > 0) {
+						ok();
+					}
+				}
+			});
+		} catch (IllegalArgumentException e) {
+			btnOk.setEnabled(false);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+
 	}
 	public void listar() {
 		try {

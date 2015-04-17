@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 	
+	//private String servidor = "localhost";
 	private String servidor = "ABSERVER35";
 	private String bancoDeDados = "SisMedicao";
 	

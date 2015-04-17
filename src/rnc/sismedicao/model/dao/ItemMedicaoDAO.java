@@ -126,7 +126,7 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 		return itens;
 		
 	}
-	public ArrayList<ItemMedicao> listar(int codItem){
+	public ArrayList<ItemMedicao> procura(int codItem){
 		
 		String query = "SELECT * FROM ITEMMEDICAO WHERE CODITEM=?";
 
@@ -173,6 +173,12 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 
 		return itens;
 
+	}
+
+	@Override
+	public ArrayList<ItemMedicao> procurar(int codItem) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

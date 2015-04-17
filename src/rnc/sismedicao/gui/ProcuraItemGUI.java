@@ -1,6 +1,7 @@
 package rnc.sismedicao.gui;
 
 import java.awt.Color;
+
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
@@ -22,6 +23,9 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.model.beans.Item;
+
+
+import rnc.sismedicao.model.beans.ItemMedicao;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -46,6 +50,7 @@ public class ProcuraItemGUI extends JDialog {
 	private JButton btnOk;
 	private ItemTableModel itm;
 	private Item item = null;
+	private ArrayList<ItemMedicao> listaItemMedicao = null;
 	private JComboBox cbAtributo;
 
 	/**
@@ -171,6 +176,7 @@ public class ProcuraItemGUI extends JDialog {
 				fachada = Fachada.getInstance();
 				int codItem = (int) itm.getValueAt(table.getSelectedRow(), 0);
 				item = fachada.itemProcurar(codItem);
+				listaItemMedicao = fachada.itemMedicaoProcurar(codItem);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -197,5 +203,8 @@ public class ProcuraItemGUI extends JDialog {
 	
 	public Item pegarItem(){
 		return item;
+	}
+	public ArrayList<ItemMedicao> pegarItems(){
+		return listaItemMedicao;
 	}
 }
