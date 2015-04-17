@@ -5,6 +5,16 @@ public class ItemMedicao {
 	private int codItemMedicao;
 	private double valorMIN;
 	private double valorMAX;
+	private String descricao;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	private Item item;
 	private UnidadeDeMedicao unidadeDeMedicao;
 
@@ -23,6 +33,7 @@ public class ItemMedicao {
 	public ItemMedicao(int codItemMedicao, String descricao, double valorMIN,
 			double valorMAX) {
 		this.unidadeDeMedicao.setDescricao(descricao);
+		this.descricao = descricao;
 		this.codItemMedicao = codItemMedicao;
 		this.valorMIN = valorMIN;
 		this.valorMAX = valorMAX;

@@ -177,8 +177,36 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 
 	@Override
 	public ArrayList<ItemMedicao> procurar(int codItem) throws Exception {
+		String query = "SELECT * FROM ITEMMEDICAO WHERE CODITEM=?";
+
+		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
+
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
+			preparedStatement.setInt(1, codItem);
+			resultSet = preparedStatement.executeQuery();
+
+			Conexao.getConnection().commit();
+			while (resultSet.next()){
+				//resultSet.getInt("CODITEMMEDICAO"), resultSet.getString("DESCRICAO"),resultSet.getDouble("VALORMIN"),resultSet.getDouble("VALORMAX")
+				ItemMedicao itemMedicao = new ItemMedicao();
+				itensMedicao.add(itemMedicao);
+				System.out.println(itensMedicao.size()); 
+			}
+			//itensMedicao = carregaList(resultSet);
+			
+//			JOptionPane.showMessageDialog(null,
+//					"Todos os registro foram \nrecuperados com sucesso",
+//					"Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println(itensMedicao.size());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return itensMedicao;
 		// TODO Auto-generated method stub
-		return null;
+		//return null;
 	}
 	
 }

@@ -165,7 +165,9 @@ public class Fachada {
 	//-------------------------------------
 
 	public ArrayList<ItemMedicao> itemMedicaoProcurar (int codItem) throws Exception {
-		 return this.controladorItemMedicao.procurar(codItem);
+		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
+		itensMedicao = controladorItemMedicao.procurar(codItem);
+		return itensMedicao;
 		 
 
 }
