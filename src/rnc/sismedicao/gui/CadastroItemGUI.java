@@ -277,7 +277,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		});
 		btnAdcionar.setIcon(new ImageIcon(CadastroItemGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Down.png")));
-		btnAdcionar.setBounds(495, 370, 36, 25);
+		btnAdcionar.setBounds(438, 370, 36, 25);
 		contentPane.add(btnAdcionar);
 
 		JButton BT_Salvar = new JButton("Salvar");
@@ -295,6 +295,11 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(456, 559, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JButton btnRemoverItemMedicao = new JButton("");
+		btnRemoverItemMedicao.setIcon(new ImageIcon(CadastroItemGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		btnRemoverItemMedicao.setBounds(484, 370, 36, 25);
+		contentPane.add(btnRemoverItemMedicao);
 		btnCancelar.addActionListener(new ActionListener() {
 
 			@Override
@@ -334,7 +339,6 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 				fachada.cadastrar(im);
 
 			}
-			
 			JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
 			dispose();
 		} catch (ItemJaCadastradoException e) {
