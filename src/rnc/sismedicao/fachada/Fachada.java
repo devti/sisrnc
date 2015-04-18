@@ -164,8 +164,10 @@ public class Fachada {
     // METODOS ITEM MEDICAO
 	//-------------------------------------
 
+	
+	//Este metodo retorna um arraylist 
 	public ArrayList<ItemMedicao> itemMedicaoProcurar (int codItem) throws Exception {
-		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
+		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();	
 		itensMedicao = controladorItemMedicao.procurar(codItem);
 		return itensMedicao;
 		 

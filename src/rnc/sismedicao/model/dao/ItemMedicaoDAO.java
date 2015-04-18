@@ -181,32 +181,40 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 		String query = "SELECT * FROM ITEMMEDICAO WHERE CODITEM=?";
 
 		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
-
+		
+		int cont = 0;
 		try {
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query);
 			preparedStatement.setInt(1, codItem);
 			resultSet = preparedStatement.executeQuery();
-			ItemMedicao itemMedicao = new ItemMedicao();
-			UnidadeDeMedicao unidadeMedicao = new UnidadeDeMedicao();
 			Conexao.getConnection().commit();
 			while (resultSet.next()){
+				ItemMedicao itemMedicao = new ItemMedicao();
+				UnidadeDeMedicao unidadeMedicao = new UnidadeDeMedicao();
 				itemMedicao.setCodItemMedicao(resultSet.getInt("CODITEMMEDICAO"));
 				itemMedicao.setDescricao(resultSet.getString("DESCRICAO"));
 				itemMedicao.setValorMIN(resultSet.getDouble("VALORMIN"));
 				itemMedicao.setValorMAX(resultSet.getDouble("VALORMAX"));
 				unidadeMedicao.setDescricao(resultSet.getString("DESCRICAO"));
+				unidadeMedicao.setCodigo(resultSet.getString("CODUNIDADE"));
 				itemMedicao.setUnidadeDeMedicao(unidadeMedicao);
-				//System.out.println(itemMedicao.getCodItemMedicao());
-			    //System.out.println(itemMedicao.getDescricao());
-				itensMedicao.add(itemMedicao);
-				//System.out.println(itensMedicao.size()); 
+			    System.out.println(cont+'-'+unidadeMedicao.getDescricao());
+				
+			    itensMedicao.add(cont, itemMedicao);
+
+
 			}
-			//itensMedicao = carregaList(resultSet);
-			
-//			JOptionPane.showMessageDialog(null,
-//					"Todos os registro foram \nrecuperados com sucesso",
-//					"Recuperação com sucesso", JOptionPane.INFORMATION_MESSAGE);
+			cont=0;
+			while(itensMedicao.size() >cont){
+				System.out.println(itensMedicao.get(cont).getDescricao());
+				cont++;
+			}
+			/*
+			while(itensMedicao.size() >cont){
+				System.out.println(itensMedicao.get(cont).getDescricao());
+				cont++;
+			}*/
 			System.out.println(itensMedicao.size());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

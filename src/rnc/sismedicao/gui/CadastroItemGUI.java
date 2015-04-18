@@ -306,7 +306,9 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	}
     
 	
+	//-----------------------------------------------------------
 	//Metodo para SALVA as informações da tela ITEM e ITEMMedicao
+	//-----------------------------------------------------------
 	public void salvar() {
 		try {
 			 
@@ -351,6 +353,9 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		
 	}
 
+	//-------------------------------------------------------
+	// METODO QUE REALIZA A PROCURA DO ITEM E DOS ITEMMEDICAO
+	//-------------------------------------------------------
 	public void procurar() {
 		tela = new ProcuraItemGUI();
 		tela.setVisible(true);
@@ -361,11 +366,11 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
 			listaItemMedicao = tela.pegarItems();
-			//int cont = 0;
-			//while(listaItemMedicao.size() >cont){
-			//	System.out.println(listaItemMedicao.get(cont).getDescricao());
-			//	cont++;
-			//}
+			/*int cont = 0;
+			while(listaItemMedicao.size() >cont){
+				System.out.println(listaItemMedicao.get(cont).getDescricao());
+				cont++;
+			}*/
 			
 			listarItemMedicao(listaItemMedicao);
 			
