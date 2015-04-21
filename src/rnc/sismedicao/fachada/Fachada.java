@@ -140,23 +140,27 @@ public class Fachada {
 	//-------------------------------------
     // METODOS ITEM
 	//-------------------------------------
-	
-	public Item itemProcurar (int codItem) throws RepositorioException, SQLException,
-			ItemNaoEncontradoException {
-				return this.controladorItem.procurar(codItem);
-		
+
+	public Item itemProcurar(int codItem) throws RepositorioException,
+			SQLException, ItemNaoEncontradoException {
+		return this.controladorItem.procurar(codItem);
 	}
 
-	public ArrayList<Item> listarItem()  throws SQLException, RepositorioException {
+	public void atualizarItem(Item item) throws Exception {
+		this.controladorItem.atualizar(item);
+	}
+
+	public ArrayList<Item> listarItem() throws SQLException,
+			RepositorioException {
 		return this.controladorItem.listarItem();
 	}
-	
-	public int consultarUltimoCodigoItem() throws Exception{
+
+	public int consultarUltimoCodigoItem() throws Exception {
 		return this.controladorItem.consultarUltimoCodigoItem();
 	}
-	
-	public ArrayList<Item> itemPesquisaAvancada(String atributo,
-			String pesquisa) throws SQLException, RepositorioException {
+
+	public ArrayList<Item> itemPesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException, RepositorioException {
 		return this.controladorItem.pesquisaAvancada(atributo, pesquisa);
 	}
 	

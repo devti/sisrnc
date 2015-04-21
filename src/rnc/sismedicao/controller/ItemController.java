@@ -2,7 +2,6 @@ package rnc.sismedicao.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
@@ -20,6 +19,10 @@ public class ItemController {
 	
 	public void cadastrar(Item item) throws Exception {
 		repositorioItem.inserir(item);
+	}	
+	
+	public void atualizar(Item item) throws Exception {
+		repositorioItem.alterar(item);
 	}	
 	
 	public int consultarUltimoCodigoItem() throws Exception{

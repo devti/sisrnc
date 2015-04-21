@@ -21,6 +21,14 @@ public class ItemMedicao {
 		this.valorMAX = valorMAX;
 		this.unidadeDeMedicao = unidadeDeMedicao;
 	}
+	
+	public ItemMedicao(int codItemMedicao,double valorMIN, double valorMAX,
+			UnidadeDeMedicao unidadeDeMedicao) {
+		this.codItemMedicao = codItemMedicao;
+		this.valorMIN = valorMIN;
+		this.valorMAX = valorMAX;
+		this.unidadeDeMedicao = unidadeDeMedicao;
+	}
 
 	public ItemMedicao(int codItemMedicao, String descricao, double valorMIN,
 			double valorMAX) {

@@ -199,23 +199,12 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 				unidadeMedicao.setDescricao(resultSet.getString("DESCRICAO"));
 				unidadeMedicao.setCodigo(resultSet.getString("CODUNIDADE"));
 				itemMedicao.setUnidadeDeMedicao(unidadeMedicao);
-			    System.out.println(cont+'-'+unidadeMedicao.getDescricao());
+			    //System.out.println(cont+'-'+unidadeMedicao.getDescricao());
 				
 			    itensMedicao.add(cont, itemMedicao);
 
 
 			}
-			cont=0;
-			while(itensMedicao.size() >cont){
-				System.out.println(itensMedicao.get(cont).getDescricao());
-				cont++;
-			}
-			/*
-			while(itensMedicao.size() >cont){
-				System.out.println(itensMedicao.get(cont).getDescricao());
-				cont++;
-			}*/
-			System.out.println(itensMedicao.size());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

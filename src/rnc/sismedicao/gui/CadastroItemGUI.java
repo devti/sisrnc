@@ -40,6 +40,8 @@ import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 
@@ -52,7 +54,6 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private JTextField tf_Descricao;
 	private JTextField tf_Marca;
 	private JTextField tf_Serial;
-	private JTextField tf_CodItem;
 	private JTable table;
 	private JTable table_1;
 	private ItemMedicao itemMedicao;
@@ -68,6 +69,8 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private static final int TELA_HEIGTH = 630;
 	private ProcuraItemGUI tela;
 	private JButton btnRemover;
+	private JTextField tf_CodigoItem;
+	private int codigoItem = 0;
 
 	public static CadastroItemGUI getInstance() {
 		if (cadastroItemGui == null) {
@@ -145,7 +148,12 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		tf_Nome.setBounds(10, 38, 244, 20);
 		panel.add(tf_Nome);
 		tf_Nome.setColumns(10);
-
+		
+		JLabel lblCodigoItem = new JLabel("Codigo do Item:");
+		lblCodigoItem.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodigoItem.setBounds(329, 18, 124, 20);
+		contentPane.add(lblCodigoItem);
+		
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setBounds(291, 21, 42, 14);
 		panel.add(lblMarca);
@@ -227,10 +235,12 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		btnRemover.setEnabled(false);
 		btnRemover.setBounds(173, 8, 30, 30);
 		contentPane.add(btnRemover);
-
+		
+		//-----------------------------------
+		// Botao adicionar Items de Medicao
+		//-----------------------------------
 		JButton btnAdcionar = new JButton("");
 		btnAdcionar.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -257,8 +267,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 					//se não tiver entrardo ele faz a inserção na tabela de baixo
 					if (!entrou) {
 						listaItemMedicao.add(im);
-						table_1.setModel(new ItemMedicaoTableModel(
-								listaItemMedicao));
+						table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
 					} else {
 						//se tiver entrado e já tiver o codigo em baixo ele da o aviso .. la em cima onde tem 0,0, um tu ta passando a um e 0 no min e 0 no max ne?
 						JOptionPane.showMessageDialog(getContentPane(),
@@ -272,14 +281,15 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 				}
 
 			}
-
-			// }
 		});
 		btnAdcionar.setIcon(new ImageIcon(CadastroItemGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Down.png")));
 		btnAdcionar.setBounds(438, 370, 36, 25);
 		contentPane.add(btnAdcionar);
 
+		//--------------------------------
+		// BOTAO SALVAR
+		//--------------------------------
 		JButton BT_Salvar = new JButton("Salvar");
 		BT_Salvar.setBounds(342, 559, 89, 23);
 		contentPane.add(BT_Salvar);
@@ -292,14 +302,61 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			}
 		});
 
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(456, 559, 89, 23);
-		contentPane.add(btnCancelar);
+	
 		
+		//---------------------------------------------------------
+		// BOTAO REMOVER ITENS DE MEDICAO DA TABELA ITEM DE MEDICAO 
+		//---------------------------------------------------------
 		JButton btnRemoverItemMedicao = new JButton("");
+		btnRemoverItemMedicao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					fachada = Fachada.getInstance();
+					// cria a unidade de medição selecionada na Table
+					UnidadeDeMedicao um = fachada
+							.unidadeProcurar((String) table_1.getModel()
+									.getValueAt(table_1.getSelectedRow(), 0));
+					// cria o item de medição com a unidade criada antes
+					ItemMedicao im = new ItemMedicao(codigoItem,0, 0, um);
+					//procura o item selecionado na tela, e atribui para o objeto im
+					for (int cont =0; cont<listaItemMedicao.size();cont++){
+						if (listaItemMedicao.get(cont).getUnidadeDeMedicao().getCodigo().equals(um.getCodigo())){
+							im = listaItemMedicao.get(cont);
+						}
+						else{
+							System.out.println("NAO igual");
+						}
+					}
+					//Remove o item de medicao da tabela
+					listaItemMedicao.remove(im);
+					//Monta a Tabela do Item de Medicao
+					table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
 		btnRemoverItemMedicao.setIcon(new ImageIcon(CadastroItemGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
 		btnRemoverItemMedicao.setBounds(484, 370, 36, 25);
 		contentPane.add(btnRemoverItemMedicao);
+		
+				
+		tf_CodigoItem = new JTextField();
+		tf_CodigoItem.setHorizontalAlignment(SwingConstants.RIGHT);
+		tf_CodigoItem.setEditable(false);
+		tf_CodigoItem.setBounds(459, 18, 98, 20);
+		contentPane.add(tf_CodigoItem);
+		tf_CodigoItem.setColumns(10);
+		
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(456, 559, 89, 23);
+		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 
 			@Override
@@ -321,25 +378,35 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 					|| tf_Nome.getText().isEmpty() )
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			item = new Item(tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
-			fachada.cadastrar(item);
-			int codItem = fachada.consultarUltimoCodigoItem();
-			UnidadeDeMedicao udm = new UnidadeDeMedicao();
-			Item itemT = new Item();
-			itemT.setCodItem(codItem);
-			for (int i = 0; i<listaItemMedicao.size(); i++) {
-				ItemMedicao im = new ItemMedicao(); 
-				im.setItem(itemT);
-				System.out.println("Codigo Item: "+ im.getItem().getCodItem());
-				im.setValorMAX(listaItemMedicao.get(i).getValorMAX());
-				im.setValorMIN(listaItemMedicao.get(i).getValorMIN());
-				udm.setCodigo(listaItemMedicao.get(i).getUnidadeDeMedicao().getCodigo());
-				udm.setDescricao(listaItemMedicao.get(i).getUnidadeDeMedicao().getDescricao());
-				im.setUnidadeDeMedicao(udm);
-				fachada.cadastrar(im);
+			item = new Item(codigoItem, tf_Nome.getText(), tf_Descricao.getText(), tf_Marca.getText(), tf_Serial.getText());
+			if (codigoItem == 0) {
+				fachada.cadastrar(item);
+				int codItem = fachada.consultarUltimoCodigoItem();
+				UnidadeDeMedicao udm = new UnidadeDeMedicao();
+				Item itemT = new Item();
+				itemT.setCodItem(codItem);
+				for (int i = 0; i < listaItemMedicao.size(); i++) {
+					ItemMedicao im = new ItemMedicao();
+					im.setItem(itemT);
+					System.out.println("Codigo Item: "
+							+ im.getItem().getCodItem());
+					im.setValorMAX(listaItemMedicao.get(i).getValorMAX());
+					im.setValorMIN(listaItemMedicao.get(i).getValorMIN());
+					udm.setCodigo(listaItemMedicao.get(i).getUnidadeDeMedicao()
+							.getCodigo());
+					udm.setDescricao(listaItemMedicao.get(i)
+							.getUnidadeDeMedicao().getDescricao());
+					im.setUnidadeDeMedicao(udm);
+					fachada.cadastrar(im);
 
+				}
+				JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
+			}else {
+				fachada.atualizarItem(item);
+				JOptionPane.showMessageDialog(null, "Item atualizado com sucesso!");
+				
 			}
-			JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
+			
 			dispose();
 		} catch (ItemJaCadastradoException e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), 
@@ -369,6 +436,8 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			tf_Descricao.setText(i.getDescricao());
 			tf_Marca.setText(i.getMarca());
 			tf_Serial.setText(i.getSerial());
+			tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
+			codigoItem = i.getCodItem();
 			listaItemMedicao = tela.pegarItems();
 			/*int cont = 0;
 			while(listaItemMedicao.size() >cont){
