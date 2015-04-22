@@ -3,11 +3,13 @@ package rnc.sismedicao.fachada;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import rnc.sismedicao.controller.EquipamentoController;
 import rnc.sismedicao.controller.PessoaController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.ItemMedicaoController;
+import rnc.sismedicao.controller.exception.EquipamentoNaoEncontrandoException;
 import rnc.sismedicao.controller.exception.ItemMedicaoNaoEncontradoException;
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
@@ -16,6 +18,7 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.controller.exception.UnidadeDeMedicaoNaoEncontradaException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
+import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
@@ -29,6 +32,7 @@ public class Fachada {
 	private UnidadeDeMedicaoController controladorUnidadeMedicao;
 	private ItemController controladorItem;
 	private ItemMedicaoController controladorItemMedicao;
+	private EquipamentoController controladorEquipamento;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
@@ -36,6 +40,7 @@ public class Fachada {
 		this.controladorUnidadeMedicao = new UnidadeDeMedicaoController();
 		this.controladorItem = new ItemController();
 		this.controladorItemMedicao = new ItemMedicaoController();
+		this.controladorEquipamento = new EquipamentoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -186,6 +191,23 @@ public class Fachada {
 	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws  Exception{
 		controladorItemMedicao.alterar(itemMedicao);
 	}
+
+
+//-------------------------------------
+// METODOS EQUIPAMENTO
+//-------------------------------------
+
+public ArrayList<Equipamento> equipamentoPesquisaAvancada(String atributo,
+		String pesquisa) throws SQLException, RepositorioException {
+
+	return this.controladorEquipamento.pesquisaAvancada(atributo, pesquisa);
+}
+
+public Equipamento equipamentoProcurar(int codEquipamento) throws RepositorioException, SQLException,
+		EquipamentoNaoEncontrandoException {
+	return this.controladorEquipamento.procurar(codEquipamento);
+}
+
 }
 
 	
