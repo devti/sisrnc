@@ -5,11 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import rnc.sismedicao.controller.exception.RepositorioException;
-import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.interfacesDao.IRepositorioItemMedicao;
@@ -52,7 +48,9 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 			
 	return itemMedicao.getCodItemMedicao();
 	}
-
+	//--------------------------------------------------------
+	//METODO PARA INSERIR UM ITEM DE MEDICAO NO BANCO DE DADOS
+	//--------------------------------------------------------
 	public int inserir(ItemMedicao itemMedicao) throws  Exception{
 		
 		String query = "INSERT INTO ITEMMEDICAO(CODITEM, CODUNIDADE, DESCRICAO, VALORMIN, VALORMAX) VALUES (?, ?, ?, ?, ?) ";
@@ -84,8 +82,10 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 			
 	return itemMedicao.getCodItemMedicao();
 	}
-
-	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
+	//---------------------------------------------------------
+	//METODO PARA REMOVER UM ITEM DE MEDICAO NO BANCO DE DADOS
+	//---------------------------------------------------------
+	public void remover(int codItemMedicao) throws Exception {
 
 		String sql = "DELETE FROM ITEMMEDICAO WHERE CODITEMMEDICAO = ?";
 
@@ -98,6 +98,28 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
+	}
+
+	//---------------------------------------------------------
+	//METODO PARA ATUALIZAR UM ITEM DE MEDICAO NO BANCO DE DADOS
+	//---------------------------------------------------------
+	public void alterar(ItemMedicao itemMedicao) throws  Exception{
+		
+		String query = "UPDATE ITEMMEDICAO SET VALORMIN = ?, VALORMAX = ? WHERE CODITEMMEDICAO= ? ";
+		
+			try {
+				int i = 0;
+				PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
+				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
+				preparedStatement.setInt(++i, itemMedicao.getCodItemMedicao());
+				preparedStatement.execute();
+				Conexao.getConnection().commit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 	}
 	
 	private List<ItemMedicao> listAll(){

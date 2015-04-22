@@ -60,6 +60,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 	private Fachada fachada;
 	private ArrayList<UnidadeDeMedicao> lista;
 	private ArrayList<ItemMedicao> listaItemMedicao = new ArrayList<ItemMedicao>();
+	private ArrayList<ItemMedicao> listaItemMedicaoChecagem = new ArrayList<ItemMedicao>(); //utilizado para realizar a checagem 
 	private UnidadeTableModel utm;
 	private ItemMedicaoTableModel itm;
 	private Component btnOk;
@@ -266,7 +267,37 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 					}
 					//se não tiver entrardo ele faz a inserção na tabela de baixo
 					if (!entrou) {
-						listaItemMedicao.add(im);
+						if (codigoItem==0){
+							// incluir da Tabela de Item de Medicao
+							listaItemMedicao.add(im);
+						}else {
+							if (JOptionPane
+									.showConfirmDialog(
+											null,
+											"Deseja realmente INSERIR este item de Medicao ?",
+											"Confirmação",
+											JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+								Item itemT = new Item();
+								itemT.setCodItem(codigoItem);
+								UnidadeDeMedicao udm = new UnidadeDeMedicao();
+								ItemMedicao iMedicao = new ItemMedicao();
+								iMedicao.setItem(itemT);
+								iMedicao.setValorMAX(im.getValorMAX());
+								iMedicao.setValorMIN(im.getValorMIN());
+								udm.setCodigo(im.getUnidadeDeMedicao()
+										.getCodigo());
+								udm.setDescricao(im.getUnidadeDeMedicao()
+										.getDescricao());
+								iMedicao.setUnidadeDeMedicao(udm);
+								fachada.cadastrar(iMedicao);
+								listaItemMedicao.add(im);
+
+							} else {
+
+							}
+							// incluir da Tabela de Item de Medicao
+							
+						}
 						table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
 					} else {
 						//se tiver entrado e já tiver o codigo em baixo ele da o aviso .. la em cima onde tem 0,0, um tu ta passando a um e 0 no min e 0 no max ne?
@@ -318,19 +349,31 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 							.unidadeProcurar((String) table_1.getModel()
 									.getValueAt(table_1.getSelectedRow(), 0));
 					// cria o item de medição com a unidade criada antes
-					ItemMedicao im = new ItemMedicao(codigoItem,0, 0, um);
-					//procura o item selecionado na tela, e atribui para o objeto im
-					for (int cont =0; cont<listaItemMedicao.size();cont++){
-						if (listaItemMedicao.get(cont).getUnidadeDeMedicao().getCodigo().equals(um.getCodigo())){
+					ItemMedicao im = new ItemMedicao(codigoItem, 0, 0, um);
+					// procura o item selecionado na tela, e atribui para o
+					// objeto im
+					for (int cont = 0; cont < listaItemMedicao.size(); cont++) {
+						if (listaItemMedicao.get(cont).getUnidadeDeMedicao()
+								.getCodigo().equals(um.getCodigo())) {
 							im = listaItemMedicao.get(cont);
 						}
-						else{
-							System.out.println("NAO igual");
-						}
 					}
-					//Remove o item de medicao da tabela
-					listaItemMedicao.remove(im);
-					//Monta a Tabela do Item de Medicao
+					if (JOptionPane.showConfirmDialog(null,
+							"Deseja realmente EXCLUIR este item de Medicao ?",
+							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						if (codigoItem ==0){
+							// Remove do  Arraylist item de medicao da tabela
+							listaItemMedicao.remove(im);
+						}else{
+							//Remove do Banco de Dados
+							fachada.removerItemDeMedicao(im.getCodItemMedicao());
+							// Remove do arraylist item de medicao da tabela
+							listaItemMedicao.remove(im);
+						}
+					} else {
+
+					}
+					// Monta a Tabela do Item de Medicao
 					table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
 					
 				} catch (Exception e1) {
@@ -361,6 +404,7 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				limparTela();
 				dispose();
 
 			}
@@ -403,10 +447,13 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 				JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!");
 			}else {
 				fachada.atualizarItem(item);
+				for(int i=0;listaItemMedicao.size()>i;i++){
+					fachada.alterarItemDeMedicao(listaItemMedicao.get(i));
+				}
 				JOptionPane.showMessageDialog(null, "Item atualizado com sucesso!");
 				
 			}
-			
+			limparTela();
 			dispose();
 		} catch (ItemJaCadastradoException e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), 
@@ -439,17 +486,28 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
 			codigoItem = i.getCodItem();
 			listaItemMedicao = tela.pegarItems();
-			/*int cont = 0;
-			while(listaItemMedicao.size() >cont){
-				System.out.println(listaItemMedicao.get(cont).getDescricao());
-				cont++;
-			}*/
-			
+			listaItemMedicaoChecagem = listaItemMedicao;
 			listarItemMedicao(listaItemMedicao);
 			
 			//btnRemover.setEnabled(true);
 		}
 	}
+	
+	//-----------------------------------------------------
+	//metodo para limpar a tela
+	//-----------------------------------------------------
+	public void limparTela(){
+		tf_Nome.setText(null);
+		tf_Descricao.setText(null);
+		tf_Marca.setText(null);
+		tf_Serial.setText(null);
+		tf_CodigoItem.setText(null);
+		codigoItem = 0;
+		listaItemMedicao.clear();
+	}
+	
+	
+	
 	public void listarItemMedicao(ArrayList<ItemMedicao> listaItemMedicao ) {
 		try {
 			itm = new ItemMedicaoTableModel(listaItemMedicao);

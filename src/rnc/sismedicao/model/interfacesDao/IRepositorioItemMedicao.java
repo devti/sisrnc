@@ -10,5 +10,9 @@ public interface IRepositorioItemMedicao {
 	public int inserir(ItemMedicao itemMedicao) throws  Exception;
 	
 	public ArrayList<ItemMedicao> procurar (int codItem) throws Exception;
+	
+	public void remover(int codItemMedicao) throws Exception;
+	
+	public void alterar(ItemMedicao itemMedicao) throws  Exception;
 
 }

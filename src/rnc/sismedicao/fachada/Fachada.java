@@ -169,14 +169,24 @@ public class Fachada {
 	//-------------------------------------
 
 	
-	//Este metodo retorna um arraylist 
-	public ArrayList<ItemMedicao> itemMedicaoProcurar (int codItem) throws Exception {
-		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();	
+	// Este metodo retorna um arraylist
+	public ArrayList<ItemMedicao> itemMedicaoProcurar(int codItem)
+			throws Exception {
+		ArrayList<ItemMedicao> itensMedicao = new ArrayList<ItemMedicao>();
 		itensMedicao = controladorItemMedicao.procurar(codItem);
 		return itensMedicao;
-		 
+	}
 
+	// Este metodo remove o Item de Medicao do Banco de Dados
+	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
+		controladorItemMedicao.remover(codItemMedicao);
+	}
+	
+	// Este metodo atualiza o Item de Medicao do Banco de Dados
+	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws  Exception{
+		controladorItemMedicao.alterar(itemMedicao);
+	}
 }
 
 	
-}
+
