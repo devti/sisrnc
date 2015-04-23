@@ -42,7 +42,6 @@ public class PrincipalGUI extends JFrame {
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private String usuario;
 	private Fachada fachada;
-	private String lucas;
 
 	private DesktopBackgroundGUI desktopBackgroundGUI;
 
@@ -154,6 +153,22 @@ public class PrincipalGUI extends JFrame {
 			}
 		});
 		
+				JMenuItem MT_Equipamentos = new JMenuItem("Equipamentos");
+				MT_Equipamentos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							cadastroEquipamentoGUI = CadastroEquipamentoGUI.getInstance();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						cadastroEquipamentoGUI.setVisible(true);
+						cadastroEquipamentoGUI.requestDefaultFocus();
+					}
+				});
+				MT_Equipamentos.setDoubleBuffered(true);
+				MN_Cadastros.add(MT_Equipamentos);
+		
 		MT_Itens.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_Itens);
 
@@ -168,32 +183,9 @@ public class PrincipalGUI extends JFrame {
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_UnidadeDeMedio);
-
-		JMenuItem MT_Equipamentos = new JMenuItem("Equipamentos");
-		MT_Equipamentos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					cadastroEquipamentoGUI = CadastroEquipamentoGUI.getInstance();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				cadastroEquipamentoGUI.setVisible(true);
-				cadastroEquipamentoGUI.requestDefaultFocus();
-			}
-		});
-		MT_Equipamentos.setDoubleBuffered(true);
-		MN_Cadastros.add(MT_Equipamentos);
-
-		JMenuItem MT_Pessoa = new JMenuItem("Pessoa");
-		MT_Pessoa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cadastroPessoaGUI = CadastroPessoaGUI.getInstance();
-				cadastroPessoaGUI.setVisible(true);
-				cadastroPessoaGUI.requestDefaultFocus();
-			}
-		});
-		MN_Cadastros.add(MT_Pessoa);
+		
+		JMenuItem MT_GrupoTecnico = new JMenuItem("Grupo T\u00E9cnico");
+		MN_Cadastros.add(MT_GrupoTecnico);
 
 		JMenu MN_Seguranca = new JMenu("Segurança");
 		MN_Seguranca.setDoubleBuffered(true);
@@ -212,6 +204,16 @@ public class PrincipalGUI extends JFrame {
 				
 			}
 		});
+		
+				JMenuItem MT_Pessoa = new JMenuItem("Pessoa");
+				MN_Seguranca.add(MT_Pessoa);
+				MT_Pessoa.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cadastroPessoaGUI = CadastroPessoaGUI.getInstance();
+						cadastroPessoaGUI.setVisible(true);
+						cadastroPessoaGUI.requestDefaultFocus();
+					}
+				});
 
 		JMenuItem MT_Perfil = new JMenuItem("Perfil");
 		MT_Perfil.setDoubleBuffered(true);
