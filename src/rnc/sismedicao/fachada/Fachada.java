@@ -24,6 +24,7 @@ import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
+
 public class Fachada {
 
 	private static Fachada instance = null;
@@ -53,10 +54,10 @@ public class Fachada {
 		}
 		return Fachada.instance;
 	}
-	
-	//-------------------------------------
+
+	// -------------------------------------
 	// METODO DE CADASTROS
-	//-------------------------------------
+	// -------------------------------------
 	public <E> void cadastrar(E element) throws Exception,
 			PessoaJaCadastradaException {
 		if (element instanceof Usuario)
@@ -64,43 +65,41 @@ public class Fachada {
 		else if (element instanceof Pessoa)
 			this.controladorPessoa.cadastrar((Pessoa) element);
 		else if (element instanceof UnidadeDeMedicao)
-			this.controladorUnidadeMedicao.cadastrar((UnidadeDeMedicao) element);
+			this.controladorUnidadeMedicao
+					.cadastrar((UnidadeDeMedicao) element);
 		else if (element instanceof Item)
 			this.controladorItem.cadastrar((Item) element);
 		else if (element instanceof ItemMedicao)
 			this.controladorItemMedicao.cadastrar((ItemMedicao) element);
 	}
- 
 
-	
-
-	//-------------------------------------
+	// -------------------------------------
 	// METODOS PESSOA
-	//-------------------------------------
+	// -------------------------------------
 	public void pessoaRemover(int codPessoa) throws RepositorioException,
 			SQLException {
 		this.controladorPessoa.remover(codPessoa);
 	}
-	
+
 	public void atualizar(Pessoa pessoa) {
 
 	}
-	
+
 	public ArrayList<Pessoa> pessoaPesquisaAvancada(String atributo,
 			String pesquisa) throws SQLException, RepositorioException {
 
 		return this.controladorPessoa.pesquisaAvancada(atributo, pesquisa);
-	}	
-	
+	}
+
 	public Pessoa pessoaProcurar(int codPessoa)
 			throws PessoaNaoEncontradaException, RepositorioException,
 			SQLException {
 		return this.controladorPessoa.procurar(codPessoa);
 	}
-	
-	//-------------------------------------
+
+	// -------------------------------------
 	// METODOS USUARIO
-	//-------------------------------------
+	// -------------------------------------
 	public boolean usuarioLogin(String usuario, String senha)
 			throws RepositorioException, SQLException, SenhaInvalidaException {
 		return controladorUsuario.login(usuario, senha);
@@ -124,27 +123,31 @@ public class Fachada {
 		return this.controladorUsuario.procurar(codPessoa);
 	}
 
-	//-------------------------------------
-    // METODOS UNIDADE DE MEDICAO
-	//-------------------------------------
-	public ArrayList<UnidadeDeMedicao> unidadeDeMedicaoPesquisaAvancada(String atributo, String pesquisa)
-			throws SQLException, RepositorioException {
-		return this.controladorUnidadeMedicao.pesquisaAvancada(atributo, pesquisa);
+	// -------------------------------------
+	// METODOS UNIDADE DE MEDICAO
+	// -------------------------------------
+	public ArrayList<UnidadeDeMedicao> unidadeDeMedicaoPesquisaAvancada(
+			String atributo, String pesquisa) throws SQLException,
+			RepositorioException {
+		return this.controladorUnidadeMedicao.pesquisaAvancada(atributo,
+				pesquisa);
 	}
 
-	public UnidadeDeMedicao unidadeProcurar(String codUnidade) throws RepositorioException,
-			SQLException, UnidadeDeMedicaoNaoEncontradaException {
-		return this.controladorUnidadeMedicao.procurar(codUnidade);	
+	public UnidadeDeMedicao unidadeProcurar(String codUnidade)
+			throws RepositorioException, SQLException,
+			UnidadeDeMedicaoNaoEncontradaException {
+		return this.controladorUnidadeMedicao.procurar(codUnidade);
 	}
-	
-	public ArrayList<UnidadeDeMedicao> listarUnidadeMedicao() throws SQLException, RepositorioException {
-		
+
+	public ArrayList<UnidadeDeMedicao> listarUnidadeMedicao()
+			throws SQLException, RepositorioException {
+
 		return this.controladorUnidadeMedicao.listarUnidadeMedicao();
 	}
-	
-	//-------------------------------------
-    // METODOS ITEM
-	//-------------------------------------
+
+	// -------------------------------------
+	// METODOS ITEM
+	// -------------------------------------
 
 	public Item itemProcurar(int codItem) throws RepositorioException,
 			SQLException, ItemNaoEncontradoException {
@@ -168,12 +171,11 @@ public class Fachada {
 			throws SQLException, RepositorioException {
 		return this.controladorItem.pesquisaAvancada(atributo, pesquisa);
 	}
-	
-	//-------------------------------------
-    // METODOS ITEM MEDICAO
-	//-------------------------------------
 
-	
+	// -------------------------------------
+	// METODOS ITEM MEDICAO
+	// -------------------------------------
+
 	// Este metodo retorna um arraylist
 	public ArrayList<ItemMedicao> itemMedicaoProcurar(int codItem)
 			throws Exception {
@@ -186,29 +188,26 @@ public class Fachada {
 	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
 		controladorItemMedicao.remover(codItemMedicao);
 	}
-	
+
 	// Este metodo atualiza o Item de Medicao do Banco de Dados
-	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws  Exception{
+	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws Exception {
 		controladorItemMedicao.alterar(itemMedicao);
 	}
 
+	// -------------------------------------
+	// METODOS EQUIPAMENTO
+	// -------------------------------------
 
-//-------------------------------------
-// METODOS EQUIPAMENTO
-//-------------------------------------
+	public ArrayList<Equipamento> equipamentoPesquisaAvancada(String atributo,
+			String pesquisa) throws SQLException, RepositorioException {
 
-public ArrayList<Equipamento> equipamentoPesquisaAvancada(String atributo,
-		String pesquisa) throws SQLException, RepositorioException {
+		return this.controladorEquipamento.pesquisaAvancada(atributo, pesquisa);
+	}
 
-	return this.controladorEquipamento.pesquisaAvancada(atributo, pesquisa);
+	public Equipamento equipamentoProcurar(int codEquipamento)
+			throws RepositorioException, SQLException,
+			EquipamentoNaoEncontrandoException {
+		return this.controladorEquipamento.procurar(codEquipamento);
+	}
+
 }
-
-public Equipamento equipamentoProcurar(int codEquipamento) throws RepositorioException, SQLException,
-		EquipamentoNaoEncontrandoException {
-	return this.controladorEquipamento.procurar(codEquipamento);
-}
-
-}
-
-	
-
