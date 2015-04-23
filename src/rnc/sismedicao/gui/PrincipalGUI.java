@@ -39,6 +39,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroPessoaGUI cadastroPessoaGUI;
 	private CadastroItemGUI cadastroItemGUI;
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
+	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private String usuario;
 	private Fachada fachada;
 	private String lucas;
@@ -205,8 +206,9 @@ public class PrincipalGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				cadastroUsuarioGUI = cadastroUsuarioGUI.getInstance();
+				cadastroUsuarioGUI.setVisible(true);
+				cadastroUsuarioGUI.requestDefaultFocus();
 				
 			}
 		});

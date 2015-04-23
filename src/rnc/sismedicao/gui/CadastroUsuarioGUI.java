@@ -38,7 +38,7 @@ import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.LimparCampos;
 
-public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
+public class CadastroUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 
 	/**
 	 * 
@@ -52,7 +52,7 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 	private ProcuraPessoaGUI tela;
 	private ProcuraUsuarioGUI tpu;
 
-	private static FormUsuarioGUI formUsuarioGui;
+	private static CadastroUsuarioGUI formUsuarioGui;
 
 	private static final int TELA_WIDTH = 500;
 	private static final int TELA_HEIGTH = 300;
@@ -60,14 +60,14 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 	private JButton btnRemover;
 
 
-	public static FormUsuarioGUI getInstance() {
+	public static CadastroUsuarioGUI getInstance() {
 		if (formUsuarioGui == null) {
-			formUsuarioGui = new FormUsuarioGUI();
+			formUsuarioGui = new CadastroUsuarioGUI();
 		}
 		return formUsuarioGui;
 	}
 
-	private FormUsuarioGUI() {
+	private CadastroUsuarioGUI() {
 		// setBounds(0, 0, 370, 280);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setRootPaneCheckingEnabled(false);
@@ -142,7 +142,7 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 		});
 		BT_PesquisaPessoa
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_PesquisaPessoa.setBounds(297, 23, 27, 22);
 		PN_Identificacao.add(BT_PesquisaPessoa);
@@ -165,7 +165,7 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 		});
 		btnRemover
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		btnRemover.setBounds(172, 8, 30, 30);
 		getContentPane().add(btnRemover);
@@ -202,13 +202,13 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 		JButton btnPrimeiro = new JButton("");
 		btnPrimeiro
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
 		btnPrimeiro.setBounds(10, 8, 30, 30);
 		getContentPane().add(btnPrimeiro);
 
 		JButton btnAnterior = new JButton("");
-		btnAnterior.setIcon(new ImageIcon(FormUsuarioGUI.class
+		btnAnterior.setIcon(new ImageIcon(CadastroUsuarioGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
 		btnAnterior.setBounds(42, 8, 30, 30);
 		getContentPane().add(btnAnterior);
@@ -216,13 +216,13 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 		JButton btnProximo = new JButton("");
 		btnProximo
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
 		btnProximo.setBounds(74, 8, 30, 30);
 		getContentPane().add(btnProximo);
 
 		JButton btnUltimo = new JButton("");
-		btnUltimo.setIcon(new ImageIcon(FormUsuarioGUI.class
+		btnUltimo.setIcon(new ImageIcon(CadastroUsuarioGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
 		btnUltimo.setBounds(107, 8, 30, 30);
 		getContentPane().add(btnUltimo);
@@ -233,14 +233,14 @@ public class FormUsuarioGUI extends NewJFrameForm implements InterfaceFormGUI {
 				pesquisarUsuario();
 			}
 		});
-		btnPesquisar.setIcon(new ImageIcon(FormUsuarioGUI.class
+		btnPesquisar.setIcon(new ImageIcon(CadastroUsuarioGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		btnPesquisar.setBounds(139, 8, 30, 30);
 		getContentPane().add(btnPesquisar);
 
 		JButton button = new JButton("");
 		button.setIcon(new ImageIcon(
-				FormUsuarioGUI.class
+				CadastroUsuarioGUI.class
 						.getResource("/rnc/sismedicao/gui/icons/icons16x16/clear 1.png")));
 		button.setBounds(206, 8, 30, 30);
 		getContentPane().add(button);

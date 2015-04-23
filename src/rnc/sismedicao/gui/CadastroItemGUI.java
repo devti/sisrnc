@@ -97,13 +97,13 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		JButton btnPrimeiro = new JButton("");
 		btnPrimeiro
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
 		btnPrimeiro.setBounds(10, 8, 30, 30);
 		getContentPane().add(btnPrimeiro);
 
 		JButton btnAnterior = new JButton("");
-		btnAnterior.setIcon(new ImageIcon(FormUsuarioGUI.class
+		btnAnterior.setIcon(new ImageIcon(CadastroUsuarioGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
 		btnAnterior.setBounds(42, 8, 30, 30);
 		getContentPane().add(btnAnterior);
@@ -111,13 +111,13 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		JButton btnProximo = new JButton("");
 		btnProximo
 				.setIcon(new ImageIcon(
-						FormUsuarioGUI.class
+						CadastroUsuarioGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
 		btnProximo.setBounds(74, 8, 30, 30);
 		getContentPane().add(btnProximo);
 
 		JButton btnUltimo = new JButton("");
-		btnUltimo.setIcon(new ImageIcon(FormUsuarioGUI.class
+		btnUltimo.setIcon(new ImageIcon(CadastroUsuarioGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
 		btnUltimo.setBounds(107, 8, 30, 30);
 		getContentPane().add(btnUltimo);
