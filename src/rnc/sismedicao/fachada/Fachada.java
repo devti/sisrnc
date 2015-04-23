@@ -74,6 +74,8 @@ public class Fachada {
 		else if (element instanceof Equipamento)
 			this.controladorEquipamento.cadastrar((Equipamento) element);
 	}
+	
+	//testelucas
 
 	// -------------------------------------
 	// METODOS PESSOA
