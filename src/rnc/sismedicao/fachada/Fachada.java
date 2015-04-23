@@ -71,6 +71,8 @@ public class Fachada {
 			this.controladorItem.cadastrar((Item) element);
 		else if (element instanceof ItemMedicao)
 			this.controladorItemMedicao.cadastrar((ItemMedicao) element);
+		else if (element instanceof Equipamento)
+			this.controladorEquipamento.cadastrar((Equipamento) element);
 	}
 
 	// -------------------------------------
@@ -145,9 +147,9 @@ public class Fachada {
 		return this.controladorUnidadeMedicao.listarUnidadeMedicao();
 	}
 
-	// -------------------------------------
-	// METODOS ITEM
-	// -------------------------------------
+	//-------------------------------------
+    // METODOS ITEM
+	//-------------------------------------
 
 	public Item itemProcurar(int codItem) throws RepositorioException,
 			SQLException, ItemNaoEncontradoException {
@@ -171,11 +173,16 @@ public class Fachada {
 			throws SQLException, RepositorioException {
 		return this.controladorItem.pesquisaAvancada(atributo, pesquisa);
 	}
+	
+	public void removerItem(int codItem) throws Exception{
+		controladorItem.removerItem(codItem);
+	}
+	
+	//-------------------------------------
+    // METODOS ITEM MEDICAO
+	//-------------------------------------
 
-	// -------------------------------------
-	// METODOS ITEM MEDICAO
-	// -------------------------------------
-
+	
 	// Este metodo retorna um arraylist
 	public ArrayList<ItemMedicao> itemMedicaoProcurar(int codItem)
 			throws Exception {
@@ -188,15 +195,20 @@ public class Fachada {
 	public void removerItemDeMedicao(int codItemMedicao) throws Exception {
 		controladorItemMedicao.remover(codItemMedicao);
 	}
-
+	
 	// Este metodo atualiza o Item de Medicao do Banco de Dados
-	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws Exception {
+	public void alterarItemDeMedicao(ItemMedicao itemMedicao) throws  Exception{
 		controladorItemMedicao.alterar(itemMedicao);
 	}
+	
+	// Este metodo remove todos os item de medicao com base no codigo do Item
+	public void removerAllItemDeMedicao(int codItem) throws Exception {
+		controladorItemMedicao.removerAll(codItem);
+	}
 
-	// -------------------------------------
+	//-------------------------------------
 	// METODOS EQUIPAMENTO
-	// -------------------------------------
+	//-------------------------------------
 
 	public ArrayList<Equipamento> equipamentoPesquisaAvancada(String atributo,
 			String pesquisa) throws SQLException, RepositorioException {
@@ -204,8 +216,7 @@ public class Fachada {
 		return this.controladorEquipamento.pesquisaAvancada(atributo, pesquisa);
 	}
 
-	public Equipamento equipamentoProcurar(int codEquipamento)
-			throws RepositorioException, SQLException,
+	public Equipamento equipamentoProcurar(int codEquipamento) throws RepositorioException, SQLException,
 			EquipamentoNaoEncontrandoException {
 		return this.controladorEquipamento.procurar(codEquipamento);
 	}

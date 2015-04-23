@@ -100,6 +100,25 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 		}
 	}
 
+	//-------------------------------------------------------------------------------------
+	//METODO PARA REMOVER todos os ITEM DE MEDICAO NO BANCO DE DADOS de um determinado item
+	//-------------------------------------------------------------------------------------
+	public void removerAll(int codItem) throws Exception {
+
+		String sql = "DELETE FROM ITEMMEDICAO WHERE CODITEM = ?";
+
+		try {
+
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codItem);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
+
+	
 	//---------------------------------------------------------
 	//METODO PARA ATUALIZAR UM ITEM DE MEDICAO NO BANCO DE DADOS
 	//---------------------------------------------------------

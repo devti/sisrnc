@@ -1,6 +1,7 @@
 package rnc.sismedicao.controller;
 
 import java.util.ArrayList;
+
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.dao.ItemMedicaoDAO;
 import rnc.sismedicao.model.interfacesDao.IRepositorioItemMedicao;
@@ -26,5 +27,9 @@ public class ItemMedicaoController {
 	
 	public void alterar(ItemMedicao itemMedicao) throws  Exception{
 		repositorioItemMedicao.alterar(itemMedicao);
+	}
+	
+	public void removerAll(int codItem) throws Exception{
+		repositorioItemMedicao.removerAll(codItem);
 	}
 }

@@ -171,21 +171,26 @@ public class ItemDAO implements IRepositorioItem {
 		return pesq;
 	}
 
+	//-------------------------------------
+	//REMOVE ITEM DO BANCO DE DADOS
+	//-------------------------------------
+	public void removerItem(int codItem) throws Exception {
 
+		String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
 
+		try {
 
-	/**
-	 * public void removerItem(int codItem) throws Exception {
-	 * 
-	 * String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
-	 * 
-	 * try {
-	 * 
-	 * PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
-	 * ps.setInt(1, codItem); ps.execute(); Conexao.getConnection().commit(); }
-	 * catch (SQLException e) { throw new RepositorioException(e); } }
-	 * 
-	 * 
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codItem);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
+
+	 /** 
 	 * private List<Item> carregaList(ResultSet resultSet){
 	 * 
 	 * List<Item> itens = new ArrayList<Item>();

@@ -2,6 +2,7 @@ package rnc.sismedicao.model.interfacesDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
@@ -19,6 +20,8 @@ public interface IRepositorioItem {
 	public Item procurar(int codItem) throws ItemNaoEncontradoException, SQLException, RepositorioException;
 	
 	public ArrayList <Item> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
+	
+	public void removerItem(int codItem) throws Exception;
 
 }
 

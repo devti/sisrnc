@@ -14,5 +14,7 @@ public interface IRepositorioItemMedicao {
 	public void remover(int codItemMedicao) throws Exception;
 	
 	public void alterar(ItemMedicao itemMedicao) throws  Exception;
+	
+	public void removerAll(int codItem) throws Exception;
 
 }

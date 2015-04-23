@@ -228,12 +228,44 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		btnPesquisar.setBounds(140, 8, 30, 30);
 		contentPane.add(btnPesquisar);
 
+		//---------------------------------
+		// Botao remover Item
+		//---------------------------------
 		JButton btnRemover = new JButton("");
+		btnRemover.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (codigoItem == 0) {
+						JOptionPane
+								.showMessageDialog(
+										getContentPane(),
+										"E necessario primeiro realizar a pesquisa do Item para poder realizar a EXCLUSAO!",
+										"Aviso",
+										JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						if (JOptionPane.showConfirmDialog(null,
+								"Deseja realmente EXCLUIR este item ?",
+								"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							fachada.removerItem(codigoItem);
+							fachada.removerAllItemDeMedicao(codigoItem);
+							limparTela();
+						}
+
+					}
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnRemover
 				.setIcon(new ImageIcon(
 						CadastroItemGUI.class
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
-		btnRemover.setEnabled(false);
+			btnRemover.setEnabled(true);
+			
 		btnRemover.setBounds(173, 8, 30, 30);
 		contentPane.add(btnRemover);
 		
@@ -488,8 +520,8 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 			listaItemMedicao = tela.pegarItems();
 			listaItemMedicaoChecagem = listaItemMedicao;
 			listarItemMedicao(listaItemMedicao);
-			
 			//btnRemover.setEnabled(true);
+			
 		}
 	}
 	
@@ -504,10 +536,13 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		tf_CodigoItem.setText(null);
 		codigoItem = 0;
 		listaItemMedicao.clear();
+		listarItemMedicao(listaItemMedicao);
 	}
 	
 	
-	
+	//------------------------------------------------
+	//Monta a tabela de Item de Medicao
+	//------------------------------------------------
 	public void listarItemMedicao(ArrayList<ItemMedicao> listaItemMedicao ) {
 		try {
 			itm = new ItemMedicaoTableModel(listaItemMedicao);
@@ -530,6 +565,9 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 		}
 
 	}
+	//-------------------------------------------------------
+	//lista a unidade de medicao na tabela
+	//-------------------------------------------------------
 	public void listar() {
 		try {
 			fachada = Fachada.getInstance();

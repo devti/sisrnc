@@ -2,6 +2,7 @@ package rnc.sismedicao.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
@@ -32,6 +33,10 @@ public class ItemController {
 	public ArrayList<Item> pesquisaAvancada(String atributo, String pesquisa)
 			throws SQLException, RepositorioException {
 		return repositorioItem.pesquisaAvancada(atributo, pesquisa);
+	}
+	
+	public void removerItem(int codItem) throws Exception{
+		repositorioItem.removerItem(codItem);
 	}
 	// --- codigo desativado em 02/04/2015 
 	/**	private ItemDAO itemDAO = new ItemDAO();
