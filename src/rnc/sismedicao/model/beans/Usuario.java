@@ -5,6 +5,7 @@ public class Usuario {
 	private int codUsuario;
 	private int codPessoa;
 	private String login;
+	private String nome;
 	private String senha;
 
 	public Usuario(int codUsuario, String login, String senha) {
@@ -13,11 +14,28 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
-	public Usuario(String login, String senha) {
+	public Usuario(String login, String senha, String Nome) {
 		this.login = login;
 		this.senha = senha;
+		this.nome = nome;
+	}
+	
+	public Usuario(String nome, String login, int codigoPessoa, int codigoUsuario){
+		this.codPessoa = codigoPessoa;
+		this.codUsuario = codigoUsuario;
+		this.login = login;
+		this.nome = nome;
+		
 	}
 
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public int getCodUsuario() {
 		return codUsuario;

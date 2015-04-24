@@ -68,7 +68,7 @@ public class ProcuraUsuarioGUI extends JDialog {
 		cbAtributo_1 = new JComboBox();
 		cbAtributo_1.setToolTipText("");
 		cbAtributo_1
-				.setModel(new DefaultComboBoxModel(new String[] { "Login" }));
+				.setModel(new DefaultComboBoxModel(new String[] { "Login", "Nome" }));
 		cbAtributo_1.setSelectedIndex(0);
 		cbAtributo_1.setBackground(Color.WHITE);
 		cbAtributo_1.setBounds(10, 11, 119, 20);

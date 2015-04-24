@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
+import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
 import rnc.sismedicao.model.util.Conexao;
@@ -65,7 +66,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			RepositorioException {
 		Usuario usuario = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM USUARIO WHERE CODPESSOA = ?";
+		String sql = "select * from (select u.codusuario, u.codpessoa, u.login, u.senha, p.nome, p.cpf, p.email, p.telefone from  usuario u left join pessoa p  on p.codpessoa = u.codpessoa) as grupoTecnico where grupoTecnico.codpessoa = ?";
 
 		try {
 			PreparedStatement ps = Conexao.getConnection()
@@ -75,8 +76,9 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			if (!rs.next())
 				throw new UsuarioNaoEncontradoException(codPessoa);
 			usuario = new Usuario(rs.getString("LOGIN"),
-					rs.getString("SENHA"));
+					rs.getString("SENHA"),rs.getString("NOME"));
 			usuario.setCodPessoa(rs.getInt("codPessoa"));
+			usuario.setNome(rs.getString("NOME"));
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
@@ -117,7 +119,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario(rs.getString("LOGIN"),
-						rs.getString("SENHA"));
+						rs.getString("SENHA"),rs.getString("NOME"));
 				usuario.setCodPessoa(rs.getInt("CODPESSOA"));
 				usuario.setCodUsuario(rs.getInt("CODUSUARIO"));
 				usuarios.add(usuario);
@@ -129,7 +131,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 	}
 
 	@Override
-	public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa)
+	/**public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa)
 			throws SQLException {
 		ArrayList<Usuario> pesq = new ArrayList<Usuario>();
 		ResultSet rs = null;
@@ -144,6 +146,29 @@ public class UsuarioDAO implements IRepositorioUsuario {
 				usuario.setCodUsuario(rs.getInt("CODUSUARIO"));
 				pesq.add(usuario);
 			} 
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return pesq;
+	}**/
+	// -----------------------------------------------
+	// METODO QUE REALIZA A PESQUISA Avançada
+	// -----------------------------------------------
+	public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException {
+		ArrayList<Usuario> pesq = new ArrayList<Usuario>();
+		ResultSet rs = null;
+		String sql = "select * from (select u.codusuario, u.codpessoa, u.login, p.nome, p.cpf, p.email, p.telefone from  usuario u left join pessoa p  on p.codpessoa = u.codpessoa) as grupoTecnico where grupoTecnico."
+				+ atributo + " LIKE '%" + pesquisa + "%' ORDER BY NOME ASC";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
+					sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getString("NOME"),
+						rs.getString("LOGIN"), rs.getInt("CODUSUARIO"), rs.getInt("CODPESSOA"));
+				pesq.add(usuario);
+			}
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());
 		}

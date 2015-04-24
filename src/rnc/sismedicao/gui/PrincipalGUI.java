@@ -40,6 +40,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroItemGUI cadastroItemGUI;
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
+	private CadastroGrupoTecnicoGUI cadastroGrupoTecnicoGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -186,6 +187,16 @@ public class PrincipalGUI extends JFrame {
 		
 		JMenuItem MT_GrupoTecnico = new JMenuItem("Grupo T\u00E9cnico");
 		MN_Cadastros.add(MT_GrupoTecnico);
+		MT_GrupoTecnico.setDoubleBuffered(true);
+		MT_GrupoTecnico.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				cadastroGrupoTecnicoGUI = cadastroGrupoTecnicoGUI.getInstance();
+				cadastroGrupoTecnicoGUI.setVisible(true);
+			}
+		});
 
 		JMenu MN_Seguranca = new JMenu("Segurança");
 		MN_Seguranca.setDoubleBuffered(true);

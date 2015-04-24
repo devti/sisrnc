@@ -278,6 +278,7 @@ public class CadastroUsuarioGUI extends NewJFrameForm implements InterfaceFormGU
 		tpu.setVisible(true);
 		if (tpu.getFocusableWindowState() && tpu.pegarUsuario() != null) {
 			Usuario u = tpu.pegarUsuario();
+			TF_Pessoa.setText(u.getNome());
 			TF_Login.setText(u.getLogin());
 			TF_CodPessoa.setText(Integer.toString(u.getCodPessoa()));
 			btnRemover.setEnabled(true);
@@ -293,7 +294,7 @@ public class CadastroUsuarioGUI extends NewJFrameForm implements InterfaceFormGU
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
 			usuario = new Usuario(TF_Login.getText(), new String(
-					PF_Senha.getPassword()));
+					PF_Senha.getPassword()), TF_Pessoa.getText());
 			usuario.setCodPessoa(Integer.parseInt(TF_CodPessoa.getText()));
 			// verifica se e novo ou alteracao e manda para o metodo na fachada
 			fachada.cadastrar(usuario);

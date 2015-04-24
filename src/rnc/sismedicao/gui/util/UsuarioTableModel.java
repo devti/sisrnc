@@ -12,7 +12,7 @@ public class UsuarioTableModel extends AbstractTableModel {
 	private static final long SerialVersionUID = 1L;
 	
 	private ArrayList<Usuario> usuarios;
-	private String[] nomeColunas = {"CODUSUARIO", "CODPESSOA", "LOGIN"};
+	private String[] nomeColunas = {"CODPESSOA","CODUSUARIO", "LOGIN", "NOME"};
 	
 	public UsuarioTableModel() {
 		this.usuarios = new ArrayList<Usuario>();
@@ -30,11 +30,13 @@ public class UsuarioTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "CODUSUARIO";
-		case 1:
 			return "CODPESSOA";
+		case 1:
+			return "CODUSUARIO";
 		case 2:
 			return "LOGIN";
+		case 3:
+			return "NOME";
 		}
 		return "?";
 	}
@@ -50,11 +52,13 @@ public class UsuarioTableModel extends AbstractTableModel {
 		Usuario usuario = usuarios.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return usuario.getCodUsuario();
-		case 1:
 			return usuario.getCodPessoa();
+		case 1:
+			return usuario.getCodUsuario();
 		case 2:
 			return usuario.getLogin();
+		case 3:
+			return usuario.getNome();
 		default:
 			return null;
 		}
