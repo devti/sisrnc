@@ -238,4 +238,9 @@ public class Fachada {
 		this.controladorEquipamento.cadastrarEquipamentoItem(e);
 	}
 
+	public void removerEquipamento(int codigoEquipamento) throws Exception {
+		controladorEquipamento.removerEquipamento(codigoEquipamento);
+		
+	}
+
 }

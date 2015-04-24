@@ -40,4 +40,9 @@ public class EquipamentoController {
 		repositorioEquipamento.inserirEquipamentoItem(e);
 	}
 
+	public void removerEquipamento(int codigoEquipamento) throws Exception {
+		repositorioEquipamento.removerEquipamento(codigoEquipamento);
+		
+	}
+
 }

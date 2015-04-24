@@ -49,6 +49,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private JButton btnRemover;
 	private int codigoEquipamento = 0;
 	private static CadastroEquipamentoGUI cadastroEquipamentoGUI;
+	private JTextField TF_CodEquipamento;
 
 	/**
 	 * Create the frame.
@@ -113,6 +114,22 @@ public class CadastroEquipamentoGUI extends JDialog {
 		contentPane.add(btnPesquisar);
 
 		btnRemover = new JButton("");
+		btnRemover.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o equipamento?", 
+							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					fachada.removerEquipamento(codigoEquipamento);
+					limparTela();
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btnRemover.setEnabled(false);
 		btnRemover
 				.setIcon(new ImageIcon(
@@ -241,6 +258,16 @@ public class CadastroEquipamentoGUI extends JDialog {
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Down.png")));
 		btnAdicionar.setBounds(442, 387, 30, 30);
 		contentPane.add(btnAdicionar);
+		
+		TF_CodEquipamento = new JTextField();
+		TF_CodEquipamento.setEnabled(false);
+		TF_CodEquipamento.setBounds(400, 21, 86, 20);
+		contentPane.add(TF_CodEquipamento);
+		TF_CodEquipamento.setColumns(10);
+		
+		JLabel LB_CodEquipamento = new JLabel("Codigo do Equipamento");
+		LB_CodEquipamento.setBounds(267, 24, 127, 14);
+		contentPane.add(LB_CodEquipamento);
 	}
 
 	public void procurar() {
@@ -251,6 +278,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_Descricao.setText(e.getDescricao());
 			TF_OBS.setText(e.getObs());
 			TF_Serie.setText(e.getRegistro());
+			TF_CodEquipamento.setText(Integer.toString(equipamento.getCodEquipamento()));
 			btnRemover.setEnabled(true);
 		}
 	}
