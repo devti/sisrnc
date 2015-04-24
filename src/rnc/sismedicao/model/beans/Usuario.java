@@ -8,6 +8,13 @@ public class Usuario {
 	private String nome;
 	private String senha;
 
+	public Usuario(String nome, String login, int codigoPessoa, int codigoUsuario){
+		this.codPessoa = codigoPessoa;
+		this.codUsuario = codigoUsuario;
+		this.login = login;
+		this.nome = nome;
+		
+	}
 	public Usuario(int codUsuario, String login, String senha) {
 		this.codUsuario = codUsuario;
 		this.login = login;
@@ -20,14 +27,6 @@ public class Usuario {
 		this.nome = nome;
 	}
 	
-	public Usuario(String nome, String login, int codigoPessoa, int codigoUsuario){
-		this.codPessoa = codigoPessoa;
-		this.codUsuario = codigoUsuario;
-		this.login = login;
-		this.nome = nome;
-		
-	}
-
 
 	public String getNome() {
 		return nome;

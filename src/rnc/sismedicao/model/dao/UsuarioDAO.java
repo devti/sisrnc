@@ -78,6 +78,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			usuario = new Usuario(rs.getString("LOGIN"),
 					rs.getString("SENHA"),rs.getString("NOME"));
 			usuario.setCodPessoa(rs.getInt("codPessoa"));
+			usuario.setCodUsuario(rs.getInt("codUsuario"));
 			usuario.setNome(rs.getString("NOME"));
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
