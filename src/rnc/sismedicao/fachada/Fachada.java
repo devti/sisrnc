@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import rnc.sismedicao.controller.EquipamentoController;
+import rnc.sismedicao.controller.GrupoTecnicoController;
 import rnc.sismedicao.controller.PessoaController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
@@ -19,6 +20,7 @@ import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.controller.exception.UnidadeDeMedicaoNaoEncontradaException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Equipamento;
+import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
@@ -34,7 +36,8 @@ public class Fachada {
 	private ItemController controladorItem;
 	private ItemMedicaoController controladorItemMedicao;
 	private EquipamentoController controladorEquipamento;
-
+	private GrupoTecnicoController controladorGrupoTecnico;
+	
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
 		this.controladorPessoa = new PessoaController();
@@ -42,6 +45,7 @@ public class Fachada {
 		this.controladorItem = new ItemController();
 		this.controladorItemMedicao = new ItemMedicaoController();
 		this.controladorEquipamento = new EquipamentoController();
+		this.controladorGrupoTecnico = new GrupoTecnicoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -74,6 +78,8 @@ public class Fachada {
 			this.controladorItemMedicao.cadastrar((ItemMedicao) element);
 		else if (element instanceof Equipamento)
 			this.controladorEquipamento.cadastrar((Equipamento) element);
+		else if (element instanceof GrupoTecnico)
+			this.controladorGrupoTecnico.cadastrar((GrupoTecnico) element);
 	}
 
 
