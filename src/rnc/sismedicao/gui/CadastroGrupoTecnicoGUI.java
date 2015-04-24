@@ -2,7 +2,6 @@ package rnc.sismedicao.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,24 +9,22 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-
 import java.awt.TextArea;
 import java.awt.Panel;
 import java.awt.FlowLayout;
 import java.awt.Button;
-
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-
 import java.awt.ScrollPane;
-
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
-
+import rnc.sismedicao.model.beans.Usuario;
 import java.awt.Color;
+import java.util.ArrayList;
+
 
 public class CadastroGrupoTecnicoGUI extends JFrame {
 
@@ -36,6 +33,8 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private JTextField tf_localizacao;
 	private JTable table;
 	private static CadastroGrupoTecnicoGUI formCadastroGrupoTecnicoGui;
+	private ProcuraUsuarioGUI tpu;
+	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	public static CadastroGrupoTecnicoGUI getInstance() {
 		if (formCadastroGrupoTecnicoGui == null) {
@@ -110,5 +109,50 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(335, 434, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
+		button.setBounds(107, 11, 30, 30);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
+		button_1.setBounds(74, 11, 30, 30);
+		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("");
+		button_2.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
+		button_2.setBounds(42, 11, 30, 30);
+		contentPane.add(button_2);
+		
+		JButton button_3 = new JButton("");
+		button_3.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
+		button_3.setBounds(10, 11, 30, 30);
+		contentPane.add(button_3);
+		
+		JButton button_4 = new JButton("");
+		button_4.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
+		button_4.setBounds(139, 11, 30, 30);
+		contentPane.add(button_4);
+		
+		JButton button_5 = new JButton("");
+		button_5.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
+		button_5.setEnabled(false);
+		button_5.setBounds(172, 11, 30, 30);
+		contentPane.add(button_5);
 	}
+	
+	//-------------------
+	// Procurar Usuarios
+	//-------------------
+	public void pesquisarUsuario() {
+		tpu = new ProcuraUsuarioGUI();
+		tpu.setVisible(true);
+		if (tpu.getFocusableWindowState() && tpu.pegarUsuario() != null) {
+			Usuario u = tpu.pegarUsuario();
+			usuarios.add(u);
+			
+		}
+	}
+	
 }
