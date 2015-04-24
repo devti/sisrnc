@@ -46,6 +46,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
 	private Component btnOk;
+	private JButton btnRemover;
 	private int codigoEquipamento = 0;
 	private static CadastroEquipamentoGUI cadastroEquipamentoGUI;
 
@@ -111,7 +112,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		btnPesquisar.setBounds(135, 11, 30, 30);
 		contentPane.add(btnPesquisar);
 
-		JButton btnRemover = new JButton("");
+		btnRemover = new JButton("");
 		btnRemover.setEnabled(false);
 		btnRemover
 				.setIcon(new ImageIcon(
@@ -250,6 +251,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_Descricao.setText(e.getDescricao());
 			TF_OBS.setText(e.getObs());
 			TF_Serie.setText(e.getRegistro());
+			btnRemover.setEnabled(true);
 		}
 	}
 
