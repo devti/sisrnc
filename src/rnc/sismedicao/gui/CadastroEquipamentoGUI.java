@@ -46,6 +46,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
 	private Component btnOk;
+	private int codigoEquipamento = 0;
 	private static CadastroEquipamentoGUI cadastroEquipamentoGUI;
 
 	/**
@@ -99,7 +100,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				procurar();
@@ -138,7 +139,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		JLabel lblObservao = new JLabel("Observa\u00E7\u00E3o:");
 		lblObservao.setBounds(10, 75, 71, 14);
 		panel.add(lblObservao);
-		
+
 		TF_OBS = new JTextArea();
 		TF_OBS.setRows(4);
 		TF_OBS.setBounds(10, 94, 449, 55);
@@ -197,6 +198,15 @@ public class CadastroEquipamentoGUI extends JDialog {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(382, 577, 89, 23);
 		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limparTela();
+				dispose();
+				
+			}
+		});
 
 		JButton btnAdicionar = new JButton("");
 		btnAdicionar.addActionListener(new ActionListener() {
@@ -235,7 +245,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	public void procurar() {
 		tela = new ProcuraEquipamentoGUI();
 		tela.setVisible(true);
-		if(tela.getFocusableWindowState() && tela.pegarEquipamento() != null) {
+		if (tela.getFocusableWindowState() && tela.pegarEquipamento() != null) {
 			Equipamento e = tela.pegarEquipamento();
 			TF_Descricao.setText(e.getDescricao());
 			TF_OBS.setText(e.getObs());
@@ -245,14 +255,28 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 	public void salvar() {
 		try {
-			if (TF_Descricao.getText().isEmpty() || TF_OBS.getText().isEmpty() ||
-					TF_Serie.getText().isEmpty())
-			throw new DadosObrigatoriosException();
+			if (TF_Descricao.getText().isEmpty() || TF_OBS.getText().isEmpty()
+					|| TF_Serie.getText().isEmpty())
+				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
+			equipamento = new Equipamento(TF_Serie.getText(),
+					TF_Descricao.getText(), TF_OBS.getText());
+			if (codigoEquipamento == 0) {
+				fachada.cadastrar(equipamento);
+				int codEquipamento = fachada.consultarUltimoCodigoEquipamento();
+				for (int i = 0; i < lista_1.size(); i++) {
+					Equipamento e = new Equipamento();
+					e.setItem(lista_1.get(i));
+					e.setCodEquipamento(codEquipamento);
+					fachada.cadastraEquipamentoItem(e);
+				}
+
+			}
+
+			JOptionPane.showMessageDialog(null,
+					"Equipamento cadastrado com sucesso!");
 			
-			equipamento = new Equipamento(TF_Serie.getText(), TF_Descricao.getText(), TF_OBS.getText());
-			fachada.cadastrar(equipamento);
-			JOptionPane.showMessageDialog(null, "Equipamento cadastrado com sucesso!");
+			limparTela();
 		} catch (EquipamentoJaCadastradoException e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
 					"Aviso", JOptionPane.ERROR_MESSAGE);
@@ -264,7 +288,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
 					"Aviso", JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 	}
 
 	private void listar() {
@@ -291,6 +315,13 @@ public class CadastroEquipamentoGUI extends JDialog {
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
+	}
+	
+	public void limparTela() {
+		TF_Descricao.setText(null);
+		TF_OBS.setText(null);
+		TF_Serie.setText(null);
+		lista_1.clear();
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {

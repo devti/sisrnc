@@ -72,11 +72,10 @@ public class Fachada {
 			this.controladorItem.cadastrar((Item) element);
 		else if (element instanceof ItemMedicao)
 			this.controladorItemMedicao.cadastrar((ItemMedicao) element);
+		else if (element instanceof Equipamento)
+			this.controladorEquipamento.cadastrar((Equipamento) element);
 	}
 
-	// teste2
-
-	// testelucas
 
 	// -------------------------------------
 	// METODOS PESSOA
@@ -227,6 +226,10 @@ public class Fachada {
 
 	public int consultarUltimoCodigoEquipamento() throws Exception {
 		return this.controladorEquipamento.consultarUltimoCodigoEquipamento();
+	}
+
+	public void cadastraEquipamentoItem(Equipamento e) throws Exception {
+		this.controladorEquipamento.cadastrarEquipamentoItem(e);
 	}
 
 }

@@ -18,5 +18,10 @@ public interface IRepositorioEquipamento {
 
 	public Equipamento procurar(int codEquipamento) throws EquipamentoNaoEncontrandoException, SQLException,
 	RepositorioException;
+
+	public int consultarUltimoCodigoEquipamento() throws Exception;
+	
+	public int inserirEquipamentoItem (Equipamento e) throws Exception;
+
 	
 }

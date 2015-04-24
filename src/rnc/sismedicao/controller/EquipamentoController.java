@@ -31,5 +31,13 @@ public class EquipamentoController {
 			RepositorioException {
 		return this.repositorioEquipamento.procurar(codEquipamento);
 	}
+	
+	public int consultarUltimoCodigoEquipamento() throws Exception {
+		return repositorioEquipamento.consultarUltimoCodigoEquipamento();
+	}
+
+	public void cadastrarEquipamentoItem(Equipamento e) throws Exception {
+		repositorioEquipamento.inserirEquipamentoItem(e);
+	}
 
 }

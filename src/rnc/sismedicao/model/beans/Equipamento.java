@@ -20,6 +20,11 @@ public class Equipamento {
 		this.descricao = descricao;
 		this.obs = obs;
 	}
+	
+	public Equipamento (int codEquipamento, Item item) {
+		this.codEquipamento = codEquipamento;
+		this.item = item;
+	}
 
 	public Equipamento() {
 
