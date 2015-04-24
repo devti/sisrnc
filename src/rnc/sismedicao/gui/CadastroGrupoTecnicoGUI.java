@@ -53,6 +53,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField tf_nomeDoGrupo;
 	private JTextField tf_localizacao;
+	private JTextPane tp_Observacao;
 	private JTable table;
 	private static CadastroGrupoTecnicoGUI formCadastroGrupoTecnicoGui;
 	private ProcuraUsuarioGUI tpu;
@@ -114,7 +115,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		contentPane.add(tf_localizacao);
 		
 		JLabel lblObservao = new JLabel("Observa\u00E7\u00E3o");
-		lblObservao.setBounds(10, 119, 61, 20);
+		lblObservao.setBounds(10, 119, 97, 20);
 		contentPane.add(lblObservao);
 		
 		
@@ -179,10 +180,21 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(235, 381, 89, 23);
 		contentPane.add(btnSalvar);
-		
+		//---------------
+		// Botao Cancelar
+		//---------------
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(335, 381, 89, 23);
 		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limparTela();
+				dispose();
+
+			}
+		});
 		
 		JButton btnUltimo = new JButton("");
 		btnUltimo.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
@@ -214,6 +226,11 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		btnRemover.setEnabled(false);
 		btnRemover.setBounds(172, 11, 30, 30);
 		contentPane.add(btnRemover);
+		
+		JTextPane tp_Observacao = new JTextPane();
+		tp_Observacao.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tp_Observacao.setBounds(10, 138, 414, 65);
+		contentPane.add(tp_Observacao);
 	}
 	
 	//-------------------
@@ -279,5 +296,14 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	protected void ok() {
 		// TODO Auto-generated method stub
 
+	}
+	public void limparTela(){
+		tf_nomeDoGrupo.setText(null);
+		tf_localizacao.setText(null);
+		//tp_Observacao.setText(null);
+		codigoGrupoTecnico = 0;
+		codigoUsuario =0;
+		listaUsuarios.clear();
+		listarGrupoTecnico(listaUsuarios);
 	}
 }
