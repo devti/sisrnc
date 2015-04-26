@@ -30,13 +30,9 @@ public class ItemMedicaoDAO implements IRepositorioItemMedicao{
 				preparedStatement.setInt(++i, codUnidade);
 				preparedStatement.setDouble(++i, itemMedicao.getValorMIN());
 				preparedStatement.setDouble(++i, itemMedicao.getValorMAX());
-				
 				preparedStatement.execute();
-				
 				Conexao.getConnection().commit();
-				
 				resultSet = preparedStatement.getGeneratedKeys();
-				
 				if(resultSet.next()){
 					itemMedicao.setCodItemMedicao(resultSet.getInt(1));
 				}

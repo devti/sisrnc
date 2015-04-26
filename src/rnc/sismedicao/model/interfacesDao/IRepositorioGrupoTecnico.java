@@ -6,5 +6,6 @@ public interface  IRepositorioGrupoTecnico {
 
 	public int inserir (GrupoTecnico grupoTecnico) throws Exception;
 	
+	public int consultarUltimoCodigoGrupoTecnico() throws Exception;
 	
 }

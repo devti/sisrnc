@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import rnc.sismedicao.controller.EquipamentoController;
 import rnc.sismedicao.controller.GrupoTecnicoController;
+import rnc.sismedicao.controller.GrupoTecnicoUsuarioController;
 import rnc.sismedicao.controller.PessoaController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
@@ -37,6 +38,7 @@ public class Fachada {
 	private ItemMedicaoController controladorItemMedicao;
 	private EquipamentoController controladorEquipamento;
 	private GrupoTecnicoController controladorGrupoTecnico;
+	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuarioController;
 	
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
@@ -46,6 +48,7 @@ public class Fachada {
 		this.controladorItemMedicao = new ItemMedicaoController();
 		this.controladorEquipamento = new EquipamentoController();
 		this.controladorGrupoTecnico = new GrupoTecnicoController();
+		this.controladorGrupoTecnicoUsuarioController = new GrupoTecnicoUsuarioController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -59,7 +62,6 @@ public class Fachada {
 		return Fachada.instance;
 	}
 
-	// teste
 	// -------------------------------------
 	// METODO DE CADASTROS
 	// -------------------------------------
@@ -243,4 +245,18 @@ public class Fachada {
 		
 	}
 
+	/**
+	 * METODOS GRUPO TECNICO 
+	 */
+	
+	public int consultarUltimoCodigoGrupoTecnico() throws Exception{
+		return controladorGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
+	}
+	
+	/**
+	 *  METORDOS GRUPO TECNICO USUAIROS
+	 */
+	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico, int codigoUsuario)throws Exception{
+		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico, codigoUsuario);
+	}
 }

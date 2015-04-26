@@ -20,5 +20,9 @@ public class GrupoTecnicoController {
 	public int cadastrar (GrupoTecnico grupoTecnico) throws Exception{
 		return repositorioGrupoTecnico.inserir(grupoTecnico);
 	}
+	
+	public int consultarUltimoCodigoGrupoTecnico() throws Exception{
+		return repositorioGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
+	}
 
 }
