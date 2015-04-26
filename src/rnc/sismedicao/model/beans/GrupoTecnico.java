@@ -1,11 +1,18 @@
 package rnc.sismedicao.model.beans;
 
 public class GrupoTecnico {
-
 	private int codigoGrupoTecnico;
 	private String nomeGrupoTecnico;
 	private String observacao;
 	private String localizacao;
+	
+	public GrupoTecnico(String nomeGrupoTecnico, String observacao,
+			String localizacao) {
+		super();
+		this.nomeGrupoTecnico = nomeGrupoTecnico;
+		this.observacao = observacao;
+		this.localizacao = localizacao;
+	}
 
 	public GrupoTecnico(int codigoGrupoTecnico, String nomeGrupoTecnico,
 			String observacao, String localizacao) {

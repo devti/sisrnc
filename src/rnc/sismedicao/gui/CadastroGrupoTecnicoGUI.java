@@ -28,11 +28,13 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
 
+import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
 import rnc.sismedicao.gui.util.UsuarioTableModel;
+import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.Usuario;
 
@@ -53,7 +55,6 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField tf_nomeDoGrupo;
 	private JTextField tf_localizacao;
-	private JTextPane tp_Observacao;
 	private JTable table;
 	private static CadastroGrupoTecnicoGUI formCadastroGrupoTecnicoGui;
 	private ProcuraUsuarioGUI tpu;
@@ -62,6 +63,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private Fachada fachada;
 	private int codigoUsuario=0;
 	private int codigoGrupoTecnico =0;
+	private JTextField tf_observacao;
 	
 	public static CadastroGrupoTecnicoGUI getInstance() {
 		if (formCadastroGrupoTecnicoGui == null) {
@@ -72,7 +74,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	public CadastroGrupoTecnicoGUI() {
 		setTitle("Grupo de Responsaveis T\u00E9cnicos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 451);
+		setBounds(100, 100, 450, 386);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,7 +87,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		
 		JPanel panelGrupo = new JPanel();
 		panelGrupo.setBorder(new TitledBorder(null, "Grupo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelGrupo.setBounds(10, 238, 414, 132);
+		panelGrupo.setBounds(7, 172, 414, 132);
 		contentPane.add(panelGrupo);
 		panelGrupo.setLayout(null);
 		
@@ -114,9 +116,9 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		tf_localizacao.setBounds(111, 88, 200, 20);
 		contentPane.add(tf_localizacao);
 		
-		JLabel lblObservao = new JLabel("Observa\u00E7\u00E3o");
-		lblObservao.setBounds(10, 119, 97, 20);
-		contentPane.add(lblObservao);
+		JLabel lb_Observao = new JLabel("Observa\u00E7\u00E3o");
+		lb_Observao.setBounds(10, 119, 97, 20);
+		contentPane.add(lb_Observao);
 		
 		
 		//------------------------
@@ -124,7 +126,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		//------------------------
 		JButton btnAddUsuario = new JButton("");
 		btnAddUsuario.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
-		btnAddUsuario.setBounds(335, 214, 38, 23);
+		btnAddUsuario.setBounds(335, 138, 38, 23);
 		contentPane.add(btnAddUsuario);
 		btnAddUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -138,7 +140,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		//---------------------------
 		JButton btnExcluirUsuario = new JButton("");
 		btnExcluirUsuario.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
-		btnExcluirUsuario.setBounds(383, 214, 38, 23);
+		btnExcluirUsuario.setBounds(383, 138, 38, 23);
 		contentPane.add(btnExcluirUsuario);
 		btnExcluirUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -177,14 +179,26 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			}
 		});
 		
+		//-------------------------------
+		//Botao Salvar
+		//-------------------------------
+		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(235, 381, 89, 23);
+		btnSalvar.setBounds(232, 315, 89, 23);
 		contentPane.add(btnSalvar);
-		//---------------
-		// Botao Cancelar
-		//---------------
+		btnSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+				
+			}
+		});
+		
+		/**
+		 * BOTAO CANCELAR
+		 */
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(335, 381, 89, 23);
+		btnCancelar.setBounds(332, 315, 89, 23);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 
@@ -227,15 +241,16 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		btnRemover.setBounds(172, 11, 30, 30);
 		contentPane.add(btnRemover);
 		
-		JTextPane tp_Observacao = new JTextPane();
-		tp_Observacao.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tp_Observacao.setBounds(10, 138, 414, 65);
-		contentPane.add(tp_Observacao);
+		tf_observacao = new JTextField();
+		tf_observacao.setBounds(111, 119, 200, 20);
+		contentPane.add(tf_observacao);
+		tf_observacao.setColumns(10);
 	}
 	
-	//-------------------
-	// Procurar Usuarios
-	//-------------------
+	/**
+	 * Procurar Usuarios
+	 */
+	
 	public void pesquisarUsuario() {
 		tpu = new ProcuraUsuarioGUI();
 		tpu.setVisible(true);
@@ -266,9 +281,12 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			listarGrupoTecnico(listaUsuarios);
 		}
 	}
-	//------------------------------------------------
-	//Monta a tabela grupo de Usuarios
-	//------------------------------------------------
+
+	/**
+	 * 
+	 * @param Monta a tabela grupo de Usuarios
+	 */
+	
 	public void listarGrupoTecnico(ArrayList<Usuario> listaUsuarios ) {
 		try {
 			grpusuarios = new UsuarioTableModel(listaUsuarios);
@@ -297,13 +315,43 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		// TODO Auto-generated method stub
 
 	}
+
+	/**
+	 * @param Metodo que realiza a limpeza da tela
+	 */
 	public void limparTela(){
 		tf_nomeDoGrupo.setText(null);
 		tf_localizacao.setText(null);
-		//tp_Observacao.setText(null);
+
 		codigoGrupoTecnico = 0;
 		codigoUsuario =0;
 		listaUsuarios.clear();
 		listarGrupoTecnico(listaUsuarios);
+	}
+	/**
+	 * @param Metodo para SALVAR as informações da tela no Grupo Tecnico e Usuarios dos Grupo 
+	 */
+	public void salvar(){
+		try{
+			if(tf_nomeDoGrupo.getText().isEmpty() || listaUsuarios.isEmpty())
+				throw new DadosObrigatoriosException();
+			fachada = fachada.getInstance();
+			GrupoTecnico gt = new GrupoTecnico( tf_nomeDoGrupo.getText(), tf_observacao.getText(), tf_localizacao.getText());
+			//testa se o objeto GrupoTecnico e novo ou veio atraves de pesquisa
+			if (codigoGrupoTecnico==0){
+				//Salva o novo grupo tecnico
+				fachada.cadastrar(gt);
+			}else{
+				// atualiza o Grupo Tecnico
+			}
+			limparTela();
+			dispose();	
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
+					"Aviso", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		
 	}
 }

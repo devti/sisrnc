@@ -17,8 +17,8 @@ public class GrupoTecnicoController {
 		this.repositorioGrupoTecnico = new GrupoTecnicoDAO(this.repositorioGrupoTecnico);
 	}
 	
-	public void cadastrar (GrupoTecnico grupoTecnico) throws Exception{
-		repositorioGrupoTecnico.inserir(grupoTecnico);
+	public int cadastrar (GrupoTecnico grupoTecnico) throws Exception{
+		return repositorioGrupoTecnico.inserir(grupoTecnico);
 	}
 
 }

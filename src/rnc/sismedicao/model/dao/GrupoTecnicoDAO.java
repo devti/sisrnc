@@ -22,9 +22,8 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 	//--------------------------------------------------
 	//METODO PARA INSERÇÃO DO REGISTRO DE GRUPO TECNICO
 	//--------------------------------------------------
-	public void inserir (GrupoTecnico grupoTecnico) throws Exception{
-		String query = "INSERT INTO GRUPOTECNICO(NOME, LOCALIZACAO, OBSERVACAO) VALUES (?,?,?)";
-		
+	public int inserir (GrupoTecnico grupoTecnico) throws Exception{
+		String query = "INSERT INTO grupotecnico (nome, localizacao, observacao, dtcriacao) VALUES (?, ?, ?, GETDATE())";
 		try{
 			int i = 0;
 			ResultSet resultSet = null;
@@ -42,6 +41,7 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 			
 			e.printStackTrace();	
 		}
+		return grupoTecnico.getCodigoGrupoTecnico();
 		
 	}
 	
