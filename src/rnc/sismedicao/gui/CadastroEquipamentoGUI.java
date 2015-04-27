@@ -42,7 +42,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private JTable table_1;
 	private Fachada fachada;
 	private ArrayList<Item> lista;
-	private ArrayList<Item> listaItem = new ArrayList<Item>();
+	private ArrayList<Item> listaItens = new ArrayList<Item>();
 	private ItemTableModel itm;
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
@@ -228,13 +228,13 @@ public class CadastroEquipamentoGUI extends JDialog {
 					Item item = fachada.itemProcurar((int) table.getModel()
 							.getValueAt(table.getSelectedRow(), 0));
 					boolean entrou = false;
-					for (int i = 0; i < listaItem.size(); i++) {
-						if (listaItem.get(i).getCodItem() == item.getCodItem())
+					for (int i = 0; i < listaItens.size(); i++) {
+						if (listaItens.get(i).getCodItem() == item.getCodItem())
 							entrou = true;
 					}
 					if (!entrou) {
-						listaItem.add(item);
-						table_1.setModel(new ItemTableModel(listaItem));
+						listaItens.add(item);
+						table_1.setModel(new ItemTableModel(listaItens));
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Item ja existente", "Aviso",
@@ -297,8 +297,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_Serie.setText(e.getRegistro());
 			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
 			codigoEquipamento = e.getCodEquipamento();
-			listaItem = tela.pegarItens();
-			listarItem(listaItem);
+			//listaItens = tela.pegarItens();
+			System.out.println(listaItens.size());
+			//listarItem(listaItens);
 			btnRemover.setEnabled(true);
 		}
 	}
@@ -314,9 +315,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 			if (codigoEquipamento == 0) {
 				fachada.cadastrar(equipamento);
 				int codEquipamento = fachada.consultarUltimoCodigoEquipamento();
-				for (int i = 0; i < listaItem.size(); i++) {
+				for (int i = 0; i < listaItens.size(); i++) {
 					Equipamento e = new Equipamento();
-					e.setItem(listaItem.get(i));
+					e.setItem(listaItens.get(i));
 					e.setCodEquipamento(codEquipamento);
 					fachada.cadastraEquipamentoItem(e);
 				}
@@ -399,7 +400,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		TF_Descricao.setText(null);
 		TF_OBS.setText(null);
 		TF_Serie.setText(null);
-		listaItem.clear();
+		listaItens.clear();
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {

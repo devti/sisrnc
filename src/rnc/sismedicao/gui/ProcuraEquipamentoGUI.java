@@ -44,7 +44,7 @@ public class ProcuraEquipamentoGUI extends JDialog {
 	private ArrayList<Equipamento> lista;
 	private JComboBox cbAtributo;
 	private Equipamento equipamento = null;
-	private ArrayList<Item> listaItem = null;
+	private ArrayList<Item> listaItens = null;
 	private EquipamentoTableModel etm;
 
 	/**
@@ -162,6 +162,7 @@ public class ProcuraEquipamentoGUI extends JDialog {
 				int codEquipamento = (int) etm.getValueAt(
 						table.getSelectedRow(), 0);
 				equipamento = fachada.equipamentoProcurar(codEquipamento);
+				//listaItens = fachada.
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -191,7 +192,7 @@ public class ProcuraEquipamentoGUI extends JDialog {
 	}
 
 	public ArrayList<Item> pegarItens() {
-		return listaItem;
+		return listaItens;
 	}
 	
 }

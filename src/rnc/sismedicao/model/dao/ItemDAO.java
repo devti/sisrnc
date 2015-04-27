@@ -170,6 +170,30 @@ public class ItemDAO implements IRepositorioItem {
 		}
 		return pesq;
 	}
+	// -----------------------------------------------
+	// METODO QUE REALIZA A PESQUISA PRINCIPAL NA TELA
+	// -----------------------------------------------
+	public ArrayList<Item> itensEquipamentoProcurar(int codEquipamento)
+			throws SQLException {
+		ArrayList<Item> pesq = new ArrayList<Item>();
+		ResultSet rs = null;
+		String sql = "SELECT i.CODITEM, i.NOME, i.MARCA, i.SERIAL  FROM EQUIPAMENTOITEM AS ei LEFT JOIN ITEM AS i ON i.CODITEM=ei.CODITEM WHERE ei.CODEQUIPAMENTO='?'";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
+					sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Item item = new Item(rs.getString("NOME"),
+						rs.getString("MARCA"), rs.getString("SERIAL"),
+						rs.getString("DESCRICAO"));
+				item.setCodItem(rs.getInt("CODITEM"));
+				pesq.add(item);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return pesq;
+	}
 
 	//-------------------------------------
 	//REMOVE ITEM DO BANCO DE DADOS
