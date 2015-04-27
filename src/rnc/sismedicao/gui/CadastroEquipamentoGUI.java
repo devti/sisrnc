@@ -30,6 +30,7 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.util.LimparCampos;
 
 public class CadastroEquipamentoGUI extends JDialog {
 
@@ -41,7 +42,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private JTable table_1;
 	private Fachada fachada;
 	private ArrayList<Item> lista;
-	private ArrayList<Item> lista_1 = new ArrayList<Item>();
+	private ArrayList<Item> listaItem = new ArrayList<Item>();
 	private ItemTableModel itm;
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
@@ -115,19 +116,10 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 		btnRemover = new JButton("");
 		btnRemover.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o equipamento?", 
-							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					fachada.removerEquipamento(codigoEquipamento);
-					limparTela();
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				
+				excluir();
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -217,12 +209,12 @@ public class CadastroEquipamentoGUI extends JDialog {
 		btnCancelar.setBounds(382, 577, 89, 23);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				limparTela();
 				dispose();
-				
+
 			}
 		});
 
@@ -236,13 +228,13 @@ public class CadastroEquipamentoGUI extends JDialog {
 					Item item = fachada.itemProcurar((int) table.getModel()
 							.getValueAt(table.getSelectedRow(), 0));
 					boolean entrou = false;
-					for (int i = 0; i < lista_1.size(); i++) {
-						if (lista_1.get(i).getCodItem() == item.getCodItem())
+					for (int i = 0; i < listaItem.size(); i++) {
+						if (listaItem.get(i).getCodItem() == item.getCodItem())
 							entrou = true;
 					}
 					if (!entrou) {
-						lista_1.add(item);
-						table_1.setModel(new ItemTableModel(lista_1));
+						listaItem.add(item);
+						table_1.setModel(new ItemTableModel(listaItem));
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Item ja existente", "Aviso",
@@ -258,16 +250,41 @@ public class CadastroEquipamentoGUI extends JDialog {
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Down.png")));
 		btnAdicionar.setBounds(442, 387, 30, 30);
 		contentPane.add(btnAdicionar);
-		
+
 		TF_CodEquipamento = new JTextField();
 		TF_CodEquipamento.setEnabled(false);
 		TF_CodEquipamento.setBounds(400, 21, 86, 20);
 		contentPane.add(TF_CodEquipamento);
 		TF_CodEquipamento.setColumns(10);
-		
+
 		JLabel LB_CodEquipamento = new JLabel("Codigo do Equipamento");
 		LB_CodEquipamento.setBounds(267, 24, 127, 14);
 		contentPane.add(LB_CodEquipamento);
+	}
+
+	protected void excluir() {
+		try {
+			fachada = Fachada.getInstance();
+			if (JOptionPane.showConfirmDialog(this,
+					"Tem certeza que deseja excluir o Equipamento?",
+					"Confirmação", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+				fachada.equipamentoRemover(Integer.parseInt(TF_CodEquipamento
+						.getText()));
+				LimparCampos.limparCampos(getContentPane());
+				JOptionPane.showMessageDialog(this, "Removido com sucesso!",
+						"Aviso", JOptionPane.INFORMATION_MESSAGE);
+				btnRemover.setEnabled(false);
+			} else {
+
+			}
+		} catch (RepositorioException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
 	}
 
 	public void procurar() {
@@ -278,7 +295,10 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_Descricao.setText(e.getDescricao());
 			TF_OBS.setText(e.getObs());
 			TF_Serie.setText(e.getRegistro());
-			TF_CodEquipamento.setText(Integer.toString(equipamento.getCodEquipamento()));
+			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
+			codigoEquipamento = e.getCodEquipamento();
+			listaItem = tela.pegarItens();
+			listarItem(listaItem);
 			btnRemover.setEnabled(true);
 		}
 	}
@@ -294,9 +314,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 			if (codigoEquipamento == 0) {
 				fachada.cadastrar(equipamento);
 				int codEquipamento = fachada.consultarUltimoCodigoEquipamento();
-				for (int i = 0; i < lista_1.size(); i++) {
+				for (int i = 0; i < listaItem.size(); i++) {
 					Equipamento e = new Equipamento();
-					e.setItem(lista_1.get(i));
+					e.setItem(listaItem.get(i));
 					e.setCodEquipamento(codEquipamento);
 					fachada.cadastraEquipamentoItem(e);
 				}
@@ -305,7 +325,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 			JOptionPane.showMessageDialog(null,
 					"Equipamento cadastrado com sucesso!");
-			
+
 			limparTela();
 		} catch (EquipamentoJaCadastradoException e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
@@ -319,6 +339,34 @@ public class CadastroEquipamentoGUI extends JDialog {
 					"Aviso", JOptionPane.ERROR_MESSAGE);
 		}
 
+	}
+
+	public void listarItem(ArrayList<Item> listaItem) {
+		try {
+			itm = new ItemTableModel(listaItem);
+			table_1.setModel(itm);
+			table_1.setModel(new ItemTableModel(listaItem));
+			table_1.setVisible(true);
+			table_1.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyPressed(java.awt.event.KeyEvent evt) {
+					if (evt.getKeyCode() == 10 && table_1.getRowCount() > 0) {
+						ok();
+					}
+				}
+			});
+		}  catch (IllegalArgumentException e) {
+			btnOk.setEnabled(false);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+
+	}
+
+	protected void ok() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void listar() {
@@ -346,12 +394,12 @@ public class CadastroEquipamentoGUI extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void limparTela() {
 		TF_Descricao.setText(null);
 		TF_OBS.setText(null);
 		TF_Serie.setText(null);
-		lista_1.clear();
+		listaItem.clear();
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {

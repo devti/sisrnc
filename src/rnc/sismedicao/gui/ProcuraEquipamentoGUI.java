@@ -29,6 +29,7 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.EquipamentoTableModel;
 import rnc.sismedicao.model.beans.Equipamento;
+import rnc.sismedicao.model.beans.Item;
 
 public class ProcuraEquipamentoGUI extends JDialog {
 
@@ -43,6 +44,7 @@ public class ProcuraEquipamentoGUI extends JDialog {
 	private ArrayList<Equipamento> lista;
 	private JComboBox cbAtributo;
 	private Equipamento equipamento = null;
+	private ArrayList<Item> listaItem = null;
 	private EquipamentoTableModel etm;
 
 	/**
@@ -187,4 +189,9 @@ public class ProcuraEquipamentoGUI extends JDialog {
 	public Equipamento pegarEquipamento() {
 		return equipamento;
 	}
+
+	public ArrayList<Item> pegarItens() {
+		return listaItem;
+	}
+	
 }

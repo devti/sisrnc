@@ -73,7 +73,7 @@ public class EquipamentoDAO implements IRepositorioEquipamento {
 
 	public void removerEquipamento(int codEquipamento) throws Exception {
 
-		String sql = "DELETE FROM EQUIPAMENTO WHERE CODEQUIPAMETNTO = ?";
+		String sql = "DELETE FROM EQUIPAMENTO WHERE CODEQUIPAMENTO = ?";
 
 		try {
 			PreparedStatement ps = Conexao.getConnection()

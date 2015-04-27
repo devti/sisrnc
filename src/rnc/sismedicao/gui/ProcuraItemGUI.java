@@ -1,9 +1,16 @@
 package rnc.sismedicao.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -11,30 +18,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.JButton;
 
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.model.beans.Item;
-
-
 import rnc.sismedicao.model.beans.ItemMedicao;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 
 public class ProcuraItemGUI extends JDialog {
 
@@ -207,4 +203,5 @@ public class ProcuraItemGUI extends JDialog {
 	public ArrayList<ItemMedicao> pegarItems(){
 		return listaItemMedicao;
 	}
+
 }
