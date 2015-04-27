@@ -35,7 +35,7 @@ public class ItemDAO implements IRepositorioItem {
 				preparedStatement.setString(++i, item.getDescricao());
 				preparedStatement.executeUpdate();
 				Conexao.getConnection().commit();
-				System.out.println("Salvado..." + item.getNome());
+				//System.out.println("Salvado..." + item.getNome());
 				resultSet = preparedStatement.getGeneratedKeys();
 
 				if (resultSet.next()) {

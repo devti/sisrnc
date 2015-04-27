@@ -25,8 +25,8 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 			int i=0;
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-			preparedStatement.setInt(i++, codigoGrupoTecnico);
-			preparedStatement.setInt(i++, codigoUsuairo);
+			preparedStatement.setInt(++i, codigoGrupoTecnico);
+			preparedStatement.setInt(++i, codigoUsuairo);
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();

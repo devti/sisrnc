@@ -230,10 +230,19 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		btnPrimeiro.setBounds(10, 11, 30, 30);
 		contentPane.add(btnPrimeiro);
 		
+		/**
+		 * BOTAO PESQUISAR
+		 */
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		btnPesquisar.setBounds(139, 11, 30, 30);
 		contentPane.add(btnPesquisar);
+		btnPesquisar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurar();
+			}
+		});
 		
 		JButton btnRemover = new JButton("");
 		btnRemover.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
@@ -340,11 +349,10 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			//testa se o objeto GrupoTecnico e novo ou veio atraves de pesquisa
 			if (codigoGrupoTecnico==0){
 				//Salva o novo grupo tecnico
-				//fachada.cadastrar(gt);
-				codigoGrupoTecnico = fachada.consultarUltimoCodigoGrupoTecnico()+1;
-				for (int i = 0 ; i< listaUsuarios.size(); i++){
+				fachada.cadastrar(gt);
+				codigoGrupoTecnico = fachada.consultarUltimoCodigoGrupoTecnico();
+				for (int i = 1 ; i< listaUsuarios.size(); i++){
 					codigoUsuario = listaUsuarios.get(i).getCodUsuario();
-					System.out.println(codigoGrupoTecnico + "  " +codigoUsuario);
 					fachada.cadastraGrupoTecnicoUsuario(codigoGrupoTecnico, codigoUsuario);
 				}
 			}else{
