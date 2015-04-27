@@ -183,7 +183,7 @@ public class ProcuraUsuarioGUI extends JDialog {
 		try {
 			if (table.getSelectedRow() != -1) {
 				fachada = Fachada.getInstance();
-				int codPessoa = (int) utm.getValueAt(table.getSelectedRow(), 1);
+				int codPessoa = (int) utm.getValueAt(table.getSelectedRow(), 0);
 				usuario = fachada.usuarioProcurar(codPessoa);
 				dispose();
 			} else {

@@ -64,6 +64,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 
 	public Usuario procurar(int codPessoa) throws UsuarioNaoEncontradoException, SQLException,
 			RepositorioException {
+		//System.out.println(codPessoa);
 		Usuario usuario = null;
 		ResultSet rs = null;
 		String sql = "select * from (select u.codusuario, u.codpessoa, u.login, u.senha, p.nome, p.cpf, p.email, p.telefone from  usuario u left join pessoa p  on p.codpessoa = u.codpessoa) as grupoTecnico where grupoTecnico.codpessoa = ?";
@@ -167,7 +168,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario(rs.getString("NOME"),
-						rs.getString("LOGIN"), rs.getInt("CODUSUARIO"), rs.getInt("CODPESSOA"));
+						rs.getString("LOGIN"), rs.getInt("CODPESSOA"), rs.getInt("CODUSUARIO"));
 				pesq.add(usuario);
 			}
 		} catch (SQLException e) {

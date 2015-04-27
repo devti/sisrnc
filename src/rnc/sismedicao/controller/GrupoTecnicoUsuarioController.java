@@ -17,18 +17,16 @@ public class GrupoTecnicoUsuarioController {
 	 * @param CONTRUTOR
 	 *            DA CLASSE
 	 */
-	public GrupoTecnicoUsuarioController() {
-		this.repositorioGrupoTecnicoUsuario = repositorioGrupoTecnicoUsuario;
+	public GrupoTecnicoUsuarioController() throws Exception {
+		this.repositorioGrupoTecnicoUsuario = new GrupoTecnicoUsuarioDAO(this.repositorioGrupoTecnicoUsuario);
 
 	}
 
 	/**
 	 * CADASTRA O GRUPO TECNICO USUARIOS
 	 */
-	public void cadastrar(int codigoGrupoTecnico, int codigoUsuario)
-			throws Exception {
-		repositorioGrupoTecnicoUsuario.inserir(codigoGrupoTecnico,
-				codigoUsuario);
+	public void cadastrar(int codigoGrupoTecnico, int codigoUsuario)throws Exception {
+		this.repositorioGrupoTecnicoUsuario.inserir(codigoGrupoTecnico, codigoUsuario);
 
 	}
 }

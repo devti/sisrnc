@@ -18,16 +18,22 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 	public GrupoTecnicoUsuarioDAO(IRepositorioGrupoTecnicoUsuario repositorioGrupoTecnicoUsuario) throws Exception{
 		
 	}
+	
 	public void inserir(int codigoGrupoTecnico, int codigoUsuairo) throws  Exception{
-		String query = "INSERT INTO GRUPOTECNICOUSUAIROS (CODIGOGRUPOTECNICO, CODIGOUSUARIO, DTCRIACAO) VALUES(?, ?, GETDATE())";
+		String query = "INSERT INTO GrupoTecnicoUsuarios (codigoGrupoTecnico, codigoUsuario, dtCriacao) VALUES(?, ?, GETDATE())";
 		try{
 			int i=0;
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(i++, codigoGrupoTecnico);
 			preparedStatement.setInt(i++, codigoUsuairo);
+			preparedStatement.executeUpdate();
+			Conexao.getConnection().commit();
+			resultSet = preparedStatement.getGeneratedKeys();
+			
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
+		
 	}
 }

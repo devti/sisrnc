@@ -322,7 +322,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	public void limparTela(){
 		tf_nomeDoGrupo.setText(null);
 		tf_localizacao.setText(null);
-
+		tf_observacao.setText(null);
 		codigoGrupoTecnico = 0;
 		codigoUsuario =0;
 		listaUsuarios.clear();
@@ -335,12 +335,18 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		try{
 			if(tf_nomeDoGrupo.getText().isEmpty() || listaUsuarios.isEmpty())
 				throw new DadosObrigatoriosException();
-			fachada = fachada.getInstance();
+			fachada = Fachada.getInstance();
 			GrupoTecnico gt = new GrupoTecnico( tf_nomeDoGrupo.getText(), tf_observacao.getText(), tf_localizacao.getText());
 			//testa se o objeto GrupoTecnico e novo ou veio atraves de pesquisa
 			if (codigoGrupoTecnico==0){
 				//Salva o novo grupo tecnico
-				fachada.cadastrar(gt);
+				//fachada.cadastrar(gt);
+				codigoGrupoTecnico = fachada.consultarUltimoCodigoGrupoTecnico()+1;
+				for (int i = 0 ; i< listaUsuarios.size(); i++){
+					codigoUsuario = listaUsuarios.get(i).getCodUsuario();
+					System.out.println(codigoGrupoTecnico + "  " +codigoUsuario);
+					fachada.cadastraGrupoTecnicoUsuario(codigoGrupoTecnico, codigoUsuario);
+				}
 			}else{
 				// atualiza o Grupo Tecnico
 			}
