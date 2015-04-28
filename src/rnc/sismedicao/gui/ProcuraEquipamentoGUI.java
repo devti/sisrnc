@@ -111,6 +111,14 @@ public class ProcuraEquipamentoGUI extends JDialog {
 						});
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
 		btnCancelar.setBounds(445, 235, 89, 23);
 		contentPane.add(btnCancelar);
 

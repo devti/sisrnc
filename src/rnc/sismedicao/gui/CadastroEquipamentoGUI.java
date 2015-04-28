@@ -274,6 +274,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 				JOptionPane.showMessageDialog(this, "Removido com sucesso!",
 						"Aviso", JOptionPane.INFORMATION_MESSAGE);
 				btnRemover.setEnabled(false);
+				limparTela();
 			} else {
 
 			}
@@ -400,6 +401,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		TF_OBS.setText(null);
 		TF_Serie.setText(null);
 		listaItens.clear();
+		listarItem(listaItens);
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {
