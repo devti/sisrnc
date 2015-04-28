@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.GrupoTecnico;
+import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.interfacesDao.IRepositorioGrupoTecnico;
 import rnc.sismedicao.model.util.Conexao;
 
@@ -62,5 +63,29 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 			throw new RepositorioException(e);
 		}
 		return codigo;
+	}
+	
+	/**
+	 * METODO QUE REALIZA A PESQUISA AVANCADA NA TELA DE PROCURAR GRUPO TECNICO
+	 */
+	
+	public ArrayList<GrupoTecnico> pesquisaAvancada(String atributo, String pesquisa) throws SQLException{
+		ArrayList<GrupoTecnico> pesq = new ArrayList<GrupoTecnico>();
+		ResultSet rs= null;
+		String sql = "SELECT * FROM grupotecnico as gt WHERE gt." + atributo + " LIKE '%"
+				+ pesquisa + "%' ORDER BY CODITEM, NOME ASC";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
+					sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				GrupoTecnico gt = new GrupoTecnico(rs.getInt("CODIGO"),rs.getString("NOME"),
+						rs.getString("LOCALIZACAO"), rs.getString("OBSERVACAO"));
+				pesq.add(gt);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return pesq;
 	}
 }
