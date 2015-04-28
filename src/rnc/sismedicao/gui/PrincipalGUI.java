@@ -41,6 +41,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private CadastroGrupoTecnicoGUI cadastroGrupoTecnicoGUI;
+	private AbrirOSGUI abrirOSGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -235,6 +236,15 @@ public class PrincipalGUI extends JFrame {
 		menuBar.add(MN_OrdemDeServico);
 
 		JMenuItem mntmAbrirNovaOrdem = new JMenuItem("Abrir nova OS");
+		mntmAbrirNovaOrdem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				abrirOSGUI = AbrirOSGUI.getInstance();
+				abrirOSGUI.setVisible(true);
+				
+			}
+		});
 		mntmAbrirNovaOrdem.setDoubleBuffered(true);
 		MN_OrdemDeServico.add(mntmAbrirNovaOrdem);
 

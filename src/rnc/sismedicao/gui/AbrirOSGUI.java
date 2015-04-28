@@ -8,11 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+
 import java.awt.Color;
 
 public class AbrirOSGUI extends JFrame {
 
 	private JPanel contentPane;
+	private static AbrirOSGUI abrirOSGUI;
 
 	/**
 	 * Create the frame.
@@ -36,5 +38,12 @@ public class AbrirOSGUI extends JFrame {
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Grupo T\u00E9cnico Responsavel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(10, 389, 539, 113);
 		contentPane.add(panel_1);
+	}
+	
+	public static AbrirOSGUI getInstance() {
+		if (abrirOSGUI == null) {
+			return abrirOSGUI = new AbrirOSGUI();
+		}
+		return abrirOSGUI;
 	}
 }
