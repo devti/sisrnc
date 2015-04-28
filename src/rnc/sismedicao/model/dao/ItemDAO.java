@@ -180,13 +180,13 @@ public class ItemDAO implements IRepositorioItem {
 			throws SQLException {
 		ArrayList<Item> pesq = new ArrayList<Item>();
 		ResultSet rs = null;
-		String sql = "SELECT ITEM.CODITEM, ITEM.NOME, ITEM.MARCA, ITEM.SERIAL FROM EQUIPAMENTOITEM"
+		String sql = "SELECT ITEM.CODITEM, ITEM.NOME, ITEM.MARCA, ITEM.SERIAL, ITEM.DESCRICAO FROM EQUIPAMENTOITEM"
 				+ " LEFT JOIN ITEM ON ITEM.CODITEM = EQUIPAMENTOITEM.CODITEM"
 				+ " WHERE EQUIPAMENTOITEM.CODEQUIPAMENTO = ?";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
-			stmt.setInt(0, codEquipamento);
+			stmt.setInt(1, codEquipamento);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Item item = new Item(rs.getString("NOME"),

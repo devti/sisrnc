@@ -258,7 +258,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		TF_CodEquipamento.setColumns(10);
 
 		JLabel LB_CodEquipamento = new JLabel("Codigo do Equipamento");
-		LB_CodEquipamento.setBounds(267, 24, 127, 14);
+		LB_CodEquipamento.setBounds(249, 24, 145, 14);
 		contentPane.add(LB_CodEquipamento);
 	}
 
@@ -298,9 +298,8 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
 			codigoEquipamento = e.getCodEquipamento();
 			listaItens = tela.pegarItens();
-			System.out.println(listaItens.size());
 			listarItem(listaItens);
-			//btnRemover.setEnabled(true);
+			btnRemover.setEnabled(true);
 		}
 	}
 
