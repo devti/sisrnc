@@ -12,6 +12,7 @@ import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
 import rnc.sismedicao.controller.ItemMedicaoController;
 import rnc.sismedicao.controller.exception.EquipamentoNaoEncontrandoException;
+import rnc.sismedicao.controller.exception.GrupoTecnicoNaoEncontradoException;
 import rnc.sismedicao.controller.exception.ItemMedicaoNaoEncontradoException;
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
@@ -264,7 +265,7 @@ public class Fachada {
 		return this.controladorGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
 	}
 	
-	public GrupoTecnico grupoTecnicoPesquisar (int codigoGrupoTecnico)throws SQLException{
+	public GrupoTecnico grupoTecnicoPesquisar (int codigoGrupoTecnico) throws SQLException,GrupoTecnicoNaoEncontradoException,RepositorioException{
 		return this.controladorGrupoTecnico.pesquisa(codigoGrupoTecnico);
 	}
 	

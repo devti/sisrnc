@@ -35,6 +35,7 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
 import rnc.sismedicao.gui.util.UsuarioTableModel;
 import rnc.sismedicao.model.beans.GrupoTecnico;
+import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.Usuario;
 
@@ -64,6 +65,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private int codigoUsuario=0;
 	private int codigoGrupoTecnico =0;
 	private JTextField tf_observacao;
+	private ProcuraGrupoTecnicoGUI tela;
 	
 	public static CadastroGrupoTecnicoGUI getInstance() {
 		if (formCadastroGrupoTecnicoGui == null) {
@@ -367,5 +369,27 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			
 		}
 		
+	}
+	/**
+	 * METODO PROCURAR
+	 * 
+	 */
+	public void procurar() {
+		tela = new ProcuraGrupoTecnicoGUI();
+		tela.setVisible(true);
+		if (tela.getFocusableWindowState() && tela.pegarGrupoTecnico() != null) {
+			GrupoTecnico gt = tela.pegarGrupoTecnico();
+			tf_nomeDoGrupo.setText(gt.getNomeGrupoTecnico());
+			tf_localizacao.setText(gt.getLocalizacao());
+			tf_observacao.setText(gt.getObservacao());
+			//tf_Serial.setText(gt.getSerial());
+			//tf_CodigoItem.setText(Integer.toString(gt.getCodItem()));
+			//codigoItem = gt.getCodItem();
+			//listaItemMedicao = tela.pegarItems();
+			//listaItemMedicaoChecagem = listaItemMedicao;
+			//listarItemMedicao(listaItemMedicao);
+			//btnRemover.setEnabled(true);
+			
+		}
 	}
 }

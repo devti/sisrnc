@@ -8,15 +8,15 @@ public class GrupoTecnico {
 	
 	public GrupoTecnico(String nomeGrupoTecnico, String observacao,
 			String localizacao) {
-		super();
 		this.nomeGrupoTecnico = nomeGrupoTecnico;
 		this.observacao = observacao;
 		this.localizacao = localizacao;
 	}
-
+	public GrupoTecnico() {
+		
+	}
 	public GrupoTecnico(int codigoGrupoTecnico, String nomeGrupoTecnico,
 			String observacao, String localizacao) {
-		super();
 		this.codigoGrupoTecnico = codigoGrupoTecnico;
 		this.nomeGrupoTecnico = nomeGrupoTecnico;
 		this.observacao = observacao;

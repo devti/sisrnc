@@ -29,8 +29,8 @@ public class GrupoTecnicoController {
 		return repositorioGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
 	}
 	
-	public GrupoTecnico pesquisa(int codigoGrupoTecnico) throws SQLException {
-		return repositorioGrupoTecnico.pesquisa(codigoGrupoTecnico);
+	public GrupoTecnico pesquisa(int codigoGrupoTecnico)  throws SQLException,GrupoTecnicoNaoEncontradoException,RepositorioException{
+		return repositorioGrupoTecnico.procurar(codigoGrupoTecnico);
 	}
 
 }

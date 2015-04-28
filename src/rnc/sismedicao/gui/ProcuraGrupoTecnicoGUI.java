@@ -171,8 +171,8 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 			if (table.getSelectedRow() != -1) {
 				fachada = Fachada.getInstance();
 				int codGrupoTecnico = (int) gtc.getValueAt(table.getSelectedRow(), 0);
-				grupoTecnico = fachada.itemProcurar(codItem);
-				listaGrupoTecnico = fachada.itemMedicaoProcurar(codItem);
+				grupoTecnico = fachada.grupoTecnicoPesquisar(codGrupoTecnico);
+				//listaGrupoTecnico = fachada.itemMedicaoProcurar(codItem);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -197,11 +197,11 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 		}
 	}
 	
-	public Item pegarItem(){
+	public GrupoTecnico pegarGrupoTecnico(){
 		return grupoTecnico;
 	}
-	public ArrayList<ItemMedicao> pegarItems(){
-		return listaGrupoTecnico;
-	}
+//	public ArrayList<ItemMedicao> pegarItems(){
+//		return listaGrupoTecnico;
+//	}
 
 }

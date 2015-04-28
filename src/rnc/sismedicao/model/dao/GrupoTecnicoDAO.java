@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import rnc.sismedicao.controller.exception.GrupoTecnicoNaoEncontradoException;
+import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.Item;
@@ -73,14 +75,14 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 		ArrayList<GrupoTecnico> pesq = new ArrayList<GrupoTecnico>();
 		ResultSet rs= null;
 		String sql = "SELECT * FROM grupotecnico as gt WHERE gt." + atributo + " LIKE '%"
-				+ pesquisa + "%' ORDER BY CODITEM, NOME ASC";
+				+ pesquisa + "%' ORDER BY CODIGO, NOME ASC";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				GrupoTecnico gt = new GrupoTecnico(rs.getInt("CODIGO"),rs.getString("NOME"),
-						rs.getString("LOCALIZACAO"), rs.getString("OBSERVACAO"));
+						rs.getString("OBSERVACAO"), rs.getString("LOCALIZACAO"));
 				pesq.add(gt);
 			}
 		} catch (SQLException e) {
@@ -93,21 +95,23 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 	 * Metodo para realizar as pesquisa
 	 * 
 	 */
-	public GrupoTecnico pesquisa(int codigoGrupoTecnico) throws SQLException {
-		GrupoTecnico grupoTecnico = null;
+	public GrupoTecnico procurar(int codigo) throws SQLException,GrupoTecnicoNaoEncontradoException,RepositorioException {
+		GrupoTecnico grupotecnico = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM grupotecnico where codigo = ?";
+		String sql = "SELECT * FROM GRUPOTECNICO WHERE CODIGO = ?";
+
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
+			stmt.setInt(1, codigo);
 			rs = stmt.executeQuery();
-			grupoTecnico = new GrupoTecnico(rs.getInt("CODIGO"),
-					rs.getString("NOME"), rs.getString("LOCALIZACAO"),
-					rs.getString("OBSERVACAO"));
-
+			if (!rs.next())
+				throw new GrupoTecnicoNaoEncontradoException(codigo);
+			grupotecnico = new GrupoTecnico(rs.getInt("CODIGO"), rs.getString("NOME"),
+					rs.getString("OBSERVACAO"), rs.getString("LOCALIZACAO"));
 		} catch (SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new RepositorioException(e);
 		}
-		return grupoTecnico;
+		return grupotecnico;
 	}
 }
