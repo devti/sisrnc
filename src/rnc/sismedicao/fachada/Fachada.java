@@ -241,13 +241,8 @@ public class Fachada {
 	}
 
 	public void equipamentoRemover(int codigoEquipamento) throws Exception {
-		controladorEquipamento.removerEquipamento(codigoEquipamento);		
-	}
-	
-	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception {
-		ArrayList<Item> itensEquipamento = new ArrayList<Item>();
-		itensEquipamento = controladorItem.procurarEquipamentoItem(codEquipamento);
-		return itensEquipamento;
+		controladorEquipamento.removerEquipamento(codigoEquipamento);
+		
 	}
 
 	/**
