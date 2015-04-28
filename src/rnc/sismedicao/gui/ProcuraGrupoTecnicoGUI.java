@@ -44,7 +44,7 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 	private ArrayList<Item> lista;
 	private JTextField tfPesquisa;
 	private JButton btnOk;
-	private ItemTableModel itm;
+	private GrupoTecnicoTableModel gtc;
 	private GrupoTecnico grupoTecnico = null;
 	private ArrayList<GrupoTecnico> listaGrupoTecnico = null;
 	private JComboBox cbAtributo;
@@ -137,14 +137,14 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 	public void procurar() throws RepositorioException {
 		try {			
 			fachada = Fachada.getInstance();
-			lista = fachada.itemPesquisaAvancada(cbAtributo.getSelectedItem().toString(), tfPesquisa.getText());
-			itm = new ItemTableModel(lista);
-			table.setModel(itm);
+			listaGrupoTecnico = fachada.GrupoTecnicoPesquisaAvancada(cbAtributo.getSelectedItem().toString(), tfPesquisa.getText());
+			gtc = new GrupoTecnicoTableModel(listaGrupoTecnico);
+			table.setModel(gtc);
 			table.setVisible(true);
 			table.getColumnModel().getColumn(0).setPreferredWidth(20);
 			table.getColumnModel().getColumn(1).setPreferredWidth(200);
-			table.getColumnModel().getColumn(2).setPreferredWidth(50);
-			table.getColumnModel().getColumn(3).setPreferredWidth(150);
+			table.getColumnModel().getColumn(2).setPreferredWidth(100);
+			//table.getColumnModel().getColumn(3).setPreferredWidth(150);
 			//table.getColumnModel().getColumn(4).setPreferredWidth(150); 
 			table.addKeyListener(new java.awt.event.KeyAdapter() {
 				public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -170,7 +170,7 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 		try {
 			if (table.getSelectedRow() != -1) {
 				fachada = Fachada.getInstance();
-				int codItem = (int) itm.getValueAt(table.getSelectedRow(), 0);
+				int codGrupoTecnico = (int) gtc.getValueAt(table.getSelectedRow(), 0);
 				grupoTecnico = fachada.itemProcurar(codItem);
 				listaGrupoTecnico = fachada.itemMedicaoProcurar(codItem);
 				dispose();
