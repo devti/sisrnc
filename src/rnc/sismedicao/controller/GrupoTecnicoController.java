@@ -28,5 +28,9 @@ public class GrupoTecnicoController {
 	public ArrayList<GrupoTecnico> pesquisaAvancada(String atributo, String pesquisa) throws SQLException{
 		return repositorioGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
 	}
+	
+	public GrupoTecnico pesquisa(int codigoGrupoTecnico) throws SQLException {
+		return repositorioGrupoTecnico.pesquisa(codigoGrupoTecnico);
+	}
 
 }

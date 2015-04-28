@@ -264,6 +264,10 @@ public class Fachada {
 		return this.controladorGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
 	}
 	
+	public GrupoTecnico grupoTecnicoPesquisar (int codigoGrupoTecnico)throws SQLException{
+		return this.controladorGrupoTecnico.pesquisa(codigoGrupoTecnico);
+	}
+	
 	/**
 	 *  METORDOS GRUPO TECNICO USUAIROS
 	 */

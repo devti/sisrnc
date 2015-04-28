@@ -13,4 +13,6 @@ public interface  IRepositorioGrupoTecnico {
 	
 	public ArrayList<GrupoTecnico> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
 	
+	public GrupoTecnico pesquisa(int codigoGrupoTecnico) throws SQLException ;
+	
 }

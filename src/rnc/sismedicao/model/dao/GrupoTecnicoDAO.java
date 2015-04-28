@@ -88,4 +88,26 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 		}
 		return pesq;
 	}
+	
+	/**
+	 * Metodo para realizar as pesquisa
+	 * 
+	 */
+	public GrupoTecnico pesquisa(int codigoGrupoTecnico) throws SQLException {
+		GrupoTecnico grupoTecnico = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM grupotecnico where codigo = ?";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
+					sql);
+			rs = stmt.executeQuery();
+			grupoTecnico = new GrupoTecnico(rs.getInt("CODIGO"),
+					rs.getString("NOME"), rs.getString("LOCALIZACAO"),
+					rs.getString("OBSERVACAO"));
+
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return grupoTecnico;
+	}
 }
