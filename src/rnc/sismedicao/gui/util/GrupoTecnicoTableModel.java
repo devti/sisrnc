@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.beans.*;
 
 public class GrupoTecnicoTableModel extends AbstractTableModel {
 
-	private ArrayList<Item> itens;
-	private String[] nomeColunas = { "CODITEM", "NOME", "MARCA", "SERIAL" };
+	private ArrayList<GrupoTecnico> grupoTecnico;
+	private String[] nomeColunas = { "CODIGO", "NOME", "LOCALIZACAO" };
 
-	public GrupoTecnicoTableModel() {
-		this.itens = new ArrayList<Item>();
+
+	public GrupoTecnicoTableModel(){
+		this.grupoTecnico = new ArrayList<GrupoTecnico>();
+	}
+	public GrupoTecnicoTableModel(final ArrayList<GrupoTecnico> grupoTecnico) {
+		this.grupoTecnico = grupoTecnico;
 	}
 
-	public GrupoTecnicoTableModel(final ArrayList<Item> itens) {
-		this.itens = itens;
-	}
 
 	@Override
 	public int getColumnCount() {
@@ -31,30 +32,26 @@ public class GrupoTecnicoTableModel extends AbstractTableModel {
 		case 1:
 			return "NOME";
 		case 2:
-			return "MARCA";
-		case 3:
-			return "SERIAL";
+			return "LOCALIZACAO";
 		}
 		return "?";
 	}
 
 	@Override
 	public int getRowCount() {
-		return itens.size();
+		return grupoTecnico.size();
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Item item = itens.get(rowIndex);
+		GrupoTecnico gt = grupoTecnico.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return item.getCodItem();
+			return gt.getCodigoGrupoTecnico();
 		case 1:
-			return item.getNome();
+			return gt.getNomeGrupoTecnico();
 		case 2:
-			return item.getMarca();
-		case 3:
-			return item.getSerial();
+			return gt.getLocalizacao();
 		default:
 			return null;
 		}
