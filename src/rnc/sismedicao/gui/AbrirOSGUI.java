@@ -10,6 +10,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class AbrirOSGUI extends JFrame {
 
@@ -20,7 +22,8 @@ public class AbrirOSGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AbrirOSGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Abrir Plano de Medi\u00E7\u00E3o");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 575, 602);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -38,6 +41,21 @@ public class AbrirOSGUI extends JFrame {
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Grupo T\u00E9cnico Responsavel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(10, 389, 539, 113);
 		contentPane.add(panel_1);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
+		button.setBounds(10, 11, 30, 30);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
+		button_1.setBounds(43, 11, 30, 30);
+		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("");
+		button_2.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
+		button_2.setBounds(75, 11, 30, 30);
+		contentPane.add(button_2);
 	}
 	
 	public static AbrirOSGUI getInstance() {
