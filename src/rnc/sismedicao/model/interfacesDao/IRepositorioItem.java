@@ -23,6 +23,8 @@ public interface IRepositorioItem {
 	
 	public void removerItem(int codItem) throws Exception;
 
+	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception;
+
 }
 
 

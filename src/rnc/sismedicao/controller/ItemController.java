@@ -38,6 +38,10 @@ public class ItemController {
 	public void removerItem(int codItem) throws Exception{
 		repositorioItem.removerItem(codItem);
 	}
+	
+	public ArrayList <Item> procurarEquipamentoItem (int codEquipamento) throws Exception {
+		return repositorioItem.procurarEquipamentoItem(codEquipamento);
+	}
 	// --- codigo desativado em 02/04/2015 
 	/**	private ItemDAO itemDAO = new ItemDAO();
 	

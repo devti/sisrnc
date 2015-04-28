@@ -297,7 +297,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 			TF_Serie.setText(e.getRegistro());
 			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
 			codigoEquipamento = e.getCodEquipamento();
-			//listaItens = tela.pegarItens();
+			listaItens = tela.pegarItens();
 			System.out.println(listaItens.size());
 			//listarItem(listaItens);
 			btnRemover.setEnabled(true);

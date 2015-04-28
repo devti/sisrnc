@@ -22,26 +22,26 @@ public class ItemDAO implements IRepositorioItem {
 	public int inserir(Item item) throws Exception {
 
 		String query = "INSERT INTO ITEM(NOME, DESCRICAO, MARCA, SERIAL) VALUES (?, ?, ?, ?) ";
-		
+
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
-				PreparedStatement preparedStatement = Conexao.getConnection()
-						.prepareStatement(query,
-								PreparedStatement.RETURN_GENERATED_KEYS);
-				preparedStatement.setString(++i, item.getNome());
-				preparedStatement.setString(++i, item.getMarca());
-				preparedStatement.setString(++i, item.getSerial());
-				preparedStatement.setString(++i, item.getDescricao());
-				preparedStatement.executeUpdate();
-				Conexao.getConnection().commit();
-				//System.out.println("Salvado..." + item.getNome());
-				resultSet = preparedStatement.getGeneratedKeys();
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(query,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(++i, item.getNome());
+			preparedStatement.setString(++i, item.getMarca());
+			preparedStatement.setString(++i, item.getSerial());
+			preparedStatement.setString(++i, item.getDescricao());
+			preparedStatement.executeUpdate();
+			Conexao.getConnection().commit();
+			// System.out.println("Salvado..." + item.getNome());
+			resultSet = preparedStatement.getGeneratedKeys();
 
-				if (resultSet.next()) {
-					item.setCodItem(resultSet.getInt(1));
-				}
-		
+			if (resultSet.next()) {
+				item.setCodItem(resultSet.getInt(1));
+			}
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -49,29 +49,31 @@ public class ItemDAO implements IRepositorioItem {
 
 		return item.getCodItem();
 	}
-	//--------------------------------------------------
+
+	// --------------------------------------------------
 	// METODO QUE REALIZA O UPDATE NA TABELA DE ITEM
-	//--------------------------------------------------
+	// --------------------------------------------------
 	public int alterar(Item item) throws Exception {
 
-		String queryUpdate = "UPDATE ITEM SET NOME = ?,"+ "DESCRICAO = ?,"+ "MARCA = ?,"+ "SERIAL =? WHERE CODITEM = ?"; 
+		String queryUpdate = "UPDATE ITEM SET NOME = ?," + "DESCRICAO = ?,"
+				+ "MARCA = ?," + "SERIAL =? WHERE CODITEM = ?";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
-				PreparedStatement preparedStatement = Conexao.getConnection()
-						.prepareStatement(queryUpdate,
-								PreparedStatement.RETURN_GENERATED_KEYS);
-				preparedStatement.setString(++i, item.getNome());
-				preparedStatement.setString(++i, item.getMarca());
-				preparedStatement.setString(++i, item.getSerial());
-				preparedStatement.setString(++i, item.getDescricao());
-				preparedStatement.setInt(++i, item.getCodItem());
-				preparedStatement.execute();
-				Conexao.getConnection().commit();
-				resultSet = preparedStatement.getGeneratedKeys();
-				if (resultSet.next()) {
-					item.setCodItem(resultSet.getInt(1));
-				}
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(queryUpdate,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(++i, item.getNome());
+			preparedStatement.setString(++i, item.getMarca());
+			preparedStatement.setString(++i, item.getSerial());
+			preparedStatement.setString(++i, item.getDescricao());
+			preparedStatement.setInt(++i, item.getCodItem());
+			preparedStatement.execute();
+			Conexao.getConnection().commit();
+			resultSet = preparedStatement.getGeneratedKeys();
+			if (resultSet.next()) {
+				item.setCodItem(resultSet.getInt(1));
+			}
 
 		} catch (SQLException e) {
 
@@ -80,7 +82,7 @@ public class ItemDAO implements IRepositorioItem {
 
 		return item.getCodItem();
 	}
-	
+
 	// ----------------------------------------
 	// Metodo consulta o ultimo codigo do item
 	// ----------------------------------------
@@ -170,14 +172,17 @@ public class ItemDAO implements IRepositorioItem {
 		}
 		return pesq;
 	}
+
 	// -----------------------------------------------
 	// METODO QUE REALIZA A PESQUISA PRINCIPAL NA TELA
 	// -----------------------------------------------
-	public ArrayList<Item> itensEquipamentoProcurar(int codEquipamento)
+	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento)
 			throws SQLException {
 		ArrayList<Item> pesq = new ArrayList<Item>();
 		ResultSet rs = null;
-		String sql = "SELECT i.CODITEM, i.NOME, i.MARCA, i.SERIAL  FROM EQUIPAMENTOITEM AS ei LEFT JOIN ITEM AS i ON i.CODITEM=ei.CODITEM WHERE ei.CODEQUIPAMENTO='?'";
+		String sql = "SELECT ITEM.CODITEM, ITEM.NOME, ITEM.MARCA, ITEM.SERIAL FROM EQUIPAMENTOITEM"
+				+ " LEFT JOIN ITEM ON ITEM.CODITEM = EQUIPAMENTOITEM.CODITEM"
+				+ " WHERE EQUIPAMENTOITEM.CODEQUIPAMENTO = ?";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
@@ -195,9 +200,9 @@ public class ItemDAO implements IRepositorioItem {
 		return pesq;
 	}
 
-	//-------------------------------------
-	//REMOVE ITEM DO BANCO DE DADOS
-	//-------------------------------------
+	// -------------------------------------
+	// REMOVE ITEM DO BANCO DE DADOS
+	// -------------------------------------
 	public void removerItem(int codItem) throws Exception {
 
 		String sql = "DELETE FROM ITEM WHERE CODITEM = ?";
@@ -214,7 +219,7 @@ public class ItemDAO implements IRepositorioItem {
 		}
 	}
 
-	 /** 
+	/**
 	 * private List<Item> carregaList(ResultSet resultSet){
 	 * 
 	 * List<Item> itens = new ArrayList<Item>();

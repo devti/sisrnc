@@ -241,8 +241,13 @@ public class Fachada {
 	}
 
 	public void equipamentoRemover(int codigoEquipamento) throws Exception {
-		controladorEquipamento.removerEquipamento(codigoEquipamento);
-		
+		controladorEquipamento.removerEquipamento(codigoEquipamento);		
+	}
+	
+	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception {
+		ArrayList<Item> itensEquipamento = new ArrayList<Item>();
+		itensEquipamento = controladorItem.procurarEquipamentoItem(codEquipamento);
+		return itensEquipamento;
 	}
 
 	/**
@@ -251,6 +256,11 @@ public class Fachada {
 	
 	public int consultarUltimoCodigoGrupoTecnico() throws Exception{
 		return controladorGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
+	}
+	
+	public ArrayList<GrupoTecnico> GrupoTecnicoPesquisaAvancada(String atributo, String pesquisa)
+			throws SQLException, RepositorioException {
+		return this.controladorGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
 	}
 	
 	/**
