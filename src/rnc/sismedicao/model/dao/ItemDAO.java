@@ -186,6 +186,7 @@ public class ItemDAO implements IRepositorioItem {
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
+			stmt.setInt(0, codEquipamento);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Item item = new Item(rs.getString("NOME"),

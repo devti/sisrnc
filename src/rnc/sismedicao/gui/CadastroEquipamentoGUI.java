@@ -299,8 +299,8 @@ public class CadastroEquipamentoGUI extends JDialog {
 			codigoEquipamento = e.getCodEquipamento();
 			listaItens = tela.pegarItens();
 			System.out.println(listaItens.size());
-			//listarItem(listaItens);
-			btnRemover.setEnabled(true);
+			listarItem(listaItens);
+			//btnRemover.setEnabled(true);
 		}
 	}
 

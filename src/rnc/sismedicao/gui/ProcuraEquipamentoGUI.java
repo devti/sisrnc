@@ -161,8 +161,8 @@ public class ProcuraEquipamentoGUI extends JDialog {
 				fachada = Fachada.getInstance();
 				int codEquipamento = (int) etm.getValueAt(
 						table.getSelectedRow(), 0);
-				listaItens = fachada.procurarEquipamentoItem(codEquipamento);
 				equipamento = fachada.equipamentoProcurar(codEquipamento);
+				listaItens = fachada.procurarEquipamentoItem(codEquipamento);	
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),

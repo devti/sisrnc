@@ -231,6 +231,12 @@ public class Fachada {
 		return this.controladorEquipamento.procurar(codEquipamento);
 	}
 	
+	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception {
+		ArrayList<Item> itens = new ArrayList<Item>();
+		itens = controladorItem.procurarEquipamentoItem(codEquipamento);
+		return itens;
+	}
+	
 
 	public int consultarUltimoCodigoEquipamento() throws Exception {
 		return this.controladorEquipamento.consultarUltimoCodigoEquipamento();
@@ -264,4 +270,6 @@ public class Fachada {
 	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico, int codigoUsuario)throws Exception{
 		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico, codigoUsuario);
 	}
+
+
 }
