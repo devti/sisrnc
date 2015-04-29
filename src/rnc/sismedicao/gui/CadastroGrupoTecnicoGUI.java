@@ -49,6 +49,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.DropMode;
 import javax.swing.JEditorPane;
+import javax.swing.SwingConstants;
+
+import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
 
 
 public class CadastroGrupoTecnicoGUI extends JFrame {
@@ -63,9 +66,11 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	private UsuarioTableModel grpusuarios;
 	private Fachada fachada;
 	private int codigoUsuario=0;
+	private JButton btnRemover;
 	private int codigoGrupoTecnico =0;
 	private JTextField tf_observacao;
 	private ProcuraGrupoTecnicoGUI tela;
+	private JTextField tf_codigoGrupoTecnico;
 	
 	public static CadastroGrupoTecnicoGUI getInstance() {
 		if (formCadastroGrupoTecnicoGui == null) {
@@ -246,7 +251,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			}
 		});
 		
-		JButton btnRemover = new JButton("");
+		btnRemover = new JButton("");
 		btnRemover.setIcon(new ImageIcon(CadastroGrupoTecnicoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		btnRemover.setEnabled(false);
 		btnRemover.setBounds(172, 11, 30, 30);
@@ -256,6 +261,17 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		tf_observacao.setBounds(111, 119, 200, 20);
 		contentPane.add(tf_observacao);
 		tf_observacao.setColumns(10);
+		
+		JLabel lblCodigoDoGrupo = new JLabel("Codigo do Grupo:");
+		lblCodigoDoGrupo.setBounds(246, 27, 100, 14);
+		contentPane.add(lblCodigoDoGrupo);
+		
+		tf_codigoGrupoTecnico = new JTextField();
+		tf_codigoGrupoTecnico.setHorizontalAlignment(SwingConstants.RIGHT);
+		tf_codigoGrupoTecnico.setEditable(false);
+		tf_codigoGrupoTecnico.setBounds(345, 24, 76, 20);
+		contentPane.add(tf_codigoGrupoTecnico);
+		tf_codigoGrupoTecnico.setColumns(10);
 	}
 	
 	/**
@@ -334,6 +350,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		tf_nomeDoGrupo.setText(null);
 		tf_localizacao.setText(null);
 		tf_observacao.setText(null);
+		tf_codigoGrupoTecnico.setText(null);
 		codigoGrupoTecnico = 0;
 		codigoUsuario =0;
 		listaUsuarios.clear();
@@ -353,7 +370,9 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 				//Salva o novo grupo tecnico
 				fachada.cadastrar(gt);
 				codigoGrupoTecnico = fachada.consultarUltimoCodigoGrupoTecnico();
-				for (int i = 1 ; i< listaUsuarios.size(); i++){
+				System.out.println(listaUsuarios.size());
+				for (int i = 0 ; i< listaUsuarios.size(); i++){
+					codigoUsuario = 0;
 					codigoUsuario = listaUsuarios.get(i).getCodUsuario();
 					fachada.cadastraGrupoTecnicoUsuario(codigoGrupoTecnico, codigoUsuario);
 				}
@@ -382,14 +401,14 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			tf_nomeDoGrupo.setText(gt.getNomeGrupoTecnico());
 			tf_localizacao.setText(gt.getLocalizacao());
 			tf_observacao.setText(gt.getObservacao());
+			tf_codigoGrupoTecnico.setText(Integer.toString(gt.getCodigoGrupoTecnico()));
 			//tf_Serial.setText(gt.getSerial());
 			//tf_CodigoItem.setText(Integer.toString(gt.getCodItem()));
 			//codigoItem = gt.getCodItem();
 			//listaItemMedicao = tela.pegarItems();
 			//listaItemMedicaoChecagem = listaItemMedicao;
 			//listarItemMedicao(listaItemMedicao);
-			//btnRemover.setEnabled(true);
-			
+			btnRemover.setEnabled(true);
 		}
 	}
 }

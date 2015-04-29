@@ -18,7 +18,9 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 	public GrupoTecnicoUsuarioDAO(IRepositorioGrupoTecnicoUsuario repositorioGrupoTecnicoUsuario) throws Exception{
 		
 	}
-	
+	/**
+	 * metodo para inserir grupoTecnico
+	 */
 	public void inserir(int codigoGrupoTecnico, int codigoUsuairo) throws  Exception{
 		String query = "INSERT INTO GrupoTecnicoUsuarios (codigoGrupoTecnico, codigoUsuario, dtCriacao) VALUES(?, ?, GETDATE())";
 		try{
@@ -30,10 +32,34 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();
-			
+			System.out.println("Salvo" + codigoUsuairo);
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		
 	}
+	/**
+	 *  Metodo para gerar um ArrayList de GrupoTecnico de Usuarios
+	 */
+	public ArrayList<Usuario> procurarGrupoTecnicoUsuarios(int codigoGrupoTecnico)
+			throws SQLException {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		String sql = "SELECT u.codusuario codUsuario, u.CODPESSOA codPessoa, u.LOGIN Login, p.nome nome FROM   GrupoTecnicoUsuarios  AS gtu LEFT JOIN USUARIO     AS u  ON  gtu.codigoUsuario = u.CODUSUARIO LEFT JOIN PESSOA AS p ON u.CODPESSOA = p.CODPESSOA WHERE  gtu.codigoGrupoTecnico = ?";
+		
+		try {
+			ResultSet rs = null;
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codigoGrupoTecnico);
+			rs = ps.executeQuery();
+			Conexao.getConnection().commit();
+			while (rs.next()){
+				Usuario u = new Usuario(rs.getString("NOME"),rs.getString("LOGIN"), rs.getInt("CODPESSOA"), rs.getInt("CODUSUARIO"));
+				usuarios.add(u);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return usuarios;
+	}
+	
 }

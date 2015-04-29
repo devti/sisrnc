@@ -29,4 +29,13 @@ public class GrupoTecnicoUsuarioController {
 		this.repositorioGrupoTecnicoUsuario.inserir(codigoGrupoTecnico, codigoUsuario);
 
 	}
+	
+	/**
+	 * metodo que pesquisa um grupo tecnico de usuarios em um arraylist
+	 */
+	public ArrayList<Usuario> procurarGrupoTecnicoUsuarios(int codigoGrupoTecnico)
+			throws SQLException{
+		return repositorioGrupoTecnicoUsuario.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
+	}
+	
 }
