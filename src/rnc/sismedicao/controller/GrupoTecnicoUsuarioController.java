@@ -31,6 +31,23 @@ public class GrupoTecnicoUsuarioController {
 	}
 	
 	/**
+	 * metodo para remover todos os usuario do grupo tecnico
+	 * @param codigoGrupoTecnico
+	 * @throws Exception
+	 */
+	public void removerAll(int codigoGrupoTecnico) throws Exception{
+		repositorioGrupoTecnicoUsuario.removerAll(codigoGrupoTecnico);
+	}
+	/**
+	 * metodo para remover o usuario especifico do grupo Tecnico
+	 * @param codigoUsuario
+	 * @throws Exception
+	 */
+	public void remover(int codigoUsuario) throws Exception{
+		repositorioGrupoTecnicoUsuario.remover(codigoUsuario);
+	}
+	
+	/**
 	 * metodo que pesquisa um grupo tecnico de usuarios em um arraylist
 	 */
 	public ArrayList<Usuario> procurarGrupoTecnicoUsuarios(int codigoGrupoTecnico)

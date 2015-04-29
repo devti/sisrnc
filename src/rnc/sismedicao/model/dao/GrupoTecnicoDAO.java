@@ -114,4 +114,43 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 		}
 		return grupotecnico;
 	}
+	/**
+	 * METODO QUE REALIZA O UPDATE NA TEBELA DE GRUPO TECNICO
+	 */
+	public void alterar(GrupoTecnico grupoTecnico) throws Exception{
+		String sqlUpdate="UPDATE GRUPOTECNICO SET NOME = ?,LOCALIZACAO = ?,OBSERVACAO = ?, DTALTERACAO = GETDATE() WHERE CODIGO = ?";
+		try{
+			int i = 0;
+			ResultSet rs = null;
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sqlUpdate, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, grupoTecnico.getNomeGrupoTecnico());
+			ps.setString(2, grupoTecnico.getLocalizacao());
+			ps.setString(3, grupoTecnico.getObservacao());
+			ps.setInt(4,grupoTecnico.getCodigoGrupoTecnico());
+			ps.executeUpdate();
+			Conexao.getConnection().commit();
+			rs = ps.getGeneratedKeys();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Metodo para remover o GrupoTecnico
+	 * @param codigoGrupoTecnico
+	 * @throws Exception
+	 */
+	public void remover(int codigoGrupoTecnico) throws Exception{
+		String sql = "Delete from grupoTecnico where codigo =?";
+		
+		try{
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codigoGrupoTecnico);
+			ps.execute();
+			Conexao.getConnection().commit();
+		}catch (SQLException e ){
+			throw new RepositorioException(e);
+		}
+	}
+	
+	
 }

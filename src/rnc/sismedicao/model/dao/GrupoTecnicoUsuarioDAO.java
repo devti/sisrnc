@@ -32,7 +32,6 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();
-			System.out.println("Salvo" + codigoUsuairo);
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -61,5 +60,36 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 		}
 		return usuarios;
 	}
-	
+	/**
+	 * metodo para remover todos os Usuarios do Grupo Tecnico
+	 * @param codigoGrupoTecnico
+	 * @throws Exception
+	 */
+	public void removerAll(int codigoGrupoTecnico) throws Exception{
+		String sql ="DELETE FROM GRUPOTECNICOUSUARIOS WHERE CODIGOGRUPOTECNICO = ?";
+		try{
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codigoGrupoTecnico);
+			ps.execute();
+			Conexao.getConnection().commit();
+		}catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
+	/**
+	 * metodo para remover todos os Usuarios do Grupo Tecnico
+	 * @param codigoGrupoTecnico
+	 * @throws Exception
+	 */
+	public void remover(int codigoUsuario) throws Exception{
+		String sql ="DELETE FROM GRUPOTECNICOUSUARIOS WHERE CODIGOUSUARIO= ?";
+		try{
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codigoUsuario);
+			ps.execute();
+			Conexao.getConnection().commit();
+		}catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	}
 }

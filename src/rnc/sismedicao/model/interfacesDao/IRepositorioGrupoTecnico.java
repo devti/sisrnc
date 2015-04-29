@@ -11,6 +11,10 @@ public interface  IRepositorioGrupoTecnico {
 
 	public int inserir (GrupoTecnico grupoTecnico) throws Exception;
 	
+	public void alterar(GrupoTecnico grupoTecnico) throws Exception;
+	
+	public void remover(int codigoGrupoTecnico) throws Exception;
+	
 	public int consultarUltimoCodigoGrupoTecnico() throws Exception;
 	
 	public ArrayList<GrupoTecnico> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;

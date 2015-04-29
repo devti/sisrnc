@@ -171,7 +171,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 							listaUsuarios.remove(u);
 						} else {
 							// Remove do Banco de Dados
-							// fachada.removerItemDeMedicao(im.getCodItemMedicao());
+							fachada.removerGrupoTecnicoUsuario(u.getCodUsuario());
 							// Remove do arraylist item de medicao da tabela
 							listaUsuarios.remove(u);
 						}
@@ -211,6 +211,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnRemover.setEnabled(false);
 				limparTela();
 				dispose();
 
@@ -256,6 +257,13 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		btnRemover.setEnabled(false);
 		btnRemover.setBounds(172, 11, 30, 30);
 		contentPane.add(btnRemover);
+		btnRemover.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+			}
+		});
 		
 		tf_observacao = new JTextField();
 		tf_observacao.setBounds(111, 119, 200, 20);
@@ -364,13 +372,12 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			if(tf_nomeDoGrupo.getText().isEmpty() || listaUsuarios.isEmpty())
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			GrupoTecnico gt = new GrupoTecnico( tf_nomeDoGrupo.getText(), tf_observacao.getText(), tf_localizacao.getText());
+			GrupoTecnico gt = new GrupoTecnico(codigoGrupoTecnico, tf_nomeDoGrupo.getText(), tf_observacao.getText(), tf_localizacao.getText());
 			//testa se o objeto GrupoTecnico e novo ou veio atraves de pesquisa
 			if (codigoGrupoTecnico==0){
 				//Salva o novo grupo tecnico
 				fachada.cadastrar(gt);
 				codigoGrupoTecnico = fachada.consultarUltimoCodigoGrupoTecnico();
-				System.out.println(listaUsuarios.size());
 				for (int i = 0 ; i< listaUsuarios.size(); i++){
 					codigoUsuario = 0;
 					codigoUsuario = listaUsuarios.get(i).getCodUsuario();
@@ -378,6 +385,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 				}
 			}else{
 				// atualiza o Grupo Tecnico
+				fachada.alterarGrupoTecnico(gt);
 			}
 			limparTela();
 			dispose();	
@@ -402,13 +410,34 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			tf_localizacao.setText(gt.getLocalizacao());
 			tf_observacao.setText(gt.getObservacao());
 			tf_codigoGrupoTecnico.setText(Integer.toString(gt.getCodigoGrupoTecnico()));
-			//tf_Serial.setText(gt.getSerial());
-			//tf_CodigoItem.setText(Integer.toString(gt.getCodItem()));
-			//codigoItem = gt.getCodItem();
-			//listaItemMedicao = tela.pegarItems();
-			//listaItemMedicaoChecagem = listaItemMedicao;
-			//listarItemMedicao(listaItemMedicao);
+			codigoGrupoTecnico = gt.getCodigoGrupoTecnico();
+			listaUsuarios = tela.pegarGrupoTecnicoUsuarios();
+			listarGrupoTecnico(listaUsuarios);
 			btnRemover.setEnabled(true);
 		}
+	}
+	/**---------------------------------------
+	 *  Metodo para remover Grupo Tecnico
+	 ---------------------------------------*/
+	public void excluir() {
+		try {
+			fachada = Fachada.getInstance();
+			if (JOptionPane.showConfirmDialog(null,
+					"Deseja realmente EXCLUIR este Grupo Tecnico ?",
+					"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				fachada.removerGrupoTecnico(codigoGrupoTecnico);
+				fachada.removerAllGrupoTecnicoUsuarios(codigoGrupoTecnico);
+				limparTela();
+				btnRemover.setEnabled(false);
+			}
+
+		} catch (RepositorioException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
 	}
 }

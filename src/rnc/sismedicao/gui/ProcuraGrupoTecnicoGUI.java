@@ -47,6 +47,7 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 	private GrupoTecnicoTableModel gtc;
 	private GrupoTecnico grupoTecnico = null;
 	private ArrayList<GrupoTecnico> listaGrupoTecnico = null;
+	private ArrayList<Usuario> listaGrupoTecnicoUsuarios = null;
 	private JComboBox cbAtributo;
 
 	/**
@@ -172,7 +173,7 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 				fachada = Fachada.getInstance();
 				int codGrupoTecnico = (int) gtc.getValueAt(table.getSelectedRow(), 0);
 				grupoTecnico = fachada.grupoTecnicoPesquisar(codGrupoTecnico);
-				//listaGrupoTecnico = fachada.itemMedicaoProcurar(codItem);
+				listaGrupoTecnicoUsuarios = fachada.pesquisaGrupoTecnicoUsuarios(codGrupoTecnico);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -200,8 +201,8 @@ public class ProcuraGrupoTecnicoGUI extends JDialog {
 	public GrupoTecnico pegarGrupoTecnico(){
 		return grupoTecnico;
 	}
-//	public ArrayList<ItemMedicao> pegarItems(){
-//		return listaGrupoTecnico;
-//	}
+	public ArrayList<Usuario> pegarGrupoTecnicoUsuarios(){
+		return listaGrupoTecnicoUsuarios;
+	}
 
 }

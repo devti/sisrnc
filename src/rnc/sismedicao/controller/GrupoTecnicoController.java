@@ -21,6 +21,14 @@ public class GrupoTecnicoController {
 		return repositorioGrupoTecnico.inserir(grupoTecnico);
 	}
 	
+	public void alterar(GrupoTecnico grupoTecnico) throws Exception{
+		repositorioGrupoTecnico.alterar(grupoTecnico);
+	}
+	
+	public void remover(int codigoGrupoTecnico) throws Exception{
+		repositorioGrupoTecnico.remover(codigoGrupoTecnico);
+	}
+	
 	public int consultarUltimoCodigoGrupoTecnico() throws Exception{
 		return repositorioGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
 	}

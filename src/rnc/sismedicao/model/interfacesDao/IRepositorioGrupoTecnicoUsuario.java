@@ -10,6 +10,10 @@ public interface IRepositorioGrupoTecnicoUsuario {
 	public void inserir(int codigoGrupoTecnico, int codigoUsuairo)
 			throws Exception;
 	
+	public void removerAll(int codigoGrupoTecnico) throws Exception;
+	
+	public void remover(int codigoUsuario) throws Exception;
+	
 	public ArrayList<Usuario> procurarGrupoTecnicoUsuarios(int codigoGrupoTecnico)
 			throws SQLException;
 }

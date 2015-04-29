@@ -260,6 +260,14 @@ public class Fachada {
 		return controladorGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
 	}
 	
+	public void alterarGrupoTecnico(GrupoTecnico grupoTecnico) throws Exception{
+		controladorGrupoTecnico.alterar(grupoTecnico);
+	}
+	
+	public void removerGrupoTecnico(int codigoGrupoTecnico) throws Exception{
+		controladorGrupoTecnico.remover(codigoGrupoTecnico);
+	}
+	
 	public ArrayList<GrupoTecnico> GrupoTecnicoPesquisaAvancada(String atributo, String pesquisa)
 			throws SQLException, RepositorioException {
 		return this.controladorGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
@@ -278,6 +286,15 @@ public class Fachada {
 	
 	public ArrayList<Usuario> pesquisaGrupoTecnicoUsuarios (int codigoGrupoTecnico) throws SQLException{
 		return controladorGrupoTecnicoUsuarioController.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
+	}
+	
+	public void removerAllGrupoTecnicoUsuarios (int codigoGrupoTecnico) throws Exception{
+		controladorGrupoTecnicoUsuarioController.removerAll(codigoGrupoTecnico);
+		
+	}
+	
+	public void removerGrupoTecnicoUsuario (int codigoUsuario) throws Exception{
+		controladorGrupoTecnicoUsuarioController.remover(codigoUsuario);
 	}
 
 
