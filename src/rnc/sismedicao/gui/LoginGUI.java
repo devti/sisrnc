@@ -33,7 +33,7 @@ public class LoginGUI extends JFrame {
 	private JPasswordField PF_Senha;
 	private Fachada fachada;
 	private PrincipalGUI tela;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -155,5 +155,10 @@ public class LoginGUI extends JFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Login",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public String pegaLogin(){
+		
+		return this.TF_Login.getText();
 	}
 }

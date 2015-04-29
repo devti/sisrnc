@@ -1,57 +1,32 @@
 package rnc.sismedicao.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-
-import java.awt.TextArea;
-import java.awt.Panel;
-import java.awt.FlowLayout;
-import java.awt.Button;
-
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-
-import java.awt.ScrollPane;
-
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.MatteBorder;
-
-import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
-import rnc.sismedicao.controller.exception.RepositorioException;
-import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
-import rnc.sismedicao.fachada.Fachada;
-import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
-import rnc.sismedicao.gui.util.UsuarioTableModel;
-import rnc.sismedicao.model.beans.GrupoTecnico;
-import rnc.sismedicao.model.beans.Item;
-import rnc.sismedicao.model.beans.ItemMedicao;
-import rnc.sismedicao.model.beans.Usuario;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextPane;
-import javax.swing.DropMode;
-import javax.swing.JEditorPane;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
-import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
+import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
+import rnc.sismedicao.controller.exception.RepositorioException;
+import rnc.sismedicao.fachada.Fachada;
+import rnc.sismedicao.gui.util.UsuarioTableModel;
+import rnc.sismedicao.model.beans.GrupoTecnico;
+import rnc.sismedicao.model.beans.Usuario;
 
 
 public class CadastroGrupoTecnicoGUI extends JFrame {
@@ -166,7 +141,7 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 									null,
 									"Deseja realmente EXCLUIR este usuario da lista de Grupo Tecnico ?",
 									"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						if (codigoUsuario == 0) {
+						if (codigoGrupoTecnico == 0) {
 							// Remove do Arraylist item de medicao da tabela
 							listaUsuarios.remove(u);
 						} else {
@@ -287,33 +262,48 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 	 */
 	
 	public void pesquisarUsuario() {
-		tpu = new ProcuraUsuarioGUI();
-		tpu.setVisible(true);
-		if (tpu.getFocusableWindowState() && tpu.pegarUsuario() != null) {
-			Usuario u = tpu.pegarUsuario();
-			boolean entrou = false;
-			for (int i = 0; i < listaUsuarios.size(); i++) {
-				if (u.getCodUsuario() == listaUsuarios.get(i).getCodUsuario()) {
-					entrou = true;
+		try {
+			tpu = new ProcuraUsuarioGUI();
+			tpu.setVisible(true);
+			if (tpu.getFocusableWindowState() && tpu.pegarUsuario() != null) {
+				Usuario u = tpu.pegarUsuario();
+				boolean entrou = false;
+				for (int i = 0; i < listaUsuarios.size(); i++) {
+					if (u.getCodUsuario() == listaUsuarios.get(i)
+							.getCodUsuario()) {
+						entrou = true;
+					} else {
+						entrou = false;
+					}
+				}
+				if (!entrou) {
+					if (codigoGrupoTecnico == 0) {
+						codigoUsuario = u.getCodUsuario();
+						listaUsuarios.add(u);
+					} else {
+						if (JOptionPane
+								.showConfirmDialog(
+										null,
+										"Deseja realmente INSERIR este usuario no Grupo Tecnico ?",
+										"Confirmação",
+										JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							codigoUsuario = u.getCodUsuario();
+							fachada.cadastraGrupoTecnicoUsuario(
+									codigoGrupoTecnico, u.getCodUsuario());
+							listaUsuarios.add(u);
+						}
+					}
 				} else {
-					entrou = false;
+					JOptionPane.showMessageDialog(getContentPane(),
+							"Usuario já existente no Grupo Tecnico!", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
 				}
-			}
-			if (!entrou){
-				if(listaUsuarios.size()==0){
-					codigoUsuario = u.getCodUsuario();
-					listaUsuarios.add(u);
-				}else{
-					codigoUsuario = u.getCodUsuario();					
-					listaUsuarios.add(u);
-				}
-			}else {
-				JOptionPane.showMessageDialog(getContentPane(),
-						"Usuario já existente no Grupo Tecnico!", "Aviso",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
 
-			listarGrupoTecnico(listaUsuarios);
+				listarGrupoTecnico(listaUsuarios);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
@@ -440,4 +430,5 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 		}
 
 	}
+
 }
