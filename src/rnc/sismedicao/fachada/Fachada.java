@@ -275,6 +275,10 @@ public class Fachada {
 	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico, int codigoUsuario)throws Exception{
 		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico, codigoUsuario);
 	}
+	
+	public ArrayList<Usuario> pesquisaGrupoTecnicoUsuarios (int codigoGrupoTecnico) throws SQLException{
+		return controladorGrupoTecnicoUsuarioController.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
+	}
 
 
 }
