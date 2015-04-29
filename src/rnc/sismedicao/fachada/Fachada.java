@@ -40,7 +40,7 @@ public class Fachada {
 	private EquipamentoController controladorEquipamento;
 	private GrupoTecnicoController controladorGrupoTecnico;
 	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuarioController;
-	
+
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
 		this.controladorPessoa = new PessoaController();
@@ -84,7 +84,6 @@ public class Fachada {
 		else if (element instanceof GrupoTecnico)
 			this.controladorGrupoTecnico.cadastrar((GrupoTecnico) element);
 	}
-
 
 	// -------------------------------------
 	// METODOS PESSOA
@@ -231,13 +230,13 @@ public class Fachada {
 			EquipamentoNaoEncontrandoException {
 		return this.controladorEquipamento.procurar(codEquipamento);
 	}
-	
-	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception {
+
+	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento)
+			throws Exception {
 		ArrayList<Item> itens = new ArrayList<Item>();
 		itens = controladorItem.procurarEquipamentoItem(codEquipamento);
 		return itens;
 	}
-	
 
 	public int consultarUltimoCodigoEquipamento() throws Exception {
 		return this.controladorEquipamento.consultarUltimoCodigoEquipamento();
@@ -249,53 +248,61 @@ public class Fachada {
 
 	public void equipamentoRemover(int codigoEquipamento) throws Exception {
 		controladorEquipamento.removerEquipamento(codigoEquipamento);
-		
+
 	}
 
 	/**
-	 * METODOS GRUPO TECNICO 
+	 * METODOS GRUPO TECNICO
 	 */
-	
-	public int consultarUltimoCodigoGrupoTecnico() throws Exception{
+
+	public int consultarUltimoCodigoGrupoTecnico() throws Exception {
 		return controladorGrupoTecnico.consultarUltimoCodigoGrupoTecnico();
 	}
-	
-	public void alterarGrupoTecnico(GrupoTecnico grupoTecnico) throws Exception{
+
+	public void alterarGrupoTecnico(GrupoTecnico grupoTecnico) throws Exception {
 		controladorGrupoTecnico.alterar(grupoTecnico);
 	}
-	
-	public void removerGrupoTecnico(int codigoGrupoTecnico) throws Exception{
+
+	public void removerGrupoTecnico(int codigoGrupoTecnico) throws Exception {
 		controladorGrupoTecnico.remover(codigoGrupoTecnico);
 	}
-	
-	public ArrayList<GrupoTecnico> GrupoTecnicoPesquisaAvancada(String atributo, String pesquisa)
-			throws SQLException, RepositorioException {
-		return this.controladorGrupoTecnico.pesquisaAvancada(atributo, pesquisa);
-	}
-	
-	public GrupoTecnico grupoTecnicoPesquisar (int codigoGrupoTecnico) throws SQLException,GrupoTecnicoNaoEncontradoException,RepositorioException{
-		return this.controladorGrupoTecnico.pesquisa(codigoGrupoTecnico);
-	}
-	
-	/**
-	 *  METORDOS GRUPO TECNICO USUAIROS
-	 */
-	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico, int codigoUsuario)throws Exception{
-		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico, codigoUsuario);
-	}
-	
-	public ArrayList<Usuario> pesquisaGrupoTecnicoUsuarios (int codigoGrupoTecnico) throws SQLException{
-		return controladorGrupoTecnicoUsuarioController.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
-	}
-	
-	public void removerAllGrupoTecnicoUsuarios (int codigoGrupoTecnico) throws Exception{
-		controladorGrupoTecnicoUsuarioController.removerAll(codigoGrupoTecnico);
-		
-	}
-	
-	public void removerGrupoTecnicoUsuario (int codigoUsuario) throws Exception{
-		controladorGrupoTecnicoUsuarioController.remover(codigoUsuario);
+
+	public ArrayList<GrupoTecnico> GrupoTecnicoPesquisaAvancada(
+			String atributo, String pesquisa) throws SQLException,
+			RepositorioException {
+		return this.controladorGrupoTecnico
+				.pesquisaAvancada(atributo, pesquisa);
 	}
 
+	public GrupoTecnico grupoTecnicoPesquisar(int codigoGrupoTecnico)
+			throws SQLException, GrupoTecnicoNaoEncontradoException,
+			RepositorioException {
+		return this.controladorGrupoTecnico.pesquisa(codigoGrupoTecnico);
+	}
+
+	/**
+	 * METORDOS GRUPO TECNICO USUAIROS
+	 */
+	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico,
+			int codigoUsuario) throws Exception {
+		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico,
+				codigoUsuario);
+	}
+
+	public ArrayList<Usuario> pesquisaGrupoTecnicoUsuarios(
+			int codigoGrupoTecnico) throws SQLException {
+		return controladorGrupoTecnicoUsuarioController
+				.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
+	}
+
+	public void removerAllGrupoTecnicoUsuarios(int codigoGrupoTecnico)
+			throws Exception {
+		controladorGrupoTecnicoUsuarioController.removerAll(codigoGrupoTecnico);
+
+	}
+
+	public void removerGrupoTecnicoUsuario(int codigoUsuario) throws Exception {
+		controladorGrupoTecnicoUsuarioController.remover(codigoUsuario);
+	}
 
 }
