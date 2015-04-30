@@ -1,6 +1,8 @@
 package rnc.sismedicao.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -14,9 +16,12 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.Equipamento;
+import rnc.sismedicao.model.beans.GrupoTecnico;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -31,10 +36,11 @@ public class AbrirOSGUI extends JFrame {
 	private ArrayList<Equipamento> lista;
 	private JTextField TF_Equipamento;
 	private JTextField TF_GrupoTecnico;
-	private JTextField TF_DtInicio;
-	private JTextField TF_DtFim;
 	private JTextField TF_Hora;
-
+	private ProcuraEquipamentoGUI telaProcurarEquipamento;
+	private ProcuraGrupoTecnicoGUI teleProcuraGrupoTecnico;
+	private Equipamento equipamento = null;
+	private GrupoTecnico grupoTecnico = null;
 	
 	public static AbrirOSGUI getInstance() {
 		if (abrirOSGUI == null) {
@@ -67,10 +73,21 @@ public class AbrirOSGUI extends JFrame {
 		panel.add(TF_Equipamento);
 		TF_Equipamento.setColumns(10);
 		
+		/**
+		 * BOTAO PROCURAR EQUIPAMENTO 
+		 */
 		JButton BT_Pesq_Equipamento = new JButton("");
+		BT_Pesq_Equipamento.setToolTipText("Localizar Equipamento");
 		BT_Pesq_Equipamento.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_Pesq_Equipamento.setBounds(481, 17, 30, 30);
 		panel.add(BT_Pesq_Equipamento);
+		BT_Pesq_Equipamento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurarEquipamento();
+			}
+		});
+		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setToolTipText("");
@@ -85,40 +102,52 @@ public class AbrirOSGUI extends JFrame {
 		TF_GrupoTecnico.setBounds(10, 25, 430, 20);
 		panel_1.add(TF_GrupoTecnico);
 		
+		/**
+		 * METODO PROCURAR GRUPO TECNICO
+		 */
 		JButton BT_Pesq_GrupoTec = new JButton("");
+		BT_Pesq_GrupoTec.setToolTipText("Localizar Grupo Tecnico");
 		BT_Pesq_GrupoTec.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_Pesq_GrupoTec.setBounds(481, 17, 30, 30);
 		panel_1.add(BT_Pesq_GrupoTec);
+		BT_Pesq_GrupoTec.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurarGrupoTecnico();
+			}
+		});
 		
 		JButton BT_Primeiro = new JButton("");
 		BT_Primeiro.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
-		BT_Primeiro.setBounds(10, 11, 30, 30);
+		BT_Primeiro.setBounds(45, 11, 30, 30);
 		contentPane.add(BT_Primeiro);
 		
 		JButton BT_Anterior = new JButton("");
 		BT_Anterior.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
-		BT_Anterior.setBounds(43, 11, 30, 30);
+		BT_Anterior.setBounds(78, 11, 30, 30);
 		contentPane.add(BT_Anterior);
 		
 		JButton BT_Proximo = new JButton("");
 		BT_Proximo.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
-		BT_Proximo.setBounds(75, 11, 30, 30);
+		BT_Proximo.setBounds(110, 11, 30, 30);
 		contentPane.add(BT_Proximo);
 		
 		JButton BT_Ultimo = new JButton("");
 		BT_Ultimo.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
-		BT_Ultimo.setBounds(107, 11, 30, 30);
+		BT_Ultimo.setBounds(142, 11, 30, 30);
 		contentPane.add(BT_Ultimo);
 		
 		JButton BT_Procurar = new JButton("");
+		BT_Procurar.setToolTipText("Pesquisar");
 		BT_Procurar.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
-		BT_Procurar.setBounds(140, 11, 30, 30);
+		BT_Procurar.setBounds(175, 11, 30, 30);
 		contentPane.add(BT_Procurar);
 		
 		JButton BT_Apagar = new JButton("");
+		BT_Apagar.setToolTipText("Excluir");
 		BT_Apagar.setEnabled(false);
 		BT_Apagar.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
-		BT_Apagar.setBounds(172, 11, 30, 30);
+		BT_Apagar.setBounds(207, 11, 30, 30);
 		contentPane.add(BT_Apagar);
 		
 		JPanel panel_2 = new JPanel();
@@ -140,16 +169,6 @@ public class AbrirOSGUI extends JFrame {
 		JLabel lblDataFim = new JLabel("Data Fim");
 		lblDataFim.setBounds(128, 61, 82, 14);
 		panel_2.add(lblDataFim);
-		
-		TF_DtInicio = new JTextField();
-		TF_DtInicio.setBounds(10, 76, 86, 20);
-		panel_2.add(TF_DtInicio);
-		TF_DtInicio.setColumns(10);
-		
-		TF_DtFim = new JTextField();
-		TF_DtFim.setColumns(10);
-		TF_DtFim.setBounds(128, 76, 86, 20);
-		panel_2.add(TF_DtFim);
 		
 		JComboBox CB_DiaSemana = new JComboBox();
 		CB_DiaSemana.setEnabled(false);
@@ -184,6 +203,14 @@ public class AbrirOSGUI extends JFrame {
 		TF_Hora.setBounds(10, 123, 86, 20);
 		panel_2.add(TF_Hora);
 		
+		JFormattedTextField fTFDataInicio = new JFormattedTextField();
+		fTFDataInicio.setBounds(10, 76, 86, 20);
+		panel_2.add(fTFDataInicio);
+		
+		JFormattedTextField fTFDataFim = new JFormattedTextField();
+		fTFDataFim.setBounds(126, 76, 86, 20);
+		panel_2.add(fTFDataFim);
+		
 		JButton btn_Cancelar = new JButton("Cancelar");
 		btn_Cancelar.setBounds(460, 414, 89, 23);
 		contentPane.add(btn_Cancelar);
@@ -191,5 +218,48 @@ public class AbrirOSGUI extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(365, 414, 89, 23);
 		contentPane.add(btnSalvar);
+		
+		JButton button = new JButton("");
+		button.setToolTipText("Novo");
+		button.setIcon(new ImageIcon(AbrirOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/1.png")));
+		button.setBounds(10, 11, 30, 30);
+		contentPane.add(button);
+	}
+	
+	/**
+	 * METODO PARA PROCURAR EQUIPAMENTO
+	 */
+	public void procurarEquipamento() {
+		telaProcurarEquipamento = new ProcuraEquipamentoGUI();
+		telaProcurarEquipamento.setVisible(true);
+		if (telaProcurarEquipamento.getFocusableWindowState() && telaProcurarEquipamento.pegarEquipamento() != null) {
+			this.equipamento = telaProcurarEquipamento.pegarEquipamento();
+			TF_Equipamento.setText(equipamento.getDescricao());
+
+		}
+	}
+	
+	/**
+	 * METODO PARA PROCURAR GRUPO TECNICO
+	 */
+	public void procurarGrupoTecnico() {
+		teleProcuraGrupoTecnico = new ProcuraGrupoTecnicoGUI();
+		teleProcuraGrupoTecnico.setVisible(true);
+		if (teleProcuraGrupoTecnico.getFocusableWindowState()
+				&& teleProcuraGrupoTecnico.pegarGrupoTecnico() != null) {
+			grupoTecnico = teleProcuraGrupoTecnico.pegarGrupoTecnico();
+			TF_GrupoTecnico.setText(grupoTecnico.getNomeGrupoTecnico());
+		}
+	}
+	
+	/**
+	 * METODO PARA FORMATAR UM CAMPO
+	 */
+	private MaskFormatter setMascara(String mascara){  
+	    MaskFormatter mask = null;  
+	    try{  
+	        mask = new MaskFormatter(mascara);                        
+	        }catch(java.text.ParseException ex){}  
+	    return mask;  
 	}
 }
