@@ -41,7 +41,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private CadastroGrupoTecnicoGUI cadastroGrupoTecnicoGUI;
-	private AbrirOSGUI abrirOSGUI;
+	private PlanoDeAgendaGUI abrirOSGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -235,12 +235,12 @@ public class PrincipalGUI extends JFrame {
 		MN_OrdemDeServico.setDoubleBuffered(true);
 		menuBar.add(MN_OrdemDeServico);
 
-		JMenuItem mntmAbrirNovaOrdem = new JMenuItem("Abrir nova OS");
+		JMenuItem mntmAbrirNovaOrdem = new JMenuItem("Plano de Agenda OS");
 		mntmAbrirNovaOrdem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				abrirOSGUI = AbrirOSGUI.getInstance();
+				abrirOSGUI = PlanoDeAgendaGUI.getInstance();
 				abrirOSGUI.setVisible(true);
 				
 			}
