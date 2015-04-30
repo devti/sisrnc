@@ -147,10 +147,11 @@ public class CadastroEquipamentoGUI extends JDialog {
 		panel.setLayout(null);
 
 		JLabel lblObservao = new JLabel("Observa\u00E7\u00E3o:");
-		lblObservao.setBounds(10, 75, 71, 14);
+		lblObservao.setBounds(10, 75, 85, 14);
 		panel.add(lblObservao);
 
 		TF_OBS = new JTextArea();
+		TF_OBS.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		TF_OBS.setRows(4);
 		TF_OBS.setBounds(10, 94, 449, 55);
 		panel.add(TF_OBS);
@@ -268,6 +269,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 			if (JOptionPane.showConfirmDialog(this,
 					"Tem certeza que deseja excluir o Equipamento?",
 					"Confirmação", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+				fachada.equipamentoItemRemover(Integer.parseInt(TF_CodEquipamento.getText()));
 				fachada.equipamentoRemover(Integer.parseInt(TF_CodEquipamento
 						.getText()));
 				LimparCampos.limparCampos(getContentPane());

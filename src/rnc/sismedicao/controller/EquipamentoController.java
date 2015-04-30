@@ -45,4 +45,9 @@ public class EquipamentoController {
 		
 	}
 
+	public void removerEquipamentoItem(int codigoEquipamento) throws Exception {
+		repositorioEquipamento.removerEquipamentoItem(codigoEquipamento);
+		
+	}
+
 }

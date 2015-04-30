@@ -23,5 +23,7 @@ public interface IRepositorioEquipamento {
 	
 	public int inserirEquipamentoItem (Equipamento e) throws Exception;
 
+	public void removerEquipamentoItem(int codigoEquipamento) throws Exception;
+
 	
 }

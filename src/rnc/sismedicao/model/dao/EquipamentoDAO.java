@@ -85,6 +85,22 @@ public class EquipamentoDAO implements IRepositorioEquipamento {
 			throw new RepositorioException(e);
 		}
 	}
+	
+	@Override
+	public void removerEquipamentoItem(int codigoEquipamento) throws Exception {
+		
+		String sql = "DELETE FROM EQUIPAMENTOITEM WHERE CODEQUIPAMENTO = ?";
+		
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			stmt.setInt(1, codigoEquipamento);
+			stmt.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		
+	}
 
 	public Equipamento procurar(int codEquipamento)
 			throws EquipamentoNaoEncontrandoException, SQLException,

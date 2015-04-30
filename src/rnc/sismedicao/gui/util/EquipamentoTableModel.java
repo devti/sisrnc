@@ -12,7 +12,7 @@ public class EquipamentoTableModel extends AbstractTableModel {
 
 	
 	private ArrayList<Equipamento> equipamentos;
-	private String[] nomeColunas = {"CODEQUIPAMENTO", "DESCRIÇÃO", "SERIE"};
+	private String[] nomeColunas = {"CODIGO", "DESCRIÇÃO", "SERIE"};
 	
 	public  EquipamentoTableModel() {
 		this.equipamentos = new ArrayList<Equipamento>();
@@ -31,7 +31,7 @@ public class EquipamentoTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "CODEQUIPAMENTO";
+			return "CODIGO";
 		case 1:
 			return "DESCRIÇÃO";
 		case 2:

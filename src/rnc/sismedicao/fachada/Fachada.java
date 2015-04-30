@@ -237,6 +237,10 @@ public class Fachada {
 		itens = controladorItem.procurarEquipamentoItem(codEquipamento);
 		return itens;
 	}
+	
+	public void equipamentoItemRemover(int codigoEquipamento) throws Exception {
+		controladorEquipamento.removerEquipamentoItem(codigoEquipamento);
+	}
 
 	public int consultarUltimoCodigoEquipamento() throws Exception {
 		return this.controladorEquipamento.consultarUltimoCodigoEquipamento();
