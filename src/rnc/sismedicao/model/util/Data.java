@@ -1,7 +1,14 @@
 package rnc.sismedicao.model.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;  
+import java.util.Date;
 import java.util.GregorianCalendar;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
+
+
 
 public class Data {  
   
@@ -210,4 +217,5 @@ public class Data {
       return diaSemana;  
     
     }  
+    
 }

@@ -29,18 +29,25 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 
+import com.sun.javafx.font.freetype.FTFactory;
+
 public class PlanoDeAgendaGUI extends JFrame {
 
 	private JPanel contentPane;
 	private static PlanoDeAgendaGUI abrirOSGUI;
 	private Fachada fachada;
 	private ArrayList<Equipamento> lista;
-	private JTextField TF_Equipamento;
-	private JTextField TF_GrupoTecnico;
+	private JTextField tF_Equipamento;
+	private JTextField tF_GrupoTecnico;
 	private ProcuraEquipamentoGUI telaProcurarEquipamento;
 	private ProcuraGrupoTecnicoGUI teleProcuraGrupoTecnico;
 	private Equipamento equipamento = null;
 	private GrupoTecnico grupoTecnico = null;
+	private JFormattedTextField fTF_DataInicio;
+	private JFormattedTextField fTF_DataFim;
+	private JFormattedTextField fTFHora;
+	private JComboBox CB_Tipo;
+	
 	
 	public static PlanoDeAgendaGUI getInstance() {
 		if (abrirOSGUI == null) {
@@ -67,11 +74,11 @@ public class PlanoDeAgendaGUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		TF_Equipamento = new JTextField();
-		TF_Equipamento.setEditable(false);
-		TF_Equipamento.setBounds(10, 23, 430, 20);
-		panel.add(TF_Equipamento);
-		TF_Equipamento.setColumns(10);
+		tF_Equipamento = new JTextField();
+		tF_Equipamento.setEditable(false);
+		tF_Equipamento.setBounds(10, 23, 430, 20);
+		panel.add(tF_Equipamento);
+		tF_Equipamento.setColumns(10);
 		
 		/**
 		 * BOTAO PROCURAR EQUIPAMENTO 
@@ -96,11 +103,11 @@ public class PlanoDeAgendaGUI extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		TF_GrupoTecnico = new JTextField();
-		TF_GrupoTecnico.setEditable(false);
-		TF_GrupoTecnico.setColumns(10);
-		TF_GrupoTecnico.setBounds(10, 25, 430, 20);
-		panel_1.add(TF_GrupoTecnico);
+		tF_GrupoTecnico = new JTextField();
+		tF_GrupoTecnico.setEditable(false);
+		tF_GrupoTecnico.setColumns(10);
+		tF_GrupoTecnico.setBounds(10, 25, 430, 20);
+		panel_1.add(tF_GrupoTecnico);
 		
 		/**
 		 * METODO PROCURAR GRUPO TECNICO
@@ -157,7 +164,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		panel_2.setBounds(10, 253, 539, 154);
 		contentPane.add(panel_2);
 		
-		JComboBox CB_Tipo = new JComboBox();
+		CB_Tipo = new JComboBox();
 		CB_Tipo.setModel(new DefaultComboBoxModel(new String[] {"Di\u00E1rio", "Semanal", "Mensal"}));
 		CB_Tipo.setBounds(41, 23, 157, 20);
 		panel_2.add(CB_Tipo);
@@ -198,25 +205,46 @@ public class PlanoDeAgendaGUI extends JFrame {
 		lblHora.setBounds(10, 106, 52, 14);
 		panel_2.add(lblHora);
 		
-		JFormattedTextField fTFDataInicio = new JFormattedTextField((setMascara("##/##/####")));
-		fTFDataInicio.setBounds(10, 76, 86, 20);
-		panel_2.add(fTFDataInicio);
+		fTF_DataFim = new JFormattedTextField((setMascara("##/##/####")));
+		fTF_DataFim.setBounds(126, 76, 86, 20);
+		panel_2.add(fTF_DataFim);
 		
-		JFormattedTextField fTFDataFim = new JFormattedTextField((setMascara("##/##/####")));
-		fTFDataFim.setBounds(126, 76, 86, 20);
-		panel_2.add(fTFDataFim);
-		
-		JFormattedTextField fTFHora = new JFormattedTextField((setMascara("##:##")));
+		fTFHora = new JFormattedTextField((setMascara("##:##")));
 		fTFHora.setBounds(10, 121, 86, 20);
 		panel_2.add(fTFHora);
 		
+		fTF_DataInicio = new JFormattedTextField((setMascara("##/##/####")));
+		fTF_DataInicio.setBounds(10, 76, 86, 20);
+		panel_2.add(fTF_DataInicio);
+		fTF_DataInicio.setColumns(10);
+		
+		/**
+		 * BOTAO CANCELAR
+		 */
 		JButton btn_Cancelar = new JButton("Cancelar");
 		btn_Cancelar.setBounds(460, 414, 89, 23);
 		contentPane.add(btn_Cancelar);
+		btn_Cancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limparTela();
+				dispose();
+				
+			}
+		});
 		
+		/**
+		 * BOTAO SALVAR
+		 */
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(365, 414, 89, 23);
 		contentPane.add(btnSalvar);
+		btnSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
 		
 		JButton button = new JButton("");
 		button.setToolTipText("Novo");
@@ -233,7 +261,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		telaProcurarEquipamento.setVisible(true);
 		if (telaProcurarEquipamento.getFocusableWindowState() && telaProcurarEquipamento.pegarEquipamento() != null) {
 			this.equipamento = telaProcurarEquipamento.pegarEquipamento();
-			TF_Equipamento.setText(equipamento.getDescricao());
+			tF_Equipamento.setText(equipamento.getDescricao());
 
 		}
 	}
@@ -247,7 +275,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		if (teleProcuraGrupoTecnico.getFocusableWindowState()
 				&& teleProcuraGrupoTecnico.pegarGrupoTecnico() != null) {
 			grupoTecnico = teleProcuraGrupoTecnico.pegarGrupoTecnico();
-			TF_GrupoTecnico.setText(grupoTecnico.getNomeGrupoTecnico());
+			tF_GrupoTecnico.setText(grupoTecnico.getNomeGrupoTecnico());
 		}
 	}
 	
@@ -260,5 +288,23 @@ public class PlanoDeAgendaGUI extends JFrame {
 	        mask = new MaskFormatter(mascara);                        
 	        }catch(java.text.ParseException ex){}  
 	    return mask;  
+	}
+	/**
+	 * METODO PARA SALVAR
+	 */
+	private void salvar(){
+		System.out.println(CB_Tipo.getSelectedItem());
+		System.out.println(fTF_DataInicio.getText());
+	}
+	
+	/**
+	 * METODO PARA LIMPAR A TELA
+	 */
+	private void limparTela(){
+		tF_Equipamento.setText(null);
+		tF_GrupoTecnico.setText(null);
+		fTF_DataFim.setText(null);
+		fTF_DataInicio.setText(null);
+		fTFHora.setText(null);
 	}
 }
