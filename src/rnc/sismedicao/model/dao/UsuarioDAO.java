@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
-import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
 import rnc.sismedicao.model.util.Conexao;

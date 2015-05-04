@@ -10,6 +10,7 @@ import rnc.sismedicao.model.beans.Usuario;
 
 public interface IRepositorioUsuario {
 	
+
 	public int inserir(Usuario usuario) throws  Exception;
 	
 	public void removerUsuario (int codPessoa) throws RepositorioException, SQLException;
@@ -21,4 +22,6 @@ public interface IRepositorioUsuario {
 	public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
 
 	public ArrayList<Usuario> listar() throws SQLException, RepositorioException;
+	
+	public Usuario getUsuarioLogado();
 }

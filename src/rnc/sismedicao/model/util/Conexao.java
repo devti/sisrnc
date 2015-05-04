@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 	
-	private String servidor = "localhost";
-	//private String servidor = "ABSERVER35";
+	//private String servidor = "localhost";
+	private String servidor = "ABSERVER35";
 	private String bancoDeDados = "SisMedicao";
 	
 	private String URL = "jdbc:sqlserver://"+ servidor +":1433;databaseName="+ bancoDeDados;

@@ -42,6 +42,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private CadastroGrupoTecnicoGUI cadastroGrupoTecnicoGUI;
 	private PlanoDeMedicaoGUI abrirOSGUI;
+	private ListaPlanosOSGUI listaOSGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -249,6 +250,15 @@ public class PrincipalGUI extends JFrame {
 		MN_OrdemDeServico.add(mntmAbrirNovaOrdem);
 
 		JMenuItem mntmOssEmAberto = new JMenuItem("OS's em aberto");
+		mntmOssEmAberto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listaOSGUI = ListaPlanosOSGUI.getInstance();
+				listaOSGUI.setVisible(true);
+				
+			}
+		});
 		mntmOssEmAberto.setDoubleBuffered(true);
 		MN_OrdemDeServico.add(mntmOssEmAberto);
 

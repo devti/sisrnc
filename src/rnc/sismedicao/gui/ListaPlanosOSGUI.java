@@ -1,24 +1,42 @@
 package rnc.sismedicao.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
+
+import rnc.sismedicao.fachada.Fachada;
 
 public class ListaPlanosOSGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private Fachada fachada;
+	private JTextField tf_UsuarioLogado;
+	private static ListaPlanosOSGUI listaOSGUI;
+	
+	public static ListaPlanosOSGUI getInstance() {
+		if (listaOSGUI == null) {
+			return listaOSGUI = new ListaPlanosOSGUI();
+		}
+		return listaOSGUI;
+	}
 
 	/**
 	 * Create the frame.
@@ -31,6 +49,28 @@ public class ListaPlanosOSGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		// Captura do ESC para fechar Janela
+				JRootPane meurootpane = getRootPane();
+				meurootpane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+						KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESCAPE");
+				meurootpane.getRootPane().getActionMap()
+						.put("ESCAPE", new AbstractAction("ESCAPE") {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public void actionPerformed(ActionEvent e) {
+								sair();
+							}
+						});
+				try {
+					fachada = Fachada.getInstance();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Leituras de Medi\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -51,5 +91,17 @@ public class ListaPlanosOSGUI extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(ListaPlanosOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
 		btnNewButton.setBounds(20, 6, 30, 30);
 		contentPane.add(btnNewButton);
+		
+		tf_UsuarioLogado = new JTextField();
+		tf_UsuarioLogado.setEditable(false);
+		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
+		contentPane.add(tf_UsuarioLogado);
+		tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
+		tf_UsuarioLogado.setColumns(10);
+	}
+
+	protected void sair() {
+		// TODO Auto-generated method stub
+		
 	}
 }

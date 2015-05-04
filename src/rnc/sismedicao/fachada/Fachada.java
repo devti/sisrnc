@@ -134,6 +134,10 @@ public class Fachada {
 			SQLException {
 		return this.controladorUsuario.procurar(codPessoa);
 	}
+	
+	public Usuario getUsuarioLogado() {
+		return this.controladorUsuario.getUsuarioLogado();
+	}
 
 	// -------------------------------------
 	// METODOS UNIDADE DE MEDICAO
