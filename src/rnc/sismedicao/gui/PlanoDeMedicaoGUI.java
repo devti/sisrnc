@@ -37,10 +37,10 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 
-public class PlanoDeAgendaGUI extends JFrame {
+public class PlanoDeMedicaoGUI extends JFrame {
 
 	private JPanel contentPane;
-	private static PlanoDeAgendaGUI abrirOSGUI;
+	private static PlanoDeMedicaoGUI abrirOSGUI;
 	private Fachada fachada;
 	private ArrayList<Equipamento> lista;
 	private JTextField tF_Equipamento;
@@ -59,16 +59,16 @@ public class PlanoDeAgendaGUI extends JFrame {
 	private Calendar dtFinal = Calendar.getInstance();
 	private Calendar dtContagem = Calendar.getInstance();
 	
-	public static PlanoDeAgendaGUI getInstance() {
+	public static PlanoDeMedicaoGUI getInstance() {
 		if (abrirOSGUI == null) {
-			return abrirOSGUI = new PlanoDeAgendaGUI();
+			return abrirOSGUI = new PlanoDeMedicaoGUI();
 		}
 		return abrirOSGUI;
 	}
 	/**
 	 * Create the frame.
 	 */
-	public PlanoDeAgendaGUI() {
+	public PlanoDeMedicaoGUI() {
 		setTitle("Abrir Plano de Medi\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 575, 486);
@@ -95,7 +95,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		 */
 		JButton BT_Pesq_Equipamento = new JButton("");
 		BT_Pesq_Equipamento.setToolTipText("Localizar Equipamento");
-		BT_Pesq_Equipamento.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
+		BT_Pesq_Equipamento.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_Pesq_Equipamento.setBounds(481, 17, 30, 30);
 		panel.add(BT_Pesq_Equipamento);
 		BT_Pesq_Equipamento.addActionListener(new ActionListener() {
@@ -124,7 +124,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		 */
 		JButton BT_Pesq_GrupoTec = new JButton("");
 		BT_Pesq_GrupoTec.setToolTipText("Localizar Grupo Tecnico");
-		BT_Pesq_GrupoTec.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
+		BT_Pesq_GrupoTec.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Search.png")));
 		BT_Pesq_GrupoTec.setBounds(481, 17, 30, 30);
 		panel_1.add(BT_Pesq_GrupoTec);
 		BT_Pesq_GrupoTec.addActionListener(new ActionListener() {
@@ -135,35 +135,35 @@ public class PlanoDeAgendaGUI extends JFrame {
 		});
 		
 		JButton BT_Primeiro = new JButton("");
-		BT_Primeiro.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
+		BT_Primeiro.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
 		BT_Primeiro.setBounds(45, 11, 30, 30);
 		contentPane.add(BT_Primeiro);
 		
 		JButton BT_Anterior = new JButton("");
-		BT_Anterior.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
+		BT_Anterior.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
 		BT_Anterior.setBounds(78, 11, 30, 30);
 		contentPane.add(BT_Anterior);
 		
 		JButton BT_Proximo = new JButton("");
-		BT_Proximo.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
+		BT_Proximo.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
 		BT_Proximo.setBounds(110, 11, 30, 30);
 		contentPane.add(BT_Proximo);
 		
 		JButton BT_Ultimo = new JButton("");
-		BT_Ultimo.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
+		BT_Ultimo.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
 		BT_Ultimo.setBounds(142, 11, 30, 30);
 		contentPane.add(BT_Ultimo);
 		
 		JButton BT_Procurar = new JButton("");
 		BT_Procurar.setToolTipText("Pesquisar");
-		BT_Procurar.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
+		BT_Procurar.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		BT_Procurar.setBounds(175, 11, 30, 30);
 		contentPane.add(BT_Procurar);
 		
 		JButton BT_Apagar = new JButton("");
 		BT_Apagar.setToolTipText("Excluir");
 		BT_Apagar.setEnabled(false);
-		BT_Apagar.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
+		BT_Apagar.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		BT_Apagar.setBounds(207, 11, 30, 30);
 		contentPane.add(BT_Apagar);
 		
@@ -280,7 +280,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 		
 		JButton button = new JButton("");
 		button.setToolTipText("Novo");
-		button.setIcon(new ImageIcon(PlanoDeAgendaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/1.png")));
+		button.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/1.png")));
 		button.setBounds(10, 11, 30, 30);
 		contentPane.add(button);
 	}

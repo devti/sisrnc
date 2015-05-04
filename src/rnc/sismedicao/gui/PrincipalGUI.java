@@ -41,7 +41,7 @@ public class PrincipalGUI extends JFrame {
 	private CadastroEquipamentoGUI cadastroEquipamentoGUI;
 	private CadastroUsuarioGUI cadastroUsuarioGUI;
 	private CadastroGrupoTecnicoGUI cadastroGrupoTecnicoGUI;
-	private PlanoDeAgendaGUI abrirOSGUI;
+	private PlanoDeMedicaoGUI abrirOSGUI;
 	private String usuario;
 	private Fachada fachada;
 
@@ -240,7 +240,7 @@ public class PrincipalGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				abrirOSGUI = PlanoDeAgendaGUI.getInstance();
+				abrirOSGUI = PlanoDeMedicaoGUI.getInstance();
 				abrirOSGUI.setVisible(true);
 				
 			}
