@@ -34,7 +34,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Leituras de Medi\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 37, 573, 228);
+		panel.setBounds(10, 51, 573, 228);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		

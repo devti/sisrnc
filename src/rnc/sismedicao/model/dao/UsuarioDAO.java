@@ -14,6 +14,8 @@ import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
 import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO implements IRepositorioUsuario {
+	
+	private Usuario usuarioLogado = null;
 
 	public UsuarioDAO(IRepositorioUsuario repositorioUsuario) {
 
@@ -109,6 +111,10 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			throw new RepositorioException(e);
 
 		}
+	}
+	
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
 	}
 
 	@Override
