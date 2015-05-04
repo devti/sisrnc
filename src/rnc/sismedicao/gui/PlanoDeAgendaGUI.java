@@ -371,7 +371,7 @@ public class PlanoDeAgendaGUI extends JFrame {
 						System.out.println(CB_DiaSemana.getSelectedIndex());
 						dtContagem.roll(Calendar.DATE, 1);
 						if (dtContagem.get(Calendar.DAY_OF_WEEK) == CB_DiaSemana.getSelectedIndex()){
-							
+							System.out.println(CB_DiaSemana.getSelectedIndex());
 						}
 						
 					}				}
