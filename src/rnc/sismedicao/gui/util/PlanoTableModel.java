@@ -32,8 +32,13 @@ public class PlanoTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		OrdemServico ordem = ordens.get(rowIndex);
+		switch (columnIndex) {
+		case 0:
+			return ordem.getCodOS();
+		case 1:
+		}
 		return null;
 	}
 

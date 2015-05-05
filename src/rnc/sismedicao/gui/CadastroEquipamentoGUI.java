@@ -30,6 +30,7 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.util.LimparCampos;
 
 public class CadastroEquipamentoGUI extends JDialog {
@@ -249,7 +250,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 		});
 		btnAdicionar.setIcon(new ImageIcon(CadastroEquipamentoGUI.class
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Down.png")));
-		btnAdicionar.setBounds(442, 387, 30, 30);
+		btnAdicionar.setBounds(415, 387, 30, 30);
 		contentPane.add(btnAdicionar);
 
 		TF_CodEquipamento = new JTextField();
@@ -261,6 +262,39 @@ public class CadastroEquipamentoGUI extends JDialog {
 		JLabel LB_CodEquipamento = new JLabel("Codigo do Equipamento");
 		LB_CodEquipamento.setBounds(249, 24, 145, 14);
 		contentPane.add(LB_CodEquipamento);
+
+		JButton btn_RemoverIM = new JButton("");
+		btn_RemoverIM.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					fachada = Fachada.getInstance();
+					Item item = fachada.itemProcurar((int) table_1.getModel()
+							.getValueAt(table_1.getSelectedRow(), 0));
+					for (int cont = 0; cont < listaItens.size(); cont++) {
+						item = listaItens.get(cont);
+						
+						if (codigoEquipamento == 0) {
+							listaItens.remove(item);
+							listarItem(listaItens);
+						} else {
+							
+						}
+					}
+
+				} catch (Exception e1) {
+
+				}
+
+			}
+		});
+		btn_RemoverIM
+				.setIcon(new ImageIcon(
+						CadastroEquipamentoGUI.class
+								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Erase.png")));
+		btn_RemoverIM.setBounds(449, 387, 30, 30);
+		contentPane.add(btn_RemoverIM);
 	}
 
 	protected void excluir() {
@@ -269,7 +303,8 @@ public class CadastroEquipamentoGUI extends JDialog {
 			if (JOptionPane.showConfirmDialog(this,
 					"Tem certeza que deseja excluir o Equipamento?",
 					"Confirmação", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-				fachada.equipamentoItemRemover(Integer.parseInt(TF_CodEquipamento.getText()));
+				fachada.equipamentoItemRemover(Integer
+						.parseInt(TF_CodEquipamento.getText()));
 				fachada.equipamentoRemover(Integer.parseInt(TF_CodEquipamento
 						.getText()));
 				LimparCampos.limparCampos(getContentPane());
@@ -357,7 +392,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 					}
 				}
 			});
-		}  catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			btnOk.setEnabled(false);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
@@ -369,7 +404,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 	protected void ok() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void listar() {
