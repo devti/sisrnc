@@ -2,13 +2,14 @@ package rnc.sismedicao.model.beans;
 
 public class PlanoDeMedicao {
 private int codigo;
-private int codigoGrupoTecnico;
+private GrupoTecnico grupoTecnico;
+private Equipamento equipamento;
 private String dataInicial;
 private String dataFinal;
 private String horario;
 private String status;
 private String dataCriacao;
-private String login;
+private Usuario usuario;
 private String dataAlteracao;
 
 
@@ -16,13 +17,13 @@ public PlanoDeMedicao(int codigo, int codigoGrupoTecnico, String dataInicial,
 		String dataFinal, String horario, String status, String dataCriacao,
 		String login, String dataAlteracao) {
 	this.codigo = codigo;
-	this.codigoGrupoTecnico = codigoGrupoTecnico;
+	this.grupoTecnico = grupoTecnico;
 	this.dataInicial = dataInicial;
 	this.dataFinal = dataFinal;
 	this.horario = horario;
 	this.status = status;
 	this.dataCriacao = dataCriacao;
-	this.login = login;
+	this.usuario = usuario;
 	this.dataAlteracao = dataAlteracao;
 }
 
@@ -37,13 +38,13 @@ public void setCodigo(int codigo) {
 }
 
 
-public int getCodigoGrupoTecnico() {
-	return codigoGrupoTecnico;
+public GrupoTecnico getGrupoTecnico() {
+	return grupoTecnico;
 }
 
 
-public void setCodigoGrupoTecnico(int codigoGrupoTecnico) {
-	this.codigoGrupoTecnico = codigoGrupoTecnico;
+public void setGrupoTecnico(GrupoTecnico grupoTecnico) {
+	this.grupoTecnico = grupoTecnico;
 }
 
 
@@ -97,13 +98,23 @@ public void setDataCriacao(String dataCriacao) {
 }
 
 
-public String getLogin() {
-	return login;
+public Usuario getUsuario() {
+	return usuario;
 }
 
 
-public void setLogin(String login) {
-	this.login = login;
+public void setUsuario(Usuario usuario) {
+	this.usuario = usuario;
+}
+
+
+public Equipamento getEquipamento() {
+	return equipamento;
+}
+
+
+public void setEquipamento(Equipamento equipamento) {
+	this.equipamento = equipamento;
 }
 
 
