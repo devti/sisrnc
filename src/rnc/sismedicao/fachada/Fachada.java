@@ -197,6 +197,10 @@ public class Fachada {
 	public void removerItem(int codItem) throws Exception {
 		controladorItem.removerItem(codItem);
 	}
+	
+	public void removerItemEquipamento(int codItem) throws Exception {
+		controladorItem.removerItemEquipamento(codItem);
+	}
 
 	// -------------------------------------
 	// METODOS ITEM MEDICAO

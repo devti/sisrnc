@@ -25,6 +25,8 @@ public interface IRepositorioItem {
 
 	public ArrayList<Item> procurarEquipamentoItem(int codEquipamento) throws Exception;
 
+	public void removerItemEquipamento(int codItem) throws Exception;
+
 }
 
 

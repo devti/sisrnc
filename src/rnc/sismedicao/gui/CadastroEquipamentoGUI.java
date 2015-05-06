@@ -279,7 +279,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 							listaItens.remove(item);
 							listarItem(listaItens);
 						} else {
-							
+							fachada.removerItemEquipamento(item.getCodItem());
 						}
 					}
 

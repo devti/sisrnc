@@ -81,6 +81,11 @@ public Item getItem() {
 	public Item procurar(int codItem) throws ItemNaoEncontradoException, SQLException, RepositorioException {
 		return repositorioItem.procurar(codItem);
 	}
+
+	public void removerItemEquipamento(int codItem) throws Exception {
+		repositorioItem.removerItemEquipamento(codItem);
+		
+	}
 	
 	
 }

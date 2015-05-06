@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
@@ -218,6 +219,24 @@ public class ItemDAO implements IRepositorioItem {
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
+	}
+
+	@Override
+	public void removerItemEquipamento(int codItem) throws Exception {
+		
+		String sql = "DELETE FROM EQUIPAMENTOITEM WHERE CODITEM = ?";
+		
+		try {
+
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codItem);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		
 	}
 
 	/**
