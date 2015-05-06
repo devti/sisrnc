@@ -7,6 +7,7 @@ import rnc.sismedicao.controller.EquipamentoController;
 import rnc.sismedicao.controller.GrupoTecnicoController;
 import rnc.sismedicao.controller.GrupoTecnicoUsuarioController;
 import rnc.sismedicao.controller.PessoaController;
+import rnc.sismedicao.controller.PlanoDeMedicaoController;
 import rnc.sismedicao.controller.UnidadeDeMedicaoController;
 import rnc.sismedicao.controller.UsuarioController;
 import rnc.sismedicao.controller.ItemController;
@@ -24,6 +25,7 @@ import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.Pessoa;
+import rnc.sismedicao.model.beans.PlanoDeMedicao;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.beans.Item;
@@ -39,7 +41,8 @@ public class Fachada {
 	private ItemMedicaoController controladorItemMedicao;
 	private EquipamentoController controladorEquipamento;
 	private GrupoTecnicoController controladorGrupoTecnico;
-	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuarioController;
+	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuario;
+	private PlanoDeMedicaoController controladorPlanoDeMedicao;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
@@ -49,7 +52,8 @@ public class Fachada {
 		this.controladorItemMedicao = new ItemMedicaoController();
 		this.controladorEquipamento = new EquipamentoController();
 		this.controladorGrupoTecnico = new GrupoTecnicoController();
-		this.controladorGrupoTecnicoUsuarioController = new GrupoTecnicoUsuarioController();
+		this.controladorGrupoTecnicoUsuario = new GrupoTecnicoUsuarioController();
+		this.controladorPlanoDeMedicao = new PlanoDeMedicaoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -83,6 +87,8 @@ public class Fachada {
 			this.controladorEquipamento.cadastrar((Equipamento) element);
 		else if (element instanceof GrupoTecnico)
 			this.controladorGrupoTecnico.cadastrar((GrupoTecnico) element);
+		else if (element instanceof PlanoDeMedicao)
+			this.controladorPlanoDeMedicao.inserir((PlanoDeMedicao) element);
 	}
 
 	// -------------------------------------
@@ -293,24 +299,24 @@ public class Fachada {
 	 */
 	public void cadastraGrupoTecnicoUsuario(int codigoGrupoTecnico,
 			int codigoUsuario) throws Exception {
-		controladorGrupoTecnicoUsuarioController.cadastrar(codigoGrupoTecnico,
+		controladorGrupoTecnicoUsuario.cadastrar(codigoGrupoTecnico,
 				codigoUsuario);
 	}
 
 	public ArrayList<Usuario> pesquisaGrupoTecnicoUsuarios(
 			int codigoGrupoTecnico) throws SQLException {
-		return controladorGrupoTecnicoUsuarioController
+		return controladorGrupoTecnicoUsuario
 				.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
 	}
 
 	public void removerAllGrupoTecnicoUsuarios(int codigoGrupoTecnico)
 			throws Exception {
-		controladorGrupoTecnicoUsuarioController.removerAll(codigoGrupoTecnico);
+		controladorGrupoTecnicoUsuario.removerAll(codigoGrupoTecnico);
 
 	}
 
 	public void removerGrupoTecnicoUsuario(int codigoUsuario) throws Exception {
-		controladorGrupoTecnicoUsuarioController.remover(codigoUsuario);
+		controladorGrupoTecnicoUsuario.remover(codigoUsuario);
 	}
 
 }
