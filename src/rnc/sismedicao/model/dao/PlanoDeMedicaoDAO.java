@@ -20,8 +20,28 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao{
 		
 	}
 	
-	public void inserir (PlanoDeMedicao planoDeMedicao){
-		
+	public void inserir (PlanoDeMedicao planoDeMedicao) throws Exception{
+		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoMedicao, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes, STATUS, DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
+		try {
+			int i =0 ;
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(query,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(++i, planoDeMedicao.getGrupoTecnico().getCodigo());
+			preparedStatement.setInt(++i, planoDeMedicao.getEquipamento().getCodEquipamento());
+			preparedStatement.setString(++i, planoDeMedicao.getDataInicial());
+			preparedStatement.setString(++i, planoDeMedicao.getDataFinal());
+			preparedStatement.setString(++i, planoDeMedicao.getHorario());
+			preparedStatement.setString(++i, planoDeMedicao.getDiaSemana());
+			preparedStatement.setString(++i, planoDeMedicao.getDiaMes());
+			preparedStatement.setString(++i, planoDeMedicao.getStatus());
+			preparedStatement.executeUpdate();
+			Conexao.getConnection().commit();
+			resultSet = preparedStatement.getGeneratedKeys();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
 }

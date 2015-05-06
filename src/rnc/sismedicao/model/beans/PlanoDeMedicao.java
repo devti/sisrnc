@@ -7,24 +7,50 @@ private Equipamento equipamento;
 private String dataInicial;
 private String dataFinal;
 private String horario;
+private String diaSemana;
+private String diaMes;
 private String status;
 private String dataCriacao;
 private Usuario usuario;
 private String dataAlteracao;
 
 
-public PlanoDeMedicao(int codigo, int codigoGrupoTecnico, String dataInicial,
-		String dataFinal, String horario, String status, String dataCriacao,
-		String login, String dataAlteracao) {
+public PlanoDeMedicao(int codigo, GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
+		String dataFinal, String horario, String diaSemana, String diaMes,String status, String dataCriacao,
+		Usuario usuario, String dataAlteracao) {
 	this.codigo = codigo;
 	this.grupoTecnico = grupoTecnico;
+	this.equipamento = equipamento;
 	this.dataInicial = dataInicial;
 	this.dataFinal = dataFinal;
 	this.horario = horario;
+	this.diaSemana = diaSemana;
+	this.diaMes = diaMes;
 	this.status = status;
 	this.dataCriacao = dataCriacao;
 	this.usuario = usuario;
 	this.dataAlteracao = dataAlteracao;
+
+}
+
+
+public String getDiaSemana() {
+	return diaSemana;
+}
+
+
+public void setDiaSemana(String diaSemana) {
+	this.diaSemana = diaSemana;
+}
+
+
+public String getDiaMes() {
+	return diaMes;
+}
+
+
+public void setDiaMes(String diaMes) {
+	this.diaMes = diaMes;
 }
 
 

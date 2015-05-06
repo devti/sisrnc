@@ -45,7 +45,7 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 			
 			e.printStackTrace();	
 		}
-		return grupoTecnico.getCodigoGrupoTecnico();
+		return grupoTecnico.getCodigo();
 		
 	}
 	/**
@@ -126,7 +126,7 @@ public class GrupoTecnicoDAO implements IRepositorioGrupoTecnico {
 			ps.setString(1, grupoTecnico.getNomeGrupoTecnico());
 			ps.setString(2, grupoTecnico.getLocalizacao());
 			ps.setString(3, grupoTecnico.getObservacao());
-			ps.setInt(4,grupoTecnico.getCodigoGrupoTecnico());
+			ps.setInt(4,grupoTecnico.getCodigo());
 			ps.executeUpdate();
 			Conexao.getConnection().commit();
 			rs = ps.getGeneratedKeys();

@@ -23,7 +23,7 @@ public class GrupoTecnico {
 		this.localizacao = localizacao;
 	}
 
-	public int getCodigoGrupoTecnico() {
+	public int getCodigo() {
 		return codigoGrupoTecnico;
 	}
 

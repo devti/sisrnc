@@ -399,8 +399,8 @@ public class CadastroGrupoTecnicoGUI extends JFrame {
 			tf_nomeDoGrupo.setText(gt.getNomeGrupoTecnico());
 			tf_localizacao.setText(gt.getLocalizacao());
 			tf_observacao.setText(gt.getObservacao());
-			tf_codigoGrupoTecnico.setText(Integer.toString(gt.getCodigoGrupoTecnico()));
-			codigoGrupoTecnico = gt.getCodigoGrupoTecnico();
+			tf_codigoGrupoTecnico.setText(Integer.toString(gt.getCodigo()));
+			codigoGrupoTecnico = gt.getCodigo();
 			listaUsuarios = tela.pegarGrupoTecnicoUsuarios();
 			listarGrupoTecnico(listaUsuarios);
 			btnRemover.setEnabled(true);

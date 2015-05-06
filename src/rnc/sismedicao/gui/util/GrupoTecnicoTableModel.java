@@ -47,7 +47,7 @@ public class GrupoTecnicoTableModel extends AbstractTableModel {
 		GrupoTecnico gt = grupoTecnico.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return gt.getCodigoGrupoTecnico();
+			return gt.getCodigo();
 		case 1:
 			return gt.getNomeGrupoTecnico();
 		case 2:
