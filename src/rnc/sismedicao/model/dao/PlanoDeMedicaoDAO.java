@@ -14,22 +14,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao{
+public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 
-	public PlanoDeMedicaoDAO (IRepositorioPlanoDeMedicao repositorioPlanoDeMedicao){
-		
+	public PlanoDeMedicaoDAO(
+			IRepositorioPlanoDeMedicao repositorioPlanoDeMedicao) {
+
 	}
-	
-	public void inserir (PlanoDeMedicao planoDeMedicao) throws Exception{
+
+	public void inserir(PlanoDeMedicao planoDeMedicao) throws Exception {
 		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoMedicao, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes, STATUS, DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
 		try {
-			int i =0 ;
+			int i = 0;
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection()
 					.prepareStatement(query,
 							PreparedStatement.RETURN_GENERATED_KEYS);
-			preparedStatement.setInt(++i, planoDeMedicao.getGrupoTecnico().getCodigo());
-			preparedStatement.setInt(++i, planoDeMedicao.getEquipamento().getCodEquipamento());
+			preparedStatement.setInt(++i, planoDeMedicao.getGrupoTecnico()
+					.getCodigo());
+			preparedStatement.setInt(++i, planoDeMedicao.getEquipamento()
+					.getCodEquipamento());
 			preparedStatement.setString(++i, planoDeMedicao.getDataInicial());
 			preparedStatement.setString(++i, planoDeMedicao.getDataFinal());
 			preparedStatement.setString(++i, planoDeMedicao.getHorario());
@@ -39,9 +42,9 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao{
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
