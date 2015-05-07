@@ -303,5 +303,12 @@ public class Fachada {
 	public void removerGrupoTecnicoUsuario(int codigoUsuario) throws Exception {
 		controladorGrupoTecnicoUsuario.remover(codigoUsuario);
 	}
-
+	
+	
+	/**
+	 * METODOS PLANO DE MEDICAO
+	 */
+	public int consultarUltimoCodigoPlanoMedicao() throws Exception{
+		return controladorPlanoDeMedicao.consultarUltimoCodigoPlanoMedicao();
+	}
 }
