@@ -3,33 +3,10 @@ package rnc.sismedicao.fachada;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import rnc.sismedicao.controller.EquipamentoController;
-import rnc.sismedicao.controller.GrupoTecnicoController;
-import rnc.sismedicao.controller.GrupoTecnicoUsuarioController;
-import rnc.sismedicao.controller.PessoaController;
-import rnc.sismedicao.controller.PlanoDeMedicaoController;
-import rnc.sismedicao.controller.UnidadeDeMedicaoController;
-import rnc.sismedicao.controller.UsuarioController;
-import rnc.sismedicao.controller.ItemController;
-import rnc.sismedicao.controller.ItemMedicaoController;
-import rnc.sismedicao.controller.exception.EquipamentoNaoEncontrandoException;
-import rnc.sismedicao.controller.exception.GrupoTecnicoNaoEncontradoException;
-import rnc.sismedicao.controller.exception.ItemMedicaoNaoEncontradoException;
-import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
-import rnc.sismedicao.controller.exception.PessoaJaCadastradaException;
-import rnc.sismedicao.controller.exception.PessoaNaoEncontradaException;
-import rnc.sismedicao.controller.exception.RepositorioException;
-import rnc.sismedicao.controller.exception.SenhaInvalidaException;
-import rnc.sismedicao.controller.exception.UnidadeDeMedicaoNaoEncontradaException;
-import rnc.sismedicao.controller.exception.UsuarioNaoEncontradoException;
-import rnc.sismedicao.model.beans.Equipamento;
-import rnc.sismedicao.model.beans.GrupoTecnico;
-import rnc.sismedicao.model.beans.Pessoa;
-import rnc.sismedicao.model.beans.PlanoDeMedicao;
-import rnc.sismedicao.model.beans.UnidadeDeMedicao;
-import rnc.sismedicao.model.beans.Usuario;
-import rnc.sismedicao.model.beans.Item;
-import rnc.sismedicao.model.beans.ItemMedicao;
+import rnc.sismedicao.controller.*;
+import rnc.sismedicao.controller.exception.*;
+import rnc.sismedicao.model.beans.*;
+
 
 public class Fachada {
 
@@ -43,6 +20,7 @@ public class Fachada {
 	private GrupoTecnicoController controladorGrupoTecnico;
 	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuario;
 	private PlanoDeMedicaoController controladorPlanoDeMedicao;
+	private OrdemServicoController controladorOrdemServico;
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
@@ -54,6 +32,7 @@ public class Fachada {
 		this.controladorGrupoTecnico = new GrupoTecnicoController();
 		this.controladorGrupoTecnicoUsuario = new GrupoTecnicoUsuarioController();
 		this.controladorPlanoDeMedicao = new PlanoDeMedicaoController();
+		this.controladorOrdemServico = new OrdemServicoController();
 	}
 
 	public static Fachada getInstance() throws Exception {
@@ -89,6 +68,8 @@ public class Fachada {
 			this.controladorGrupoTecnico.cadastrar((GrupoTecnico) element);
 		else if (element instanceof PlanoDeMedicao)
 			this.controladorPlanoDeMedicao.inserir((PlanoDeMedicao) element);
+		else if (element instanceof OrdemServico)
+			this.controladorOrdemServico.inserir((OrdemServico) element);
 	}
 
 	// -------------------------------------

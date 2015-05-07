@@ -1,12 +1,12 @@
 package rnc.sismedicao.model.beans;
 
-import java.util.Date;
+
 
 public class OrdemServico {
 	
 	private int codigo;
-	private int codigoGrupoTecnico;
-	private int codigoEquipamento;
+	private GrupoTecnico grupoTecnico;
+	private Equipamento equipamento;
 	private String dataCriacao;
 	private String dataAlteracao;
 	private String data;
@@ -18,21 +18,21 @@ public class OrdemServico {
 	}
 	
 
-	public OrdemServico(int codigoGrupoTecnico, int codigoEquipamento,
+	public OrdemServico(GrupoTecnico grupoTecnico, Equipamento equipamento,
 			String data, String hora) {
-		this.codigoGrupoTecnico = codigoGrupoTecnico;
-		this.codigoEquipamento = codigoEquipamento;
+		this.grupoTecnico = grupoTecnico;
+		this.equipamento = equipamento;
 		this.data = data;
 		this.hora = hora;
 	}
 
 
-	public OrdemServico(int codigo, int codigoGrupoTecnico,
-			int codigoEquipamento, String dataCriacao, String dataAlteracao,
+	public OrdemServico(int codigo, GrupoTecnico grupoTecnico,
+			Equipamento equipamento, String dataCriacao, String dataAlteracao,
 			String data, String hora, Usuario usuario) {
 		this.codigo = codigo;
-		this.codigoGrupoTecnico = codigoGrupoTecnico;
-		this.codigoEquipamento = codigoEquipamento;
+		this.grupoTecnico = grupoTecnico;
+		this.equipamento = equipamento;
 		this.dataCriacao = dataCriacao;
 		this.dataAlteracao = dataAlteracao;
 		this.data = data;
@@ -41,18 +41,73 @@ public class OrdemServico {
 	}
 
 
-	public int getCodOS() {
+	public int getCodigo() {
 		return codigo;
 	}
-	public void setCodOS(int codOS) {
-		this.codigo = codOS;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-	public Date getDataAbertura() {
-		return dataAbertura;
+
+	public GrupoTecnico getGrupoTecnico() {
+		return grupoTecnico;
 	}
-	public void setDataAbertura(Date dataAbertura) {
-		this.dataAbertura = dataAbertura;
+
+
+	public void setGrupoTecnico(GrupoTecnico grupoTecnico) {
+		this.grupoTecnico = grupoTecnico;
 	}
+
+
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+
+
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
+	}
+
+
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+
+	public String getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+
+	public void setDataAlteracao(String dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+
+	public String getHora() {
+		return hora;
+	}
+
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
