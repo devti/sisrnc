@@ -22,7 +22,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 	}
 
 	public void inserir(PlanoDeMedicao planoDeMedicao) throws Exception {
-		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoMedicao, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes, STATUS, DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
+		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
@@ -38,7 +38,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 			preparedStatement.setString(++i, planoDeMedicao.getHorario());
 			preparedStatement.setString(++i, planoDeMedicao.getDiaSemana());
 			preparedStatement.setString(++i, planoDeMedicao.getDiaMes());
-			preparedStatement.setString(++i, planoDeMedicao.getStatus());
+			//preparedStatement.setString(++i, planoDeMedicao.getStatus());
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();

@@ -4,23 +4,48 @@ import java.util.Date;
 
 public class OrdemServico {
 	
-	private int codOS;
-	private Date dataAbertura;
+	private int codigo;
+	private int codigoGrupoTecnico;
+	private int codigoEquipamento;
+	private String dataCriacao;
+	private String dataAlteracao;
+	private String data;
+	private String hora;
 	private Usuario usuario;
 	
 	public OrdemServico() {
 	
 	}
-	public OrdemServico(int codOS, Date dataAbertura, Usuario usuario) {
-		this.codOS = codOS;
-		this.dataAbertura = dataAbertura;
+	
+
+	public OrdemServico(int codigoGrupoTecnico, int codigoEquipamento,
+			String data, String hora) {
+		this.codigoGrupoTecnico = codigoGrupoTecnico;
+		this.codigoEquipamento = codigoEquipamento;
+		this.data = data;
+		this.hora = hora;
+	}
+
+
+	public OrdemServico(int codigo, int codigoGrupoTecnico,
+			int codigoEquipamento, String dataCriacao, String dataAlteracao,
+			String data, String hora, Usuario usuario) {
+		this.codigo = codigo;
+		this.codigoGrupoTecnico = codigoGrupoTecnico;
+		this.codigoEquipamento = codigoEquipamento;
+		this.dataCriacao = dataCriacao;
+		this.dataAlteracao = dataAlteracao;
+		this.data = data;
+		this.hora = hora;
 		this.usuario = usuario;
 	}
+
+
 	public int getCodOS() {
-		return codOS;
+		return codigo;
 	}
 	public void setCodOS(int codOS) {
-		this.codOS = codOS;
+		this.codigo = codOS;
 	}
 	public Date getDataAbertura() {
 		return dataAbertura;

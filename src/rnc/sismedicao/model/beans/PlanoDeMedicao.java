@@ -33,6 +33,18 @@ public PlanoDeMedicao(int codigo, GrupoTecnico grupoTecnico,Equipamento equipame
 
 }
 
+public PlanoDeMedicao(GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
+		String dataFinal, String horario, String diaSemana, String diaMes) {
+	this.grupoTecnico = grupoTecnico;
+	this.equipamento = equipamento;
+	this.dataInicial = dataInicial;
+	this.dataFinal = dataFinal;
+	this.horario = horario;
+	this.diaSemana = diaSemana;
+	this.diaMes = diaMes;
+
+}
+
 
 public String getDiaSemana() {
 	return diaSemana;

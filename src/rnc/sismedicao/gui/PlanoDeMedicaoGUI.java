@@ -29,6 +29,7 @@ import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.GrupoTecnico;
+import rnc.sismedicao.model.beans.PlanoDeMedicao;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -36,6 +37,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
+import javax.swing.JCheckBox;
 
 public class PlanoDeMedicaoGUI extends JFrame {
 
@@ -55,9 +57,11 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private JComboBox CB_Tipo;
 	private JComboBox CB_DiaMes;
 	private JComboBox CB_DiaSemana;
+	private JCheckBox cbAtivo;
 	private Calendar dtInicial = Calendar.getInstance();
 	private Calendar dtFinal = Calendar.getInstance();
 	private Calendar dtContagem = Calendar.getInstance();
+	private PlanoDeMedicao planoDeMedicao;
 	
 	public static PlanoDeMedicaoGUI getInstance() {
 		if (abrirOSGUI == null) {
@@ -135,21 +139,25 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		});
 		
 		JButton BT_Primeiro = new JButton("");
+		BT_Primeiro.setEnabled(false);
 		BT_Primeiro.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
 		BT_Primeiro.setBounds(45, 11, 30, 30);
 		contentPane.add(BT_Primeiro);
 		
 		JButton BT_Anterior = new JButton("");
+		BT_Anterior.setEnabled(false);
 		BT_Anterior.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
 		BT_Anterior.setBounds(78, 11, 30, 30);
 		contentPane.add(BT_Anterior);
 		
 		JButton BT_Proximo = new JButton("");
+		BT_Proximo.setEnabled(false);
 		BT_Proximo.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
 		BT_Proximo.setBounds(110, 11, 30, 30);
 		contentPane.add(BT_Proximo);
 		
 		JButton BT_Ultimo = new JButton("");
+		BT_Ultimo.setEnabled(false);
 		BT_Ultimo.setIcon(new ImageIcon(PlanoDeMedicaoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
 		BT_Ultimo.setBounds(142, 11, 30, 30);
 		contentPane.add(BT_Ultimo);
@@ -246,6 +254,14 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		fTF_DataInicio.setColumns(10);
 		
 		/**
+		 * Check BOX ATIVO 
+		 */
+		cbAtivo = new JCheckBox("Ativo");
+		cbAtivo.setBounds(446, 120, 61, 23);
+		panel_2.add(cbAtivo);
+		cbAtivo.setSelected(true);
+		
+		/**
 		 * BOTAO CANCELAR
 		 */
 		JButton btn_Cancelar = new JButton("Cancelar");
@@ -324,8 +340,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	/**
 	 * METODO PARA SALVAR
 	 * @throws ParseException 
+	 * @throws Exception 
 	 */
-	private void salvar() throws ParseException {
+	public void salvar() throws ParseException{
 		try {
 			if (tF_Equipamento.getText().isEmpty()
 					|| tF_GrupoTecnico.getText().isEmpty()
@@ -337,6 +354,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 			dtValida(fTF_DataInicio.getText());
 			dtValida(fTF_DataFim.getText());
 			validarHora(fTFHora.getText());
+			fachada = Fachada.getInstance();
 			// Converte para tipo Calendar
 			dtInicial
 					.set(Integer.parseInt(fTF_DataInicio.getText().substring(6,
@@ -347,10 +365,13 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					Integer.parseInt(fTF_DataFim.getText().substring(6, 10)),
 					(Integer.parseInt(fTF_DataFim.getText().substring(3, 5))-1),
 					Integer.parseInt(fTF_DataFim.getText().substring(0, 2)));
-			
-			// Verifica se a data inicial e maior ou igual que a data final
+			//Salvo o Plano de Medicao na tabela PlnadoDeMedicao
+		    planoDeMedicao = new PlanoDeMedicao(grupoTecnico, equipamento, fTF_DataInicio.getText() , fTF_DataInicio.getText(), fTFHora.getText(), CB_DiaSemana.getSelectedItem().toString(), CB_DiaMes.getSelectedItem().toString());
+			fachada.cadastrar(planoDeMedicao);
+		    // Verifica se a data inicial e maior ou igual que a data final
 			if (dtFinal.after(dtInicial) || dtInicial.equals(dtFinal)) {
 				dtContagem = dtInicial;
+				
 				//tipo diario
 				if (CB_Tipo.getSelectedItem() == "Diário") {
 					int quantidadeDias = diasEntre(fTF_DataInicio.getText(),
@@ -381,11 +402,16 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					
 					System.out.println("Mensal");
 				}
+				limparTela();
+				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(), "Data inicial MENOR que a data final!",
 						"Aviso", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (DadosObrigatoriosException e) {
+			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
+					"Aviso", JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
 					"Aviso", JOptionPane.ERROR_MESSAGE);
 		}
@@ -400,6 +426,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		fTF_DataFim.setText(null);
 		fTF_DataInicio.setText(null);
 		fTFHora.setText(null);
+		cbAtivo.setSelected(true);
 	}
 	
 	/**
