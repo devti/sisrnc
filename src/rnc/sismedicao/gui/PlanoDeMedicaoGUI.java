@@ -27,9 +27,7 @@ import javax.swing.text.MaskFormatter;
 
 import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
 import rnc.sismedicao.fachada.Fachada;
-import rnc.sismedicao.model.beans.Equipamento;
-import rnc.sismedicao.model.beans.GrupoTecnico;
-import rnc.sismedicao.model.beans.PlanoDeMedicao;
+import rnc.sismedicao.model.beans.*;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -62,6 +60,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private Calendar dtFinal = Calendar.getInstance();
 	private Calendar dtContagem = Calendar.getInstance();
 	private PlanoDeMedicao planoDeMedicao;
+	private OrdemServico ordemServico;
 	
 	public static PlanoDeMedicaoGUI getInstance() {
 		if (abrirOSGUI == null) {
@@ -371,16 +370,14 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		    // Verifica se a data inicial e maior ou igual que a data final
 			if (dtFinal.after(dtInicial) || dtInicial.equals(dtFinal)) {
 				dtContagem = dtInicial;
-				
 				//tipo diario
 				if (CB_Tipo.getSelectedItem() == "Diário") {
 					int quantidadeDias = diasEntre(fTF_DataInicio.getText(),
 							fTF_DataFim.getText());
 					for (int i = 0; i <= quantidadeDias; i++) {
-						System.out.println(i);
-						/*
-						 * Medoto para Salvar o plano Diario
-						 */
+						ordemServico = new OrdemServico(grupoTecnico,equipamento,converteCalendarString(dtContagem),fTFHora.getText());
+						fachada.cadastrar(ordemServico);
+						dtContagem.roll(Calendar.DAY_OF_MONTH, 1);
 					}
 				}
 				//tipo semanal
@@ -528,4 +525,22 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	    return diaSemana;  
 	  
 	  }  
+	  /**
+	   * CONVERTER CALENDAR EM STRING
+	   * 
+	   */
+	  public String converteCalendarString(Calendar data){
+		  String d=null;
+		  d = zeroEsquedad(Integer.toString(dtContagem.get(Calendar.DAY_OF_MONTH)), "0", 2)+"/"+zeroEsquedad(Integer.toString(dtContagem.get(Calendar.MONTH)+1), "0", 2)+"/"+Integer.toString(dtContagem.get(Calendar.YEAR));
+		  return d;
+	  }
+	  /**
+	   * Zero a Esquerda
+	   */
+	  public static String zeroEsquedad(String valueToPad, String filler, int size) {  
+	        while (valueToPad.length() < size) {  
+	            valueToPad = filler + valueToPad;  
+	        }  
+	        return valueToPad;  
+	    } 
 }

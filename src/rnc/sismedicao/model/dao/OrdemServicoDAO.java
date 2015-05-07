@@ -21,7 +21,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 
 	}
 	public void inserir(OrdemServico ordemServico) throws Exception {
-		String query = "INSERT INTO ORDEMSERVICO (codigoGrupoTecnico, codigoEquipamento, data, hora,  DATA_CRIACAO) VALUES (?,?,?,?, getdate())";
+		String query = "INSERT INTO ORDEMSERVICO (codigoGrupoTecnico, codigoEquipamento, data, hora,  DATACRIACAO) VALUES (?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;

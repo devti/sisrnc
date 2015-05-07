@@ -16,5 +16,7 @@ public class PlanoDeMedicaoController {
 		repositorioPlanoDeMedicao.inserir(planoDeMedicao);
 	}
 	
-	
+	public int consultarUltimoCodigoPlanoMedicao() throws Exception{
+		return repositorioPlanoDeMedicao.consultarUltimoCodigoPlanoMedicao();
+	}
 }

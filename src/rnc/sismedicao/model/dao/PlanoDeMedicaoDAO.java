@@ -20,7 +20,9 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 			IRepositorioPlanoDeMedicao repositorioPlanoDeMedicao) {
 
 	}
-
+	/**
+	 * INSERIR 
+	 */
 	public void inserir(PlanoDeMedicao planoDeMedicao) throws Exception {
 		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
 		try {
@@ -45,6 +47,26 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	/*
+	 * CONSULTA ULTIMO CODIGO DO PLANO DE MANUTENCAO
+	 */
+	
+	public int consultarUltimoCodigoPlanoMedicao() throws Exception {
+		int codigo = 0;
+		ResultSet result = null;
+		String sql = "SELECT TOP(1) codigo FROM planomedicao ORDER BY codigo desc";
+		try {
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			result = ps.executeQuery();
+			while (result.next()) {
+				codigo = result.getInt("CODIGO");
+			}
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+		return codigo;
 	}
 
 }
