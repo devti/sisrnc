@@ -36,7 +36,7 @@ public class PlanoTableModel extends AbstractTableModel {
 		OrdemServico ordem = ordens.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return ordem.getCodOS();
+			// ordem.getCodOS();
 		case 1:
 		}
 		return null;

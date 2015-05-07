@@ -273,14 +273,17 @@ public class CadastroEquipamentoGUI extends JDialog {
 					Item item = fachada.itemProcurar((int) table_1.getModel()
 							.getValueAt(table_1.getSelectedRow(), 0));
 					for (int cont = 0; cont < listaItens.size(); cont++) {
-						item = listaItens.get(cont);
 						
-						if (codigoEquipamento == 0) {
-							listaItens.remove(item);
-							listarItem(listaItens);
-						} else {
-							fachada.removerItemEquipamento(item.getCodItem());
-						}
+					}
+					if (codigoEquipamento == 0 && JOptionPane.showConfirmDialog(null,
+							"Deseja realmente EXCLUIR este item de Medicao ?",
+							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					 
+						listaItens.remove(item);
+					} else {
+						fachada.removerItemEquipamento(item.getCodItem());
+						listarItem(listaItens);
+
 					}
 
 				} catch (Exception e1) {
