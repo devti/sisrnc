@@ -21,13 +21,14 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 
 	}
 	public void inserir(OrdemServico ordemServico) throws Exception {
-		String query = "INSERT INTO ORDEMSERVICO (codigoGrupoTecnico, codigoEquipamento, data, hora,  DATACRIACAO) VALUES (?,?,?,?, getdate())";
+		String query = "INSERT INTO ORDEMSERVICO (codigoPlanoMedicao,codigoGrupoTecnico, codigoEquipamento, data, hora,  DATACRIACAO) VALUES (?,?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection()
 					.prepareStatement(query,
 							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(++i, ordemServico.getCodigoPlanoMedicao());
 			preparedStatement.setInt(++i, ordemServico.getGrupoTecnico()
 					.getCodigo());
 			preparedStatement.setInt(++i, ordemServico.getEquipamento()
