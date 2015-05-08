@@ -249,6 +249,10 @@ public class Fachada {
 		controladorEquipamento.removerEquipamento(codigoEquipamento);
 
 	}
+	
+	public void atualizarEquipamento(Equipamento equipamento) {
+		controladorEquipamento.atualizarEquipamento(equipamento);		
+	}
 
 	/**
 	 * METODOS GRUPO TECNICO
@@ -311,4 +315,5 @@ public class Fachada {
 	public int consultarUltimoCodigoPlanoMedicao() throws Exception{
 		return controladorPlanoDeMedicao.consultarUltimoCodigoPlanoMedicao();
 	}
+
 }

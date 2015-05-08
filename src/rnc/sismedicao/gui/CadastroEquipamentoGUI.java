@@ -366,8 +366,11 @@ public class CadastroEquipamentoGUI extends JDialog {
 					e.setItem(listaItens.get(i));
 					e.setCodEquipamento(codEquipamento);
 					fachada.cadastraEquipamentoItem(e);
-				}
+				} 
 
+			} else {
+				fachada.atualizarEquipamento(equipamento);
+				JOptionPane.showMessageDialog(null, "Equipamento atualizado!");
 			}
 
 			JOptionPane.showMessageDialog(null,

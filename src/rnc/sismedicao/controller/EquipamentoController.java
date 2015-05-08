@@ -50,4 +50,8 @@ public class EquipamentoController {
 		
 	}
 
+	public void atualizarEquipamento(Equipamento equipamento) {
+		repositorioEquipamento.atualizarEquipamento(equipamento);
+	}
+
 }

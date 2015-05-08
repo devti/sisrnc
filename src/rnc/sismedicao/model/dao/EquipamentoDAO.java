@@ -167,4 +167,9 @@ public class EquipamentoDAO implements IRepositorioEquipamento {
 		return codigo;
 	}
 
+	@Override
+	public void atualizarEquipamento(Equipamento equipamento) {
+		
+	}
+
 }

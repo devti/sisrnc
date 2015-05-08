@@ -25,5 +25,7 @@ public interface IRepositorioEquipamento {
 
 	public void removerEquipamentoItem(int codigoEquipamento) throws Exception;
 
+	public void atualizarEquipamento(Equipamento equipamento);
+
 	
 }
