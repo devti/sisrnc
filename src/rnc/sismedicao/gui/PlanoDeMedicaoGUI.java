@@ -61,6 +61,8 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private Calendar dtContagem = Calendar.getInstance();
 	private PlanoDeMedicao planoDeMedicao;
 	private OrdemServico ordemServico;
+	private JTextField tFDescricao;
+	//private SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");  
 
 	public static PlanoDeMedicaoGUI getInstance() {
 		if (abrirOSGUI == null) {
@@ -87,7 +89,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 				TitledBorder.LEADING, TitledBorder.TOP, null,
 				new Color(0, 0, 0)));
 		panel.setToolTipText("");
-		panel.setBounds(10, 68, 539, 62);
+		panel.setBounds(10, 111, 539, 62);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -121,7 +123,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 				.getBorder("TitledBorder.border"),
 				"Grupo T\u00E9cnico Responsavel", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 161, 539, 62);
+		panel_1.setBounds(10, 186, 539, 62);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -329,6 +331,15 @@ public class PlanoDeMedicaoGUI extends JFrame {
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/1.png")));
 		button.setBounds(10, 11, 30, 30);
 		contentPane.add(button);
+		
+		JLabel lDescricao = new JLabel("Descri\u00E7\u00E3o");
+		lDescricao.setBounds(21, 63, 64, 14);
+		contentPane.add(lDescricao);
+		
+		tFDescricao = new JTextField();
+		tFDescricao.setBounds(21, 77, 433, 20);
+		contentPane.add(tFDescricao);
+		tFDescricao.setColumns(10);
 	}
 
 	/**
@@ -400,7 +411,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					(Integer.parseInt(fTF_DataFim.getText().substring(3, 5)) - 1),
 					Integer.parseInt(fTF_DataFim.getText().substring(0, 2)));
 			// Salvo o Plano de Medicao na tabela PlnadoDeMedicao
-			planoDeMedicao = new PlanoDeMedicao(grupoTecnico, equipamento,
+			planoDeMedicao = new PlanoDeMedicao(tFDescricao.getText(),grupoTecnico, equipamento,
 					converteCalendarString(dtInicial),
 					converteCalendarString(dtFinal), fTFHora.getText(),
 					CB_DiaSemana.getSelectedItem().toString(), CB_DiaMes
@@ -432,12 +443,11 @@ public class PlanoDeMedicaoGUI extends JFrame {
 						dtContagem.add(Calendar.DATE, 1);
 						if (dtContagem.get(Calendar.DAY_OF_WEEK) == CB_DiaSemana
 								.getSelectedIndex()) {
-							ordemServico = new OrdemServico(
-									fachada.consultarUltimoCodigoPlanoMedicao(),
+							ordemServico = new OrdemServico(fachada.consultarUltimoCodigoPlanoMedicao(),
 									grupoTecnico, equipamento,
 									converteCalendarString(dtContagem), fTFHora
 											.getText());
-							fachada.cadastrar(ordemServico);
+							//fachada.cadastrar(ordemServico);
 						}
 					}
 				}
@@ -546,7 +556,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		mm = zeroEsquedad(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
 				"0", 2);
 		aaaa = Integer.toString(dtContagem.get(Calendar.YEAR));
-		dt = aaaa + "-" + mm + "-" + dd;
+		dt = aaaa + "-" + dd + "-" + mm;
 		return dt;
 	}
 

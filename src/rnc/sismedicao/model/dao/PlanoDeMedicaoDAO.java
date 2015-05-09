@@ -24,13 +24,14 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 	 * INSERIR 
 	 */
 	public void inserir(PlanoDeMedicao planoDeMedicao) throws Exception {
-		String query = "INSERT INTO PLANOMEDICAO (codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?, getdate())";
+		String query = "INSERT INTO PLANOMEDICAO (descricao,codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
 			PreparedStatement preparedStatement = Conexao.getConnection()
 					.prepareStatement(query,
 							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(++i, planoDeMedicao.getDescricao());
 			preparedStatement.setInt(++i, planoDeMedicao.getGrupoTecnico()
 					.getCodigo());
 			preparedStatement.setInt(++i, planoDeMedicao.getEquipamento()
