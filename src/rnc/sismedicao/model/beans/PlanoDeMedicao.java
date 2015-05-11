@@ -17,8 +17,7 @@ private String dataAlteracao;
 
 
 public PlanoDeMedicao(int codigo, String descricao,GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
-		String dataFinal, String horario, String diaSemana, String diaMes,String status, String dataCriacao,
-		Usuario usuario, String dataAlteracao) {
+		String dataFinal, String horario, String diaSemana, String diaMes,String status, String dataCriacao, String dataAlteracao) {
 	this.codigo = codigo;
 	this.descricao=descricao;
 	this.grupoTecnico = grupoTecnico;
@@ -30,7 +29,6 @@ public PlanoDeMedicao(int codigo, String descricao,GrupoTecnico grupoTecnico,Equ
 	this.diaMes = diaMes;
 	this.status = status;
 	this.dataCriacao = dataCriacao;
-	this.usuario = usuario;
 	this.dataAlteracao = dataAlteracao;
 
 }

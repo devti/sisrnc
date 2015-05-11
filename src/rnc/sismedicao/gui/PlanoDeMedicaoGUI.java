@@ -29,6 +29,7 @@ import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.*;
 import rnc.sismedicao.model.util.*;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -51,17 +52,18 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private GrupoTecnico grupoTecnico = null;
 	private JFormattedTextField fTF_DataInicio;
 	private JFormattedTextField fTF_DataFim;
-	private JFormattedTextField fTFHora;
+	private JFormattedTextField fTF_Hora;
 	private JComboBox CB_Tipo;
 	private JComboBox CB_DiaMes;
 	private JComboBox CB_DiaSemana;
-	private JCheckBox cbAtivo;
+	private JCheckBox cb_Ativo;
 	private Calendar dtInicial = Calendar.getInstance();
 	private Calendar dtFinal = Calendar.getInstance();
 	private Calendar dtContagem = Calendar.getInstance();
 	private PlanoDeMedicao planoDeMedicao;
 	private OrdemServico ordemServico;
-	private JTextField tFDescricao;
+	private JTextField tF_Descricao;
+	private ProcuraPlanoDeMedicaoGUI tela;
 	//private SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");  
 
 	public static PlanoDeMedicaoGUI getInstance() {
@@ -189,6 +191,12 @@ public class PlanoDeMedicaoGUI extends JFrame {
 				.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		BT_Procurar.setBounds(175, 11, 30, 30);
 		contentPane.add(BT_Procurar);
+		BT_Procurar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurar();
+			}
+		});
 
 		JButton BT_Apagar = new JButton("");
 		BT_Apagar.setToolTipText("Excluir");
@@ -275,9 +283,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		fTF_DataFim.setBounds(126, 76, 86, 20);
 		panel_2.add(fTF_DataFim);
 
-		fTFHora = new JFormattedTextField((setMascara("##:##")));
-		fTFHora.setBounds(10, 121, 86, 20);
-		panel_2.add(fTFHora);
+		fTF_Hora = new JFormattedTextField((setMascara("##:##")));
+		fTF_Hora.setBounds(10, 121, 86, 20);
+		panel_2.add(fTF_Hora);
 
 		fTF_DataInicio = new JFormattedTextField((setMascara("##/##/####")));
 		fTF_DataInicio.setBounds(10, 76, 86, 20);
@@ -287,10 +295,10 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		/**
 		 * Check BOX ATIVO
 		 */
-		cbAtivo = new JCheckBox("Ativo");
-		cbAtivo.setBounds(446, 120, 61, 23);
-		panel_2.add(cbAtivo);
-		cbAtivo.setSelected(true);
+		cb_Ativo = new JCheckBox("Ativo");
+		cb_Ativo.setBounds(446, 120, 61, 23);
+		panel_2.add(cb_Ativo);
+		cb_Ativo.setSelected(true);
 
 		/**
 		 * BOTAO CANCELAR
@@ -336,10 +344,10 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		lDescricao.setBounds(21, 63, 64, 14);
 		contentPane.add(lDescricao);
 		
-		tFDescricao = new JTextField();
-		tFDescricao.setBounds(21, 77, 433, 20);
-		contentPane.add(tFDescricao);
-		tFDescricao.setColumns(10);
+		tF_Descricao = new JTextField();
+		tF_Descricao.setBounds(21, 77, 433, 20);
+		contentPane.add(tF_Descricao);
+		tF_Descricao.setColumns(10);
 	}
 
 	/**
@@ -390,15 +398,16 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	public void salvar() throws ParseException {
 		try {
 			if (tF_Equipamento.getText().isEmpty()
+					|| tF_Descricao.getText().isEmpty()
 					|| tF_GrupoTecnico.getText().isEmpty()
 					|| fTF_DataFim.getText().isEmpty()
 					|| fTF_DataInicio.getText().isEmpty()
-					|| fTFHora.getText().isEmpty())
+					|| fTF_Hora.getText().isEmpty())
 				throw new DadosObrigatoriosException();
 			// Valida as data e hora
 			dtValida(fTF_DataInicio.getText());
 			dtValida(fTF_DataFim.getText());
-			validarHora(fTFHora.getText());
+			validarHora(fTF_Hora.getText());
 			fachada = Fachada.getInstance();
 			// Converte para tipo Calendar
 			dtInicial
@@ -411,9 +420,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					(Integer.parseInt(fTF_DataFim.getText().substring(3, 5)) - 1),
 					Integer.parseInt(fTF_DataFim.getText().substring(0, 2)));
 			// Salvo o Plano de Medicao na tabela PlnadoDeMedicao
-			planoDeMedicao = new PlanoDeMedicao(tFDescricao.getText(),grupoTecnico, equipamento,
-					converteCalendarString(dtInicial),
-					converteCalendarString(dtFinal), fTFHora.getText(),
+			planoDeMedicao = new PlanoDeMedicao(tF_Descricao.getText(),grupoTecnico, equipamento,
+					converteCalendarString(dtInicial,fTF_Hora.getText()),
+					converteCalendarString(dtFinal,fTF_Hora.getText()), fTF_Hora.getText(),
 					CB_DiaSemana.getSelectedItem().toString(), CB_DiaMes
 							.getSelectedItem().toString());
 			fachada.cadastrar(planoDeMedicao);
@@ -428,9 +437,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 						ordemServico = new OrdemServico(
 								fachada.consultarUltimoCodigoPlanoMedicao(),
 								grupoTecnico, equipamento,
-								converteCalendarString(dtContagem),
-								fTFHora.getText());
-						System.out.println(converteCalendarString(dtContagem));
+								converteCalendarString(dtContagem,fTF_Hora.getText()),
+								fTF_Hora.getText());
+						System.out.println(converteCalendarString(dtContagem,fTF_Hora.getText()));
 						fachada.cadastrar(ordemServico);
 						dtContagem.add(Calendar.DATE, 1);
 					}
@@ -441,13 +450,13 @@ public class PlanoDeMedicaoGUI extends JFrame {
 							fTF_DataFim.getText());
 					for (int i = 0; i <= quantidadeDias; i++) {
 						dtContagem.add(Calendar.DATE, 1);
-						if (dtContagem.get(Calendar.DAY_OF_WEEK) == CB_DiaSemana
-								.getSelectedIndex()) {
+						if (dtContagem.get(Calendar.DAY_OF_WEEK) == (CB_DiaSemana
+								.getSelectedIndex()+1)) {
 							ordemServico = new OrdemServico(fachada.consultarUltimoCodigoPlanoMedicao(),
 									grupoTecnico, equipamento,
-									converteCalendarString(dtContagem), fTFHora
+									converteCalendarString(dtContagem,fTF_Hora.getText()), fTF_Hora
 											.getText());
-							//fachada.cadastrar(ordemServico);
+							fachada.cadastrar(ordemServico);
 						}
 					}
 				}
@@ -465,7 +474,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 							ordemServico = new OrdemServico(
 									fachada.consultarUltimoCodigoPlanoMedicao(),
 									grupoTecnico, equipamento,
-									converteCalendarString(dtContagem), fTFHora
+									converteCalendarString(dtContagem,fTF_Hora.getText()), fTF_Hora
 											.getText());
 							fachada.cadastrar(ordemServico);
 						}
@@ -491,14 +500,36 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	 * METODO PARA LIMPAR A TELA
 	 */
 	private void limparTela() {
+		tF_Descricao.setText(null);;
 		tF_Equipamento.setText(null);
 		tF_GrupoTecnico.setText(null);
 		fTF_DataFim.setText(null);
 		fTF_DataInicio.setText(null);
-		fTFHora.setText(null);
-		cbAtivo.setSelected(true);
+		fTF_Hora.setText(null);
+		cb_Ativo.setSelected(true);
 	}
-
+	
+	/**
+	 * METODO PARA PROCURAR PLANO DE MEDICAO
+	 */
+	public void procurar() {
+		tela = new ProcuraPlanoDeMedicaoGUI();
+		tela.setVisible(true);
+		/*if (tela.getFocusableWindowState() && tela.pegarItem() != null) {
+			Item i = tela.pegarItem();
+			tf_Nome.setText(i.getNome());
+			tf_Descricao.setText(i.getDescricao());
+			tf_Marca.setText(i.getMarca());
+			tf_Serial.setText(i.getSerial());
+			tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
+			codigoItem = i.getCodItem();
+			listaItemMedicao = tela.pegarItems();
+			listaItemMedicaoChecagem = listaItemMedicao;
+			listarItemMedicao(listaItemMedicao);
+			//btnRemover.setEnabled(true);
+			
+		}*/
+	}
 	/**
 	 * METODO PARA VALIDAR UMA DATA
 	 */
@@ -549,14 +580,14 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	 * CONVERTER CALENDAR EM STRING
 	 * 
 	 */
-	public String converteCalendarString(Calendar data) {
+	public String converteCalendarString(Calendar data, String hora) {
 		String dt, dd, mm, aaaa = null;
 		dd = zeroEsquedad(
 				Integer.toString(dtContagem.get(Calendar.DAY_OF_MONTH)), "0", 2);
 		mm = zeroEsquedad(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
 				"0", 2);
 		aaaa = Integer.toString(dtContagem.get(Calendar.YEAR));
-		dt = aaaa + "-" + dd + "-" + mm;
+		dt = aaaa + "-" + dd + "-" + mm +" "+hora.substring(0, 2)+":"+hora.substring(3, 4);
 		return dt;
 	}
 
