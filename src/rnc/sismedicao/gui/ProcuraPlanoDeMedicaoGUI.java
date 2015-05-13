@@ -25,13 +25,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
+
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
-import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.gui.util.PlanoDeMedicaoTableModel;
-import rnc.sismedicao.model.beans.Item;
-import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.PlanoDeMedicao;
 
 public class ProcuraPlanoDeMedicaoGUI extends JDialog {
@@ -54,7 +51,7 @@ public class ProcuraPlanoDeMedicaoGUI extends JDialog {
 	 * Create the frame.
 	 */
 	public ProcuraPlanoDeMedicaoGUI() {
-		setTitle("Procurar Item");
+		setTitle("Procurar Plano de Medicao");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setBounds(100, 100, 537, 309);
 		setModal(true);
@@ -172,16 +169,15 @@ public class ProcuraPlanoDeMedicaoGUI extends JDialog {
 			if (table.getSelectedRow() != -1) {
 				fachada = Fachada.getInstance();
 				int codigo = (int) pln.getValueAt(table.getSelectedRow(), 0);
-				planoDeMedicao = fachada.planoDeMedicaoProcurar(codigo);
+				System.out.println(codigo);
+				this.planoDeMedicao = fachada.planoDeMedicaoProcurar(codigo);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(getContentPane(),
 						"Selecione uma Opção", "Erro",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		} catch (ItemNaoEncontradoException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
-					JOptionPane.ERROR_MESSAGE);
+
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);

@@ -97,5 +97,18 @@ public class Data {
 		return diaSemana;
 
 	}
+	
+	/**
+	 * converter String para Text Field
+	 */
+	public static String converteDataStringTextField(String data) {
+		String dt, dd, mm, aaaa = null;
+		dd = data.substring(8, 10);
+		mm = data.substring(5, 7);
+		aaaa = data.substring(0, 4);
+		dt = dd + "/" + mm + "/" + aaaa;
+		return dt;
+	}
+
 
 }
