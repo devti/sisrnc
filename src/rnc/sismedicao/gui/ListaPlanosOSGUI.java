@@ -3,6 +3,8 @@ package rnc.sismedicao.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -21,13 +23,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
+import rnc.sismedicao.gui.util.PlanoTableModel;
+import rnc.sismedicao.model.beans.OrdemServico;
 
 public class ListaPlanosOSGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private Fachada fachada;
+	private ArrayList<OrdemServico> lista;
+	private PlanoTableModel ostm;
 	private JTextField tf_UsuarioLogado;
 	private static ListaPlanosOSGUI listaOSGUI;
 	
@@ -87,6 +94,8 @@ public class ListaPlanosOSGUI extends JFrame {
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
 		
+		listar();
+		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(ListaPlanosOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
 		btnNewButton.setBounds(20, 6, 30, 30);
@@ -98,6 +107,34 @@ public class ListaPlanosOSGUI extends JFrame {
 		contentPane.add(tf_UsuarioLogado);
 		tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
+	}
+
+	private void listar() {
+		try {
+			fachada = Fachada.getInstance();
+			//lista = fachada.listarOS;
+			ostm = new PlanoTableModel(lista);
+			table.setModel(ostm);
+			table.setVisible(true);
+			table.getColumnModel().getColumn(0).setPreferredWidth(60);
+			table.getColumnModel().getColumn(1).setPreferredWidth(60);
+			table.getColumnModel().getColumn(2).setPreferredWidth(60);
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", 
+					JOptionPane.ERROR_MESSAGE);
+		} catch (IllegalArgumentException e) {
+			
+		} catch (RepositorioException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
 	}
 
 	protected void sair() {
