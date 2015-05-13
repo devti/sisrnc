@@ -22,6 +22,7 @@ public class Fachada {
 	private PlanoDeMedicaoController controladorPlanoDeMedicao;
 	private OrdemServicoController controladorOrdemServico;
 
+
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
 		this.controladorPessoa = new PessoaController();
@@ -315,5 +316,14 @@ public class Fachada {
 	public int consultarUltimoCodigoPlanoMedicao() throws Exception{
 		return controladorPlanoDeMedicao.consultarUltimoCodigoPlanoMedicao();
 	}
-
+	public ArrayList<PlanoDeMedicao> planoDeMedicaoPesquisaAvancada(
+			String atributo, String pesquisa) throws SQLException,
+			RepositorioException {
+		return this.controladorPlanoDeMedicao
+				.pesquisaAvancada(atributo, pesquisa);
+	}
+	public PlanoDeMedicao planoDeMedicaoProcurar(int codigo) throws RepositorioException,
+	SQLException {
+		return this.controladorPlanoDeMedicao.procurar(codigo);
+}
 }

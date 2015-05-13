@@ -2,6 +2,7 @@ package rnc.sismedicao.model.beans;
 
 public class PlanoDeMedicao {
 private int codigo;
+private String descricao;
 private GrupoTecnico grupoTecnico;
 private Equipamento equipamento;
 private String dataInicial;
@@ -15,10 +16,10 @@ private Usuario usuario;
 private String dataAlteracao;
 
 
-public PlanoDeMedicao(int codigo, GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
-		String dataFinal, String horario, String diaSemana, String diaMes,String status, String dataCriacao,
-		Usuario usuario, String dataAlteracao) {
+public PlanoDeMedicao(int codigo, String descricao,GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
+		String dataFinal, String horario, String diaSemana, String diaMes,String status, String dataCriacao, String dataAlteracao) {
 	this.codigo = codigo;
+	this.descricao=descricao;
 	this.grupoTecnico = grupoTecnico;
 	this.equipamento = equipamento;
 	this.dataInicial = dataInicial;
@@ -28,13 +29,13 @@ public PlanoDeMedicao(int codigo, GrupoTecnico grupoTecnico,Equipamento equipame
 	this.diaMes = diaMes;
 	this.status = status;
 	this.dataCriacao = dataCriacao;
-	this.usuario = usuario;
 	this.dataAlteracao = dataAlteracao;
 
 }
 
-public PlanoDeMedicao(GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
+public PlanoDeMedicao(String descricao,GrupoTecnico grupoTecnico,Equipamento equipamento, String dataInicial,
 		String dataFinal, String horario, String diaSemana, String diaMes) {
+	this.descricao = descricao;
 	this.grupoTecnico = grupoTecnico;
 	this.equipamento = equipamento;
 	this.dataInicial = dataInicial;
@@ -45,6 +46,14 @@ public PlanoDeMedicao(GrupoTecnico grupoTecnico,Equipamento equipamento, String 
 
 }
 
+
+public String getDescricao() {
+	return descricao;
+}
+
+public void setDescricao(String descricao) {
+	this.descricao = descricao;
+}
 
 public String getDiaSemana() {
 	return diaSemana;

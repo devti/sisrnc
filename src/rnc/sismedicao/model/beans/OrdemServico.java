@@ -10,6 +10,7 @@ import java.util.Calendar;
 public class OrdemServico {
 	
 	private int codigo;
+	private int codigoPlanoMedicao;
 	private GrupoTecnico grupoTecnico;
 	private Equipamento equipamento;
 	private String dataCriacao;
@@ -23,8 +24,9 @@ public class OrdemServico {
 	}
 	
 
-	public OrdemServico(GrupoTecnico grupoTecnico, Equipamento equipamento,
+	public OrdemServico(int codigoPlanoMedicao,GrupoTecnico grupoTecnico, Equipamento equipamento,
 			String data, String hora) {
+		this.codigoPlanoMedicao = codigoPlanoMedicao;
 		this.grupoTecnico = grupoTecnico;
 		this.equipamento = equipamento;
 		this.data = data;
@@ -45,6 +47,14 @@ public class OrdemServico {
 		this.usuario = usuario;
 	}
 
+	public int getCodigoPlanoMedicao() {
+		return codigoPlanoMedicao;
+	}
+
+
+	public void setCodigoPlanoMedicao(int codigoPlanoMedicao) {
+		this.codigoPlanoMedicao = codigoPlanoMedicao;
+	}
 
 	public int getCodigo() {
 		return codigo;
