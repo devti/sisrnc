@@ -25,7 +25,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 	 * INSERIR 
 	 */
 	public void inserir(PlanoDeMedicao planoDeMedicao) throws Exception {
-		String query = "INSERT INTO PLANOMEDICAO (descricao,codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?,?, getdate())";
+		String query = "INSERT INTO PLANOMEDICAO (descricao,codigoGrupoTecnico, codigoEquipamento, DATA_INICIO, DATA_FIM, horario, Dia_Semana, Dia_Mes, tipo,  DATA_CRIACAO) VALUES (?,?,?,?,?,?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
@@ -42,7 +42,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 			preparedStatement.setString(++i, planoDeMedicao.getHorario());
 			preparedStatement.setString(++i, planoDeMedicao.getDiaSemana());
 			preparedStatement.setString(++i, planoDeMedicao.getDiaMes());
-			//preparedStatement.setString(++i, planoDeMedicao.getStatus());
+			preparedStatement.setString(++i, planoDeMedicao.getTipo());
 			preparedStatement.executeUpdate();
 			Conexao.getConnection().commit();
 			resultSet = preparedStatement.getGeneratedKeys();
@@ -78,7 +78,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 			String pesquisa) throws SQLException {
 		ArrayList<PlanoDeMedicao> pesq = new ArrayList<PlanoDeMedicao>();
 		ResultSet rs = null;
-		String sql = "select * from (select PL.codigo codigoPlanoDeMedicao, pl.descricao descricao, pl.codigoGrupoTecnico codigoGrupoTecnico, pl.codigoEquipamento codigoEquipamento, pl.data_inicio dataInicio, pl.data_fim dataFinal, pl.horario horario, pl.Status statusPlanoDeMedicao, pl.data_Criacao dataDaCriacao, pl.data_Alteracao dataAlteracao, pl.dia_Semana diaDaSemana, pl.Dia_mes diaDoMes, pl.Loginusuario loginUsuariop, e.registro registroEquipamento, e.descricao descricaoEquipamento, e.observacoes observacaoEquipamento, gt.Nome nomeGrupoTecnico, gt.localizacao localizacaoGrupoTecnico, gt.observacao observacaoGrupoTecnico	 FROM planomedicao AS PL LEFT JOIN EQUIPAMENTO AS E ON PL.CODIGOEQUIPAMENTO=E.CODEQUIPAMENTO LEFT JOIN GRUPOTECNICO AS GT ON PL.CODIGOGRUPOTECNICO=GT.CODIGO) as plano where plano."
+		String sql = "select * from (select PL.codigo codigoPlanoDeMedicao, pl.descricao descricao, pl.tipo tipo, pl.codigoGrupoTecnico codigoGrupoTecnico, pl.codigoEquipamento codigoEquipamento, pl.data_inicio dataInicio, pl.data_fim dataFinal, pl.horario horario, pl.Status statusPlanoDeMedicao, pl.data_Criacao dataDaCriacao, pl.data_Alteracao dataAlteracao, pl.dia_Semana diaDaSemana, pl.Dia_mes diaDoMes, pl.Loginusuario loginUsuariop, e.registro registroEquipamento, e.descricao descricaoEquipamento, e.observacoes observacaoEquipamento, gt.Nome nomeGrupoTecnico, gt.localizacao localizacaoGrupoTecnico, gt.observacao observacaoGrupoTecnico	 FROM planomedicao AS PL LEFT JOIN EQUIPAMENTO AS E ON PL.CODIGOEQUIPAMENTO=E.CODEQUIPAMENTO LEFT JOIN GRUPOTECNICO AS GT ON PL.CODIGOGRUPOTECNICO=GT.CODIGO) as plano where plano."
 				+ atributo
 				+ " LIKE '%"
 				+ pesquisa
@@ -106,7 +106,8 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 						rs.getString("diaDoMes"),
 						rs.getString("statusPlanoDeMedicao"),
 						rs.getString("dataDaCriacao"),
-						rs.getString("dataAlteracao"));
+						rs.getString("dataAlteracao"),
+						rs.getString("tipo"));
 				pesq.add(planoDeMedicao);
 			}
 		} catch (SQLException e) {
@@ -123,9 +124,8 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 		Equipamento equipamento = null;
 		PlanoDeMedicao planoDeMedicao = null;
 		ResultSet rs = null;
-		String sql = "select * from (select PL.codigo codigoPlanoDeMedicao, pl.descricao descricao, pl.codigoGrupoTecnico codigoGrupoTecnico, pl.codigoEquipamento codigoEquipamento, pl.data_inicio dataInicio, pl.data_fim dataFinal, pl.horario horario, pl.Status statusPlanoDeMedicao, pl.data_Criacao dataDaCriacao, pl.data_Alteracao dataAlteracao, pl.dia_Semana diaDaSemana, pl.Dia_mes diaDoMes, pl.Loginusuario loginUsuariop, e.registro registroEquipamento, e.descricao descricaoEquipamento, e.observacoes observacaoEquipamento, gt.Nome nomeGrupoTecnico, gt.localizacao localizacaoGrupoTecnico, gt.observacao observacaoGrupoTecnico	 FROM planomedicao AS PL LEFT JOIN EQUIPAMENTO AS E ON PL.CODIGOEQUIPAMENTO=E.CODEQUIPAMENTO LEFT JOIN GRUPOTECNICO AS GT ON PL.CODIGOGRUPOTECNICO=GT.CODIGO) as plano where plano.codigoPlanoDeMedicao = "
-				+ codigo
-				+ "%' ORDER BY descricao ASC";
+		String sql = "select * from (select PL.codigo codigoPlanoDeMedicao, pl.descricao descricao, pl.tipo tipo, pl.codigoGrupoTecnico codigoGrupoTecnico, pl.codigoEquipamento codigoEquipamento, pl.data_inicio dataInicio, pl.data_fim dataFinal, pl.horario horario, pl.Status statusPlanoDeMedicao, pl.data_Criacao dataDaCriacao, pl.data_Alteracao dataAlteracao, pl.dia_Semana diaDaSemana, pl.Dia_mes diaDoMes, pl.Loginusuario loginUsuariop, e.registro registroEquipamento, e.descricao descricaoEquipamento, e.observacoes observacaoEquipamento, gt.Nome nomeGrupoTecnico, gt.localizacao localizacaoGrupoTecnico, gt.observacao observacaoGrupoTecnico	 FROM planomedicao AS PL LEFT JOIN EQUIPAMENTO AS E ON PL.CODIGOEQUIPAMENTO=E.CODEQUIPAMENTO LEFT JOIN GRUPOTECNICO AS GT ON PL.CODIGOGRUPOTECNICO=GT.CODIGO) as plano where plano.codigoPlanoDeMedicao = "
+				+ "?";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);
@@ -150,7 +150,9 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 						rs.getString("diaDoMes"),
 						rs.getString("statusPlanoDeMedicao"),
 						rs.getString("dataDaCriacao"),
-						rs.getString("dataAlteracao"));
+						rs.getString("dataAlteracao"),
+						rs.getString("tipo"));
+					   
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}

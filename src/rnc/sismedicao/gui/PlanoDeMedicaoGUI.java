@@ -64,6 +64,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private OrdemServico ordemServico;
 	private JTextField tF_Descricao;
 	private ProcuraPlanoDeMedicaoGUI tela;
+	private JTextField tF_codigoPlanoDeMedicao;
 	//private SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");  
 
 	public static PlanoDeMedicaoGUI getInstance() {
@@ -348,6 +349,16 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		tF_Descricao.setBounds(21, 77, 433, 20);
 		contentPane.add(tF_Descricao);
 		tF_Descricao.setColumns(10);
+		
+		tF_codigoPlanoDeMedicao = new JTextField();
+		tF_codigoPlanoDeMedicao.setEditable(false);
+		tF_codigoPlanoDeMedicao.setBounds(463, 24, 86, 20);
+		contentPane.add(tF_codigoPlanoDeMedicao);
+		tF_codigoPlanoDeMedicao.setColumns(10);
+		
+		JLabel lblCodigo = new JLabel("Codigo");
+		lblCodigo.setBounds(408, 27, 46, 14);
+		contentPane.add(lblCodigo);
 	}
 
 	/**
@@ -424,7 +435,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					converteCalendarString(dtInicial,fTF_Hora.getText()),
 					converteCalendarString(dtFinal,fTF_Hora.getText()), fTF_Hora.getText(),
 					CB_DiaSemana.getSelectedItem().toString(), CB_DiaMes
-							.getSelectedItem().toString());
+							.getSelectedItem().toString(), CB_Tipo.getSelectedItem().toString());
 			fachada.cadastrar(planoDeMedicao);
 			// Verifica se a data inicial e maior ou igual que a data final
 			if (dtFinal.after(dtInicial) || dtInicial.equals(dtFinal)) {
@@ -466,8 +477,6 @@ public class PlanoDeMedicaoGUI extends JFrame {
 							fTF_DataFim.getText());
 					for (int i = 0; i <= quantidadeDias; i++) {
 						dtContagem.add(Calendar.DATE, 1);
-						// System.out.println(Integer.toString(dtContagem.get(Calendar.DAY_OF_MONTH)));
-						// System.out.println(CB_DiaMes.getSelectedItem());
 						if (CB_DiaMes.getSelectedItem().equals(
 								Integer.toString(dtContagem
 										.get(Calendar.DAY_OF_MONTH)))) {
@@ -515,20 +524,26 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	public void procurar() {
 		tela = new ProcuraPlanoDeMedicaoGUI();
 		tela.setVisible(true);
-		/*if (tela.getFocusableWindowState() && tela.pegarItem() != null) {
-			Item i = tela.pegarItem();
-			tf_Nome.setText(i.getNome());
-			tf_Descricao.setText(i.getDescricao());
-			tf_Marca.setText(i.getMarca());
-			tf_Serial.setText(i.getSerial());
-			tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
-			codigoItem = i.getCodItem();
-			listaItemMedicao = tela.pegarItems();
-			listaItemMedicaoChecagem = listaItemMedicao;
-			listarItemMedicao(listaItemMedicao);
+		if (tela.getFocusableWindowState() && tela.pegarPlanoDeMedicao() != null) {
+			PlanoDeMedicao planoDeMedicao = tela.pegarPlanoDeMedicao();
+			tF_Descricao.setText(planoDeMedicao.getDescricao());
+			tF_Equipamento.setText(planoDeMedicao.getEquipamento().getDescricao());
+			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
+			fTF_DataInicio.setText(Data.converteDataStringTextField(planoDeMedicao.getDataInicial()));
+			fTF_DataFim.setText(Data.converteDataStringTextField(planoDeMedicao.getDataFinal()));
+			fTF_Hora.setText(planoDeMedicao.getHorario());
+			//CB_Tipo.setSelectedItem(planoDeMedicao.get);
+			//tf_Descricao.setText(i.getDescricao());
+			//tf_Marca.setText(i.getMarca());
+			//tf_Serial.setText(i.getSerial());
+			//tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
+			//codigoItem = i.getCodItem();
+			//listaItemMedicao = tela.pegarItems();
+			//listaItemMedicaoChecagem = listaItemMedicao;
+			//listarItemMedicao(listaItemMedicao);
 			//btnRemover.setEnabled(true);
 			
-		}*/
+		}
 	}
 	/**
 	 * METODO PARA VALIDAR UMA DATA
@@ -582,9 +597,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	 */
 	public String converteCalendarString(Calendar data, String hora) {
 		String dt, dd, mm, aaaa = null;
-		dd = zeroEsquedad(
+		dd = zeroEsquerda(
 				Integer.toString(dtContagem.get(Calendar.DAY_OF_MONTH)), "0", 2);
-		mm = zeroEsquedad(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
+		mm = zeroEsquerda(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
 				"0", 2);
 		aaaa = Integer.toString(dtContagem.get(Calendar.YEAR));
 		dt = aaaa + "-" + dd + "-" + mm +" "+hora.substring(0, 2)+":"+hora.substring(3, 4);
@@ -594,10 +609,11 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	/**
 	 * Zero a Esquerda
 	 */
-	public static String zeroEsquedad(String valueToPad, String filler, int size) {
+	public static String zeroEsquerda(String valueToPad, String filler, int size) {
 		while (valueToPad.length() < size) {
 			valueToPad = filler + valueToPad;
 		}
 		return valueToPad;
 	}
+
 }
