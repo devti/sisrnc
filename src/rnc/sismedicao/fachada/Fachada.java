@@ -326,4 +326,9 @@ public class Fachada {
 	SQLException {
 		return this.controladorPlanoDeMedicao.procurar(codigo);
 }
+
+	public ArrayList<PlanoDeMedicao> listarOS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

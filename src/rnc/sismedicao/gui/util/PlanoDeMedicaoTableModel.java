@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import rnc.sismedicao.model.beans.OrdemServico;
 import rnc.sismedicao.model.beans.PlanoDeMedicao;
 
 public class PlanoDeMedicaoTableModel extends AbstractTableModel {
@@ -27,11 +26,6 @@ public class PlanoDeMedicaoTableModel extends AbstractTableModel {
 		return nomeColunas.length;
 	}
 
-	@Override
-	public int getRowCount() {
-		return planos.size();
-	}
-
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
@@ -44,6 +38,11 @@ public class PlanoDeMedicaoTableModel extends AbstractTableModel {
 			return "GRUPOTECNICO";
 		}
 		return "?";
+	}
+	
+	@Override
+	public int getRowCount() {
+		return planos.size();
 	}
 	
 	@Override

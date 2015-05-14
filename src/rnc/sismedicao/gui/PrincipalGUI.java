@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
+import rnc.sismedicao.model.dao.UsuarioDAO;
 
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 

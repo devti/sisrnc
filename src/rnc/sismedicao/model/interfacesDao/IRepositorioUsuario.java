@@ -23,5 +23,5 @@ public interface IRepositorioUsuario {
 
 	public ArrayList<Usuario> listar() throws SQLException, RepositorioException;
 	
-	public Usuario getUsuarioLogado();
+	public Usuario getUsuarioLogado(); 
 }
