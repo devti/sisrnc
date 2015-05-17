@@ -31,4 +31,8 @@ public class PlanoDeMedicaoController {
 	public PlanoDeMedicao procurar(int codigo) throws SQLException, RepositorioException {
 		return repositorioPlanoDeMedicao.procurar(codigo);
 	}
+	
+	public void removerPlanoDeMedicao(int codigo) throws Exception{
+		 repositorioPlanoDeMedicao.removerPlanoDeMedicao(codigo);
+	}
 }

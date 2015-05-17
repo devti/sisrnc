@@ -322,8 +322,13 @@ public class Fachada {
 		return this.controladorPlanoDeMedicao
 				.pesquisaAvancada(atributo, pesquisa);
 	}
-	public PlanoDeMedicao planoDeMedicaoProcurar(int codigo) throws RepositorioException,
-	SQLException {
+
+	public PlanoDeMedicao planoDeMedicaoProcurar(int codigo)
+			throws RepositorioException, SQLException {
 		return this.controladorPlanoDeMedicao.procurar(codigo);
-}
+	}
+
+	public void removerPlanoDeMedicao(int codigo) throws Exception{
+		controladorPlanoDeMedicao.removerPlanoDeMedicao(codigo);
+	}
 }

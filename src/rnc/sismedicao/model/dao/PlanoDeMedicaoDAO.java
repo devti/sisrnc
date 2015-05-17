@@ -77,6 +77,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 	public ArrayList<PlanoDeMedicao> pesquisaAvancada(String atributo,
 			String pesquisa) throws SQLException {
 		ArrayList<PlanoDeMedicao> pesq = new ArrayList<PlanoDeMedicao>();
+		GrupoTecnico grupoTecnico = null;
 		ResultSet rs = null;
 		String sql = "select * from (select PL.codigo codigoPlanoDeMedicao, pl.descricao descricao, pl.tipo tipo, pl.codigoGrupoTecnico codigoGrupoTecnico, pl.codigoEquipamento codigoEquipamento, pl.data_inicio dataInicio, pl.data_fim dataFinal, pl.horario horario, pl.Status statusPlanoDeMedicao, pl.data_Criacao dataDaCriacao, pl.data_Alteracao dataAlteracao, pl.dia_Semana diaDaSemana, pl.Dia_mes diaDoMes, pl.Loginusuario loginUsuariop, e.registro registroEquipamento, e.descricao descricaoEquipamento, e.observacoes observacaoEquipamento, gt.Nome nomeGrupoTecnico, gt.localizacao localizacaoGrupoTecnico, gt.observacao observacaoGrupoTecnico	 FROM planomedicao AS PL LEFT JOIN EQUIPAMENTO AS E ON PL.CODIGOEQUIPAMENTO=E.CODEQUIPAMENTO LEFT JOIN GRUPOTECNICO AS GT ON PL.CODIGOGRUPOTECNICO=GT.CODIGO) as plano where plano."
 				+ atributo
@@ -88,7 +89,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 					sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				GrupoTecnico grupoTecnico = new GrupoTecnico(
+				grupoTecnico = new GrupoTecnico(
 						Integer.parseInt(rs.getString("codigoGrupoTecnico")),
 						rs.getString("nomeGrupoTecnico"),
 						rs.getString("observacaoGrupoTecnico"),
@@ -110,6 +111,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 						rs.getString("tipo"));
 				pesq.add(planoDeMedicao);
 			}
+			
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());
 		}
@@ -131,7 +133,7 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 					sql);
 			stmt.setInt(1, codigo);
 			rs = stmt.executeQuery();
-			if (!rs.next())
+			while (rs.next()){
 				 grupoTecnico = new GrupoTecnico(
 						Integer.parseInt(rs.getString("codigoGrupoTecnico")),
 						rs.getString("nomeGrupoTecnico"),
@@ -152,10 +154,30 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 						rs.getString("dataDaCriacao"),
 						rs.getString("dataAlteracao"),
 						rs.getString("tipo"));
-					   
+				
+			}
+			
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
 		return planoDeMedicao;
 	}
+	/*
+	 * Excluir planoDeMedicao
+	 */
+	public void removerPlanoDeMedicao(int codigo) throws Exception {
+
+		String sql = "DELETE FROM PLANOMEDICAO WHERE CODIGO = ?";
+
+		try {
+
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codigo);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	} 
 }

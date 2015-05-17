@@ -17,4 +17,6 @@ public interface IRepositorioPlanoDeMedicao {
 	public ArrayList <PlanoDeMedicao> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
 	
 	public PlanoDeMedicao procurar(int codigo) throws SQLException, RepositorioException;
+	
+	public void removerPlanoDeMedicao(int codigo) throws Exception;
 }

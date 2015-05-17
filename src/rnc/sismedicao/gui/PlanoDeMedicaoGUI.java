@@ -37,6 +37,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 public class PlanoDeMedicaoGUI extends JFrame {
 
@@ -65,6 +66,8 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private JTextField tF_Descricao;
 	private ProcuraPlanoDeMedicaoGUI tela;
 	private JTextField tF_codigoPlanoDeMedicao;
+	private JButton BT_Apagar;
+	private int codigoPlanoDeMedicao;
 	//private SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");  
 
 	public static PlanoDeMedicaoGUI getInstance() {
@@ -199,7 +202,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 			}
 		});
 
-		JButton BT_Apagar = new JButton("");
+		BT_Apagar = new JButton("");
 		BT_Apagar.setToolTipText("Excluir");
 		BT_Apagar.setEnabled(false);
 		BT_Apagar
@@ -352,6 +355,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		tF_Descricao.setColumns(10);
 		
 		tF_codigoPlanoDeMedicao = new JTextField();
+		tF_codigoPlanoDeMedicao.setHorizontalAlignment(SwingConstants.RIGHT);
 		tF_codigoPlanoDeMedicao.setEditable(false);
 		tF_codigoPlanoDeMedicao.setBounds(463, 24, 86, 20);
 		contentPane.add(tF_codigoPlanoDeMedicao);
@@ -529,22 +533,29 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		if (tela.getFocusableWindowState() && tela.pegarPlanoDeMedicao() != null) {
 			PlanoDeMedicao planoDeMedicao = tela.pegarPlanoDeMedicao();
 			tF_Descricao.setText(planoDeMedicao.getDescricao());
+			tF_Descricao.setEnabled(false);
 			tF_Equipamento.setText(planoDeMedicao.getEquipamento().getDescricao());
+			tF_GrupoTecnico.setText(planoDeMedicao.getGrupoTecnico().getLocalizacao());
 			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
 			fTF_DataInicio.setText(Data.converteDataStringTextField(planoDeMedicao.getDataInicial()));
+			fTF_DataInicio.setEditable(false);
 			fTF_DataFim.setText(Data.converteDataStringTextField(planoDeMedicao.getDataFinal()));
+			fTF_DataFim.setEditable(false);
 			fTF_Hora.setText(planoDeMedicao.getHorario());
+			fTF_Hora.setEditable(false);
 			CB_Tipo.setSelectedItem(planoDeMedicao.getTipo());
+			CB_Tipo.setEnabled(false);
 			CB_DiaMes.setSelectedItem(planoDeMedicao.getDiaMes());
+			CB_DiaMes.setEnabled(false);
 			CB_DiaSemana.setSelectedItem(planoDeMedicao.getDiaSemana());
-			//tf_Descricao.setText(i.getDescricao());
-			//tf_Marca.setText(i.getMarca());
-			//tf_Serial.setText(i.getSerial());
-			//tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
-			//codigoItem = i.getCodItem();
-			//listaItemMedicao = tela.pegarItems();
-			//listaItemMedicaoChecagem = listaItemMedicao;
-			//listarItemMedicao(listaItemMedicao);
+			CB_DiaSemana.setEnabled(false);
+			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
+			codigoPlanoDeMedicao = planoDeMedicao.getCodigo();
+			/*
+			 * ativando botoes
+			 */
+			BT_Apagar.setEnabled(true);
+
 			//btnRemover.setEnabled(true);
 			
 		}
