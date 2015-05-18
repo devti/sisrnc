@@ -331,4 +331,10 @@ public class Fachada {
 	public void removerPlanoDeMedicao(int codigo) throws Exception{
 		controladorPlanoDeMedicao.removerPlanoDeMedicao(codigo);
 	}
+	/**
+	 * METODOS PARA ORDEM DE SERVICO
+	 */
+	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception{
+		controladorOrdemServico.removerOrdemServico(codigoPlanoDeMedicao);
+	}
 }

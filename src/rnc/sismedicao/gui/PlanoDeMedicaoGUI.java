@@ -211,6 +211,25 @@ public class PlanoDeMedicaoGUI extends JFrame {
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		BT_Apagar.setBounds(207, 11, 30, 30);
 		contentPane.add(BT_Apagar);
+		BT_Apagar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+						if (JOptionPane.showConfirmDialog(null,
+								"Deseja realmente EXCLUIR este Plano de Medição e suas Ordens de Serviço associadas ?",
+								"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							System.out.println(codigoPlanoDeMedicao);
+							//fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
+							fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							limparTela();
+						}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);

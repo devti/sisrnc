@@ -42,4 +42,23 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Excluir ordem de servico
+	 */
+	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception {
+
+		String sql = "DELETE FROM ORDEMSERVICO WHERE CODIGOPLANOMEDICAO = ?";
+
+		try {
+
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codigoPlanoDeMedicao);
+			ps.execute();
+			Conexao.getConnection().commit();
+		} catch (SQLException e) {
+			throw new RepositorioException(e);
+		}
+	} 
 }
