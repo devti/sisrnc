@@ -26,9 +26,9 @@ import javax.swing.border.TitledBorder;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
+import rnc.sismedicao.gui.util.OrdemServicoTableModel;
 import rnc.sismedicao.gui.util.PlanoDeMedicaoTableModel;
-import rnc.sismedicao.model.beans.PlanoDeMedicao;
-import rnc.sismedicao.model.beans.Usuario;
+import rnc.sismedicao.model.beans.OrdemServico;
 import rnc.sismedicao.model.dao.UsuarioDAO;
 
 public class ListaPlanosOSGUI extends JDialog {
@@ -36,9 +36,8 @@ public class ListaPlanosOSGUI extends JDialog {
 	private JPanel contentPane;
 	private JTable table;
 	private Fachada fachada;
-	private ArrayList<PlanoDeMedicao> lista;
-	private ArrayList<PlanoDeMedicao> listaOrdens = new ArrayList<PlanoDeMedicao>();
-	private PlanoDeMedicaoTableModel ostm;
+	private ArrayList<OrdemServico> lista;
+	private OrdemServicoTableModel ostm;
 	private JTextField tf_UsuarioLogado;
 	private static ListaPlanosOSGUI listaOSGUI = null;
 
@@ -101,7 +100,7 @@ public class ListaPlanosOSGUI extends JDialog {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 
-		// listar();
+		listar();
 
 		JButton btnNewButton = new JButton("");
 		btnNewButton
@@ -123,13 +122,12 @@ public class ListaPlanosOSGUI extends JDialog {
 		try {
 			fachada = Fachada.getInstance();
 			lista = fachada.listarOS();
-			ostm = new PlanoDeMedicaoTableModel(lista);
+			ostm = new OrdemServicoTableModel(lista);
 			table.setModel(ostm);
 			table.setVisible(true);
-			table.getColumnModel().getColumn(0).setPreferredWidth(60);
-			table.getColumnModel().getColumn(1).setPreferredWidth(60);
+			table.getColumnModel().getColumn(0).setPreferredWidth(20);
+			table.getColumnModel().getColumn(1).setPreferredWidth(20);
 			table.getColumnModel().getColumn(2).setPreferredWidth(60);
-			table.getColumnModel().getColumn(3).setPreferredWidth(60);
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",

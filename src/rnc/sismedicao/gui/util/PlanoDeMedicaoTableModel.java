@@ -8,7 +8,10 @@ import rnc.sismedicao.model.beans.PlanoDeMedicao;
 
 public class PlanoDeMedicaoTableModel extends AbstractTableModel {
 	
-	private static final long SerialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<PlanoDeMedicao> planos;
 	private String[] nomeColunas = {"CODIGO","DESCRICAO", "EQUIPAMENTO", "GRUPO TÉCNICO"};

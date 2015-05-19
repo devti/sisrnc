@@ -13,7 +13,12 @@ public class OrdemServicoController {
 	public OrdemServicoController(){
 		this.repositorioOrdemServico = new OrdemServicoDAO(this.repositorioOrdemServico);
 	}
+	
 	public void inserir (OrdemServico ordemServico) throws Exception{
 		repositorioOrdemServico.inserir(ordemServico);
+	}
+	
+	public ArrayList<OrdemServico> listarOS() throws SQLException, RepositorioException {
+		return repositorioOrdemServico.listarOS();
 	}
 }
