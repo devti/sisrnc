@@ -37,6 +37,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 public class PlanoDeMedicaoGUI extends JFrame {
 
@@ -65,6 +66,8 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	private JTextField tF_Descricao;
 	private ProcuraPlanoDeMedicaoGUI tela;
 	private JTextField tF_codigoPlanoDeMedicao;
+	private JButton BT_Apagar;
+	private int codigoPlanoDeMedicao;
 	//private SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");  
 
 	public static PlanoDeMedicaoGUI getInstance() {
@@ -199,7 +202,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 			}
 		});
 
-		JButton BT_Apagar = new JButton("");
+		BT_Apagar = new JButton("");
 		BT_Apagar.setToolTipText("Excluir");
 		BT_Apagar.setEnabled(false);
 		BT_Apagar
@@ -208,6 +211,25 @@ public class PlanoDeMedicaoGUI extends JFrame {
 								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
 		BT_Apagar.setBounds(207, 11, 30, 30);
 		contentPane.add(BT_Apagar);
+		BT_Apagar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+						if (JOptionPane.showConfirmDialog(null,
+								"Deseja realmente EXCLUIR este Plano de Medição e suas Ordens de Serviço associadas ?",
+								"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							System.out.println(codigoPlanoDeMedicao);
+							//fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
+							fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							limparTela();
+						}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
@@ -283,6 +305,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		fTF_DataFim = new JFormattedTextField((setMascara("##/##/####")));
 		fTF_DataFim.setBounds(126, 76, 86, 20);
 		panel_2.add(fTF_DataFim);
+		fTF_DataFim.setColumns(10);
 
 		fTF_Hora = new JFormattedTextField((setMascara("##:##")));
 		fTF_Hora.setBounds(10, 121, 86, 20);
@@ -351,6 +374,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		tF_Descricao.setColumns(10);
 		
 		tF_codigoPlanoDeMedicao = new JTextField();
+		tF_codigoPlanoDeMedicao.setHorizontalAlignment(SwingConstants.RIGHT);
 		tF_codigoPlanoDeMedicao.setEditable(false);
 		tF_codigoPlanoDeMedicao.setBounds(463, 24, 86, 20);
 		contentPane.add(tF_codigoPlanoDeMedicao);
@@ -436,9 +460,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 					converteCalendarString(dtFinal,fTF_Hora.getText()), fTF_Hora.getText(),
 					CB_DiaSemana.getSelectedItem().toString(), CB_DiaMes
 							.getSelectedItem().toString(), CB_Tipo.getSelectedItem().toString());
-			fachada.cadastrar(planoDeMedicao);
 			// Verifica se a data inicial e maior ou igual que a data final
 			if (dtFinal.after(dtInicial) || dtInicial.equals(dtFinal)) {
+				fachada.cadastrar(planoDeMedicao);
 				dtContagem = dtInicial;
 				// tipo diario
 				if (CB_Tipo.getSelectedItem() == "Diário") {
@@ -450,7 +474,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 								grupoTecnico, equipamento,
 								converteCalendarString(dtContagem,fTF_Hora.getText()),
 								fTF_Hora.getText());
-						System.out.println(converteCalendarString(dtContagem,fTF_Hora.getText()));
+						//System.out.println(converteCalendarString(dtContagem,fTF_Hora.getText()));
 						fachada.cadastrar(ordemServico);
 						dtContagem.add(Calendar.DATE, 1);
 					}
@@ -516,6 +540,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		fTF_DataInicio.setText(null);
 		fTF_Hora.setText(null);
 		cb_Ativo.setSelected(true);
+		tF_codigoPlanoDeMedicao.setText(null);
 	}
 	
 	/**
@@ -527,20 +552,29 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		if (tela.getFocusableWindowState() && tela.pegarPlanoDeMedicao() != null) {
 			PlanoDeMedicao planoDeMedicao = tela.pegarPlanoDeMedicao();
 			tF_Descricao.setText(planoDeMedicao.getDescricao());
+			tF_Descricao.setEnabled(false);
 			tF_Equipamento.setText(planoDeMedicao.getEquipamento().getDescricao());
+			tF_GrupoTecnico.setText(planoDeMedicao.getGrupoTecnico().getLocalizacao());
 			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
 			fTF_DataInicio.setText(Data.converteDataStringTextField(planoDeMedicao.getDataInicial()));
+			fTF_DataInicio.setEditable(false);
 			fTF_DataFim.setText(Data.converteDataStringTextField(planoDeMedicao.getDataFinal()));
+			fTF_DataFim.setEditable(false);
 			fTF_Hora.setText(planoDeMedicao.getHorario());
-			//CB_Tipo.setSelectedItem(planoDeMedicao.get);
-			//tf_Descricao.setText(i.getDescricao());
-			//tf_Marca.setText(i.getMarca());
-			//tf_Serial.setText(i.getSerial());
-			//tf_CodigoItem.setText(Integer.toString(i.getCodItem()));
-			//codigoItem = i.getCodItem();
-			//listaItemMedicao = tela.pegarItems();
-			//listaItemMedicaoChecagem = listaItemMedicao;
-			//listarItemMedicao(listaItemMedicao);
+			fTF_Hora.setEditable(false);
+			CB_Tipo.setSelectedItem(planoDeMedicao.getTipo());
+			CB_Tipo.setEnabled(false);
+			CB_DiaMes.setSelectedItem(planoDeMedicao.getDiaMes());
+			CB_DiaMes.setEnabled(false);
+			CB_DiaSemana.setSelectedItem(planoDeMedicao.getDiaSemana());
+			CB_DiaSemana.setEnabled(false);
+			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
+			codigoPlanoDeMedicao = planoDeMedicao.getCodigo();
+			/*
+			 * ativando botoes
+			 */
+			BT_Apagar.setEnabled(true);
+
 			//btnRemover.setEnabled(true);
 			
 		}
@@ -598,10 +632,10 @@ public class PlanoDeMedicaoGUI extends JFrame {
 	public String converteCalendarString(Calendar data, String hora) {
 		String dt, dd, mm, aaaa = null;
 		dd = zeroEsquerda(
-				Integer.toString(dtContagem.get(Calendar.DAY_OF_MONTH)), "0", 2);
+				Integer.toString(data.get(Calendar.DAY_OF_MONTH)), "0", 2);
 		mm = zeroEsquerda(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
 				"0", 2);
-		aaaa = Integer.toString(dtContagem.get(Calendar.YEAR));
+		aaaa = Integer.toString(data.get(Calendar.YEAR));
 		dt = aaaa + "-" + dd + "-" + mm +" "+hora.substring(0, 2)+":"+hora.substring(3, 4);
 		return dt;
 	}

@@ -7,6 +7,7 @@ import rnc.sismedicao.controller.*;
 import rnc.sismedicao.controller.exception.*;
 import rnc.sismedicao.model.beans.*;
 
+
 public class Fachada {
 
 	private static Fachada instance = null;
@@ -20,6 +21,7 @@ public class Fachada {
 	private GrupoTecnicoUsuarioController controladorGrupoTecnicoUsuario;
 	private PlanoDeMedicaoController controladorPlanoDeMedicao;
 	private OrdemServicoController controladorOrdemServico;
+
 
 	Fachada() throws Exception {
 		this.controladorUsuario = new UsuarioController();
@@ -120,7 +122,7 @@ public class Fachada {
 			SQLException {
 		return this.controladorUsuario.procurar(codPessoa);
 	}
-
+	
 	public Usuario getUsuarioLogado() {
 		return this.controladorUsuario.getUsuarioLogado();
 	}
@@ -177,7 +179,7 @@ public class Fachada {
 	public void removerItem(int codItem) throws Exception {
 		controladorItem.removerItem(codItem);
 	}
-
+	
 	public void removerItemEquipamento(int codItem) throws Exception {
 		controladorItem.removerItemEquipamento(codItem);
 	}
@@ -231,7 +233,7 @@ public class Fachada {
 		itens = controladorItem.procurarEquipamentoItem(codEquipamento);
 		return itens;
 	}
-
+	
 	public void equipamentoItemRemover(int codigoEquipamento) throws Exception {
 		controladorEquipamento.removerEquipamentoItem(codigoEquipamento);
 	}
@@ -248,9 +250,9 @@ public class Fachada {
 		controladorEquipamento.removerEquipamento(codigoEquipamento);
 
 	}
-
+	
 	public void atualizarEquipamento(Equipamento equipamento) {
-		controladorEquipamento.atualizarEquipamento(equipamento);
+		controladorEquipamento.atualizarEquipamento(equipamento);		
 	}
 
 	/**
@@ -306,33 +308,33 @@ public class Fachada {
 	public void removerGrupoTecnicoUsuario(int codigoUsuario) throws Exception {
 		controladorGrupoTecnicoUsuario.remover(codigoUsuario);
 	}
-
+	
+	
 	/**
 	 * METODOS PLANO DE MEDICAO
 	 */
-	public int consultarUltimoCodigoPlanoMedicao() throws Exception {
+	public int consultarUltimoCodigoPlanoMedicao() throws Exception{
 		return controladorPlanoDeMedicao.consultarUltimoCodigoPlanoMedicao();
 	}
-
 	public ArrayList<PlanoDeMedicao> planoDeMedicaoPesquisaAvancada(
 			String atributo, String pesquisa) throws SQLException,
 			RepositorioException {
-		return this.controladorPlanoDeMedicao.pesquisaAvancada(atributo,
-				pesquisa);
+		return this.controladorPlanoDeMedicao
+				.pesquisaAvancada(atributo, pesquisa);
 	}
 
 	public PlanoDeMedicao planoDeMedicaoProcurar(int codigo)
 			throws RepositorioException, SQLException {
 		return this.controladorPlanoDeMedicao.procurar(codigo);
 	}
-	
-	/**
-	 * METODOS OS
-	 */
 
-	public ArrayList<OrdemServico> listarOS() throws SQLException,
-			RepositorioException {
-		return this.controladorOrdemServico.listarOS();
+	public void removerPlanoDeMedicao(int codigo) throws Exception{
+		controladorPlanoDeMedicao.removerPlanoDeMedicao(codigo);
 	}
-
+	/**
+	 * METODOS PARA ORDEM DE SERVICO
+	 */
+	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception{
+		controladorOrdemServico.removerOrdemServico(codigoPlanoDeMedicao);
+	}
 }

@@ -3,12 +3,16 @@ package rnc.sismedicao.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
-import rnc.sismedicao.model.beans.OrdemServico;
-import rnc.sismedicao.model.interfacesDao.IRepositorioOrdemServico;
+import rnc.sismedicao.model.beans.*;
+import rnc.sismedicao.model.interfacesDao.*;
 import rnc.sismedicao.model.util.Conexao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class OrdemServicoDAO implements IRepositorioOrdemServico {
 	
@@ -17,8 +21,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 
 	}
 	public void inserir(OrdemServico ordemServico) throws Exception {
-		String query = "INSERT INTO ORDEMSERVICO (codigoPlanoMedicao,codigoGrupoTecnico, codigoEquipamento,"
-				+ " data, hora,  DATACRIACAO) VALUES (?,?,?,?,?, getdate())";
+		String query = "INSERT INTO ORDEMSERVICO (codigoPlanoMedicao,codigoGrupoTecnico, codigoEquipamento, data, hora,  DATACRIACAO) VALUES (?,?,?,?,?, getdate())";
 		try {
 			int i = 0;
 			ResultSet resultSet = null;
@@ -39,21 +42,23 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public ArrayList<OrdemServico> listarOS() throws SQLException, RepositorioException {
-		ArrayList<OrdemServico> ordens = new ArrayList<OrdemServico>();
-		ResultSet rs = null;
-		String sql = "SELECT * FROM ORDEMSERVICO";
+	
+	/*
+	 * Excluir ordem de servico
+	 */
+	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception {
+
+		String sql = "DELETE FROM ORDEMSERVICO WHERE CODIGOPLANOMEDICAO = ?";
+
 		try {
-			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				OrdemServico os = new OrdemServico();
-				ordens.add(os);
-			}
+
+			PreparedStatement ps = Conexao.getConnection()
+					.prepareStatement(sql);
+			ps.setInt(1, codigoPlanoDeMedicao);
+			ps.execute();
+			Conexao.getConnection().commit();
 		} catch (SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new RepositorioException(e);
 		}
-		return ordens;
-	}
+	} 
 }

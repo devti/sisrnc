@@ -14,7 +14,7 @@ import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO implements IRepositorioUsuario {
 	
-	public static Usuario usuarioLogado = null;
+	private Usuario usuarioLogado = null;
 
 	public UsuarioDAO(IRepositorioUsuario repositorioUsuario) {
 
@@ -93,7 +93,6 @@ public class UsuarioDAO implements IRepositorioUsuario {
 	public boolean login(String usuario, String senha)
 			throws SenhaInvalidaException, RepositorioException, SQLException {
 		ResultSet rs;
-		Usuario u = null;
 		try {
 			String sql = "SELECT * FROM USUARIO USUARIO WHERE LOGIN = ? AND SENHA = ?";
 			PreparedStatement ps = Conexao.getConnection()
@@ -102,8 +101,6 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			ps.setString(2, senha);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				u = procurar(rs.getInt("CODPESSOA"));
-				usuarioLogado = u;
 				return true;
 			} else {
 				return false;
@@ -112,8 +109,6 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 
-		} catch(Exception e){
-			throw new RepositorioException(e);
 		}
 	}
 	
