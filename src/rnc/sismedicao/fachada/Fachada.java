@@ -337,4 +337,9 @@ public class Fachada {
 	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception{
 		controladorOrdemServico.removerOrdemServico(codigoPlanoDeMedicao);
 	}
+
+	public ArrayList<OrdemServico> listarOS() throws SQLException,
+		RepositorioException {
+		return this.controladorOrdemServico.listarOS();
+	}
 }

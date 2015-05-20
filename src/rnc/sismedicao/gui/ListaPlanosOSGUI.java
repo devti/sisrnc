@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
-import rnc.sismedicao.gui.util.PlanoTableModel;
+import rnc.sismedicao.gui.util.OrdemServicoTableModel;
 import rnc.sismedicao.model.beans.OrdemServico;
 
 public class ListaPlanosOSGUI extends JFrame {
@@ -34,7 +34,7 @@ public class ListaPlanosOSGUI extends JFrame {
 	private JTable table;
 	private Fachada fachada;
 	private ArrayList<OrdemServico> lista;
-	private PlanoTableModel ostm;
+	private OrdemServicoTableModel ostm;
 	private JTextField tf_UsuarioLogado;
 	private static ListaPlanosOSGUI listaOSGUI;
 	
@@ -112,8 +112,8 @@ public class ListaPlanosOSGUI extends JFrame {
 	private void listar() {
 		try {
 			fachada = Fachada.getInstance();
-			//lista = fachada.listarOS;
-			ostm = new PlanoTableModel(lista);
+			lista = fachada.listarOS();
+			ostm = new OrdemServicoTableModel(lista);
 			table.setModel(ostm);
 			table.setVisible(true);
 			table.getColumnModel().getColumn(0).setPreferredWidth(60);

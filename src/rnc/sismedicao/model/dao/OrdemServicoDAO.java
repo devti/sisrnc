@@ -3,16 +3,12 @@ package rnc.sismedicao.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import rnc.sismedicao.controller.exception.RepositorioException;
-import rnc.sismedicao.model.beans.*;
-import rnc.sismedicao.model.interfacesDao.*;
+import rnc.sismedicao.model.beans.OrdemServico;
+import rnc.sismedicao.model.interfacesDao.IRepositorioOrdemServico;
 import rnc.sismedicao.model.util.Conexao;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class OrdemServicoDAO implements IRepositorioOrdemServico {
 	
@@ -60,5 +56,24 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
+	}
+	@Override
+	public ArrayList<OrdemServico> listarOS() throws SQLException,
+			RepositorioException {
+		ArrayList<OrdemServico> ordens = new ArrayList<OrdemServico>();
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ORDEMSERVICO";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				OrdemServico ordem = new OrdemServico();
+				ordens.add(ordem);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		
+		return ordens;
 	} 
 }

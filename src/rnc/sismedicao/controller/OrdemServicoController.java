@@ -21,4 +21,7 @@ public class OrdemServicoController {
 	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception{
 		repositorioOrdemServico.removerOrdemServico(codigoPlanoDeMedicao);
 	}
+	public ArrayList<OrdemServico> listarOS() throws SQLException, RepositorioException {
+		return repositorioOrdemServico.listarOS();
+	}
 }
