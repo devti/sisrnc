@@ -220,8 +220,8 @@ public class PlanoDeMedicaoGUI extends JFrame {
 								"Deseja realmente EXCLUIR este Plano de Medição e suas Ordens de Serviço associadas ?",
 								"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 							System.out.println(codigoPlanoDeMedicao);
-							//fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
-							fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
+							//fachada.removerOrdemServico(codigoPlanoDeMedicao);
 							limparTela();
 						}
 				} catch (Exception e1) {
@@ -474,7 +474,6 @@ public class PlanoDeMedicaoGUI extends JFrame {
 								grupoTecnico, equipamento,
 								converteCalendarString(dtContagem,fTF_Hora.getText()),
 								fTF_Hora.getText());
-						//System.out.println(converteCalendarString(dtContagem,fTF_Hora.getText()));
 						fachada.cadastrar(ordemServico);
 						dtContagem.add(Calendar.DATE, 1);
 					}
@@ -636,7 +635,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 		mm = zeroEsquerda(Integer.toString(dtContagem.get(Calendar.MONTH) + 1),
 				"0", 2);
 		aaaa = Integer.toString(data.get(Calendar.YEAR));
-		dt = aaaa + "-" + dd + "-" + mm +" "+hora.substring(0, 2)+":"+hora.substring(3, 4);
+		dt = aaaa + "-" + mm + "-" + dd +" "+hora.substring(0, 2)+":"+hora.substring(3, 4);
 		return dt;
 	}
 
