@@ -53,9 +53,9 @@ public class OrdemServicoTableModel extends AbstractTableModel {
 		case 0:
 			return ordem.getCodigo();
 		case 1:
-			return ordem.getEquipamento();
+			return ordem.getEquipamento().getDescricao();
 		case 2:
-			return ordem.getGrupoTecnico();
+			return ordem.getGrupoTecnico().getNomeGrupoTecnico();
 		}
 		return null;
 	}
