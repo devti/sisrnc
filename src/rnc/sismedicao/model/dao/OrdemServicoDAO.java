@@ -11,11 +11,11 @@ import rnc.sismedicao.model.interfacesDao.IRepositorioOrdemServico;
 import rnc.sismedicao.model.util.Conexao;
 
 public class OrdemServicoDAO implements IRepositorioOrdemServico {
-	
-	public OrdemServicoDAO(
-			IRepositorioOrdemServico repositorioOrdemServico) {
+
+	public OrdemServicoDAO(IRepositorioOrdemServico repositorioOrdemServico) {
 
 	}
+
 	public void inserir(OrdemServico ordemServico) throws Exception {
 		String query = "INSERT INTO ORDEMSERVICO (codigoPlanoMedicao,codigoGrupoTecnico, codigoEquipamento, data, hora,  DATACRIACAO) VALUES (?,?,?,?,?, getdate())";
 		try {
@@ -38,7 +38,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * Excluir ordem de servico
 	 */
@@ -57,6 +57,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			throw new RepositorioException(e);
 		}
 	}
+
 	@Override
 	public ArrayList<OrdemServico> listarOS() throws SQLException,
 			RepositorioException {
@@ -67,13 +68,15 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				OrdemServico ordem = new OrdemServico();
+				
+				OrdemServico ordem = new OrdemServico(rs.getInt("CODIGO"), rs.getInt("CODIGOGRUPOTECNICO"), rs.getInt("CODIGOEQUIPAMENTO"),
+						rs.getString("DATA"), rs.getString("HORA"));
 				ordens.add(ordem);
+				 
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());
 		}
 		
 		return ordens;
-	} 
-}
+	}}

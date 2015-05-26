@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.OrdemServico;
 
 public class OrdemServicoTableModel extends AbstractTableModel {
@@ -53,9 +54,9 @@ public class OrdemServicoTableModel extends AbstractTableModel {
 		case 0:
 			return ordem.getCodigo();
 		case 1:
-			return ordem.getEquipamento();
+			return ordem.getEquipamento().getDescricao();
 		case 2:
-			return ordem.getGrupoTecnico();
+			return ordem.getGrupoTecnico().getNomeGrupoTecnico();
 		}
 		return null;
 	}

@@ -90,7 +90,7 @@ public class ItemMedicaoTableModel extends AbstractTableModel {
 		case 1:
 			 item.getUnidadeDeMedicao().getDescricao();break;
 		case 2:
-			 item.setValorMIN(Double.parseDouble((String) valor));break; // assim num funciona não ? testa
+			 item.setValorMIN(Double.parseDouble((String) valor));break;
 		case 3:
 			item.setValorMAX(Double.parseDouble((String) valor));break;
 		}

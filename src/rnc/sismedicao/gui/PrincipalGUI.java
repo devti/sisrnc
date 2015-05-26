@@ -3,7 +3,6 @@ package rnc.sismedicao.gui;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,15 +20,11 @@ import javax.swing.JRootPane;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
-import rnc.sismedicao.model.dao.UsuarioDAO;
-
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 
 @SuppressWarnings("serial")
 public class PrincipalGUI extends JFrame {
