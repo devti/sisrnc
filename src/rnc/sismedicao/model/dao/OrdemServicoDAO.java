@@ -63,7 +63,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 			RepositorioException {
 		ArrayList<OrdemServico> ordens = new ArrayList<OrdemServico>();
 		ResultSet rs = null;
-		String sql = "SELECT * FROM ORDEMSERVICO";
+		String sql = "SELECT * FROM ORDEMSERVICO AS o WHERE CONVERT (date, o.[DATA]) = CONVERT (date, GETDATE())";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -71,6 +71,7 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 				
 				OrdemServico ordem = new OrdemServico(rs.getInt("CODIGO"), rs.getInt("CODIGOGRUPOTECNICO"), rs.getInt("CODIGOEQUIPAMENTO"),
 						rs.getString("DATA"), rs.getString("HORA"));
+				ordem.setCodigo(rs.getInt("CODIGO"));
 				ordens.add(ordem);
 				 
 			}
