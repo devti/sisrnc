@@ -107,7 +107,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setEditable(false);
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
-		tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
+		//tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
 	}
 
