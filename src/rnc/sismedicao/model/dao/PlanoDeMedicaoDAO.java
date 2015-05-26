@@ -170,12 +170,12 @@ public class PlanoDeMedicaoDAO implements IRepositorioPlanoDeMedicao {
 		String sql = "DELETE FROM PLANOMEDICAO WHERE CODIGO = ?";
 
 		try {
-			
+			System.out.println("ok");
 			PreparedStatement ps = Conexao.getConnection()
 					.prepareStatement(sql);
-			ps.setInt(1, codigo);
+			/*ps.setInt(1, codigo);
 			ps.execute();
-			Conexao.getConnection().commit();
+			Conexao.getConnection().commit(); */
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 		}
