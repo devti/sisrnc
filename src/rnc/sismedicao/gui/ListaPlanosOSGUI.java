@@ -26,6 +26,8 @@ import javax.swing.border.TitledBorder;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.OrdemServicoTableModel;
+import rnc.sismedicao.model.beans.Equipamento;
+import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.OrdemServico;
 
 public class ListaPlanosOSGUI extends JFrame {
@@ -105,7 +107,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setEditable(false);
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
-		//tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
+		tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
 	}
 
@@ -113,6 +115,12 @@ public class ListaPlanosOSGUI extends JFrame {
 		try {
 			fachada = Fachada.getInstance();
 			lista = fachada.listarOS();
+			for (OrdemServico os : lista) {
+				Equipamento e = fachada.equipamentoProcurar(os.getCodEquipamento());
+				GrupoTecnico gt = fachada.grupoTecnicoPesquisar(os.getIdGrupoTecnico());
+				os.setEquipamento(e);
+				os.setGrupoTecnico(gt);
+			}
 			ostm = new OrdemServicoTableModel(lista);
 			table.setModel(ostm);
 			table.setVisible(true);
