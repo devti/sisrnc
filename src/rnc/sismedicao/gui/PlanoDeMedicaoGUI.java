@@ -222,6 +222,7 @@ public class PlanoDeMedicaoGUI extends JFrame {
 							fachada = Fachada.getInstance();
 							fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
 							fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							BT_Apagar.setEnabled(false);
 							limparTela();
 						}
 				} catch (Exception e1) {
