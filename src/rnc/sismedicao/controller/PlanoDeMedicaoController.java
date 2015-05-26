@@ -33,6 +33,6 @@ public class PlanoDeMedicaoController {
 	}
 	
 	public void removerPlanoDeMedicao(int codigo) throws Exception{
-		 repositorioPlanoDeMedicao.removerPlanoDeMedicao(codigo);
+		repositorioPlanoDeMedicao.removerPlanoDeMedicao(codigo);
 	}
 }

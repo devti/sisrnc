@@ -219,9 +219,10 @@ public class PlanoDeMedicaoGUI extends JFrame {
 						if (JOptionPane.showConfirmDialog(null,
 								"Deseja realmente EXCLUIR este Plano de Medição e suas Ordens de Serviço associadas ?",
 								"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-							System.out.println(codigoPlanoDeMedicao);
+							fachada = Fachada.getInstance();
 							fachada.removerPlanoDeMedicao(codigoPlanoDeMedicao);
-							//fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							fachada.removerOrdemServico(codigoPlanoDeMedicao);
+							BT_Apagar.setEnabled(false);
 							limparTela();
 						}
 				} catch (Exception e1) {
