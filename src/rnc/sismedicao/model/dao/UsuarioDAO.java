@@ -13,8 +13,8 @@ import rnc.sismedicao.model.interfacesDao.IRepositorioUsuario;
 import rnc.sismedicao.model.util.Conexao;
 
 public class UsuarioDAO implements IRepositorioUsuario {
-	
-	private Usuario usuarioLogado = null;
+
+	private static Usuario usuarioLogado = null;
 
 	public UsuarioDAO(IRepositorioUsuario repositorioUsuario) {
 
@@ -22,33 +22,35 @@ public class UsuarioDAO implements IRepositorioUsuario {
 
 	public int inserir(Usuario usuario) throws Exception {
 
-			String query = "INSERT INTO USUARIO(CODPESSOA, LOGIN, SENHA) VALUES (?, ?, ?) ";
+		String query = "INSERT INTO USUARIO(CODPESSOA, LOGIN, SENHA) VALUES (?, ?, ?) ";
 
-			try {
-				ResultSet resultSet = null;
-				PreparedStatement preparedStatement = Conexao.getConnection()
-						.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-				preparedStatement.setInt(1, usuario.getCodPessoa());
-				preparedStatement.setString(2, usuario.getLogin());
-				preparedStatement.setString(3, usuario.getSenha());
-				preparedStatement.executeUpdate();
-				Conexao.getConnection().commit();
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(query,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, usuario.getCodPessoa());
+			preparedStatement.setString(2, usuario.getLogin());
+			preparedStatement.setString(3, usuario.getSenha());
+			preparedStatement.executeUpdate();
+			Conexao.getConnection().commit();
 
-				resultSet = preparedStatement.getGeneratedKeys();
+			resultSet = preparedStatement.getGeneratedKeys();
 
-				if (resultSet.next()) {
-					usuario.setCodUsuario(resultSet.getInt(1));
-				}
-
-			} catch (SQLException e) {
-
-				e.printStackTrace();
+			if (resultSet.next()) {
+				usuario.setCodUsuario(resultSet.getInt(1));
 			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 		return usuario.getCodUsuario();
 
 	}
 
-	public void removerUsuario(int codPessoa) throws RepositorioException, SQLException {
+	public void removerUsuario(int codPessoa) throws RepositorioException,
+			SQLException {
 		String sql = "DELETE FROM USUARIO WHERE CODPESSOA = ?";
 
 		try {
@@ -63,12 +65,13 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		}
 	}
 
-	public Usuario procurar(int codPessoa) throws UsuarioNaoEncontradoException, SQLException,
+	public Usuario procurar(int codPessoa)
+			throws UsuarioNaoEncontradoException, SQLException,
 			RepositorioException {
-		//System.out.println(codPessoa);
 		Usuario usuario = null;
 		ResultSet rs = null;
-		String sql = "select * from (select u.codusuario, u.codpessoa, u.login, u.senha, p.nome, p.cpf, p.email, p.telefone from  usuario u left join pessoa p  on p.codpessoa = u.codpessoa) as grupoTecnico where grupoTecnico.codpessoa = ?";
+		String sql = "select * from (select u.codusuario, u.codpessoa, u.login, u.senha, p.nome, p.cpf, p.email, p.telefone from  usuario u left join pessoa p  on p.codpessoa = u.codpessoa)"
+				+ " as grupoTecnico where grupoTecnico.codpessoa = ?";
 
 		try {
 			PreparedStatement ps = Conexao.getConnection()
@@ -77,8 +80,8 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			rs = ps.executeQuery();
 			if (!rs.next())
 				throw new UsuarioNaoEncontradoException(codPessoa);
-			usuario = new Usuario(rs.getString("LOGIN"),
-					rs.getString("SENHA"),rs.getString("NOME"));
+			usuario = new Usuario(rs.getString("LOGIN"), rs.getString("SENHA"),
+					rs.getString("NOME"));
 			usuario.setCodPessoa(rs.getInt("codPessoa"));
 			usuario.setCodUsuario(rs.getInt("codUsuario"));
 			usuario.setNome(rs.getString("NOME"));
@@ -101,6 +104,7 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			ps.setString(2, senha);
 			rs = ps.executeQuery();
 			if (rs.next()) {
+				usuarioLogado = procurar(rs.getInt("CODPESSOA"));
 				return true;
 			} else {
 				return false;
@@ -109,28 +113,33 @@ public class UsuarioDAO implements IRepositorioUsuario {
 		} catch (SQLException e) {
 			throw new RepositorioException(e);
 
+		} catch (Exception e) {
+			throw new RepositorioException(e);
+
 		}
 	}
-	
-	public Usuario getUsuarioLogado() {
+
+	public static Usuario getUsuarioLogado() {
 		return usuarioLogado;
 	}
 
 	@Override
-	public ArrayList<Usuario> listar() throws SQLException, RepositorioException {
+	public ArrayList<Usuario> listar() throws SQLException,
+			RepositorioException {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		ResultSet rs = null;
 		String sql = "SELECT * FROM USUARIO";
 		try {
-			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
+					sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario(rs.getString("LOGIN"),
-						rs.getString("SENHA"),rs.getString("NOME"));
+						rs.getString("SENHA"), rs.getString("NOME"));
 				usuario.setCodPessoa(rs.getInt("CODPESSOA"));
 				usuario.setCodUsuario(rs.getInt("CODUSUARIO"));
 				usuarios.add(usuario);
-			} 
+			}
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());
 		}
@@ -173,7 +182,8 @@ public class UsuarioDAO implements IRepositorioUsuario {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario(rs.getString("NOME"),
-						rs.getString("LOGIN"), rs.getInt("CODPESSOA"), rs.getInt("CODUSUARIO"));
+						rs.getString("LOGIN"), rs.getInt("CODPESSOA"),
+						rs.getInt("CODUSUARIO"));
 				pesq.add(usuario);
 			}
 		} catch (SQLException e) {

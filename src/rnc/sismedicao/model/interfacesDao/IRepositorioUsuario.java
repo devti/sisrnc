@@ -21,7 +21,6 @@ public interface IRepositorioUsuario {
 
 	public ArrayList<Usuario> pesquisaAvancada(String atributo, String pesquisa) throws SQLException;
 
-	public ArrayList<Usuario> listar() throws SQLException, RepositorioException;
+	public ArrayList<Usuario> listar() throws SQLException, RepositorioException;	
 	
-	public Usuario getUsuarioLogado();
 }

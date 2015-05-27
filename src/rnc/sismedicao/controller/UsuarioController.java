@@ -45,8 +45,4 @@ public class UsuarioController {
 		return repositorioUsuario.pesquisaAvancada(atributo, pesquisa);
 	}
 
-	public Usuario getUsuarioLogado() {
-		return repositorioUsuario.getUsuarioLogado();
-	}
-
 }

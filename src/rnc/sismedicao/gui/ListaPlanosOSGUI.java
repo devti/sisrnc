@@ -29,6 +29,7 @@ import rnc.sismedicao.gui.util.OrdemServicoTableModel;
 import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.GrupoTecnico;
 import rnc.sismedicao.model.beans.OrdemServico;
+import rnc.sismedicao.model.dao.UsuarioDAO;
 
 public class ListaPlanosOSGUI extends JFrame {
 
@@ -107,7 +108,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setEditable(false);
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
-		//tf_UsuarioLogado.setText(fachada.getUsuarioLogado().getLogin());
+		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
 	}
 
