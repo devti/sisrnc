@@ -54,7 +54,7 @@ public class ListaPlanosOSGUI extends JFrame {
 	public ListaPlanosOSGUI() {
 		setTitle("Planos em Aberto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 609, 328);
+		setBounds(100, 100, 609, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,7 +97,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
 		
-		listar();
+		//listar();
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(ListaPlanosOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
@@ -110,6 +110,14 @@ public class ListaPlanosOSGUI extends JFrame {
 		contentPane.add(tf_UsuarioLogado);
 		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("Cancelar");
+		btnNewButton_1.setBounds(494, 290, 89, 23);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnAvanar = new JButton("Avan\u00E7ar");
+		btnAvanar.setBounds(395, 290, 89, 23);
+		contentPane.add(btnAvanar);
 	}
 
 	private void listar() {

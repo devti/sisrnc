@@ -15,7 +15,7 @@ public class OrdemServicoTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<OrdemServico> ordens;
-	private String[] nomeColunas = {"CODIGO", "EQUIPAMENTO", "GRUPO TECNICO"};
+	private String[] nomeColunas = {"DATA", "CODIGO", "EQUIPAMENTO", "GRUPO TECNICO"};
 	
 	public OrdemServicoTableModel() {
 		this.ordens = new ArrayList<OrdemServico>();
@@ -38,10 +38,12 @@ public class OrdemServicoTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "CODIGO";
+			return "DATA";
 		case 1:
-			return "EQUIPAMENTO";
+			return "CODIGO";
 		case 2:
+			return "EQUIPAMENTO";
+		case 3:
 			return "GRUPO TECNICO";
 		}
 		return "?";
@@ -52,10 +54,12 @@ public class OrdemServicoTableModel extends AbstractTableModel {
 		OrdemServico ordem = ordens.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return ordem.getCodigo();
+			return ordem.getData();
 		case 1:
-			return ordem.getEquipamento().getDescricao();
+			return ordem.getCodigo();
 		case 2:
+			return ordem.getEquipamento().getDescricao();
+		case 3:
 			return ordem.getGrupoTecnico().getNomeGrupoTecnico();
 		}
 		return null;

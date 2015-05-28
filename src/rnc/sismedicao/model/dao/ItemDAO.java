@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import rnc.sismedicao.controller.exception.ItemNaoEncontradoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Item;
-import rnc.sismedicao.model.util.Conexao;
 import rnc.sismedicao.model.interfacesDao.IRepositorioItem;
+import rnc.sismedicao.model.util.Conexao;
 
 public class ItemDAO implements IRepositorioItem {
 
@@ -124,7 +124,29 @@ public class ItemDAO implements IRepositorioItem {
 		}
 		return itens;
 	}
-
+	
+	public ArrayList<Item> listarItemEquipamento() throws SQLException,
+		RepositorioException {
+		ArrayList<Item> itens = new ArrayList<Item>();
+		ResultSet rs = null;
+		String sql = "SELECT ITEM.CODITEM, ITEM.SERIAL, ITEM.DESCRICAO, ITEM.MARCA"
+				+ "FROM EQUIPAMENTO LEFT JOIN EQUIPAMENTOITEM ON EQUIPAMENTO.CODEQUIPAMENTO"
+				+ "= EQUIPAMENTOITEM.CODEQUIPAMENTO LEFT JOIN ITEM ON"
+				+ "EQUIPAMENTOITEM.CODITEM = ITEM.CODITEM WHERE EQUIPAMENTO = ?";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Item item = new Item(rs.getInt("CODITEM"),
+						rs.getString("NOME"), rs.getString("MARCA"),
+						rs.getString("SERIAL"), rs.getString("DESCRICAO"));
+				itens.add(item);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return itens;
+	}
 	@Override
 	public Item procurar(int codItem) throws ItemNaoEncontradoException,
 			SQLException, RepositorioException {

@@ -338,4 +338,10 @@ public class Fachada {
 		RepositorioException {
 		return this.controladorOrdemServico.listarOS();
 	}
+
+	public ArrayList<Item> listarItemEquipamento() throws SQLException,
+		RepositorioException {
+		return this.controladorItem.listarItemEquipamento();
+	}
+	
 }
