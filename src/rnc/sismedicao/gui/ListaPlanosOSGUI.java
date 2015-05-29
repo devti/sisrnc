@@ -2,6 +2,7 @@ package rnc.sismedicao.gui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -115,9 +116,21 @@ public class ListaPlanosOSGUI extends JFrame {
 		btnNewButton_1.setBounds(494, 290, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnAvanar = new JButton("Avan\u00E7ar");
-		btnAvanar.setBounds(395, 290, 89, 23);
-		contentPane.add(btnAvanar);
+		JButton btn_Avancar = new JButton("Avan\u00E7ar");
+		btn_Avancar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				finalizarOS();
+		
+			}
+		});
+		btn_Avancar.setBounds(395, 290, 89, 23);
+		contentPane.add(btn_Avancar);
+	}
+	
+	public void finalizarOS() {
+		
 	}
 
 	private void listar() {
