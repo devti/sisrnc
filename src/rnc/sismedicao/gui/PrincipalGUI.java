@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -22,9 +23,12 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.jasperreports.engine.JRException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
+import rnc.sismedicao.report.*;
+
 
 @SuppressWarnings("serial")
 public class PrincipalGUI extends JFrame {
@@ -272,10 +276,48 @@ public class PrincipalGUI extends JFrame {
 		JMenu MN_Relatrios = new JMenu("Relat\u00F3rios");
 		MN_Relatrios.setDoubleBuffered(true);
 		menuBar.add(MN_Relatrios);
-
+		
+		JMenu mnItens = new JMenu("Itens");
+		MN_Relatrios.add(mnItens);
+		
+		JMenuItem mntmItems = new JMenuItem("Listagem Itens Medicao - Min x Max");
+		mnItens.add(mntmItems);
+		mntmItems.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {  
+					RelListaDeItensMedicao.listagem();
+					//Runtime.getRuntime().exec("explorer.exe");  
+		          
+		        } catch (JRException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}  
+				  
+				
+			}
+		});
 		JMenu MN_Utilitarios = new JMenu("Utilit\u00E1rios");
 		MN_Utilitarios.setDoubleBuffered(true);
 		menuBar.add(MN_Utilitarios);
+		
+		JMenuItem mntmCalc = new JMenuItem("Calculadora");
+		MN_Utilitarios.add(mntmCalc);
+		mntmCalc.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {  
+					Runtime.getRuntime().exec("explorer.exe");  
+		              
+		        } catch (IOException ex) {  
+		            ex.printStackTrace();  
+		        }  
+				  
+				
+			}
+		});
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
