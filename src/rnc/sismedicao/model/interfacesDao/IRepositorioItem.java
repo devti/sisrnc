@@ -27,8 +27,6 @@ public interface IRepositorioItem {
 
 	public void removerItemEquipamento(int codItem) throws Exception;
 
-	public ArrayList<Item> listarItemEquipamento() throws SQLException, RepositorioException;
-
 }
 
 

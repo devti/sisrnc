@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.OrdemServico;
 
 public class OrdemServicoTableModel extends AbstractTableModel {

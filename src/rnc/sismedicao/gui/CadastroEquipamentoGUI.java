@@ -359,14 +359,8 @@ public class CadastroEquipamentoGUI extends JDialog {
 			equipamento = new Equipamento(TF_Serie.getText(),
 					TF_Descricao.getText(), TF_OBS.getText());
 			if (codigoEquipamento == 0) {
+				equipamento.setItens(listaItens);
 				fachada.cadastrar(equipamento);
-				int codEquipamento = fachada.consultarUltimoCodigoEquipamento();
-				for (int i = 0; i < listaItens.size(); i++) {
-					Equipamento e = new Equipamento();
-					e.setItem(listaItens.get(i));
-					e.setCodEquipamento(codEquipamento);
-					fachada.cadastraEquipamentoItem(e);
-				} 
 
 			} else {
 				fachada.atualizarEquipamento(equipamento);

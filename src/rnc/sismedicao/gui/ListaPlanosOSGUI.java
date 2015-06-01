@@ -98,7 +98,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
 		
-		//listar();
+		listar();
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(ListaPlanosOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
@@ -130,7 +130,18 @@ public class ListaPlanosOSGUI extends JFrame {
 	}
 	
 	public void finalizarOS() {
-		
+		try{
+			OrdemServico os = null;
+			fachada = Fachada.getInstance();
+			for (int i = 0; i < lista.size(); i++) {
+				if(lista.get(i).getCodigo() == (int)table.getModel().getValueAt(table.getSelectedRow(), 1)){
+					os = lista.get(i);
+				}				
+			}
+			new FinalizarOSGUI(os).setVisible(true);
+		}catch(Exception e){
+			
+		}
 	}
 
 	private void listar() {

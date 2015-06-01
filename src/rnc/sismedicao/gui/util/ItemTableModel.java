@@ -1,6 +1,7 @@
 package rnc.sismedicao.gui.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -8,14 +9,14 @@ import rnc.sismedicao.model.beans.Item;
 
 public class ItemTableModel extends AbstractTableModel {
 
-	private ArrayList<Item> itens;
+	private List<Item> itens;
 	private String[] nomeColunas = { "CODITEM", "NOME", "MARCA", "SERIAL" };
 
 	public ItemTableModel() {
 		this.itens = new ArrayList<Item>();
 	}
 
-	public ItemTableModel(final ArrayList<Item> itens) {
+	public ItemTableModel(final List<Item> itens) {
 		this.itens = itens;
 	}
 

@@ -1,12 +1,14 @@
 package rnc.sismedicao.model.beans;
 
+import java.util.List;
+
 public class Equipamento {
 
 	private int codEquipamento;
 	private String registro;
 	private String descricao;
 	private String obs;
-	private Item item;
+	private List<Item> itens;
 
 	public Equipamento(int codEquipamento, String registro, String descricao, String obs) {
 		this.codEquipamento = codEquipamento;
@@ -21,9 +23,9 @@ public class Equipamento {
 		this.obs = obs;
 	}
 	
-	public Equipamento (int codEquipamento, Item item) {
+	public Equipamento (int codEquipamento, List<Item> itens) {
 		this.codEquipamento = codEquipamento;
-		this.item = item;
+		this.itens = itens;
 	}
 
 	public Equipamento() {
@@ -54,12 +56,12 @@ public class Equipamento {
 		this.descricao = descricao;
 	}
 
-	public Item getItem() {
-		return item;
+	public List<Item> getItens() {
+		return itens;
 	}
 
-	public void setItem(Item item) {
-		this.item = item;
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
 	}
 
 	public String getObs() {

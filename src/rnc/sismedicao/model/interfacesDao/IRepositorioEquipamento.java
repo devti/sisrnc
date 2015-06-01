@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import rnc.sismedicao.controller.exception.EquipamentoNaoEncontrandoException;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Equipamento;
+import rnc.sismedicao.model.beans.Item;
 
 public interface IRepositorioEquipamento {
 
@@ -26,6 +27,6 @@ public interface IRepositorioEquipamento {
 	public void removerEquipamentoItem(int codigoEquipamento) throws Exception;
 
 	public void atualizarEquipamento(Equipamento equipamento);
-
 	
+	public ArrayList<Item> listarItemEquipamento(int id) throws SQLException, RepositorioException;	
 }

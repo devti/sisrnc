@@ -54,13 +54,5 @@ public class ItemController {
 	public void removerItemEquipamento(int codItem) throws Exception {
 		repositorioItem.removerItemEquipamento(codItem);
 		
-	}
-
-	public ArrayList<Item> listarItemEquipamento() throws SQLException,
-		RepositorioException{
-		
-		return repositorioItem.listarItemEquipamento();
-	}
-	
-	
+	}	
 }

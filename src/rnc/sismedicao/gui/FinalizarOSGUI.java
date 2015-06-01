@@ -22,12 +22,15 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.model.beans.Item;
+import rnc.sismedicao.model.beans.OrdemServico;
+import java.awt.Font;
+import javax.swing.JButton;
 
 public class FinalizarOSGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField tf_Equipamento;
-	private JTextField tf_Data;
+	private JTextField tf_CodEquip;
+	private JTextField tf_DescEquipamento;
 	private JTable table;
 	private ArrayList<Item> lista;
 	private ItemTableModel itm;
@@ -37,30 +40,34 @@ public class FinalizarOSGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinalizarOSGUI() {
+	public FinalizarOSGUI(OrdemServico os) {
 		setTitle("Finaliza OS");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 562, 532);
+		setBounds(100, 100, 562, 588);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		tf_Equipamento = new JTextField();
-		tf_Equipamento.setEditable(false);
-		tf_Equipamento.setBounds(10, 11, 258, 20);
-		contentPane.add(tf_Equipamento);
-		tf_Equipamento.setColumns(10);
+		tf_CodEquip = new JTextField();
+		tf_CodEquip.setEditable(false);
+		tf_CodEquip.setBounds(10, 26, 56, 20);
+		contentPane.add(tf_CodEquip);
+		tf_CodEquip.setColumns(10);
 		
-		tf_Data = new JTextField();
-		tf_Data.setEditable(false);
-		tf_Data.setColumns(10);
-		tf_Data.setBounds(10, 42, 157, 20);
-		contentPane.add(tf_Data);
+		tf_CodEquip.setText(Integer.toString(os.getEquipamento().getCodEquipamento()));
+		
+		tf_DescEquipamento = new JTextField();
+		tf_DescEquipamento.setEditable(false);
+		tf_DescEquipamento.setColumns(10);
+		tf_DescEquipamento.setBounds(9, 75, 178, 20);
+		contentPane.add(tf_DescEquipamento);
+		
+		tf_DescEquipamento.setText(os.getEquipamento().getDescricao());
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Itens", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 73, 526, 129);
+		panel.setBounds(10, 109, 526, 129);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -73,12 +80,14 @@ public class FinalizarOSGUI extends JFrame {
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
 		
-		listarItemEquipamento();
+		table.setModel(new ItemTableModel(os.getEquipamento().getItens()));
+		
+		//listarItemEquipamento();
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Itens de Medi\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 213, 526, 129);
+		panel_1.setBounds(10, 249, 526, 129);
 		contentPane.add(panel_1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -86,15 +95,34 @@ public class FinalizarOSGUI extends JFrame {
 		panel_1.add(scrollPane_1);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(20, 370, 516, 75);
+		textArea.setBounds(20, 406, 516, 75);
 		contentPane.add(textArea);
 		
 		JLabel lb_Obs = new JLabel("Observa\u00E7\u00F5es:");
-		lb_Obs.setBounds(19, 350, 74, 14);
+		lb_Obs.setBounds(19, 386, 74, 14);
 		contentPane.add(lb_Obs);
+		
+		JLabel lbCodEquipamento = new JLabel("C\u00F3digo Equipamento");
+		lbCodEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lbCodEquipamento.setBounds(10, 11, 128, 14);
+		contentPane.add(lbCodEquipamento);
+		
+		JLabel lbDescricaoEquipamento = new JLabel("Equipamento");
+		lbDescricaoEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lbDescricaoEquipamento.setBounds(10, 55, 128, 14);
+		contentPane.add(lbDescricaoEquipamento);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(447, 515, 89, 23);
+		contentPane.add(btnCancelar);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setBounds(352, 515, 89, 23);
+		contentPane.add(btnSalvar);
 	}
 
 	private void listarItemEquipamento() {
+		/*
 		try {
 			fachada = Fachada.getInstance();
 			lista = fachada.listarItemEquipamento();
@@ -117,6 +145,7 @@ public class FinalizarOSGUI extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
+		*/
 		
 	}
 }
