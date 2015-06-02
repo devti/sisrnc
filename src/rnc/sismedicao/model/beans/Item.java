@@ -1,12 +1,14 @@
 package rnc.sismedicao.model.beans;
 
+import java.util.List;
+
 public class Item {
 	
 	private int codItem;
 	private String nome;
 	private String descricao;
 	private String marca;
-	private ItemMedicao itemMedicao;
+	private List<ItemMedicao> itemMedicao;
 	private String serial;
 
 	
@@ -59,15 +61,15 @@ public class Item {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public ItemMedicao getItemMedicao() {
+		
+	public List<ItemMedicao> getItemMedicao() {
 		return itemMedicao;
 	}
 
-	public void setItemMedicao(ItemMedicao itemMedicao) {
+	public void setItemMedicao(List<ItemMedicao> itemMedicao) {
 		this.itemMedicao = itemMedicao;
 	}
-	
+
 	public void setSerial(String serial){
 		this.serial = serial;
 	}

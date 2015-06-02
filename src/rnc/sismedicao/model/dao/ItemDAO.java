@@ -131,7 +131,6 @@ public class ItemDAO implements IRepositorioItem {
 		Item item = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM ITEM WHERE CODITEM = ?";
-
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(
 					sql);

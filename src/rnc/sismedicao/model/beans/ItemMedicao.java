@@ -5,6 +5,7 @@ public class ItemMedicao {
 	private int codItemMedicao;
 	private double valorMIN;
 	private double valorMAX;
+	private double valorAtual;
 	private String descricao;
 	private Item item;
 	private UnidadeDeMedicao unidadeDeMedicao;
@@ -37,6 +38,21 @@ public class ItemMedicao {
 		this.codItemMedicao = codItemMedicao;
 		this.valorMIN = valorMIN;
 		this.valorMAX = valorMAX;
+	}
+
+	public ItemMedicao(int codItemMedicao, double valorAtual, String descricao) {
+		super();
+		this.codItemMedicao = codItemMedicao;
+		this.valorAtual = valorAtual;
+		this.descricao = descricao;
+	}
+
+	public double getValorAtual() {
+		return valorAtual;
+	}
+
+	public void setValorAtual(double valorAtual) {
+		this.valorAtual = valorAtual;
 	}
 
 	public String getDescricao() {
