@@ -12,7 +12,7 @@ public class ItemMedicaoLeituraTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	private List<ItemMedicao> itens;
-	private String[] nomeColunas = { "CODIGO", "DESCRIÇÃO", "VALOR" };
+	private String[] nomeColunas = { "SIGLA", "DESCRIÇÃO", "VALOR" };
 
 	public ItemMedicaoLeituraTableModel() {
 		this.itens = new ArrayList<ItemMedicao>();
@@ -30,7 +30,7 @@ public class ItemMedicaoLeituraTableModel extends AbstractTableModel {
 	public String getColumnName(final int column) {
 		switch (column) {
 		case 0:
-			return "CODIGO";
+			return "SIGLA";
 		case 1:
 			return "DESCRIÇÃO";
 		case 2:
@@ -48,11 +48,11 @@ public class ItemMedicaoLeituraTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		ItemMedicao item = itens.get(rowIndex);
 		switch (columnIndex) {
-		case 1:
+		case 0:
 			return item.getUnidadeDeMedicao().getCodigo();
-		case 2:
+		case 1:
 			return item.getUnidadeDeMedicao().getDescricao();
-		case 3:
+		case 2:
 			return item.getValorAtual();
 		}
 		return null;
@@ -83,9 +83,7 @@ public class ItemMedicaoLeituraTableModel extends AbstractTableModel {
 		case 1:
 			 item.getUnidadeDeMedicao().getDescricao();break;
 		case 2:
-			 item.setValorMIN(Double.parseDouble((String) valor));break;
-		case 3:
-			item.setValorMAX(Double.parseDouble((String) valor));break;
+			 item.setValorAtual(Double.parseDouble((String) valor));break;
 		}
 		this.fireTableCellUpdated(row, row);
 	}

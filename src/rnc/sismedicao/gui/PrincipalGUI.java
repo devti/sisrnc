@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.JRException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
-import rnc.sismedicao.report.*;
+import rnc.sismedicao.report.RelListaDeItensMedicao;
 
 
 @SuppressWarnings("serial")
@@ -35,6 +35,7 @@ public class PrincipalGUI extends JFrame {
 
 	private JPanel contentPane;
 	private FormUnidadeDeMedicaoGUI formUnidadeDeMedicaoGUI;
+	private CadastroFalhaGUI cadastroFalhaGUI;
 	private CadastroEquipamentoGUI formEquipamentoGUI;
 	private CadastroPessoaGUI cadastroPessoaGUI;
 	private CadastroItemGUI cadastroItemGUI;
@@ -186,6 +187,18 @@ public class PrincipalGUI extends JFrame {
 		});
 		MT_UnidadeDeMedio.setDoubleBuffered(true);
 		MN_Cadastros.add(MT_UnidadeDeMedio);
+		
+		JMenuItem MT_Falhas = new JMenuItem("Falhas");
+		MT_Falhas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cadastroFalhaGUI = CadastroFalhaGUI.getInstance();
+				cadastroFalhaGUI.setVisible(true);				
+			}
+		});
+		MT_Falhas.setDoubleBuffered(true);
+		MN_Cadastros.add(MT_Falhas);
 		
 		JMenuItem MT_GrupoTecnico = new JMenuItem("Grupo T\u00E9cnico");
 		MN_Cadastros.add(MT_GrupoTecnico);

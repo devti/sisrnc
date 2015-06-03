@@ -1,32 +1,29 @@
 package rnc.sismedicao.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-
 import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.border.MatteBorder;
-
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 import rnc.sismedicao.controller.exception.DadosObrigatoriosException;
 import rnc.sismedicao.controller.exception.ItemJaCadastradoException;
@@ -34,14 +31,10 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.InterfaceFormGUI;
 import rnc.sismedicao.gui.util.ItemMedicaoTableModel;
-import rnc.sismedicao.gui.util.ItemTableModel;
 import rnc.sismedicao.gui.util.UnidadeTableModel;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
-import rnc.sismedicao.model.beans.Pessoa;
 import rnc.sismedicao.model.beans.UnidadeDeMedicao;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
 
 public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 
@@ -332,7 +325,6 @@ public class CadastroItemGUI extends JDialog implements InterfaceFormGUI {
 						}
 						table_1.setModel(new ItemMedicaoTableModel(listaItemMedicao));
 					} else {
-						//se tiver entrado e já tiver o codigo em baixo ele da o aviso .. la em cima onde tem 0,0, um tu ta passando a um e 0 no min e 0 no max ne?
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Item de Medição já existente", "Aviso",
 								JOptionPane.INFORMATION_MESSAGE);

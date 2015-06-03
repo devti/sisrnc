@@ -112,12 +112,19 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBounds(494, 290, 89, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(494, 290, 89, 23);
+		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
-		JButton btn_Avancar = new JButton("Avan\u00E7ar");
-		btn_Avancar.addActionListener(new ActionListener() {
+		JButton btnAvancar = new JButton("Avan\u00E7ar");
+		btnAvancar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -125,8 +132,8 @@ public class ListaPlanosOSGUI extends JFrame {
 		
 			}
 		});
-		btn_Avancar.setBounds(395, 290, 89, 23);
-		contentPane.add(btn_Avancar);
+		btnAvancar.setBounds(395, 290, 89, 23);
+		contentPane.add(btnAvancar);
 	}
 	
 	public void finalizarOS() {

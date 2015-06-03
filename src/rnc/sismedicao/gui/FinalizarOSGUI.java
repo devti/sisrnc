@@ -28,6 +28,8 @@ import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.beans.OrdemServico;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -46,7 +48,7 @@ public class FinalizarOSGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public FinalizarOSGUI(OrdemServico os) {
-		setTitle("Finaliza OS");
+		setTitle("Finalizar OS");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 562, 588);
 		contentPane = new JPanel();
@@ -117,6 +119,7 @@ public class FinalizarOSGUI extends JFrame {
 		table_IM.setModel(new ItemMedicaoLeituraTableModel());
 
 		JTextArea textArea = new JTextArea();
+		textArea.setBackground(Color.WHITE);
 		textArea.setBounds(20, 406, 516, 75);
 		contentPane.add(textArea);
 
@@ -137,6 +140,14 @@ public class FinalizarOSGUI extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(447, 515, 89, 23);
 		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(352, 515, 89, 23);
@@ -152,6 +163,7 @@ public class FinalizarOSGUI extends JFrame {
 			List<ItemMedicao> im = fachada.itemMedicaoProcurar(codigo);
 			i.setItemMedicao(im);
 			table_IM.setModel(new ItemMedicaoLeituraTableModel(i.getItemMedicao()));
+			table_IM.setRowSelectionInterval(0, 0);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
