@@ -41,7 +41,7 @@ public class ListaPlanosOSGUI extends JFrame {
 	private OrdemServicoTableModel ostm;
 	private JTextField tf_UsuarioLogado;
 	private static ListaPlanosOSGUI listaOSGUI;
-	
+
 	public static ListaPlanosOSGUI getInstance() {
 		if (listaOSGUI == null) {
 			return listaOSGUI = new ListaPlanosOSGUI();
@@ -60,94 +60,99 @@ public class ListaPlanosOSGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		// Captura do ESC para fechar Janela
-				JRootPane meurootpane = getRootPane();
-				meurootpane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-						KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESCAPE");
-				meurootpane.getRootPane().getActionMap()
-						.put("ESCAPE", new AbstractAction("ESCAPE") {
-							/**
+		JRootPane meurootpane = getRootPane();
+		meurootpane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESCAPE");
+		meurootpane.getRootPane().getActionMap()
+				.put("ESCAPE", new AbstractAction("ESCAPE") {
+					/**
 							 * 
 							 */
-							private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = 1L;
 
-							public void actionPerformed(ActionEvent e) {
-								sair();
-							}
-						});
-				try {
-					fachada = Fachada.getInstance();
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
-							JOptionPane.ERROR_MESSAGE);
-				}
-		
+					public void actionPerformed(ActionEvent e) {
+						sair();
+					}
+				});
+		try {
+			fachada = Fachada.getInstance();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Leituras de Medi\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(null, "Leituras de Medi\u00E7\u00E3o",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 51, 573, 228);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 19, 553, 185);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
-		
+
 		listar();
-		
+
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(ListaPlanosOSGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
+		btnNewButton
+				.setIcon(new ImageIcon(
+						ListaPlanosOSGUI.class
+								.getResource("/rnc/sismedicao/gui/icons/icons16x16/Refresh.png")));
 		btnNewButton.setBounds(20, 6, 30, 30);
 		contentPane.add(btnNewButton);
-		
+
 		tf_UsuarioLogado = new JTextField();
 		tf_UsuarioLogado.setEditable(false);
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
 		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
 		tf_UsuarioLogado.setColumns(10);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(494, 290, 89, 23);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		
+
 		JButton btnAvancar = new JButton("Avan\u00E7ar");
 		btnAvancar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				finalizarOS();
-		
+
 			}
 		});
 		btnAvancar.setBounds(395, 290, 89, 23);
 		contentPane.add(btnAvancar);
 	}
-	
+
 	public void finalizarOS() {
-		try{
+		try {
 			OrdemServico os = null;
 			fachada = Fachada.getInstance();
 			for (int i = 0; i < lista.size(); i++) {
-				if(lista.get(i).getCodigo() == (int)table.getModel().getValueAt(table.getSelectedRow(), 1)){
+				if (lista.get(i).getCodigo() == (int) table.getModel()
+						.getValueAt(table.getSelectedRow(), 1)) {
 					os = lista.get(i);
-				}				
+				}
 			}
 			new FinalizarOSGUI(os).setVisible(true);
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -156,8 +161,10 @@ public class ListaPlanosOSGUI extends JFrame {
 			fachada = Fachada.getInstance();
 			lista = fachada.listarOS();
 			for (OrdemServico os : lista) {
-				Equipamento e = fachada.equipamentoProcurar(os.getCodEquipamento());
-				GrupoTecnico gt = fachada.grupoTecnicoPesquisar(os.getIdGrupoTecnico());
+				Equipamento e = fachada.equipamentoProcurar(os
+						.getCodEquipamento());
+				GrupoTecnico gt = fachada.grupoTecnicoPesquisar(os
+						.getIdGrupoTecnico());
 				os.setEquipamento(e);
 				os.setGrupoTecnico(gt);
 			}
@@ -167,12 +174,12 @@ public class ListaPlanosOSGUI extends JFrame {
 			table.getColumnModel().getColumn(0).setPreferredWidth(60);
 			table.getColumnModel().getColumn(1).setPreferredWidth(60);
 			table.getColumnModel().getColumn(2).setPreferredWidth(60);
-			
+
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", 
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		} catch (IllegalArgumentException e) {
-			
+
 		} catch (RepositorioException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
@@ -182,11 +189,11 @@ public class ListaPlanosOSGUI extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	protected void sair() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
