@@ -16,4 +16,6 @@ public interface IRepositorioGrupoTecnicoUsuario {
 	
 	public ArrayList<Usuario> procurarGrupoTecnicoUsuarios(int codigoGrupoTecnico)
 			throws SQLException;
+	
+	public int[] consultarGrupoTecnico(int codigoUsuario) throws Exception;
 }

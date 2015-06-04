@@ -92,4 +92,29 @@ public class GrupoTecnicoUsuarioDAO implements IRepositorioGrupoTecnicoUsuario{
 			throw new RepositorioException(e);
 		}
 	}
+	/**
+	 * Metodo que retorna o arrau de interios com todos os codigo do grupo Tecnico que o Usuario pertense
+	 * @param codigoUsuario
+	 * @return
+	 * @throws Exception
+	 */
+	public int[] consultarGrupoTecnico(int codigoUsuario) throws Exception{
+		int[] codigoGrupoTecnicos = new int[100];
+		String sql = "SELECT codigoGrupoTecnico from GRupoTecnicoUsuarios where codigoUsuario = ? ";
+		try {
+			ResultSet rs = null;
+			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
+			ps.setInt(1, codigoUsuario);
+			rs = ps.executeQuery();
+			Conexao.getConnection().commit();
+			int cont = 0;
+			while (rs.next()){
+				codigoGrupoTecnicos[cont] = rs.getInt("codigoGrupoTecnico");
+				cont++;
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return codigoGrupoTecnicos;
+	}
 }

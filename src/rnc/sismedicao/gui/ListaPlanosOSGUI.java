@@ -99,7 +99,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
 
-		listar();
+		//listar();
 
 		JButton btnNewButton = new JButton("");
 		btnNewButton
@@ -114,6 +114,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
 		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
+		System.out.println(UsuarioDAO.getUsuarioLogado().getCodPessoa());
 		tf_UsuarioLogado.setColumns(10);
 
 		JButton btnCancelar = new JButton("Cancelar");

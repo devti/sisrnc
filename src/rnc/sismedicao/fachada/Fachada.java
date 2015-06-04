@@ -305,6 +305,9 @@ public class Fachada {
 		controladorGrupoTecnicoUsuario.remover(codigoUsuario);
 	}
 	
+	public int[] consultarGrupoTecnico(int codigoUsuario) throws Exception{
+		return controladorGrupoTecnicoUsuario.consultarGrupoTecnico(codigoUsuario);
+	}
 	
 	/**
 	 * METODOS PLANO DE MEDICAO

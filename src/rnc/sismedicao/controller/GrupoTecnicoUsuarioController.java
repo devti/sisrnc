@@ -55,4 +55,7 @@ public class GrupoTecnicoUsuarioController {
 		return repositorioGrupoTecnicoUsuario.procurarGrupoTecnicoUsuarios(codigoGrupoTecnico);
 	}
 	
+	public int[] consultarGrupoTecnico(int codigoUsuario) throws Exception{
+		return repositorioGrupoTecnicoUsuario.consultarGrupoTecnico(codigoUsuario);
+	}
 }
