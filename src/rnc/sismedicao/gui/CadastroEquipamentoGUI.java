@@ -45,6 +45,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private Fachada fachada;
 	private ArrayList<Item> lista;
 	private ArrayList<Item> listaItens = new ArrayList<Item>();
+	private ArrayList<Item> listaItensAtualizacao = new ArrayList<Item>();
 	private ItemTableModel itm;
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
@@ -240,9 +241,11 @@ public class CadastroEquipamentoGUI extends JDialog {
 						if (codigoEquipamento == 0) {
 							listaItens.add(item);
 						}else {
-							listaItens.add(item);
-							equipamento.setItens(listaItens);
+							listaItensAtualizacao.add(item);
+							equipamento.setItens(listaItensAtualizacao);
 							fachada.cadastraEquipamentoItem(equipamento);
+							listaItens.add(item);
+							listaItensAtualizacao.remove(item);
 						}
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
@@ -282,21 +285,17 @@ public class CadastroEquipamentoGUI extends JDialog {
 					for (int cont = 0; cont < listaItens.size(); cont++) {
 						item = listaItens.get(cont);
 					}
-					if (JOptionPane.showConfirmDialog(null,"Deseja realmente EXCLUIR este item de Medicao ?","Confirmação",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						if (codigoEquipamento==0){
+					if (JOptionPane.showConfirmDialog(null,
+							"Deseja realmente EXCLUIR este item de Medicao ?",
+							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						if (codigoEquipamento == 0) {
 							listaItens.remove(item);
-							//listarItem(listaItens);
-						}else{
-							if (JOptionPane.showConfirmDialog(null,
-									"Deseja realmente INCLUIR este item ?",
-									"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-								fachada.removerItemEquipamento(item
-										.getCodItem());
-								listaItens.remove(item);
-							}else{}
+						} else {
+							fachada.removerItemEquipamento(item.getCodItem());
+							listaItens.remove(item);
 						}
 					} else {
-						
+
 					}
 					listarItem(listaItens);
 				} catch (Exception e1) {
@@ -363,19 +362,18 @@ public class CadastroEquipamentoGUI extends JDialog {
 					|| TF_Serie.getText().isEmpty())
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			equipamento = new Equipamento(TF_Serie.getText(),
+			Equipamento equipamento = new Equipamento(codigoEquipamento ,TF_Serie.getText(),
 					TF_Descricao.getText(), TF_OBS.getText());
 			if (codigoEquipamento == 0) {
 				equipamento.setItens(listaItens);
 				fachada.cadastrar(equipamento);
+				JOptionPane.showMessageDialog(null,
+						"Equipamento cadastrado com sucesso!");
 
 			} else {
 				fachada.atualizarEquipamento(equipamento);
 				JOptionPane.showMessageDialog(null, "Equipamento atualizado!");
 			}
-
-			JOptionPane.showMessageDialog(null,
-					"Equipamento cadastrado com sucesso!");
 
 			limparTela();
 		} catch (EquipamentoJaCadastradoException e) {
