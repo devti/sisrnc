@@ -59,22 +59,30 @@ public class OrdemServicoDAO implements IRepositorioOrdemServico {
 	}
 
 	@Override
-	public ArrayList<OrdemServico> listarOS() throws SQLException,
+	public ArrayList<OrdemServico> listarOS(int[] codigosGruposTecnicos) throws SQLException,
 			RepositorioException {
+		int[] codigoGTs = codigosGruposTecnicos;
 		ArrayList<OrdemServico> ordens = new ArrayList<OrdemServico>();
 		ResultSet rs = null;
-		String sql1 = "";
-		String sql = "SELECT * FROM ORDEMSERVICO AS o WHERE CONVERT (date, o.[DATA]) = CONVERT (date, GETDATE())";
+		String sql = "SELECT * FROM ORDEMSERVICO AS o WHERE CONVERT (date, o.[DATA]) = CONVERT (date, GETDATE()) and codigoGrupoTecnico = ?";
 		try {
 			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				
-				OrdemServico ordem = new OrdemServico(rs.getInt("CODIGO"), rs.getInt("CODIGOGRUPOTECNICO"), rs.getInt("CODIGOEQUIPAMENTO"),
-						rs.getString("DATA"), rs.getString("HORA"));
-				ordem.setCodigo(rs.getInt("CODIGO"));
-				ordens.add(ordem);
-				 
+			for (int i = 0; i < codigoGTs.length; i++) {
+				if (codigoGTs[i] != 0) {
+					stmt.setInt(1, codigosGruposTecnicos[i]);
+					rs = stmt.executeQuery();
+					while (rs.next()) {
+
+						OrdemServico ordem = new OrdemServico(
+								rs.getInt("CODIGO"),
+								rs.getInt("CODIGOGRUPOTECNICO"),
+								rs.getInt("CODIGOEQUIPAMENTO"),
+								rs.getString("DATA"), rs.getString("HORA"));
+						ordem.setCodigo(rs.getInt("CODIGO"));
+						ordens.add(ordem);
+
+					}
+				}
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());

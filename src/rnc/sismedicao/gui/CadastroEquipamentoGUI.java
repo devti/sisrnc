@@ -32,6 +32,7 @@ import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.util.LimparCampos;
+import java.awt.Toolkit;
 
 public class CadastroEquipamentoGUI extends JDialog {
 
@@ -57,6 +58,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	 * Create the frame.
 	 */
 	public CadastroEquipamentoGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroEquipamentoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Ideias.png")));
 		setTitle("Cadastro de Equipamento");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 512, 646);
@@ -235,14 +237,19 @@ public class CadastroEquipamentoGUI extends JDialog {
 							entrou = true;
 					}
 					if (!entrou) {
-						listaItens.add(item);
-						table_1.setModel(new ItemTableModel(listaItens));
+						if (codigoEquipamento == 0) {
+							listaItens.add(item);
+						}else {
+							listaItens.add(item);
+							equipamento.setItens(listaItens);
+							fachada.cadastraEquipamentoItem(equipamento);
+						}
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Item ja existente", "Aviso",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
-
+					table_1.setModel(new ItemTableModel(listaItens));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -275,25 +282,25 @@ public class CadastroEquipamentoGUI extends JDialog {
 					for (int cont = 0; cont < listaItens.size(); cont++) {
 						item = listaItens.get(cont);
 					}
-					if (codigoEquipamento == 0
-							&& JOptionPane
-									.showConfirmDialog(
-											null,
-											"Deseja realmente EXCLUIR este item de Medicao ?",
-											"Confirmação",
-											JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						listaItens.remove(item);
-						listarItem(listaItens);
-
+					if (JOptionPane.showConfirmDialog(null,"Deseja realmente EXCLUIR este item de Medicao ?","Confirmação",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						if (codigoEquipamento==0){
+							listaItens.remove(item);
+							//listarItem(listaItens);
+						}else{
+							if (JOptionPane.showConfirmDialog(null,
+									"Deseja realmente INCLUIR este item ?",
+									"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+								fachada.removerItemEquipamento(item
+										.getCodItem());
+								listaItens.remove(item);
+							}else{}
+						}
 					} else {
-						fachada.removerItemEquipamento(item.getCodItem());
-						listaItens.remove(item);
-						listarItem(listaItens);
-
+						
 					}
-
+					listarItem(listaItens);
 				} catch (Exception e1) {
-
+					e1.printStackTrace();
 				}
 
 			}
@@ -338,12 +345,12 @@ public class CadastroEquipamentoGUI extends JDialog {
 		tela = new ProcuraEquipamentoGUI();
 		tela.setVisible(true);
 		if (tela.getFocusableWindowState() && tela.pegarEquipamento() != null) {
-			Equipamento e = tela.pegarEquipamento();
-			TF_Descricao.setText(e.getDescricao());
-			TF_OBS.setText(e.getObs());
-			TF_Serie.setText(e.getRegistro());
-			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
-			codigoEquipamento = e.getCodEquipamento();
+			equipamento= tela.pegarEquipamento();
+			TF_Descricao.setText(equipamento.getDescricao());
+			TF_OBS.setText(equipamento.getObs());
+			TF_Serie.setText(equipamento.getRegistro());
+			TF_CodEquipamento.setText(Integer.toString(equipamento.getCodEquipamento()));
+			codigoEquipamento = equipamento.getCodEquipamento();
 			listaItens = tela.pegarItens();
 			listarItem(listaItens);
 			btnRemover.setEnabled(true);
@@ -413,6 +420,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 	}
 
+	/**
+	 * lista o itens a serem associado ao equipamento
+	 */
 	private void listar() {
 		try {
 			fachada = Fachada.getInstance();
@@ -439,12 +449,17 @@ public class CadastroEquipamentoGUI extends JDialog {
 		}
 	}
 
+	/**
+	 * limpa o campos de toda a tela
+	 */
 	public void limparTela() {
 		TF_Descricao.setText(null);
 		TF_OBS.setText(null);
 		TF_Serie.setText(null);
 		listaItens.clear();
 		listarItem(listaItens);
+		codigoEquipamento = 0;
+		TF_CodEquipamento.setText(null);
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {

@@ -342,9 +342,9 @@ public class Fachada {
 		controladorOrdemServico.removerOrdemServico(codigoPlanoDeMedicao);
 	}
 
-	public ArrayList<OrdemServico> listarOS() throws SQLException,
-			RepositorioException {
-		return this.controladorOrdemServico.listarOS();
+	public ArrayList<OrdemServico> listarOS(int[] codigosGruposTecnicos) throws SQLException,
+	RepositorioException {
+		return this.controladorOrdemServico.listarOS(codigosGruposTecnicos);
 	}
 
 	/**
