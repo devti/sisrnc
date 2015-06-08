@@ -58,7 +58,7 @@ public class PrincipalGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PrincipalGUI() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Ideias.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 
 		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

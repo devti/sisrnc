@@ -59,7 +59,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	 * Create the frame.
 	 */
 	public CadastroEquipamentoGUI() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroEquipamentoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Ideias.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroEquipamentoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("Cadastro de Equipamento");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 512, 646);

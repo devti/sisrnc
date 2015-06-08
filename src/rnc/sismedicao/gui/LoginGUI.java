@@ -55,7 +55,7 @@ public class LoginGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginGUI() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Ideias.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("SisRNC - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 276, 390);
