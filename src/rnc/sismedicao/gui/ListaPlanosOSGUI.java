@@ -41,6 +41,7 @@ public class ListaPlanosOSGUI extends JFrame {
 	private OrdemServicoTableModel ostm;
 	private JTextField tf_UsuarioLogado;
 	private static ListaPlanosOSGUI listaOSGUI;
+	private int[] codigoGrupoTecnicos = new int[100];
 
 	public static ListaPlanosOSGUI getInstance() {
 		if (listaOSGUI == null) {
@@ -98,8 +99,8 @@ public class ListaPlanosOSGUI extends JFrame {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(table);
-
-		//listar();
+		
+		listar();
 
 		JButton btnNewButton = new JButton("");
 		btnNewButton
@@ -114,7 +115,7 @@ public class ListaPlanosOSGUI extends JFrame {
 		tf_UsuarioLogado.setBounds(451, 6, 132, 20);
 		contentPane.add(tf_UsuarioLogado);
 		tf_UsuarioLogado.setText(UsuarioDAO.getUsuarioLogado().getLogin());
-		System.out.println(UsuarioDAO.getUsuarioLogado().getCodPessoa());
+		//System.out.println(UsuarioDAO.getUsuarioLogado().getCodPessoa());
 		tf_UsuarioLogado.setColumns(10);
 
 		JButton btnCancelar = new JButton("Cancelar");
@@ -160,7 +161,9 @@ public class ListaPlanosOSGUI extends JFrame {
 	private void listar() {
 		try {
 			fachada = Fachada.getInstance();
-			lista = fachada.listarOS();
+			codigoGrupoTecnicos= fachada.consultarGrupoTecnico(UsuarioDAO.getUsuarioLogado().getCodPessoa());
+			lista = fachada.listarOS(codigoGrupoTecnicos);
+
 			for (OrdemServico os : lista) {
 				Equipamento e = fachada.equipamentoProcurar(os
 						.getCodEquipamento());
@@ -169,6 +172,9 @@ public class ListaPlanosOSGUI extends JFrame {
 				os.setEquipamento(e);
 				os.setGrupoTecnico(gt);
 			}
+			
+			
+			
 			ostm = new OrdemServicoTableModel(lista);
 			table.setModel(ostm);
 			table.setVisible(true);

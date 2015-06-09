@@ -6,19 +6,21 @@ public class Falha {
 	private String responsavel;
 	private String problema;
 	private String solucao;
+	private String categoriaFalha;
 	private String impactoFalha;
 	private String horaFalha;
 	private String dataFalha;
 	private String duracaoFalha;
 		
 	public Falha(String responsavel, String problema, String solucao,
-			String impactoFalha, String horaFalha, String dataFalha) {
+			String impactoFalha, String horaFalha, String dataFalha, String categoriaFalha) {
 		this.responsavel = responsavel;
 		this.problema = problema;
 		this.solucao = solucao;
 		this.impactoFalha = impactoFalha;
 		this.horaFalha = horaFalha;
 		this.dataFalha = dataFalha;
+		this.categoriaFalha = categoriaFalha;
 	}
 
 
@@ -89,6 +91,17 @@ public class Falha {
 
 	public void setDataFalha(String dataFalha) {
 		this.dataFalha = dataFalha;
+	}
+
+	
+
+	public String getCategoriaFalha() {
+		return categoriaFalha;
+	}
+
+
+	public void setCategoriaFalha(String categoriaFalha) {
+		this.categoriaFalha = categoriaFalha;
 	}
 
 
