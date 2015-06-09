@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.controller.exception.SenhaInvalidaException;
 import rnc.sismedicao.fachada.Fachada;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class LoginGUI extends JFrame {
@@ -54,6 +55,7 @@ public class LoginGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("SisRNC - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 276, 390);

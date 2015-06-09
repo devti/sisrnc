@@ -28,6 +28,7 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.gui.util.ConfiguracaoDeComponentesGUI;
 import rnc.sismedicao.gui.util.DesktopBackgroundGUI;
 import rnc.sismedicao.report.RelListaDeItensMedicao;
+import java.awt.Toolkit;
 
 
 @SuppressWarnings("serial")
@@ -57,6 +58,7 @@ public class PrincipalGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PrincipalGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 
 		getContentPane().setLayout(new GridLayout());
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

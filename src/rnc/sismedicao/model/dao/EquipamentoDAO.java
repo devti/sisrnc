@@ -192,6 +192,26 @@ public class EquipamentoDAO implements IRepositorioEquipamento {
 
 	@Override
 	public void atualizarEquipamento(Equipamento equipamento) {
+		String queryUpdate = "UPDATE EQUIPAMENTO SET REGISTRO = ?,"
+				+ "DESCRICAO = ?," + "OBSERVACOES =? WHERE CODEQUIPAMENTO = ?";
+		try {
+			int i = 0;
+			ResultSet resultSet = null;
+			PreparedStatement preparedStatement = Conexao.getConnection()
+					.prepareStatement(queryUpdate,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(++i, equipamento.getRegistro());
+			preparedStatement.setString(++i, equipamento.getDescricao());
+			preparedStatement.setString(++i, equipamento.getObs());
+			preparedStatement.setInt(++i, equipamento.getCodEquipamento());
+			preparedStatement.execute();
+			Conexao.getConnection().commit();
+			resultSet = preparedStatement.getGeneratedKeys();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 
 	}
 

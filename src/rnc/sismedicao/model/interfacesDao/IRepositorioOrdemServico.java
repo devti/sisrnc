@@ -11,5 +11,6 @@ public interface IRepositorioOrdemServico {
 
 	public void removerOrdemServico(int codigoPlanoDeMedicao) throws Exception;
 
-	public ArrayList<OrdemServico> listarOS() throws SQLException, RepositorioException;
+	public ArrayList<OrdemServico> listarOS(int[] codigosGruposTecnicos) throws SQLException,
+	RepositorioException;
 }

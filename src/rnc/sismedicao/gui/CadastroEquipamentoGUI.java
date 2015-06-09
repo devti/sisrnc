@@ -32,6 +32,7 @@ import rnc.sismedicao.model.beans.Equipamento;
 import rnc.sismedicao.model.beans.Item;
 import rnc.sismedicao.model.beans.ItemMedicao;
 import rnc.sismedicao.model.util.LimparCampos;
+import java.awt.Toolkit;
 
 public class CadastroEquipamentoGUI extends JDialog {
 
@@ -44,6 +45,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	private Fachada fachada;
 	private ArrayList<Item> lista;
 	private ArrayList<Item> listaItens = new ArrayList<Item>();
+	private ArrayList<Item> listaItensAtualizacao = new ArrayList<Item>();
 	private ItemTableModel itm;
 	private ProcuraEquipamentoGUI tela;
 	private Equipamento equipamento;
@@ -57,6 +59,7 @@ public class CadastroEquipamentoGUI extends JDialog {
 	 * Create the frame.
 	 */
 	public CadastroEquipamentoGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroEquipamentoGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("Cadastro de Equipamento");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 512, 646);
@@ -235,14 +238,21 @@ public class CadastroEquipamentoGUI extends JDialog {
 							entrou = true;
 					}
 					if (!entrou) {
-						listaItens.add(item);
-						table_1.setModel(new ItemTableModel(listaItens));
+						if (codigoEquipamento == 0) {
+							listaItens.add(item);
+						}else {
+							listaItensAtualizacao.add(item);
+							equipamento.setItens(listaItensAtualizacao);
+							fachada.cadastraEquipamentoItem(equipamento);
+							listaItens.add(item);
+							listaItensAtualizacao.remove(item);
+						}
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Item ja existente", "Aviso",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
-
+					table_1.setModel(new ItemTableModel(listaItens));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -275,25 +285,21 @@ public class CadastroEquipamentoGUI extends JDialog {
 					for (int cont = 0; cont < listaItens.size(); cont++) {
 						item = listaItens.get(cont);
 					}
-					if (codigoEquipamento == 0
-							&& JOptionPane
-									.showConfirmDialog(
-											null,
-											"Deseja realmente EXCLUIR este item de Medicao ?",
-											"Confirmação",
-											JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						listaItens.remove(item);
-						listarItem(listaItens);
-
+					if (JOptionPane.showConfirmDialog(null,
+							"Deseja realmente EXCLUIR este item de Medicao ?",
+							"Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						if (codigoEquipamento == 0) {
+							listaItens.remove(item);
+						} else {
+							fachada.removerItemEquipamento(item.getCodItem());
+							listaItens.remove(item);
+						}
 					} else {
-						fachada.removerItemEquipamento(item.getCodItem());
-						listaItens.remove(item);
-						listarItem(listaItens);
 
 					}
-
+					listarItem(listaItens);
 				} catch (Exception e1) {
-
+					e1.printStackTrace();
 				}
 
 			}
@@ -338,12 +344,12 @@ public class CadastroEquipamentoGUI extends JDialog {
 		tela = new ProcuraEquipamentoGUI();
 		tela.setVisible(true);
 		if (tela.getFocusableWindowState() && tela.pegarEquipamento() != null) {
-			Equipamento e = tela.pegarEquipamento();
-			TF_Descricao.setText(e.getDescricao());
-			TF_OBS.setText(e.getObs());
-			TF_Serie.setText(e.getRegistro());
-			TF_CodEquipamento.setText(Integer.toString(e.getCodEquipamento()));
-			codigoEquipamento = e.getCodEquipamento();
+			equipamento= tela.pegarEquipamento();
+			TF_Descricao.setText(equipamento.getDescricao());
+			TF_OBS.setText(equipamento.getObs());
+			TF_Serie.setText(equipamento.getRegistro());
+			TF_CodEquipamento.setText(Integer.toString(equipamento.getCodEquipamento()));
+			codigoEquipamento = equipamento.getCodEquipamento();
 			listaItens = tela.pegarItens();
 			listarItem(listaItens);
 			btnRemover.setEnabled(true);
@@ -356,19 +362,18 @@ public class CadastroEquipamentoGUI extends JDialog {
 					|| TF_Serie.getText().isEmpty())
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			equipamento = new Equipamento(TF_Serie.getText(),
+			Equipamento equipamento = new Equipamento(codigoEquipamento ,TF_Serie.getText(),
 					TF_Descricao.getText(), TF_OBS.getText());
 			if (codigoEquipamento == 0) {
 				equipamento.setItens(listaItens);
 				fachada.cadastrar(equipamento);
+				JOptionPane.showMessageDialog(null,
+						"Equipamento cadastrado com sucesso!");
 
 			} else {
 				fachada.atualizarEquipamento(equipamento);
 				JOptionPane.showMessageDialog(null, "Equipamento atualizado!");
 			}
-
-			JOptionPane.showMessageDialog(null,
-					"Equipamento cadastrado com sucesso!");
 
 			limparTela();
 		} catch (EquipamentoJaCadastradoException e) {
@@ -413,6 +418,9 @@ public class CadastroEquipamentoGUI extends JDialog {
 
 	}
 
+	/**
+	 * lista o itens a serem associado ao equipamento
+	 */
 	private void listar() {
 		try {
 			fachada = Fachada.getInstance();
@@ -439,12 +447,17 @@ public class CadastroEquipamentoGUI extends JDialog {
 		}
 	}
 
+	/**
+	 * limpa o campos de toda a tela
+	 */
 	public void limparTela() {
 		TF_Descricao.setText(null);
 		TF_OBS.setText(null);
 		TF_Serie.setText(null);
 		listaItens.clear();
 		listarItem(listaItens);
+		codigoEquipamento = 0;
+		TF_CodEquipamento.setText(null);
 	}
 
 	public static CadastroEquipamentoGUI getInstance() {
