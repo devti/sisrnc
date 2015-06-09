@@ -25,6 +25,7 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.Falha;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Data;
+import java.awt.Color;
 
 public class CadastroFalhaGUI extends JDialog {
 
@@ -77,7 +78,7 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(lblImpactoDaFalha);
 		
 		JLabel lblQuemResolveuA = new JLabel("Categoria da Falha:");
-		lblQuemResolveuA.setBounds(254, 53, 121, 14);
+		lblQuemResolveuA.setBounds(241, 53, 121, 14);
 		contentPanel.add(lblQuemResolveuA);
 		
 		JLabel lblNewLabel_1 = new JLabel("Data:");
@@ -85,7 +86,7 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(lblNewLabel_1);
 		
 		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setBounds(158, 53, 46, 14);
+		lblHora.setBounds(144, 53, 46, 14);
 		contentPanel.add(lblHora);
 		
 		tfData = new JFormattedTextField((setMascara("##/##/####")));
@@ -95,7 +96,7 @@ public class CadastroFalhaGUI extends JDialog {
 		
 		tfHora = new JFormattedTextField((setMascara("##:##")));
 		tfHora.setColumns(5);
-		tfHora.setBounds(158, 69, 86, 20);
+		tfHora.setBounds(144, 69, 86, 20);
 		contentPanel.add(tfHora);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -165,7 +166,7 @@ public class CadastroFalhaGUI extends JDialog {
 		
 		cbCategoria = new JComboBox();
 		cbCategoria.setModel(new DefaultComboBoxModel(new String[] {"PROBLEMAS TECNICOS", "PROBLEMAS OPERACIONAIS", "PROBLEMAS DA OPEC", "PROBLEMAS DA COORDENA\u00C7\u00C3O RECIFE", "PROBLEMAS DO JORNALISMO"}));
-		cbCategoria.setBounds(254, 69, 199, 20);
+		cbCategoria.setBounds(240, 69, 213, 20);
 		contentPanel.add(cbCategoria);
 		
 		JLabel lblQuemResolveuA_1 = new JLabel("Quem resolveu a falha:");
@@ -189,19 +190,22 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(btnPesquisarUsuario);
 		
 		tP_falha = new JTextPane();
+		tP_falha.setBackground(Color.WHITE);
 		tP_falha.setBounds(10, 117, 443, 59);
 		contentPanel.add(tP_falha);
 		
 		tP_solucao = new JTextPane();
+		tP_solucao.setBackground(Color.WHITE);
 		tP_solucao.setBounds(10, 201, 443, 59);
 		contentPanel.add(tP_solucao);
 		
 		tP_impacto = new JTextPane();
+		tP_impacto.setBackground(Color.WHITE);
 		tP_impacto.setBounds(10, 287, 443, 59);
 		contentPanel.add(tP_impacto);
 		
 		JLabel lblTempoDeFalha = new JLabel("Tempo de falha no Ar:");
-		lblTempoDeFalha.setBounds(10, 405, 121, 14);
+		lblTempoDeFalha.setBounds(10, 405, 140, 14);
 		contentPanel.add(lblTempoDeFalha);
 		
 		tfTempoAr = new JFormattedTextField((setMascara("##:##")));
