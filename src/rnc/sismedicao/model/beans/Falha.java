@@ -13,7 +13,7 @@ public class Falha {
 	private String duracaoFalha;
 		
 	public Falha(String responsavel, String problema, String solucao,
-			String impactoFalha, String horaFalha, String dataFalha, String categoriaFalha) {
+			String impactoFalha, String horaFalha, String dataFalha, String categoriaFalha, String duracaoFalha) {
 		this.responsavel = responsavel;
 		this.problema = problema;
 		this.solucao = solucao;
@@ -21,6 +21,7 @@ public class Falha {
 		this.horaFalha = horaFalha;
 		this.dataFalha = dataFalha;
 		this.categoriaFalha = categoriaFalha;
+		this.duracaoFalha = duracaoFalha;
 	}
 
 

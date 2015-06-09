@@ -1,9 +1,9 @@
 package rnc.sismedicao.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -24,9 +25,6 @@ import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.Falha;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Data;
-
-import java.awt.Toolkit;
-import javax.swing.JTextPane;
 
 public class CadastroFalhaGUI extends JDialog {
 
@@ -39,6 +37,7 @@ public class CadastroFalhaGUI extends JDialog {
 	private static CadastroFalhaGUI cadastroFalhaGUI = null;
 	private JTextField textField;
 	private JTextField tfResponsavel;
+	private JTextField tfTempoAr;
 	private JComboBox cbCategoria;
 	private ProcuraUsuarioGUI tpu;
 	private JTextPane tP_falha;
@@ -59,7 +58,7 @@ public class CadastroFalhaGUI extends JDialog {
 	public CadastroFalhaGUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("Cadastro de Falhas");
-		setBounds(100, 100, 483, 496);
+		setBounds(100, 100, 483, 527);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -100,7 +99,7 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(tfHora);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(265, 426, 89, 23);
+		btnSalvar.setBounds(269, 455, 89, 23);
 		contentPanel.add(btnSalvar);
 		btnSalvar.addActionListener(new ActionListener() {
 			
@@ -112,7 +111,7 @@ public class CadastroFalhaGUI extends JDialog {
 		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(364, 426, 89, 23);
+		btnCancelar.setBounds(368, 455, 89, 23);
 		contentPanel.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 			
@@ -123,36 +122,36 @@ public class CadastroFalhaGUI extends JDialog {
 			}
 		});
 		
-		JButton button = new JButton("");
-		button.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
-		button.setBounds(10, 11, 30, 30);
-		contentPanel.add(button);
+		JButton btnPrimeiro = new JButton("");
+		btnPrimeiro.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
+		btnPrimeiro.setBounds(10, 11, 30, 30);
+		contentPanel.add(btnPrimeiro);
 		
-		JButton button_1 = new JButton("");
-		button_1.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
-		button_1.setBounds(43, 12, 30, 30);
-		contentPanel.add(button_1);
+		JButton btnAnterior = new JButton("");
+		btnAnterior.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Back.png")));
+		btnAnterior.setBounds(43, 12, 30, 30);
+		contentPanel.add(btnAnterior);
 		
-		JButton button_2 = new JButton("");
-		button_2.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
-		button_2.setBounds(75, 11, 30, 30);
-		contentPanel.add(button_2);
+		JButton btnProximo = new JButton("");
+		btnProximo.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Forward.png")));
+		btnProximo.setBounds(75, 11, 30, 30);
+		contentPanel.add(btnProximo);
 		
-		JButton button_3 = new JButton("");
-		button_3.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
-		button_3.setBounds(107, 11, 30, 30);
-		contentPanel.add(button_3);
+		JButton btnUltimo = new JButton("");
+		btnUltimo.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Last.png")));
+		btnUltimo.setBounds(107, 11, 30, 30);
+		contentPanel.add(btnUltimo);
 		
-		JButton button_4 = new JButton("");
-		button_4.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
-		button_4.setBounds(140, 11, 30, 30);
-		contentPanel.add(button_4);
+		JButton btnPesquisar = new JButton("");
+		btnPesquisar.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
+		btnPesquisar.setBounds(140, 11, 30, 30);
+		contentPanel.add(btnPesquisar);
 		
-		JButton button_5 = new JButton("");
-		button_5.setEnabled(false);
-		button_5.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
-		button_5.setBounds(173, 12, 30, 30);
-		contentPanel.add(button_5);
+		JButton btnRemover = new JButton("");
+		btnRemover.setEnabled(false);
+		btnRemover.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Delete.png")));
+		btnRemover.setBounds(173, 12, 30, 30);
+		contentPanel.add(btnRemover);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setBounds(314, 11, 46, 14);
@@ -201,6 +200,15 @@ public class CadastroFalhaGUI extends JDialog {
 		tP_impacto.setBounds(10, 287, 443, 59);
 		contentPanel.add(tP_impacto);
 		
+		JLabel lblTempoDeFalha = new JLabel("Tempo de falha no Ar:");
+		lblTempoDeFalha.setBounds(10, 405, 121, 14);
+		contentPanel.add(lblTempoDeFalha);
+		
+		tfTempoAr = new JFormattedTextField((setMascara("##:##")));
+		tfTempoAr.setColumns(5);
+		tfTempoAr.setBounds(10, 423, 86, 20);
+		contentPanel.add(tfTempoAr);
+		
 
 	}
 
@@ -234,7 +242,7 @@ public class CadastroFalhaGUI extends JDialog {
 			falha = new Falha(tfResponsavel.getText(), tP_falha.getText(),
 					tP_solucao.getText(), tP_impacto.getText(), tfHora.getText(),
 					tfData.getText(),
-					cbCategoria.getSelectedItem().toString());
+					cbCategoria.getSelectedItem().toString(), tfTempoAr.getText());
 			System.out.println(Data.converteTextFieldFORDataTime(tfData.getText()));
 			if (codFalha == 0) {
 				fachada.cadastrar(falha);

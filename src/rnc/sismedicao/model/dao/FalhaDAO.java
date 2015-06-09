@@ -1,6 +1,5 @@
 package rnc.sismedicao.model.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +23,7 @@ public class FalhaDAO implements IRepositorioFalha {
 		int id = 0;
 		try {
 			String sql = "INSERT INTO FALHAS (data,DATACRIACAO, HORA, CATEGORIA, IMPACTO, PROBLEMA,"
-					+ "RESPONSAVEL, SOLUCAO) VALUES (?,GETDATE(), ?, ?, ?, ?, ?, ?)";
+					+ "RESPONSAVEL, SOLUCAO, DURACAO) VALUES (?,GETDATE(), ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
 			ps.setString(1, Data.converteTextFieldFORDataTime(falha.getDataFalha())+" "+falha.getHoraFalha());
 			ps.setString(2, falha.getHoraFalha());
@@ -33,6 +32,7 @@ public class FalhaDAO implements IRepositorioFalha {
 			ps.setString(5, falha.getProblema());
 			ps.setString(6, falha.getResponsavel());
 			ps.setString(7, falha.getSolucao());
+			ps.setString(8, falha.getDuracaoFalha());
 			ps.execute();
 			falha.setId(id);
 			Conexao.getConnection().commit();
@@ -98,7 +98,7 @@ public class FalhaDAO implements IRepositorioFalha {
 			while (rs.next()) {
 				Falha falha = new Falha(rs.getString("RESPONSAVEL"), rs.getString("PROBLEMA"), rs.getString("SOLUCAO")
 						, rs.getString("IMPACTOFALHA"), rs.getString("HORAFALHA"),
-						rs.getString("DATAFALHA"), rs.getString("CATEGORIA"));
+						rs.getString("DATAFALHA"), rs.getString("CATEGORIA"), rs.getString("DURACAO"));
 				falha.setId(rs.getInt("ID"));
 				falhas.add(falha);
 			}
