@@ -556,9 +556,9 @@ public class PlanoDeMedicaoGUI extends JFrame {
 			tF_Equipamento.setText(planoDeMedicao.getEquipamento().getDescricao());
 			tF_GrupoTecnico.setText(planoDeMedicao.getGrupoTecnico().getLocalizacao());
 			tF_codigoPlanoDeMedicao.setText(Integer.toString(planoDeMedicao.getCodigo()));
-			fTF_DataInicio.setText(Data.converteDataStringTextField(planoDeMedicao.getDataInicial()));
+			fTF_DataInicio.setText(Data.converteDatatimeFORTextField(planoDeMedicao.getDataInicial()));
 			fTF_DataInicio.setEditable(false);
-			fTF_DataFim.setText(Data.converteDataStringTextField(planoDeMedicao.getDataFinal()));
+			fTF_DataFim.setText(Data.converteDatatimeFORTextField(planoDeMedicao.getDataFinal()));
 			fTF_DataFim.setEditable(false);
 			fTF_Hora.setText(planoDeMedicao.getHorario());
 			fTF_Hora.setEditable(false);

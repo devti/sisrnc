@@ -101,7 +101,7 @@ public class Data {
 	/**
 	 * converter String para Text Field
 	 */
-	public static String converteDataStringTextField(String data) {
+	public static String converteDatatimeFORTextField(String data) {
 		String dt, dd, mm, aaaa = null;
 		dd = data.substring(8, 10);
 		mm = data.substring(5, 7);
@@ -109,6 +109,13 @@ public class Data {
 		dt = dd + "/" + mm + "/" + aaaa;
 		return dt;
 	}
-
+	public static String converteTextFieldFORDataTime(String data) {
+		String dt, dd, mm, aaaa = null;
+		dd = data.substring(0, 2);
+		mm = data.substring(3, 5);
+		aaaa = data.substring(6, 10);
+		dt = aaaa + "-" + mm + "-" + dd;
+		return dt;
+	}
 
 }

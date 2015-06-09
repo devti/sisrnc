@@ -23,6 +23,9 @@ import rnc.sismedicao.controller.exception.FalhaJaCadastradaException;
 import rnc.sismedicao.fachada.Fachada;
 import rnc.sismedicao.model.beans.Falha;
 import rnc.sismedicao.model.beans.Usuario;
+import rnc.sismedicao.model.util.Data;
+
+import java.awt.Toolkit;
 
 public class CadastroFalhaGUI extends JDialog {
 
@@ -53,8 +56,9 @@ public class CadastroFalhaGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public CadastroFalhaGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("Cadastro de Falhas");
-		setBounds(100, 100, 483, 385);
+		setBounds(100, 100, 483, 386);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -102,13 +106,21 @@ public class CadastroFalhaGUI extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cadastrarFalha();
-				
+				limparTela();
 			}
 		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(364, 313, 89, 23);
 		contentPanel.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limparTela();
+				dispose();
+			}
+		});
 		
 		tfFalha = new JTextField();
 		tfFalha.setBounds(10, 120, 365, 20);
@@ -157,11 +169,11 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(button_5);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
-		lblCdigo.setBounds(328, 11, 46, 14);
+		lblCdigo.setBounds(314, 11, 46, 14);
 		contentPanel.add(lblCdigo);
 		
 		textField = new JTextField();
-		textField.setEnabled(false);
+		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBounds(367, 8, 86, 20);
 		contentPanel.add(textField);
@@ -231,6 +243,7 @@ public class CadastroFalhaGUI extends JDialog {
 					tfSolucao.getText(), tfImpactoFalha.getText(), tfHora.getText(),
 					tfData.getText(),
 					cbCategoria.getSelectedItem().toString());
+			System.out.println(Data.converteTextFieldFORDataTime(tfData.getText()));
 			if (codFalha == 0) {
 				fachada.cadastrar(falha);
 			} else {
@@ -255,8 +268,14 @@ public class CadastroFalhaGUI extends JDialog {
 
 
 	private void limparTela() {
-		// TODO Auto-generated method stub
-		
+		codFalha = 0;
+		tfFalha.setText(null);
+		tfSolucao.setText(null);
+		tfImpactoFalha.setText(null);
+		textField.setText(null);
+		tfResponsavel.setText(null);
+		tfData.setText(null);
+		tfHora.setText(null);
 	}
 
 }

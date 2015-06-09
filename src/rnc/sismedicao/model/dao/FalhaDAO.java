@@ -11,6 +11,7 @@ import rnc.sismedicao.controller.exception.RepositorioException;
 import rnc.sismedicao.model.beans.Falha;
 import rnc.sismedicao.model.interfacesDao.IRepositorioFalha;
 import rnc.sismedicao.model.util.Conexao;
+import rnc.sismedicao.model.util.Data;
 
 public class FalhaDAO implements IRepositorioFalha {
 
@@ -22,10 +23,10 @@ public class FalhaDAO implements IRepositorioFalha {
 	public int cadastrar(Falha falha) throws RepositorioException, SQLException {
 		int id = 0;
 		try {
-			String sql = "INSERT INTO FALHAS (DATAS, HORA, CATEGORIA, IMPACTO, PROBLEMA,"
-					+ "RESPONSAVEL, SOLUCAO) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO FALHAS (data,DATACRIACAO, HORA, CATEGORIA, IMPACTO, PROBLEMA,"
+					+ "RESPONSAVEL, SOLUCAO) VALUES (?,GETDATE(), ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
-			ps.setString(1, falha.getDataFalha());
+			ps.setString(1, Data.converteTextFieldFORDataTime(falha.getDataFalha())+" "+falha.getHoraFalha());
 			ps.setString(2, falha.getHoraFalha());
 			ps.setString(3, falha.getCategoriaFalha());
 			ps.setString(4, falha.getImpactoFalha());
