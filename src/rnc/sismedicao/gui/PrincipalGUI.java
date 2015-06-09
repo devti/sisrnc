@@ -292,10 +292,10 @@ public class PrincipalGUI extends JFrame {
 		MN_Relatrios.setDoubleBuffered(true);
 		menuBar.add(MN_Relatrios);
 		
-		JMenu mnItens = new JMenu("Itens");
+		JMenu mnItens = new JMenu("Falhas");
 		MN_Relatrios.add(mnItens);
 		
-		JMenuItem mntmItems = new JMenuItem("Listagem Itens Medicao - Min x Max");
+		JMenuItem mntmItems = new JMenuItem("Ultimo Registro de Falha");
 		mnItens.add(mntmItems);
 		mntmItems.addActionListener(new ActionListener() {
 			

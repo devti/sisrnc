@@ -26,6 +26,7 @@ import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Data;
 
 import java.awt.Toolkit;
+import javax.swing.JTextPane;
 
 public class CadastroFalhaGUI extends JDialog {
 
@@ -36,13 +37,13 @@ public class CadastroFalhaGUI extends JDialog {
 	private Falha falha;
 	private int codFalha = 0;
 	private static CadastroFalhaGUI cadastroFalhaGUI = null;
-	private JTextField tfFalha;
-	private JTextField tfSolucao;
-	private JTextField tfImpactoFalha;
 	private JTextField textField;
 	private JTextField tfResponsavel;
 	private JComboBox cbCategoria;
 	private ProcuraUsuarioGUI tpu;
+	private JTextPane tP_falha;
+	private JTextPane tP_solucao;
+	private JTextPane tP_impacto;
 	
 	public static CadastroFalhaGUI getInstance() {
 		if (cadastroFalhaGUI == null) {
@@ -58,7 +59,7 @@ public class CadastroFalhaGUI extends JDialog {
 	public CadastroFalhaGUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/icone_Relogio.png")));
 		setTitle("Cadastro de Falhas");
-		setBounds(100, 100, 483, 386);
+		setBounds(100, 100, 483, 496);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -69,11 +70,11 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblSoluo = new JLabel("Solu\u00E7\u00E3o:");
-		lblSoluo.setBounds(10, 147, 99, 14);
+		lblSoluo.setBounds(10, 187, 99, 14);
 		contentPanel.add(lblSoluo);
 		
 		JLabel lblImpactoDaFalha = new JLabel("Impacto da Falha:");
-		lblImpactoDaFalha.setBounds(10, 194, 99, 14);
+		lblImpactoDaFalha.setBounds(10, 271, 99, 14);
 		contentPanel.add(lblImpactoDaFalha);
 		
 		JLabel lblQuemResolveuA = new JLabel("Categoria da Falha:");
@@ -94,12 +95,12 @@ public class CadastroFalhaGUI extends JDialog {
 		tfData.setColumns(10);
 		
 		tfHora = new JFormattedTextField((setMascara("##:##")));
-		tfHora.setColumns(10);
+		tfHora.setColumns(5);
 		tfHora.setBounds(158, 69, 86, 20);
 		contentPanel.add(tfHora);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(265, 313, 89, 23);
+		btnSalvar.setBounds(265, 426, 89, 23);
 		contentPanel.add(btnSalvar);
 		btnSalvar.addActionListener(new ActionListener() {
 			
@@ -111,7 +112,7 @@ public class CadastroFalhaGUI extends JDialog {
 		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(364, 313, 89, 23);
+		btnCancelar.setBounds(364, 426, 89, 23);
 		contentPanel.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 			
@@ -121,21 +122,6 @@ public class CadastroFalhaGUI extends JDialog {
 				dispose();
 			}
 		});
-		
-		tfFalha = new JTextField();
-		tfFalha.setBounds(10, 120, 365, 20);
-		contentPanel.add(tfFalha);
-		tfFalha.setColumns(10);
-		
-		tfSolucao = new JTextField();
-		tfSolucao.setColumns(10);
-		tfSolucao.setBounds(10, 166, 364, 20);
-		contentPanel.add(tfSolucao);
-		
-		tfImpactoFalha = new JTextField();
-		tfImpactoFalha.setColumns(10);
-		tfImpactoFalha.setBounds(10, 213, 364, 20);
-		contentPanel.add(tfImpactoFalha);
 		
 		JButton button = new JButton("");
 		button.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/First.png")));
@@ -184,13 +170,13 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(cbCategoria);
 		
 		JLabel lblQuemResolveuA_1 = new JLabel("Quem resolveu a falha:");
-		lblQuemResolveuA_1.setBounds(10, 244, 140, 14);
+		lblQuemResolveuA_1.setBounds(10, 357, 140, 14);
 		contentPanel.add(lblQuemResolveuA_1);
 		
 		tfResponsavel = new JTextField();
 		tfResponsavel.setEditable(false);
 		tfResponsavel.setColumns(10);
-		tfResponsavel.setBounds(11, 261, 320, 20);
+		tfResponsavel.setBounds(11, 374, 320, 20);
 		contentPanel.add(tfResponsavel);
 		
 		JButton btnPesquisarUsuario = new JButton("");
@@ -200,16 +186,22 @@ public class CadastroFalhaGUI extends JDialog {
 				pesquisarUsuario();
 			}
 		});
-		btnPesquisarUsuario.setBounds(345, 261, 30, 20);
+		btnPesquisarUsuario.setBounds(345, 374, 30, 20);
 		contentPanel.add(btnPesquisarUsuario);
-		btnCancelar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				
-			}
-		});
+		
+		tP_falha = new JTextPane();
+		tP_falha.setBounds(10, 117, 443, 59);
+		contentPanel.add(tP_falha);
+		
+		tP_solucao = new JTextPane();
+		tP_solucao.setBounds(10, 201, 443, 59);
+		contentPanel.add(tP_solucao);
+		
+		tP_impacto = new JTextPane();
+		tP_impacto.setBounds(10, 287, 443, 59);
+		contentPanel.add(tP_impacto);
+		
+
 	}
 
 	//METODO PARA FORMATAR O CAMPO HORA
@@ -239,8 +231,8 @@ public class CadastroFalhaGUI extends JDialog {
 			if (tfData.getText().isEmpty() || tfHora.getText().isEmpty())
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			falha = new Falha(tfResponsavel.getText(), tfFalha.getText(),
-					tfSolucao.getText(), tfImpactoFalha.getText(), tfHora.getText(),
+			falha = new Falha(tfResponsavel.getText(), tP_falha.getText(),
+					tP_solucao.getText(), tP_impacto.getText(), tfHora.getText(),
 					tfData.getText(),
 					cbCategoria.getSelectedItem().toString());
 			System.out.println(Data.converteTextFieldFORDataTime(tfData.getText()));
@@ -269,13 +261,12 @@ public class CadastroFalhaGUI extends JDialog {
 
 	private void limparTela() {
 		codFalha = 0;
-		tfFalha.setText(null);
-		tfSolucao.setText(null);
-		tfImpactoFalha.setText(null);
+		tP_falha.setText(null);
+		tP_impacto.setText(null);
+		tP_solucao.setText(null);
 		textField.setText(null);
 		tfResponsavel.setText(null);
 		tfData.setText(null);
 		tfHora.setText(null);
 	}
-
 }
