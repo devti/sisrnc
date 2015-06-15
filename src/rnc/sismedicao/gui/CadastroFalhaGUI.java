@@ -26,6 +26,9 @@ import rnc.sismedicao.model.beans.Falha;
 import rnc.sismedicao.model.beans.Usuario;
 import rnc.sismedicao.model.util.Data;
 import java.awt.Color;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class CadastroFalhaGUI extends JDialog {
 
@@ -40,10 +43,10 @@ public class CadastroFalhaGUI extends JDialog {
 	private JTextField tfResponsavel;
 	private JTextField tfTempoAr;
 	private JComboBox cbCategoria;
+	private JTextArea tP_solucao;
+	private JTextArea tP_impacto;
 	private ProcuraUsuarioGUI tpu;
-	private JTextPane tP_falha;
-	private JTextPane tP_solucao;
-	private JTextPane tP_impacto;
+	private JTextArea tp_falha;
 	
 	public static CadastroFalhaGUI getInstance() {
 		if (cadastroFalhaGUI == null) {
@@ -147,6 +150,14 @@ public class CadastroFalhaGUI extends JDialog {
 		btnPesquisar.setIcon(new ImageIcon(CadastroFalhaGUI.class.getResource("/rnc/sismedicao/gui/icons/icons16x16/Find.png")));
 		btnPesquisar.setBounds(140, 11, 30, 30);
 		contentPanel.add(btnPesquisar);
+		btnPesquisar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				procurar();
+				
+			}
+		});
 		
 		JButton btnRemover = new JButton("");
 		btnRemover.setEnabled(false);
@@ -165,7 +176,7 @@ public class CadastroFalhaGUI extends JDialog {
 		contentPanel.add(textField);
 		
 		cbCategoria = new JComboBox();
-		cbCategoria.setModel(new DefaultComboBoxModel(new String[] {"PROBLEMAS TECNICOS", "PROBLEMAS OPERACIONAIS", "PROBLEMAS DA OPEC", "PROBLEMAS DA COORDENA\u00C7\u00C3O RECIFE", "PROBLEMAS DO JORNALISMO"}));
+		cbCategoria.setModel(new DefaultComboBoxModel(new String[] {"N\u00C3O HOUVE", "TECNICO", "OPERACIONAL", "OPEC", "COORDENA\u00C7\u00C3O RECIFE", "JORNALISMO"}));
 		cbCategoria.setBounds(240, 69, 213, 20);
 		contentPanel.add(cbCategoria);
 		
@@ -189,21 +200,6 @@ public class CadastroFalhaGUI extends JDialog {
 		btnPesquisarUsuario.setBounds(345, 374, 30, 20);
 		contentPanel.add(btnPesquisarUsuario);
 		
-		tP_falha = new JTextPane();
-		tP_falha.setBackground(Color.WHITE);
-		tP_falha.setBounds(10, 117, 443, 59);
-		contentPanel.add(tP_falha);
-		
-		tP_solucao = new JTextPane();
-		tP_solucao.setBackground(Color.WHITE);
-		tP_solucao.setBounds(10, 201, 443, 59);
-		contentPanel.add(tP_solucao);
-		
-		tP_impacto = new JTextPane();
-		tP_impacto.setBackground(Color.WHITE);
-		tP_impacto.setBounds(10, 287, 443, 59);
-		contentPanel.add(tP_impacto);
-		
 		JLabel lblTempoDeFalha = new JLabel("Tempo de falha no Ar:");
 		lblTempoDeFalha.setBounds(10, 405, 140, 14);
 		contentPanel.add(lblTempoDeFalha);
@@ -213,8 +209,44 @@ public class CadastroFalhaGUI extends JDialog {
 		tfTempoAr.setBounds(10, 423, 86, 20);
 		contentPanel.add(tfTempoAr);
 		
+		JScrollPane spFalha = new JScrollPane();
+		spFalha.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		spFalha.setBounds(10, 117, 447, 59);
+		contentPanel.add(spFalha);
+		
+		tp_falha = new JTextArea();
+		spFalha.setViewportView(tp_falha);
+		tp_falha.setLineWrap(true);
+		tp_falha.setWrapStyleWord(true);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(10, 206, 447, 59);
+		contentPanel.add(scrollPane);
+		
+		tP_solucao = new JTextArea();
+		scrollPane.setViewportView(tP_solucao);
+		tP_solucao.setLineWrap(true);
+		tP_solucao.setWrapStyleWord(true);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_1.setBounds(10, 287, 447, 59);
+		contentPanel.add(scrollPane_1);
+		
+		tP_impacto = new JTextArea();
+		scrollPane_1.setViewportView(tP_impacto);
+		tP_impacto.setLineWrap(true);
+		tP_impacto.setWrapStyleWord(true);
+		
 
 	}
+
+	public void procurar() {
+		
+		
+	}
+
 
 	//METODO PARA FORMATAR O CAMPO HORA
 	private MaskFormatter setMascara(String mascara) {
@@ -243,7 +275,7 @@ public class CadastroFalhaGUI extends JDialog {
 			if (tfData.getText().isEmpty() || tfHora.getText().isEmpty())
 				throw new DadosObrigatoriosException();
 			fachada = Fachada.getInstance();
-			falha = new Falha(tfResponsavel.getText(), tP_falha.getText(),
+			falha = new Falha(tfResponsavel.getText(), tp_falha.getText(),
 					tP_solucao.getText(), tP_impacto.getText(), tfHora.getText(),
 					tfData.getText(),
 					cbCategoria.getSelectedItem().toString(), tfTempoAr.getText());
@@ -273,7 +305,7 @@ public class CadastroFalhaGUI extends JDialog {
 
 	private void limparTela() {
 		codFalha = 0;
-		tP_falha.setText(null);
+		tp_falha.setText(null);
 		tP_impacto.setText(null);
 		tP_solucao.setText(null);
 		textField.setText(null);

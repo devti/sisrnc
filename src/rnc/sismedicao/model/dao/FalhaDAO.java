@@ -22,7 +22,7 @@ public class FalhaDAO implements IRepositorioFalha {
 	public int cadastrar(Falha falha) throws RepositorioException, SQLException {
 		int id = 0;
 		try {
-			String sql = "INSERT INTO FALHAS (data,DATACRIACAO, HORA, CATEGORIA, IMPACTO, PROBLEMA,"
+			String sql = "INSERT INTO FALHAS (DATA, DATACRIACAO, HORA, CATEGORIA, IMPACTO, PROBLEMA,"
 					+ "RESPONSAVEL, SOLUCAO, DURACAO) VALUES (?,GETDATE(), ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = Conexao.getConnection().prepareStatement(sql);
 			ps.setString(1, Data.converteTextFieldFORDataTime(falha.getDataFalha())+" "+falha.getHoraFalha());
@@ -106,5 +106,25 @@ public class FalhaDAO implements IRepositorioFalha {
 			throw new RepositorioException(e);
 		}
 		return null;
+	}
+	
+	public ArrayList<Falha> pesquisaAvancada(String atributo, String pesquisa) throws SQLException {
+		ArrayList<Falha> pesq = new ArrayList<Falha>();
+		ResultSet rs = null;
+		String sql = "SELECT * FROM FALHA WHERE FALHA."+atributo+" LIKE '%" + pesquisa + "%'";
+		try {
+			PreparedStatement stmt = Conexao.getConnection().prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Falha falha = new Falha(rs.getString("RESPONSAVEL"), rs.getString("PROBLEMA"), rs.getString("SOLUCAO")
+						, rs.getString("IMPACTOFALHA"), rs.getString("HORAFALHA"),
+						rs.getString("DATAFALHA"), rs.getString("CATEGORIA"), rs.getString("DURACAO"));
+				falha.setId(rs.getInt("ID"));
+				pesq.add(falha);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return pesq;
 	}
 }
